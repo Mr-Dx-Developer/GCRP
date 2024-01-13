@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mMultiCharacter</title>
+    <link rel="stylesheet" href="style.css">    
+    <script src="./vue.global.js"></script>
+    <script src="./vuex.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div id="app"  class="w-full h-[100vh]">
+        <div  v-if="show" class="w-full h-full mainBody" style="overflow: hidden;" >
+            <div class="loading-container">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div class="flex w-full h-[10vh] justify-center items-center" style="">
+                <div class="flex w-[95%] h-full justify-between" style="border-bottom: .0521vw solid rgba(255, 255, 255, 0.27);;">
+                    <div class="flex w-[33%] h-full  items-center" style="">
+                        <img :src="'./images/'+serverLogo+''" class="flex w-[9.0104vw] h-[5vh] " style="object-fit: contain;">
+                    </div>
+                    <div class="flex w-[33%] h-full  items-center justify-center" style="border-bottom: .1563vw solid #fff;">
+                        <p class="main-title text-center">{{Locales["mainTitle"]}}</p>
+                    </div>
+                    <div class="flex w-[33%] h-full justify-end" style="">
+                        <div class="flex w-[49%] h-full justify-end items-center mr-[1vw]" style="">
+                            <div class="flex flex-col w-full h-full justify-center items-center" style="">
+                             <p class=" w-full h-[2vh] name text-end mr-[2vw]" style="">{{ steamName }}</p> <!--Yapilcak-->
+                             <p class="w-full h-[0vh] id text-end mr-[2vw]">ID - {{ steamID }}</p>
+                        </div>
+                        <img :src="''+steamProfile+''" class="profile flex">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-wrap relative w-full h-[75vh] justify-between" style="overflow: hidden; z-index: 11232;" @click="tebexSlotPopup = false; playClickSound()">
+                    <div v-if="tebexSlotPopup" class="tebex-popup w-[25.8333vw] h-[18.5185vh] absolute left-[37%] top-[40%]" @click.stop>
+                        <div class="flex flex-col w-full h-[6.2vh] justify-center items-center">
+                            <img src="./images/tebexpopupplus.png" class="flex justify-center items-center w-[1.3021vw] h-[2.3148vh] mt-[0.5vh]">
+                            <p class=" tebex-popup-title pt-[0.5vh] w-full text-center">{{Locales["tebexPopUpTitle"]}}</p>
+                        </div>
+
+                        <div class="flex flex-col w-full h-[12.5vh] justify-evenly items-center content-center" >
+                           <input type="text" class="tebex-input flex w-[20.1042vw] h-[3.6111vh]" placeholder="Insert your tbx-id in here..." v-model="tbxID" style="z-index: 11232;">
+                           <div class="tebex-button flex w-[20.1042vw] h-[3.6111vh] justify-center items-center" @click="checkTebex();playClickSound()" style="z-index: 11232123;">{{Locales["tebexPopUpButton"]}}</div>
+                        </div>
+                    </div>
+                    <div class="flex w-[33%] h-full items-center" >
+                        <transition name="soltaraf">
+                        <div  v-if="animleftContainer" class="w-full h-full flex items-center ">
+                            <div class="w-[1.8vw] h-full" ></div>
+                            <div class="flex w-[22.3438vw] h-[67.5vh] bg-center" style="">
+                                <div class="flex w-[1.9vw] h-full items-center justify-around" v-if="currentCharacterData">
+                                    <div v-if="currentCharacterData.job.name.toLocaleString() === 'ambulance'" class="red-line w-[0.4vw] h-[96%] mt-[0.5vh]"></div>
+                                    <div v-else-if="currentCharacterData.job.name.toLocaleString() === 'police'" class="red-line w-[0.4vw] h-[96%] mt-[0.5vh]"></div>
+                                    <div v-else-if="currentCharacterData.job.name.toLocaleString() !== 'police' || 'ambulance'" class="white-line w-[0.4vw] h-[96%] mt-[0.5vh]"></div>
+                                </div>
+                                <div v-show="!currentCharacterData" class="flex w-[1.9vw] h-full items-center justify-around">
+                                    <div class="white-line w-[0.4vw] h-[96%] mt-[0.5vh]"></div>
+                                </div>
+                                <div v-show="!currentCharacterData" class="flex flex-wrap character-selector-wrapper w-full h-full">
+                                    <div class="flex w-full h-[11vh] justify-center items-center">
+                                        <div class="flex w-[90%] h-[7vh] justify-start items-center">
+                                            <div class="w-[0.3vw] h-[75%] bg-white" style="background: #FFF; box-shadow: 0px 0px 1.9271vw 0px #FFF;"></div>
+                                            <p class="select-char pl-[1vw]">{{Locales['hello']}} {{ steamName }},<br>{{Locales["selectchar"]}}</p>
+                                        </div>
+                                    </div>
+                                    
+        
+                                    <div class="flex flex-wrap w-full h-[80%] justify-center items-start content-start">
+                                        <div
+                                          v-for="(slot, index) in slotNumber":key="'slot-' + slot" 
+                                          class="flex flex-wrap items-start cursor-pointer w-[18.8021vw] mb-[2.5vh]  cursor-pointer testdiv" :class="{
+                                            'selected-police': getCharacter(slot.id, false) == 'police' && getCharacter(slot.id, true) !== null,
+                                            'selected-ambulance': getCharacter(slot.id, false) == 'ambulance' && getCharacter(slot.id, true) !== null,
+                                            'selected-character': getCharacter(slot.id, false) !== 'ambulance' && getCharacter(slot.id, false) !== 'police' && getCharacter(slot.id, true) !== null,
+                                            'selected-newcreaterchar': getCharacter(slot.id, true) == null ,
+                                        }"
+                                        :style="{
+                                            height: !selectedPopup[slot.id] ? '7.6852vh': '9.0741vh',
+                                            opacity: !selectedPopup[slot.id] ? '50%': '100%',
+                                            borderLeft: (!selectedPopup[slot.id] && getCharacter(slot.id,true)) ? '.3646vw solid #FFFFFF': '',
+                                          }"
+                                        >
+                                          <div :key="'slot-' + index" v-if="shouldShowCharacter(slot.id)" @click="currentCharacterDataValue(getCharacter(slot.id,true), slot.id);playClickSound()" class="relative flex flex-wrap w-full h-full justify-evenly content-center" style="border: .1042vw solid rgba(255, 255, 255, 0.29);
+                                          
+                                          border-radius: .1042vw;
+                                          ">
+                                            <p class="flex character-name w-full ml-[5%]">{{ getCharacter(slot.id,true).charinfo.firstname }}  {{ getCharacter(slot.id, true).charinfo.lastname }}</p>
+                                            <p class="flex character-job w-full ml-[5%] mb-[5%]">{{ getCharacter(slot.id, true).job.label.toLocaleString() }}</p>
+                                            <div v-if="selectedPopup[slot.id]" class="w-full h-[20%] border absolute bottom-[0vh] flex items-center justify-center selected-text">
+                                              <h2 class="selected-text">{{Locales["selected"]}}</h2>
+                                            </div>
+                                          </div>
+                                          <div v-else-if="!slot.tebex && getCharacter(slot.id,true) == null" @click="openRegister(slot.id, false);playClickSound()" class="flex flex-wrap justify-center content-center items-center w-full h-full mb-[2vh] create-new-normal opacity-[100%] cursor-pointer" style=" border-radius: .1042vw;">
+                                            <img src="./images/create-white.svg" class="w-[1.3021vw] h-[2.3148vh] mt-1">
+                                            <p class="flex justify-center create-new-text w-full text-center mt-2">{{Locales["createNewTitle"]}}</p>
+                                          </div>
+                                          <div v-else-if="slot.tebex" @click="openRegister(slot.id, true);playClickSound()" @click.stop class="flex flex-wrap justify-center content-center items-center w-full h-full mb-[2vh] create-new-tebex opacity-[100%] cursor-pointer" style=" border-radius: .1042vw;">
+                                            <img src="./images/create-gold.svg" class="flex w-[1.3021vw] h-[2.3148vh] mt-1">
+                                            <p class="flex justify-center create-new-text w-full text-center mt-2">{{Locales["createNewTitle"]}}</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    
+                                </div>
+                                <div v-if="currentCharacterData" class="flex flex-wrap character-selector-wrapper w-full h-full" 
+                                    :class="{'character-selector-wrapper-1': currentCharacterData.job.name === 'police',
+                                            'character-selector-wrapper-2': currentCharacterData.job.name === 'ambulance',
+                                            'character-selector-wrapper-3': currentCharacterData.job.name !== 'police' && currentCharacterData.job.name !== 'ambulance'
+                                            }"
+                                >
+
+                                    <div class="flex w-full h-[11vh] justify-center items-center">
+                                        <div class="flex w-[90%] h-[7vh] justify-start items-center">
+                                            <div class="w-[0.3vw] h-[75%] bg-white" style="background: #FFF; box-shadow: 0px 0px 1.9271vw 0px #FFF;"></div>
+                                            <p class="select-char pl-[1vw]">{{Locales["hello"]}} {{ steamName }},<br>{{Locales["selectchar"]}}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!--  -->
+                                    <div class="flex flex-wrap w-full h-[80%] justify-center items-start content-start">
+                                        <div v-for="(slot, index) in slotNumber" :key="'slot-' + slot" 
+                                          class="flex flex-wrap items-start cursor-pointer w-[18.8021vw] mb-[2.5vh]  cursor-pointer testdiv"
+                                          :class="{
+                                            'selected-police': getCharacter(slot.id, false) == 'police' && getCharacter(slot.id, true) !== null,
+                                            'selected-ambulance': getCharacter(slot.id, false) == 'ambulance' && getCharacter(slot.id, true) !== null,
+                                            'selected-character': getCharacter(slot.id, false) !== 'ambulance' && getCharacter(slot.id, false) !== 'police' && getCharacter(slot.id, true) !== null,
+                                            'selected-newcreaterchar': getCharacter(slot.id, true) == null ,
+                                        }"
+                                        :style="{
+                                            height: !selectedPopup[slot.id] ? '7.6852vh' : '9.0741vh',
+                                            opacity: !selectedPopup[slot.id] ? '50%': '100%',
+                                            borderLeft: (!selectedPopup[slot.id] && getCharacter(slot.id,true)) ? '.3646vw solid #FFFFFF': '',
+                                          }"
+                                        >
+                                          <div v-if="shouldShowCharacter(slot.id)" @click="currentCharacterDataValue(getCharacter(slot.id, true), slot.id);playClickSound()" class="relative flex flex-wrap w-full h-full justify-evenly content-center" style="border:.1042vw solid rgba(255, 255, 255, 0.29);
+                                          
+                                          border-radius: .1042vw;
+
+                                          ">
+                                            <p class="flex character-name w-full ml-[5%]">{{ getCharacter(slot.id,true).charinfo.firstname }}  {{ getCharacter(slot.id, true).charinfo.lastname }}</p>
+                                            <p class="flex character-job w-full ml-[5%] mb-[5%]">{{ getCharacter(slot.id,true).job.label.toLocaleString() }}</p>
+                                            <div v-if="selectedPopup[slot.id]" class="w-full h-[20%] border absolute bottom-[0vh] flex items-center justify-center selected-text">
+                                              <h2 class="selected-text">{{Locales["selected"]}}</h2>
+                                            </div>
+                                          </div>
+                                          <div v-else-if="!slot.tebex" @click="openRegister(slot.id, false);playClickSound()" class="flex flex-wrap justify-center content-center items-center w-full h-full mb-[2vh] create-new-normal opacity-[100%] cursor-pointer" style=" border-radius: .1042vw;">
+                                            <img src="./images/create-white.svg" class="w-[1.3021vw] h-[2.3148vh] mt-1">
+                                            <p class="flex justify-center create-new-text w-full text-center mt-2">{{Locales["createNewTitle"]}}</p>
+                                          </div>
+                                          <div v-else-if="slot.tebex" @click="openRegister(slot.id, true);playClickSound()" @click.stop class="flex flex-wrap justify-center content-center items-center w-full h-full mb-[2vh] create-new-tebex opacity-[100%] cursor-pointer" style=" border-radius: .1042vw;">
+                                            <img src="./images/create-gold.svg" class="flex w-[1.3021vw] h-[2.3148vh] mt-1">
+                                            <p class="flex justify-center create-new-text w-full text-center mt-2">{{Locales["createNewTitle"]}}</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                         
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+         
+             
+                <div class="flex flex-col w-[33%] h-full justify-center items-center relative" style="">
+                    <div class="flex  w-full h-[33%]" >
+                        <div class="w-full h-full" v-if="currentCharacterData">
+                            <div class="flex w-full h-[7vh]  selected-character-name justify-center items-center" >{{currentCharacterData.charinfo.firstname.toLocaleString()}} {{currentCharacterData.charinfo.lastname.toLocaleString()}}</div>
+
+                        </div>
+                    </div>
+                    <div class="flex flex-col w-full h-[43%] justify-center items-center content-end "></div>
+                    <div class="flex flex-col w-full h-[18%] justify-center items-center content-end " v-show="currentCharacterData">
+                        <div class="flex w-[18.8333vw] h-[4.8889vh] justify-center  items-center playtime mb-2">{{currentCharacterData.totalPlayedTime}}</div>
+                        <div class="flex w-[18.8333vw] h-[4.8889vh] justify-center items-center delete-char cursor-pointer" @click="openDeletePopUp();playClickSound()">{{Locales["deleteTitle"]}}</div>
+                    </div>
+                    <div class="normal-popup absolute w-[25.8333vw] h-[18.5185vh]" v-if="deletePopup">
+                        <p class="flex normal-popup-title w-full h-[9vh] justify-center items-center text-center" style="">{{Locales["deletePopUpTitle"]}}<br> {{Locales["deletePopUpTitle2"]}}</p>
+                        <div class="flex w-full h-[11.5vh] justify-evenly items-center content-center" style="">
+                            <div class="flex w-[7.0833vw] h-[4.537vh] normal-popup-text justify-center items-center cursor-pointer"  style="border-radius: .1563vw;
+                            border: .1563vw solid rgba(255, 108, 108, 0.91);
+                            background: rgba(255, 108, 108, 0.71);" @click="deleteCharacter();playClickSound()">
+                                {{Locales["yesButton"]}}
+                            </div>
+                            <div class="flex w-[7.0833vw] h-[4.537vh] normal-popup-text justify-center items-center cursor-pointer" style="border-radius: .1563vw;
+                            border: .1563vw solid rgba(255, 255, 255, 0.03);
+                            background: rgba(217, 217, 217, 0.50);" @click="cancelDelete();playClickSound()">
+                                {{Locales["noButton"]}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col w-full h-[5%] justify-center items-center content-end "  v-if="currentCharacterData">
+                        <img src="./images/elips.png" class="flex w-full h-[1.7593vh]">
+                    </div>
+                </div>
+                <div class="flex w-[33%] h-full items-center justify-end" style="">
+                    <transition name="sagtaraf">
+                    <div v-if="currentCharacterData" class="flex w-[22.3438vw] h-[67.5vh] bg-center" style="">
+
+                            <div class="flex flex-wrap character-info-wrapper w-full h-full"
+                            :class="{
+                              'character-info-wrapper-1': currentCharacterData.job.name === 'police',
+                              'character-info-wrapper-2': currentCharacterData.job.name === 'ambulance',
+                              'character-info-wrapper-3': currentCharacterData.job.name !== 'police' && currentCharacterData.job.name !== 'ambulance'
+                            }"
+                            style="">
+                            <div class="flex w-full h-[11vh] justify-center items-center " >
+                                <div class="flex w-[90%] h-[7vh] justify-center items-center">
+                                    <p class="statistics-text">{{Locales["statisticsTitle"]}}</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap  h-[57vh] w-full content-center justify-center items-center">
+                                <div class="flex flex-wrap w-[18.8021vw] h-[7.6852vh] mb-[2vh] stat-box cursor-pointer" >
+                                    <img class="flex w-[6.5625vw] h-[7.6852vh] " src="./images/agemask.png">
+                                    <div class="flex flex-wrap w-[59.5%] h-[7.6852vh]  justify-end content-center" >
+                                        <p class="flex character-name ">{{Locales["ageTitle"]}}</p>
+                                        <p class="flex character-job text-end w-full justify-end">{{ formattedAge }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap w-[18.8021vw] h-[7.6852vh] mb-[2vh] stat-box cursor-pointer" >
+                                    <img class="flex w-[6.5625vw] h-[7.6852vh] " src="./images/cashmask.png">
+                                    <div class="flex flex-wrap w-[59.5%] h-[7.6852vh]  justify-end content-center">
+                                        <p class="flex character-name ">{{Locales["cashTitle"]}}</p>
+                                        <p class="flex character-job text-end w-full justify-end">$ {{currentCharacterData.money.cash.toLocaleString()}} </p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap w-[18.8021vw] h-[7.6852vh] mb-[2vh] stat-box cursor-pointer" >
+                                    <img class="flex w-[6.5625vw] h-[7.6852vh] " src="./images/bankmask.png">
+                                    <div class="flex flex-wrap w-[59.5%] h-[7.6852vh]  justify-end content-center" >
+                                        <p class="flex character-name ">{{Locales["bankTitle"]}}</p>
+                                        <p class="flex character-job text-end w-full justify-end">$ {{currentCharacterData.money.bank.toLocaleString()}} </p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap w-[18.8021vw] h-[7.6852vh] mb-[2vh] stat-box cursor-pointer" >
+                                    <img class="flex w-[6.5625vw] h-[7.6852vh] " src="./images/numbermask.png">
+                                    <div class="flex flex-wrap w-[59.5%] h-[7.6852vh]  justify-end content-center" style="">
+                                        <p class="flex character-name ">{{Locales["numberTitle"]}}</p>
+                                        <p class="flex character-job text-end w-full justify-end">{{currentCharacterData.charinfo.phone.toLocaleString()}}</p>
+                                    </div>
+                                    
+                                </div>
+                                <div class="flex flex-wrap w-[18.8021vw] h-[7.6852vh] mb-[2vh] stat-box cursor-pointer" >
+                                    <img class="flex w-[6.5625vw] h-[7.6852vh] " src="./images/nationalymask.png">
+                                    <div class="flex flex-wrap w-[59.5%] h-[7.6852vh]  justify-end  content-center mb-2 " style="">
+                                        <p class="flex character-name  ">{{Locales["nationalityTitle"]}}</p>
+                                        <p class="flex character-job text-end w-full justify-end">{{currentCharacterData.charinfo.nationality.toLocaleString()}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+
+                        <div class="flex w-[1.9vw] h-full items-center justify-around" v-if="currentCharacterData">
+                            <div v-if="currentCharacterData.job.name.toLocaleString() === 'ambulance'" class="red-line w-[0.4vw] h-[96%] mt-[0.5vh]"></div>
+                            <div v-else-if="currentCharacterData.job.name.toLocaleString() === 'police'" class="blue-line w-[0.4vw] h-[96%] mt-[0.5vh]"></div>
+                            <div v-else-if="currentCharacterData.job.name.toLocaleString() !== 'police' || 'ambulance'" class="white-line w-[0.4vw] h-[96%] mt-[0.5vh]"></div>
+                        </div>
+                        <div v-show="!currentCharacterData" class="flex w-[1.9vw] h-full items-center justify-around">
+                            <div class="white-line w-[0.4vw] h-[96%] mt-[0.5vh]"></div>
+                        </div>
+                        
+                    </div>
+                    </transition>
+                    <div class="w-[1.8vw] h-full" style=""></div>
+                </div>
+            </div>
+            <div class="flex flex-col w-full h-[14.5vh] justify-center items-center content-center " v-if="currentCharacterData">
+                <p class="flex playnowtext mb-[2vh]">{{Locales["playNowText"]}}</p>
+                <div class="flex playbutton w-[19.5833vw] h-[7.3148vh] justify-center items-center cursor-pointer" @click="joinGame();playClickSound()">{{Locales["playButton"]}}</div>
+            </div>
+            
+            
+           
+        </div>
+        <div v-if="registerPage"  class="w-full h-full registerBody" style="overflow: hidden;" >
+            <div class="flex w-full h-[10vh] justify-center items-center" style="">
+                <div class="flex w-[95%] h-full justify-between" style="border-bottom: .0521vw solid rgba(255, 255, 255, 0.27);">
+                    <div class="flex w-[33%] h-full  items-center" style="">
+                        <img src="./images/mrp.png" class="flex w-[9.0104vw] h-[5vh] " style="object-fit: contain;">
+                    </div>
+                    <div class="flex w-[33%] h-full  items-center justify-center" style="border-bottom: .1563vw solid #fff;">
+                        <p class="main-title text-center">{{Locales["registerTitle"]}}</p>
+                    </div>
+                    <div class="flex w-[33%] h-full justify-end" style="">
+                        <div class="flex w-[49%] h-full justify-end items-center mr-[1vw]" style="">
+                            <div class="flex flex-col w-full h-full justify-center items-center" style="">
+                             <p class=" w-full h-[2vh] name text-end mr-[2vw]" style="">{{ steamName }}</p> <!--Yapilcak-->
+                             <p class="w-full h-[0vh] id text-end mr-[2vw]">ID - {{ steamID }}</p>
+                        </div>
+                        <img :src="''+steamProfile+''" class="profile flex">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  class="flex flex-wrap w-full h-[75vh] justify-between">
+                <div class="flex w-[33%] h-full justify-center items-center" style="">
+                    <img src="./images/wawe-left.png" class="w-[24.1146vw] h-[44.2593vh]">
+                </div>
+                <div class="flex flex-col w-[33%] h-full justify-center items-center" style="">
+                    <div class="flex  w-full h-[12%]">
+                        <div class="flex w-full h-[7vh]  register-title justify-center items-center">{{ Locales["hello"] }} {{ steamName }},<br>
+                            {{Locales["selectchar"]}}</div>
+                    </div>
+                    <div class="flex relative register-form w-[24.7396vw] h-[100%] bg-center items-center justify-center">
+                        <div class="absolute flex w-full h-[6.5vh] top-[3.2vh] justify-center items-center new-character-title">{{ Locales["newCharacterTitle"]}}</div>
+                        <div class="flex flex-col absolute w-[15.7396vw] h-[44vh] ">
+                            <div class="flex relative w-full h-[5.9vh] bg-transparent mt-[1.3vh]">
+                                <p class="flex absolute left-[1vw] top-[1.3vh] input-label">{{ Locales["nameInput"] }}</p>
+                                <input type="text" class="input-type  w-full h-full bg-transparent" v-model="nameValue" >
+                            </div>
+                            <div class="flex relative w-full h-[7.2vh] bg-transparent">
+                                <p class="flex absolute left-[1vw] top-[1.3vh] input-label">{{ Locales["surnameInput"] }}</p>
+                                <input type="text" class="input-type w-full h-full bg-transparent" v-model="surnameValue">
+                            </div>
+                            <div class="flex relative w-full h-[7.2vh] bg-transparent">
+                                <p class="flex absolute left-[1vw] top-[1.3vh] input-label">{{ Locales["nationalityInput"] }}</p>
+                                <input list="browsers" class="w-0 h-0 bg-transparent" >
+                                <select id="browsers" class="input-type w-full h-full bg-transparent" v-model="nationalityValue">
+                                    <option value="afghan">Afghan</option>
+                                    <option value="albanian">Albanian</option>
+                                    <option value="algerian">Algerian</option>
+                                    <option value="american">American</option>
+                                    <option value="andorran">Andorran</option>
+                                    <option value="angolan">Angolan</option>
+                                    <option value="antiguans">Antiguans</option>
+                                    <option value="argentinean">Argentinean</option>
+                                    <option value="armenian">Armenian</option>
+                                    <option value="australian">Australian</option>
+                                    <option value="austrian">Austrian</option>
+                                    <option value="azerbaijani">Azerbaijani</option>
+                                    <option value="bahamian">Bahamian</option>
+                                    <option value="bahraini">Bahraini</option>
+                                    <option value="bangladeshi">Bangladeshi</option>
+                                    <option value="barbadian">Barbadian</option>
+                                    <option value="barbudans">Barbudans</option>
+                                    <option value="batswana">Batswana</option>
+                                    <option value="belarusian">Belarusian</option>
+                                    <option value="belgian">Belgian</option>
+                                    <option value="belizean">Belizean</option>
+                                    <option value="beninese">Beninese</option>
+                                    <option value="bhutanese">Bhutanese</option>
+                                    <option value="bolivian">Bolivian</option>
+                                    <option value="bosnian">Bosnian</option>
+                                    <option value="brazilian">Brazilian</option>
+                                    <option value="british">British</option>
+                                    <option value="bruneian">Bruneian</option>
+                                    <option value="bulgarian">Bulgarian</option>
+                                    <option value="burkinabe">Burkinabe</option>
+                                    <option value="burmese">Burmese</option>
+                                    <option value="burundian">Burundian</option>
+                                    <option value="cambodian">Cambodian</option>
+                                    <option value="cameroonian">Cameroonian</option>
+                                    <option value="canadian">Canadian</option>
+                                    <option value="cape verdean">Cape Verdean</option>
+                                    <option value="central african">Central African</option>
+                                    <option value="chadian">Chadian</option>
+                                    <option value="chilean">Chilean</option>
+                                    <option value="chinese">Chinese</option>
+                                    <option value="colombian">Colombian</option>
+                                    <option value="comoran">Comoran</option>
+                                    <option value="congolese">Congolese</option>
+                                    <option value="costa rican">Costa Rican</option>
+                                    <option value="croatian">Croatian</option>
+                                    <option value="cuban">Cuban</option>
+                                    <option value="cypriot">Cypriot</option>
+                                    <option value="czech">Czech</option>
+                                    <option value="danish">Danish</option>
+                                    <option value="djibouti">Djibouti</option>
+                                    <option value="dominican">Dominican</option>
+                                    <option value="dutch">Dutch</option>
+                                    <option value="east timorese">East Timorese</option>
+                                    <option value="ecuadorean">Ecuadorean</option>
+                                    <option value="egyptian">Egyptian</option>
+                                    <option value="emirian">Emirian</option>
+                                    <option value="equatorial guinean">Equatorial Guinean</option>
+                                    <option value="eritrean">Eritrean</option>
+                                    <option value="estonian">Estonian</option>
+                                    <option value="ethiopian">Ethiopian</option>
+                                    <option value="fijian">Fijian</option>
+                                    <option value="filipino">Filipino</option>
+                                    <option value="finnish">Finnish</option>
+                                    <option value="french">French</option>
+                                    <option value="gabonese">Gabonese</option>
+                                    <option value="gambian">Gambian</option>
+                                    <option value="georgian">Georgian</option>
+                                    <option value="german">German</option>
+                                    <option value="ghanaian">Ghanaian</option>
+                                    <option value="greek">Greek</option>
+                                    <option value="grenadian">Grenadian</option>
+                                    <option value="guatemalan">Guatemalan</option>
+                                    <option value="guinea-bissauan">Guinea-Bissauan</option>
+                                    <option value="guinean">Guinean</option>
+                                    <option value="guyanese">Guyanese</option>
+                                    <option value="haitian">Haitian</option>
+                                    <option value="herzegovinian">Herzegovinian</option>
+                                    <option value="honduran">Honduran</option>
+                                    <option value="hungarian">Hungarian</option>
+                                    <option value="icelander">Icelander</option>
+                                    <option value="indian">Indian</option>
+                                    <option value="indonesian">Indonesian</option>
+                                    <option value="iranian">Iranian</option>
+                                    <option value="iraqi">Iraqi</option>
+                                    <option value="irish">Irish</option>
+                                    <option value="israeli">Israeli</option>
+                                    <option value="italian">Italian</option>
+                                    <option value="ivorian">Ivorian</option>
+                                    <option value="jamaican">Jamaican</option>
+                                    <option value="japanese">Japanese</option>
+                                    <option value="jordanian">Jordanian</option>
+                                    <option value="kazakhstani">Kazakhstani</option>
+                                    <option value="kenyan">Kenyan</option>
+                                    <option value="kittian and nevisian">Kittian and Nevisian</option>
+                                    <option value="kuwaiti">Kuwaiti</option>
+                                    <option value="kyrgyz">Kyrgyz</option>
+                                    <option value="laotian">Laotian</option>
+                                    <option value="latvian">Latvian</option>
+                                    <option value="lebanese">Lebanese</option>
+                                    <option value="liberian">Liberian</option>
+                                    <option value="libyan">Libyan</option>
+                                    <option value="liechtensteiner">Liechtensteiner</option>
+                                    <option value="lithuanian">Lithuanian</option>
+                                    <option value="luxembourger">Luxembourger</option>
+                                    <option value="macedonian">Macedonian</option>
+                                    <option value="malagasy">Malagasy</option>
+                                    <option value="malawian">Malawian</option>
+                                    <option value="malaysian">Malaysian</option>
+                                    <option value="maldivan">Maldivan</option>
+                                    <option value="malian">Malian</option>
+                                    <option value="maltese">Maltese</option>
+                                    <option value="marshallese">Marshallese</option>
+                                    <option value="mauritanian">Mauritanian</option>
+                                    <option value="mauritian">Mauritian</option>
+                                    <option value="mexican">Mexican</option>
+                                    <option value="micronesian">Micronesian</option>
+                                    <option value="moldovan">Moldovan</option>
+                                    <option value="monacan">Monacan</option>
+                                    <option value="mongolian">Mongolian</option>
+                                    <option value="moroccan">Moroccan</option>
+                                    <option value="mosotho">Mosotho</option>
+                                    <option value="motswana">Motswana</option>
+                                    <option value="mozambican">Mozambican</option>
+                                    <option value="namibian">Namibian</option>
+                                    <option value="nauruan">Nauruan</option>
+                                    <option value="nepalese">Nepalese</option>
+                                    <option value="new zealander">New Zealander</option>
+                                    <option value="ni-vanuatu">Ni-Vanuatu</option>
+                                    <option value="nicaraguan">Nicaraguan</option>
+                                    <option value="nigerien">Nigerien</option>
+                                    <option value="north korean">North Korean</option>
+                                    <option value="northern irish">Northern Irish</option>
+                                    <option value="norwegian">Norwegian</option>
+                                    <option value="omani">Omani</option>
+                                    <option value="pakistani">Pakistani</option>
+                                    <option value="palauan">Palauan</option>
+                                    <option value="panamanian">Panamanian</option>
+                                    <option value="papua new guinean">Papua New Guinean</option>
+                                    <option value="paraguayan">Paraguayan</option>
+                                    <option value="peruvian">Peruvian</option>
+                                    <option value="polish">Polish</option>
+                                    <option value="portuguese">Portuguese</option>
+                                    <option value="qatari">Qatari</option>
+                                    <option value="romanian">Romanian</option>
+                                    <option value="russian">Russian</option>
+                                    <option value="rwandan">Rwandan</option>
+                                    <option value="saint lucian">Saint Lucian</option>
+                                    <option value="salvadoran">Salvadoran</option>
+                                    <option value="samoan">Samoan</option>
+                                    <option value="san marinese">San Marinese</option>
+                                    <option value="sao tomean">Sao Tomean</option>
+                                    <option value="saudi">Saudi</option>
+                                    <option value="scottish">Scottish</option>
+                                    <option value="senegalese">Senegalese</option>
+                                    <option value="serbian">Serbian</option>
+                                    <option value="seychellois">Seychellois</option>
+                                    <option value="sierra leonean">Sierra Leonean</option>
+                                    <option value="singaporean">Singaporean</option>
+                                    <option value="slovakian">Slovakian</option>
+                                    <option value="slovenian">Slovenian</option>
+                                    <option value="solomon islander">Solomon Islander</option>
+                                    <option value="somali">Somali</option>
+                                    <option value="south african">South African</option>
+                                    <option value="south korean">South Korean</option>
+                                    <option value="spanish">Spanish</option>
+                                    <option value="sri lankan">Sri Lankan</option>
+                                    <option value="sudanese">Sudanese</option>
+                                    <option value="surinamer">Surinamer</option>
+                                    <option value="swazi">Swazi</option>
+                                    <option value="swedish">Swedish</option>
+                                    <option value="swiss">Swiss</option>
+                                    <option value="syrian">Syrian</option>
+                                    <option value="taiwanese">Taiwanese</option>
+                                    <option value="tajik">Tajik</option>
+                                    <option value="tanzanian">Tanzanian</option>
+                                    <option value="thai">Thai</option>
+                                    <option value="togolese">Togolese</option>
+                                    <option value="tongan">Tongan</option>
+                                    <option value="trinidadian or tobagonian">Trinidadian or Tobagonian</option>
+                                    <option value="tunisian">Tunisian</option>
+                                    <option value="turkish">Turkish</option>
+                                    <option value="tuvaluan">Tuvaluan</option>
+                                    <option value="ugandan">Ugandan</option>
+                                    <option value="ukrainian">Ukrainian</option>
+                                    <option value="uruguayan">Uruguayan</option>
+                                    <option value="uzbekistani">Uzbekistani</option>
+                                    <option value="venezuelan">Venezuelan</option>
+                                    <option value="vietnamese">Vietnamese</option>
+                                    <option value="welsh">Welsh</option>
+                                    <option value="yemenite">Yemenite</option>
+                                    <option value="zambian">Zambian</option>
+                                    <option value="zimbabwean">Zimbabwean</option>
+                                  </select>
+                            </div>
+                            <div class="flex relative w-full h-[7.2vh] bg-transparent">
+                                <p class="flex absolute left-[1vw] top-[1.3vh] input-label">{{ Locales["birthdateInput"] }}</p>
+                                <input type="date" class="input-type  w-full h-full bg-transparent" v-model="birthdayValue">
+                            </div>
+                            <div class="flex relative w-full h-[7.2vh] bg-transparent">
+                                <p class="flex absolute left-[1vw] top-[1.6vh] input-label" >{{ Locales["heightInput"] }}</p>
+                                <input type="number" class="input-type  w-full h-full bg-transparent"   v-model="heightValue">
+                            </div>
+                            <div class="flex relative w-full h-[7.55vh] bg-transparent content-center" >
+                                <div :class="{ 'selected': genderValue === 0 }" class="flex w-[43.5%] h-[6.1vh] ml-[0.85vw] mt-[1.8vh] gender justify-center items-center cursor-pointer" @click="setGender(0);playClickSound()">{{ Locales["maleInput"] }}</div>
+                                <div :class="{ 'selected': genderValue === 1 }" class="flex w-[43.5%]  h-[6.1vh] ml-[0.56vw] mt-[1.8vh] gender justify-center items-center cursor-pointer" @click="setGender(1);playClickSound()">{{ Locales["femaleInput"] }}</div>
+                            </div>
+                        </div>
+                        <div class="absolute flex w-full h-[6.5vh] top-[85%] justify-center items-center city-await-text">{{ Locales["cityAwait"] }} <br>
+                            {{ Locales["createYourNow"] }}</div>
+                    </div>
+                    
+                </div>
+                <div class="flex w-[33%] h-full items-center justify-center" style="">
+                    <img src="./images/wawe-right.png" class="w-[24.1146vw] h-[44.2593vh]">
+                </div>
+            </div>
+             <div class="flex flex-col w-full h-[15.8vh] justify-center items-center content-center mt-[1vh]">
+                <div class="flex playbutton w-[19.5833vw] h-[7.3148vh] justify-center items-center cursor-pointer" @click="createCharacter();playClickSound()" >{{Locales["createButton"]}}</div>
+                <!-- <div class="flex cancelbutton w-[10.5833vw] h-[4.3148vh] justify-center items-center cursor-pointer mt-[2vh]" @click="cancelCreate">CANCEL</div> -->
+                <p :class="{ 'error': !isError, 'success': isError }" class="flex playnowtext mt-[1vh]">{{ displayMessage }}</p>
+            </div>
+        </div>
+    </div>
+
+  <audio id="click" src="./click.MP3" preload></audio>
+    <script src="./script.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="game">
+
+    <!-- /////////// -->
+    <!-- Fishing rod -->
+    <!-- /////////// -->
+
+    <div class="fishing-rod">
+      <img class="fill-container" src="./game-fishing-rod.svg" alt="">
+      <canvas class="reel-line-tension" data-element="reel-line-tension"></canvas>
+      <div class="reel-handle">
+        <img src="./game-reel-handle.svg" alt="">
+      </div>
+      <div class="reel-line"></div>
+    </div>
+
+    <!-- ///////// -->
+    <!-- Game body -->
+    <!-- ///////// -->
+
+    <div class="game-body">
+      <img class="fill-container" src="./game-game-body-bg.svg" alt="">
+      <canvas class="bubbles" data-element="bubbles"></canvas>
+      <canvas class="seaweed" data-element="seaweed"></canvas>
+      <img class="seafloor fill-container" src="./game-sea-floor.svg" alt="">
+      <div class="fish">
+        <img src="./game-fish.svg" alt="">
+      </div>
+      <div class="indicator">
+        <img src="./game-indicator.svg" alt="">
+      </div>
+      <img class="glass fill-container" src="./game-glass.svg" alt="">
+    </div>
+
+    <!-- //////////// -->
+    <!-- Progress bar -->
+    <!-- //////////// -->
+
+    <div class="progress-bar">
+      <img class="fill-container" src="./game-progress-bar-bg.svg" alt="">
+      <div class="progress-gradient-wrapper">
+        <img src="./game-progress-gradient.svg" class="progress-gradient" alt="">
+      </div>
+    </div>
+
+  </div>
+  <!-- .game -->
+
+  <!-- /////// -->
+  <!-- Success -->
+  <!-- /////// -->
+
+  <div class="success">
+
+  </div>
+</body>
+<script src="index.js"></script>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
+        <link rel="stylesheet" href="./style.css"/>
+        <link rel="stylesheet" href="./reset.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+        <title>SOCore Scoreboard</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="scoreboard-block">
+                <div class="scoreboard-header"><p>Preview Server</p>
+                </div>
+                <div v-if="scoreboard-header">
+                    <div class="line"></div>
+                </div>
+                <div class="scoreboard-info">
+                    <div class="scoreboard-info-header">
+                        <div class="line"></div>
+                    
+                   </div>
+                   <div class="scoreboard-info-beam" data-type="police" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><font color ="fcfcfc"><p>police</p></div>
+                    <div class="info-beam-status"></div>
+                </div>			
+                <div class="line"></div>
+
+                <div class="scoreboard-info-beam" data-type="ambulance" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>ambulance</p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+                <div class="scoreboard-info-beam" data-type="robcitz" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>Citizen Hostage</p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+                <div class="scoreboard-info-beam" data-type="policerob" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>Police Hostage</p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+                <div class="scoreboard-info-beam" data-type="storerobbery" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>store robbery</p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+                  <div class="scoreboard-info-beam" data-type="houserobbery" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>house robbery</p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+
+                <div class="scoreboard-info-beam" data-type="fleecarobbery" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>fleeca robbery</p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+                <div class="scoreboard-info-beam" data-type="banktruckrobbery" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>banktruck robbery</p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+
+
+                <div class="scoreboard-info-beam" data-type="jewelleryrobbery" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>jewelleryrobber </p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+
+                <div class="scoreboard-info-beam" data-type="politorobbery" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>polito robbery</p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+                <div class="scoreboard-info-beam" data-type="pacificrobbery" style="background: linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>pacific robbery</p></div>
+                    <div class="info-beam-status"></div>
+                </div>
+                <div class="scoreboard-info-beam" style="background:  linear-gradient(to right, #1b1b1b, #034849);">
+                    <div class="info-beam-title"><p>total players</p></div>
+                    <div class="info-beam-status" id="total-players"></div>
+                </div>
+
+        <script src="./app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,315 @@
+<div class="w-full h-[100vh] flex items-center justify-center relative" style="background-size: 100% 100%">
+    <div class="w-[54%] h-[57%]">
+        <div class="w-full h-full rounded-[1vw] relative" style="background-image: url(./images/background2.png); background-size: 100% 100%">
+            <div class="w-full px-5 h-[4%] flex items-center justify-between">
+                <p style="font-family: sf-pro-rounded-medium; font-size: 0.5vw; color: white">{{this.$store.state.Locales['LSBS']}}</p>
+                <p style="font-family: sf-pro-rounded-medium; font-size: 0.5vw; color: white">{{dateFormat}}</p>
+                <div
+                    class="w-4 h-4 flex items-center justify-center cursor-pointer bg-[#FF2D2D] rounded-full"
+                    style="font-family: sf-pro-rounded-medium; font-size: 0.4vw; color: white"
+                    @click="$store.state.activePage='billingpage'"
+                >
+                    X
+                </div>
+            </div>
+            <div class="w-full h-[18%] flex items-end justify-center">
+                <div class="w-[88%] h-[23%] flex">
+                    <div class="w-[50%] h-full flex items-center">
+                        <h2 style="margin-left: 1.2vw; font-family: sf-pro-rounded-medium; font-size: 1vw; color: white">
+                            {{this.$store.state.Locales['CREATEINVOICE']}}
+                        </h2>
+                    </div>
+                    <div class="w-[42.5%] h-full flex items-center justify-end">
+                        <h2 style="font-family: sf-pro-rounded-medium; font-size: 1vw; color: white">
+                            {{this.$store.state.Locales['INVOCEPREVIEW']}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div
+                v-if="showNearbyPlayers"
+                class="absolute z-20 left-[35%] top-[60%] bg-[#3e8fef36] rounded-xl w-[25%] h-[60%] transform -translate-x-1/2 -translate-y-1/2"
+            >
+                <div class="relative w-full h-full flex flex-col gap-y-2 p-4">
+                    <img
+                        @click="showNearbyPlayers=false"
+                        class="object-scale-down hover:opacity-90 transition-all absolute -right-4 -top-4 cursor-pointer w-[5vh] h-[5vh]"
+                        src="./images/close-nearby.png"
+                    />
+
+                    <p style="color: rgba(255, 255, 255, 0.41); font-family: sf-pro-rounded-medium; font-size: 0.7vw">
+                        {{this.$store.state.Locales['NEARBYPLAYERS']}}
+                    </p>
+                    <div class="flex no-scrollbar flex-col gap-y-3 overflow-auto flex-1">
+                        <div v-for="player in nearbyPlayers" class="flex items-center justify-between">
+                            <div class="flex items-center gap-x-2">
+                                <img style="border-radius: 8px" class="object-scale-down w-[4vh] h-[4vh]" :src="player.avatar" />
+                                <p style="color: rgba(255, 255, 255, 1); font-family: sf-pro-rounded-medium; font-size: 0.7vw">{{player.name}}</p>
+                            </div>
+                            <img
+                                @click="findBillingPlayer(player.id)"
+                                class="object-scale-down cursor-pointer w-[1.8vh] h-[1.8vh]"
+                                src="./images/bill-icon.png"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full h-[73%] flex items-end justify-center">
+                <div class="w-[88%] h-[95%] flex justify-between">
+                    <div
+                        :style="{opacity: showNearbyPlayers ? '0.2' : '1.0'}"
+                        class="w-[67.5%] h-full rounded-[1vw]"
+                        style="background: rgba(217, 217, 217, 0.14)"
+                    >
+                        <div class="w-full h-[9.5%]"></div>
+                        <div class="w-full h-[9.5%] flex items-center justify-center">
+                            <div class="w-[95%] h-full flex relative">
+                                <p class="absolute -top-4" style="color: #5e5e5e; font-family: sf-pro-rounded-medium; font-size: 0.5vw">
+                                    {{this.$store.state.Locales['FROM']}}
+                                </p>
+                                <p class="absolute -top-4 right-48" style="color: #5e5e5e; font-family: sf-pro-rounded-medium; font-size: 0.5vw">
+                                    {{this.$store.state.Locales['TO']}}
+                                </p>
+
+                                <div
+                                    :class="{'bg-[#429DFF]':invoiceData.from == 'myjob', 'bg-[#429dff96]':invoiceData.from != 'myjob'}"
+                                    class="w-[15%] h-full flex items-center cursor-pointer justify-center rounded-[0.2vw]"
+                                    @click="setInvoiceData({value : 'myjob', type : 'from'})"
+                                >
+                                    <h2
+                                        style="font-family: sf-pro-rounded-medium; font-size: 0.7vw"
+                                        :style="{color: invoiceData.from == 'myjob' ? 'white' : '#1D4069'}"
+                                    >
+                                        {{this.$store.state.Locales['MYJOB']}}
+                                    </h2>
+                                </div>
+                                <div
+                                    :class="{'bg-[#429DFF]':invoiceData.from == 'personal', 'bg-[#429dff96]':invoiceData.from != 'personal'}"
+                                    class="w-[15%] h-full ml-[0.8vw] cursor-pointer flex items-center justify-center rounded-[0.2vw]"
+                                    @click="setInvoiceData({value : 'personal', type : 'from'})"
+                                >
+                                    <h2
+                                        style="font-family: sf-pro-rounded-medium; font-size: 0.7vw"
+                                        :style="{color: invoiceData.from == 'personal' ? 'white' : '#1D4069'}"
+                                    >
+                                        {{this.$store.state.Locales['PERSONAL']}}
+                                    </h2>
+                                </div>
+                                <div class="w-[35%] h-full flex items-center justify-center">
+                                    <div class="w-[90%] h-full flex items-center justify-center">
+                                        <img class="h-[260%]" src="./images/createiconfly.png" alt="" />
+                                    </div>
+                                </div>
+                                <div class="w-[15%] h-full bg-[#5B9BFF] flex items-center justify-center rounded-[0.2vw]">
+                                    <input
+                                        style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; color: white"
+                                        v-model="invoiceData.targetPlayerId"
+                                        @change="findBillingPlayer($event.target.value)"
+                                        type="text"
+                                        class="w-full placeholder:text-[#ffffff2e] text-center bg-transparent h-full appereance-none border-none outline-none"
+                                        placeholder="Player ID"
+                                    />
+                                </div>
+                                <div
+                                    @click="showNearbyPlayers=true"
+                                    class="w-[20%] h-full cursor-pointer ml-[0.8vw] bg-[#5B9BFF] flex items-center justify-center rounded-[0.2vw]"
+                                >
+                                    <h2 style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; color: white">
+                                        {{this.$store.state.Locales['NEARBYPLAYERS']}}
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full h-[12%] flex items-center justify-center">
+                            <div class="w-[95%] h-full flex items-center">
+                                <h2 style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; margin-left: 0.1vw; color: white">
+                                    {{this.$store.state.Locales['REASON']}}
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="w-full h-[9%] flex items-center justify-center relative">
+                            <div
+                                class="w-[95%] flex items-center justify-between px-2 h-full rounded-[0.3vw]"
+                                style="background: rgba(255, 255, 255, 0.07)"
+                            >
+                                <input
+                                    v-model="invoiceData.reason"
+                                    style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; color: white"
+                                    type="text"
+                                    class="w-full placeholder:text-[#ffffff2e] px-2 bg-transparent h-full appereance-none border-none outline-none"
+                                />
+                                <img
+                                    @click="showInvoiceReasons=!showInvoiceReasons"
+                                    src="./images/search.png"
+                                    class="object-scale-down cursor-pointer w-[2vh] h-auto"
+                                />
+                            </div>
+                            <div
+                                v-if="showInvoiceReasons"
+                                class="rounded-[0.3vw] flex flex-col top-[3.6vh] z-20 absolute h-[23vh] overflow-auto no-scrollbar w-[95%]"
+                                style="background: #1b1b1b"
+                            >
+                                <div
+                                    @click="setInvoiceData({type: 'reason', value : bill.label});setInvoiceData({type: 'amount', value : bill.amount})"
+                                    style="border-bottom: 3px solid #535353"
+                                    class="py-4 w-full cursor-pointer hover:bg-[#535353] text-[#ffffff52] hover:text-white transition-all flex items-center justify-between px-4"
+                                    v-for="bill in bills"
+                                >
+                                    <p style="font-size: 1.25vh; font-family: sf-pro-rounded-medium" class="text">{{bill.label}}</p>
+                                    <p style="font-size: 1.25vh; font-family: sf-pro-rounded-medium" class="text">${{bill.amount}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full h-[9%] flex items-center justify-center">
+                            <div class="w-[95%] h-full flex items-center">
+                                <h2 style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; margin-left: 0.1vw; color: white">
+                                    {{this.$store.state.Locales['INVOICEAMOUNT']}}
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="w-full h-[9%] flex items-center justify-center">
+                            <div class="w-[95%] h-full rounded-[0.3vw]" style="background: rgba(255, 255, 255, 0.07)">
+                                <input
+                                    v-model="invoiceData.amount"
+                                    style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; color: white"
+                                    type="number"
+                                    pattern="[0-9]"
+                                    class="w-full placeholder:text-[#ffffff2e] px-2 bg-transparent h-full appereance-none border-none outline-none"
+                                />
+                            </div>
+                        </div>
+                        <div class="w-full h-[9%] flex items-center justify-center">
+                            <div class="w-[95%] h-full flex items-center">
+                                <h2 style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; margin-left: 0.1vw; color: white">
+                                    {{this.$store.state.Locales['NOTE']}}
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="w-full h-[9%] flex items-center justify-center">
+                            <div class="w-[95%] h-full rounded-[0.3vw]" style="background: rgba(255, 255, 255, 0.07)">
+                                <input
+                                    v-model="invoiceData.note"
+                                    style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; color: white"
+                                    type="text"
+                                    class="w-full placeholder:text-[#ffffff2e] px-2 bg-transparent h-full appereance-none border-none outline-none"
+                                />
+                            </div>
+                        </div>
+                        <div class="w-full h-[9%] flex items-center justify-center">
+                            <!-- <div class="w-[95%] h-full flex items-center">
+                                <h2 style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; margin-left: 0.1vw; color: white">
+                                    Invoice Bank Option
+                                </h2>
+                            </div> -->
+                        </div>
+                        <div class="w-full h-[9%] flex items-center justify-center">
+                            <div class="w-[95%] h-full flex items-center gap-x-4">
+                                <div class="flex items-center gap-x-2">
+                                    <!-- <input
+                                        @change="setInvoiceData({
+                                        type : 'sendMoneyTo',
+                                        value : $event.target.checked ? 'society' : 'personal'
+                                    })"
+                                        :checked="invoiceData.sendMoneyTo == 'society'"
+                                        type="checkbox"
+                                    />
+                                    <p style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; color: white">Send Money To Society Account</p> -->
+                                </div>
+                                <div class="flex items-center gap-x-2">
+                                    <!-- <input
+                                        @change="setInvoiceData({
+                                        type : 'sendMoneyTo',
+                                        value : $event.target.checked ? 'personal' : 'society'
+                                    })"
+                                        :checked="invoiceData.sendMoneyTo == 'personal'"
+                                        type="checkbox"
+                                    />
+                                    <p style="font-family: sf-pro-rounded-medium; font-size: 0.7vw; color: white">Send Money To Personal Account</p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-[29.5%] h-full" style="background-image: url(./images/roundedbg.png); background-size: 100% 100%">
+                        <div class="w-full h-[75%] flex items-end justify-center">
+                            <div
+                                class="w-[85%] flex flex-col gap-y-2 h-[90%] p-3"
+                                style="background-image: url(./images/billshow.png); background-size: 100% 100%"
+                            >
+                                <div class="flex items-center justify-between">
+                                    <p v-if="invoiceData.from == 'myjob'" style="color: #000; font-family: sf-pro-rounded-medium; font-size: 0.7vw">
+                                        {{this.$store.state.billingpage.playerjoblabel}}
+                                    </p>
+                                    <p v-else style="color: #000; font-family: sf-pro-rounded-medium; font-size: 0.7vw">
+                                        {{this.$store.state.Locales['PERSONELACCOUNT']}}
+                                    </p>
+                                    <p style="color: rgba(0, 0, 0, 0.54); font-family: sf-pro-rounded-medium; font-size: 0.7vw">
+                                        {{this.$store.state.Locales['LSBS2']}}
+                                    </p>
+                                </div>
+                                <div class="flex flex-col gap-y-1">
+                                    <p style="color: #000; font-family: sf-pro-rounded-medium; font-size: 0.55vw">
+                                        {{this.$store.state.Locales['SENT']}} : {{dateFormat}}
+                                    </p>
+                                    <p style="color: #000; font-family: sf-pro-rounded-medium; font-size: 0.55vw">
+                                        {{this.$store.state.Locales['DUE']}} : {{dueDateFormat}}
+                                    </p>
+                                </div>
+                                <div class="flex flex-col gap-y-1">
+                                    <p style="color: #000; font-family: sf-pro-rounded-medium; font-size: 0.55vw">
+                                        {{this.$store.state.Locales['FROM']}} : {{$store.state.billingpage.playerAccount.name}}
+                                    </p>
+                                    <p style="color: #000; font-family: sf-pro-rounded-medium; font-size: 0.55vw">
+                                        {{this.$store.state.Locales['TO']}} : {{findBillingPlayerValue.name}} - {{findBillingPlayerValue.id}}
+                                    </p>
+                                </div>
+                                <div class="w-full h-[1px] bg-[#0000002b]"></div>
+                                <div class="flex items-center justify-between">
+                                    <p style="color: #000; font-family: sf-pro-rounded-medium; font-size: 0.55vw">{{invoiceData.reason}}</p>
+                                    <p style="color: rgba(0, 0, 0, 0.88); font-family: sf-pro-rounded-medium; font-size: 0.5vw">
+                                        ${{invoiceData.amount}}
+                                    </p>
+                                </div>
+                                <div class="w-full h-[1px] bg-[#0000002b]"></div>
+                                <div class="flex flex-col gap-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <p style="color: rgba(0, 0, 0, 0.54); font-family: sf-pro-rounded-medium; font-size: 0.45vw">Subtotal</p>
+                                        <p style="color: rgba(0, 0, 0, 0.54); font-family: sf-pro-rounded-medium; font-size: 0.4vw">
+                                            ${{invoiceData.amount}}
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <p style="color: rgba(0, 0, 0, 0.54); font-family: sf-pro-rounded-medium; font-size: 0.4vw">
+                                            {{this.$store.state.Locales['TAX']}} (%{{($store.state.billingpage.tax * 100).toFixed(0)}})
+                                        </p>
+                                        <p style="color: rgba(0, 0, 0, 0.54); font-family: sf-pro-rounded-medium; font-size: 0.35vw">
+                                            ${{($store.state.billingpage.tax * invoiceData.amount).toFixed(0)}}
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <p style="color: #000; font-family: sf-pro-rounded-medium; font-size: 0.55vw">Total</p>
+                                        <p style="color: rgba(0, 0, 0, 0.88); font-family: sf-pro-rounded-medium; font-size: 0.5vw">
+                                            ${{(invoiceData.amount + ($store.state.billingpage.tax * invoiceData.amount)).toFixed(0)}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full h-[20%] flex items-end justify-center">
+                            <div
+                                @click="CreateBill"
+                                class="w-[85%] flex items-center justify-center cursor-pointer h-[90%]"
+                                style="background-image: url(./images/billshowdown.png); background-size: 100% 100%"
+                            >
+                                <p style="color: #ffffff; font-family: sf-pro-rounded-medium; font-size: 1vw">
+                                    {{this.$store.state.Locales['CREATE']}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

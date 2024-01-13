@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@700&display=swap');
+
+.container {
+    height: 50vh;
+    font-family: 'Tajawal', sans-serif !important;
+}
+
+.scoreboard-block {
+    display: none;
+    position: absolute;
+    height: 43vh;
+    width: 25.50vh;
+
+    right: 6vh;
+    top: 14vh;
+    box-shadow: 0px 0px 15px 4px rgba(5, 105, 107, 0.226);
+    border-radius: 15px;
+    border: 3px solid #00ced1;
+    background-color: #191919;
+}
+
+.scoreboard-header {
+    position: relative;
+    width: 88.4%;
+    right: -2vh;
+    height: 3vh;
+    margin: 1px 1px 1px 1px;
+    top: 0.5vh;
+
+
+}
+
+
+.line{
+    width: 10px;
+    height: 3px;
+    position: absolute;
+    color: #00ced1;
+    top: 1%;
+    right: 1%;
+}
+.scoreboard-header > p {
+    color: #00ced1;
+    padding: 1.8vh;
+	font-family: 'Poppins', sans-serif;
+    font-size: 2.5vh;
+}
+
+.scoreboard-info {
+    position: relative;
+    height: 10vh;
+    width: 27vh;
+    top: 0;
+    margin: 0 auto;
+    transform: translateY(10%);
+    border-radius: 20px 20px 20px 20px;
+}
+
+.scoreboard-info-header {
+    position: relative;
+    height: 1.9vh;
+}
+
+#info-tab-label {
+    font-weight: bold;
+    position: absolute;
+    font-family: 'Tajawal', sans-serif;
+    left: 1.1vh;
+	top: -0.9vh;
+}
+
+#status-tab-label {
+    font-weight: bold;
+    font-size: 11.5;
+    position: absolute;
+    font-family: 'Tajawal', sans-serif;
+	left: 21.5vh;
+	top: -0.9vh;
+}
+
+.info-beam-title {
+    position: absolute;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.4vh;
+    letter-spacing: 0.1vh;
+    left: 1vh;
+    line-height: 4vh;
+    top: -1vh;
+}
+
+.info-beam-status {
+    position: absolute;
+    font-family: 'Tajawal', sans-serif;
+    right: 1.7vh;
+    float: left;
+    text-align: left;
+    line-height: 4vh;
+    top: -1vh;
+
+
+}
+
+
+.scoreboard-info-beam {
+    position: relative;
+    box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.205);
+    height: 2vh;
+    margin: 10px 6px 6px 6px;
+    width: 85%;
+   right:-2.5%;
+    
+}
+
+.scoreboard-info-beam1 {
+    position: relative;
+    box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.205);
+    height: 2vh;
+    margin: 10px 6px 6px 6px;
+    width: 85%;
+    background-image: url("giphytes.gif");
+    background-size: contain;
+     background-size: 100% 100%;
+     right: -2.5%;
+
+}
+
+
+.scoreboard-info-beam55 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(-11%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam2 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(-3%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam3 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(5%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam4 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(14%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam5 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(21%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam6 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(28%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam7 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(35%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam8 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(42%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam9 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(49%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam10 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(56%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam11 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(64%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam12 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(72%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam13 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(80%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.scoreboard-info-beam14 {
+    height: 4.2vh;
+    width: 100%;
+    transform: translateY(88%);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.fa-times {
+    color: rgb(0,206,209);
+}
+
+.fa-check {
+    color: rgb(0,206,209);
+}
+
+.fa-clock {
+    color: rgb(0,206,209);
+}
+
+.sb-logo {
+    width: 15vh;
+    right: 105vh;
+    left: 99vh;
+    width: 65%;
+    transform: translate(55px, 0);
+    margin: -0.6vh;
+}
