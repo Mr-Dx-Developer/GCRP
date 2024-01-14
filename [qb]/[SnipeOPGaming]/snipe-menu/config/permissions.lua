@@ -31,6 +31,9 @@ Config.Permissions = {
     ["license:4c8cda4dfab1ff626e7dc566cf47473afb7b3983"] = "god", -- unknown
 
 
+    ["license:e1f883117badb6b9dc87908e94ed1a648f0e78f2"] = "god", -- rich
+
+
     ["fivem:1234"] = "god",
     ["steam:1234"] = "god",
     ["124584938326312"] = "god", -- discord roles (copy the role id and paste it here) (REQUIRES badger_discord_api)
