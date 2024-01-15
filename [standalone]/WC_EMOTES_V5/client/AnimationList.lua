@@ -1356,7 +1356,32 @@ RP.Shared = {
     -- targetemote is used for animations that have a corresponding animation to the other player, ie Carry and Be Carried --
     -- Emotes will work with either SyncOffset or Attachto. We can attach players either in front of us, to a specific bone, or either side of us. --
 
-    
+    ["bsdrink"] = {"amb@world_human_drinking@coffee@male@idle_a", "idle_c", "BS Drink", AnimationOptions =
+   {
+       Prop = 'prop_food_bs_juice02',
+       PropBone = 28422,
+       PropPlacement = {0.02, 0.0, -0.10, 0.0, 0.0, -0.50},
+       EmoteLoop = true,
+       EmoteMoving = true,
+   }},
+
+["fries"] = {"mp_player_inteat@burger", "mp_player_int_eat_burger", "Fries", AnimationOptions =
+    {
+       Prop = 'prop_food_bs_chips',
+       PropBone = 60309,
+       PropPlacement = { -0.0100, 0.0200, -0.0100, -175.1935, 97.6975, 13.9598 },
+       EmoteMoving = true,
+   }},
+
+["fbbq"] = {"amb@prop_human_bbq@male@idle_a", "idle_b", "fbbq", AnimationOptions =
+   {
+       Prop = "prop_fish_slice_01",
+       PropBone = 28422,
+       PropPlacement = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+       --
+       EmoteLoop = true,
+       EmoteMoving = false,
+   }},
 
     ["sitchairposem"] = {
         "myu@fm_couple1_1",

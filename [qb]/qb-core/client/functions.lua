@@ -104,6 +104,7 @@ end)
         })
     end
 end ]]
+
 function QBCore.Functions.Notify(text, texttype, length)
 
 

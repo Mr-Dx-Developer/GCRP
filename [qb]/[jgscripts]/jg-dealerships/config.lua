@@ -30,7 +30,7 @@ Config.FinancePaymentFailedHoursUntilRepo = 1 -- in hours
 Config.MaxFinancedVehiclesPerPlayer = 5
 
 Config.TestDrivePlate = "TESTER"
-Config.TestDriveTimeSeconds = 120
+Config.TestDriveTimeSeconds = 60
 
 Config.DisplayVehiclesPlate = "DEALER"
 Config.DealerPurchasePrice = 0.8 -- 0.8 = Dealers pay 80% of vehicle price
@@ -58,9 +58,9 @@ Config.Categories = {
 
 Config.DealershipLocations = {
   ["pdm"] = {
-    type = "owned", -- or "owned", "self-service"
-    openShowroom = vector3(-55.99, -1096.59, 26.42),
-    openManagement = vector3(-30.43, -1106.84, 26.42),
+    type = "self-service", -- or "owned", "self-service"
+    openShowroom = vector3(-37.18, -1088.39, 26.44),
+    openManagement = vector3(-31.5, -1117.4, 26.44),
     purchaseSpawn = vector4(-13.68, -1092.31, 26.67, 159.82),
     testDriveSpawn = vector4(-49.77, -1110.83, 26.44, 75.94),
     camera = {
