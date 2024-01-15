@@ -12,6 +12,7 @@ client_scripts {
 }
 
 shared_scripts {
+    'textSettings.json',
     'config.lua'
 }
 

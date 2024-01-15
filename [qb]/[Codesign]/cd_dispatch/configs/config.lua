@@ -291,19 +291,19 @@ Config.PoliceAlerts = {
 Config.small_ui = {
     ENABLE = true, --Do you want to enable the small UI?
     command = 'dispatchsmall', --The chat command.
-    key = 'u' --The key press.
+    key = 'k' --The key press.
 }
 
 Config.large_ui = {
     ENABLE = true, --Do you want to enable the large map UI?
     command = 'dispatchlarge',
-    key = 'l'
+    key = 'U'
 }
 
 Config.respond = {
     ENABLE = true, --Do you want to enable the units responding feature?
     command = 'respond', 
-    key = 'g'
+    key = 'r'
 }
 
 Config.move_mode = {

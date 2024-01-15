@@ -101,17 +101,15 @@ UpdateMap = function(data)
         local coords = Config.Coords[i].coordinate
         local heading = Config.Coords[i].heading
         model = model
-        if model ~= " " then
-            RequestModel(model)
-            while not HasModelLoaded(model) do
-                Wait(1)
-            end
-
-            local obj = CreateObject(model, coords, false, false, false)
-            SetEntityHeading(obj, heading)
-            table.insert(modelCreated, obj)
-            SetColorModel(model, "techdevontop", hexToRgb(data[2]))
+        RequestModel(model)
+        while not HasModelLoaded(model) do
+            Wait(1)
         end
+
+        local obj = CreateObject(model, coords, false, false, false)
+        SetEntityHeading(obj, heading)
+        table.insert(modelCreated, obj)
+        SetColorModel(model, "techdevontop", hexToRgb(data[2]))
     end
 end
 

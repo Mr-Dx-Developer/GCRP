@@ -23,7 +23,7 @@ LoadFramework = function()
         FrameworkFound = 'standalone'
     end
 
-    print('[Ricky-VinewoodSign] Framework found: ' .. FrameworkFound)
+    print('[Mr_Dx] Framework found: ' .. FrameworkFound)
 end
 
 AddEventHandler('onResourceStart', function(resourceName)

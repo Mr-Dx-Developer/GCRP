@@ -375,14 +375,14 @@ Config.Locations = {
 
         PersonalLocker = {
             enabled = true,                        -- Enable personal locker(stash) - THIS IS CURRENTLY ONLY AVALIABLE IN QB-INVENTORY
-            coords = vec3(-459.52, -312.08, 34.91),   -- Location of where to access personal locker (If target is disabled)
+            coords = vec3(-453.68, -307.85, 34.91),   -- Location of where to access personal locker (If target is disabled)
             label = '[E] - Access Personal Locker', -- Text to display(If not using target)
             distance = 1.5,                         -- Distance to display text UI(If not using target)
             target = {
                 enabled = true,                    -- If enabled, the location and distance above will be obsolete
                 label = 'Access Locker',
-                coords = vec3(-459.52, -312.08, 34.91),
-                heading = 20,
+                coords = vec3(-453.68, -307.85, 34.91),
+                heading = 290,
                 width = 2.0,
                 length = 1.0,
                 minZ = 33.91 - 0.9,
