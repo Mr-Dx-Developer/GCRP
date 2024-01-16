@@ -823,7 +823,8 @@ const playerHud = {
             this.speed = data.speed;
             this.armed = data.armed;
             this.parachute = data.parachute;
-            this.hp = data.hp * 5;
+            //this.hp = data.hp * 5;
+            harnessBar.set(data.hp * 5);
             //this.engine = data.engine;
             engineBar.set(data.engine);
             this.cinematic = data.cinematic;
@@ -1092,22 +1093,27 @@ const vehHud = {
                     progressBar.style.backgroundColor = '#ffffff';
                 }
             } else {
-                console.log("oh you're in a car?");
-            }                 
+                //console.log("oh you're in a car?");
+            }    
+                         
             this.showSeatbelt = data.showSeatbelt;
             this.showAltitude = data.showAltitude;
-            this.showSquareB = data.showSquareB;
-            this.showCircleB = data.showCircleB;
 
 
             // later when you want to fade in
             
             if (data.seatbelt === true) {
                 this.seatbelt = 1;
-                document.getElementById('SeatbeltIcon').style.opacity = 0;
+                let seatbeltIcon = document.getElementById('SeatbeltIcon');
+                if(seatbeltIcon) {
+                    seatbeltIcon.style.opacity = 0;
+                }
             } else {
                 this.seatbelt = 0;
-                document.getElementById('SeatbeltIcon').style.opacity = 1;
+                let seatbeltIcon = document.getElementById('SeatbeltIcon');
+                if(seatbeltIcon) {
+                    seatbeltIcon.style.opacity = 1;
+                }
             }
             
             if (data.showSeatbelt === true) {
@@ -1137,6 +1143,9 @@ const vehHud = {
     },
     computed: {
         speedDisplay() {
+            if (!this.show) {
+                return '';
+            }
             var speedStr = this.speed.toString().padStart(3, '0');
             var html = '';
             var nonZeroEncountered = false;
@@ -1152,7 +1161,7 @@ const vehHud = {
             }
             return html;
         }
-    }
+    }    
 };
 const app3 = Vue.createApp(vehHud);
 app3.use(Quasar);
@@ -1179,7 +1188,7 @@ const baseplateHud = {
         this.listener = window.addEventListener("message", (event) => {
             if (event.data.action == "update") {
                 type = event.data.type;
-                value = event.data.value;
+                value = event.data.value / 2;
                 if (value !== undefined) {
                     $(".degrees").html(value);
                     bar = document.getElementsByTagName("svg")[0];
@@ -1242,6 +1251,7 @@ var stressBar = new ldBar("#Stress");
 var oxygenBar = new ldBar("#Oxygen");
 var engineBar = new ldBar("#Engine");
 var nosBar = new ldBar("#Nos");
+var harnessBar = new ldBar("#Harness");
   
 
 

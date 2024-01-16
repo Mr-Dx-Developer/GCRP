@@ -703,9 +703,9 @@ CreateThread(function()
             playerDead = IsEntityDead(player) or PlayerData.metadata['inlaststand'] or PlayerData.metadata['isdead'] or false
             parachute = GetPedParachuteState(player)
             -- Stamina
-            if not IsEntityInWater(player) then
-                oxygen = 100 - GetPlayerSprintStaminaRemaining(playerId)
-            end
+            --if not IsEntityInWater(player) then
+                --oxygen = 100 - GetPlayerSprintStaminaRemaining(playerId)
+            --end
             -- Oxygen
             if IsEntityInWater(player) then
                 oxygen = GetPlayerUnderwaterTimeRemaining(playerId) * 10
@@ -936,20 +936,16 @@ if not config.DisableStress then
                 local ped = PlayerPedId()
                 local weapon = GetSelectedPedWeapon(ped)
                 if weapon ~= `WEAPON_UNARMED` then
-                    if IsPedShooting(ped) and not IsWhitelistedWeaponStress(weapon) then
+                    if IsPedShooting(ped) and not config.WhitelistedWeaponStress[weapon] then
                         if math.random() < config.StressChance then
                             TriggerServerEvent('hud:server:GainStress', math.random(1, 3))
                         end
-                        Wait(100)
-                    else
-                        Wait(500)
                     end
                 else
                     Wait(1000)
                 end
-            else
-                Wait(1000)
             end
+            Wait(0)
         end
     end)
 end
@@ -1105,7 +1101,6 @@ CreateThread(function()
         else
             Wait(0)
         end
-        local show = true
         local player = PlayerPedId()
         local camRot = GetGameplayCamRot(0)
         if Menu.isCompassFollowChecked then
@@ -1115,14 +1110,25 @@ CreateThread(function()
         end
         if heading == '360' then heading = '0' end
         if heading ~= lastHeading then
-            if IsPedInAnyVehicle(player) then
-                local crossroads = getCrossroads(player)
-                SendNUIMessage({
-                    action = 'update',
-                    value = heading
-                })
+            local show = IsPedInAnyVehicle(player)
+            local crossroads = getCrossroads(player)
+            SendNUIMessage({
+                action = 'update',
+                value = heading
+            })
+            if not Menu.isOutCompassChecked then
                 updateBaseplateHud({
                     show,
+                    show and crossroads[1] or "",
+                    show and crossroads[2] or "",
+                    Menu.isCompassShowChecked,
+                    Menu.isShowStreetsChecked,
+                    Menu.isPointerShowChecked,
+                    Menu.isDegreesShowChecked,
+                })
+            else
+                updateBaseplateHud({
+                    true,
                     crossroads[1],
                     crossroads[2],
                     Menu.isCompassShowChecked,
@@ -1130,28 +1136,15 @@ CreateThread(function()
                     Menu.isPointerShowChecked,
                     Menu.isDegreesShowChecked,
                 })
-            else
-                if Menu.isOutCompassChecked then
-                    SendNUIMessage({
-                        action = 'update',
-                        value = heading
-                    })
-                    SendNUIMessage({
-                        action = 'baseplate',
-                        show = true,
-                        showCompass = true,
-                    })
-                else
-                    SendNUIMessage({
-                        action = 'baseplate',
-                        show = false,
-                    })
-                end
             end
         end
         lastHeading = heading
     end
 end)
+
+
+
+
 
 
 Citizen.CreateThread(function()
@@ -1162,7 +1155,8 @@ Citizen.CreateThread(function()
         if IsPedInAnyVehicle(player, false) then
         --print("is a car beu")
             local rpmlol = GetVehicleCurrentRpm(vehicle)
-            local gearlol = GetVehicleCurrentGear(vehicle)
+            local selectedgear = getSelectedGear()
+            local gearlol = getinfo(selectedgear)
             --print("RPM: " .. rpm)  -- Debugging line
 
             SendNUIMessage({

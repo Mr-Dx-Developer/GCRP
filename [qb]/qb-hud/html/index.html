@@ -20,36 +20,42 @@
                 <div class="street1">{{street1}}</div>
             </div>
             <div class="baseplate" v-show="show">
-                <div v-if="showPointer" class="pointer">˅</div>
+                <div v-if="showPointer" class="pointer">⬥</div>
                 <div v-if="showDegrees" class="degrees"></div>
                     <svg class="bezel">
-                        <rect width="3" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="20" x="-90"/>
-                        <rect width="3" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="9" x="-45"/>
-                        <rect width="4.5" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="20" x="0"/>
-                        <rect width="3" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="9" x="45"/>
-                        <rect width="4.5" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="20" x="90"/>
-                        <rect width="3" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="9" x="135"/>
-                        <rect width="4.5" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="20" x="180"/>
-                        <rect width="3" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="9" x="225"/>
-                        <rect width="4.5" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="20" x="270"/>
-                        <rect width="3" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="9" x="315"/>
-                        <rect width="4.5" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="20" x="360"/>
-                        <rect width="3" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="9" x="405"/>
-                        <rect width="3" stroke="black" fill="white" stroke-width="0.5" stroke-opacity="0.6" v-if="showCompass" height="20" x="450"/>
+                        <rect width="1" fill="#C8C8C8" height="3" x="-67.5"></rect>
+                        <rect width="1" fill="white" height="3" x="-45"></rect>
+                        <rect width="1" fill="#C8C8C8" height="3" x="-22.5"></rect>
+                        <rect width="1" fill="white" height="3" x="0"></rect>
+                        <rect width="1" fill="#C8C8C8" height="3" x="22.5"></rect>
+                        <rect width="1" fill="white" height="3" x="45"></rect>
+                        <rect width="1" fill="#C8C8C8" height="3" x="67.5"></rect>
+                        <rect width="1" fill="white" height="3" x="90"></rect>
+                        <rect width="1" fill="#C8C8C8" height="3" x="112.5"></rect>
+                        <rect width="1" fill="white" height="3" x="135"></rect>
+                        <rect width="1" fill="#C8C8C8" height="3" x="157.5"></rect>
+                        <rect width="1" fill="white" height="3" x="180"></rect>
+                        <rect width="1" fill="#C8C8C8" height="3" x="202.5"></rect>
+                        <rect width="1" fill="white" height="3" x="225"></rect>
+                        <rect width="1" fill="#C8C8C8" height="3" x="247.5"></rect>
                     </svg>
 
                     <svg class="bearing">
-                        <text v-if="showCompass" x="0" y="1.5" dominant-baseline="middle" text-anchor="middle" fill= "yellow">N</text>
-                        <text v-if="showCompass" x="360" y="1.5" dominant-baseline="middle" text-anchor="middle" fill= "yellow">N</text>
-                        <text style="font-size: 1.4vh!important; font-weight: 800!important;" v-if="showCompass" x="315" y="-11" dominant-baseline="middle" text-anchor="middle" fill="white">NW</text>
-                        <text style="font-size: 1.4vh!important; font-weight: 800!important;" v-if="showCompass" x="-45" y="-11" dominant-baseline="middle" text-anchor="middle" fill="white">NW</text>
-                        <text style="font-size: 1.4vh!important; font-weight: 800!important;" v-if="showCompass" x="45" y="-11" dominant-baseline="middle" text-anchor="middle" fill="white">NE</text>
-                        <text style="font-size: 1.4vh!important; font-weight: 800!important;" v-if="showCompass" x="405" y="-11" dominant-baseline="middle" text-anchor="middle" fill="white">NE</text>
-                        <text v-if="showCompass" x="90" y="1.5" dominant-baseline="middle" text-anchor="middle" fill="white">E</text>
-                        <text style="font-size: 1.4vh!important; font-weight: 800!important;" v-if="showCompass" x="135" y="-11" dominant-baseline="middle" text-anchor="middle" fill="white">SE</text>
-                        <text v-if="showCompass" x="180" y="1.5" dominant-baseline="middle" text-anchor="middle" fill="white">S</text>
-                        <text style="font-size: 1.4vh!important; font-weight: 800!important;" v-if="showCompass" x="225" y="-11" dominant-baseline="middle" text-anchor="middle" fill="white">SW</text>
-                        <text v-if="showCompass" x="270" y="1.5" dominant-baseline="middle" text-anchor="middle" fill="white">W</text>
+                        <text x="0" y="0" dominant-baseline="middle" text-anchor="middle" fill="white">N</text>
+                        <text x="180" y="0" dominant-baseline="middle" text-anchor="middle" fill="white">N</text>
+                        <text x="157.5" y="0" dominant-baseline="middle" text-anchor="middle" fill="#C8C8C8">NW</text>
+                        <text x="-22.5" y="0" dominant-baseline="middle" text-anchor="middle" fill="#C8C8C8">NW</text>
+                        <text x="22.5" y="0" dominant-baseline="middle" text-anchor="middle" fill="#C8C8C8">NE</text>
+                        <text x="202.5" y="0" dominant-baseline="middle" text-anchor="middle" fill="#C8C8C8">NE</text>
+                        <text x="45" y="0" dominant-baseline="middle" text-anchor="middle" fill="white">E</text>
+                        <text x="225" y="0" dominant-baseline="middle" text-anchor="middle" fill="white">E</text>
+                        <text x="67.5" y="0" dominant-baseline="middle" text-anchor="middle" fill="#C8C8C8">SE</text>
+                        <text x="247.5" y="0" dominant-baseline="middle" text-anchor="middle" fill="#C8C8C8">SE</text>
+                        <text x="90" y="0" dominant-baseline="middle" text-anchor="middle" fill="white">S</text>
+                        <text x="112.5" y="0" dominant-baseline="middle" text-anchor="middle" fill="#C8C8C8">SW</text>
+                        <text x="-67.5" y="0" dominant-baseline="middle" text-anchor="middle" fill="#C8C8C8">SW</text>
+                        <text x="135" y="0" dominant-baseline="middle" text-anchor="middle" fill="white">W</text>
+                        <text x="-45" y="0" dominant-baseline="middle" text-anchor="middle" fill="white">W</text>
                     </svg>
                 </div>
             </div>
@@ -65,6 +71,7 @@
                         <q-tab-panels v-model="tab" animated swipeable vertical transition-prev="jump-up" transition-next="jump-up" class="bg-active-tab">
                             <q-tab-panel name="hud">
                                 <div class="q-mb-md">
+                                    <div class="text-h6 q-mb-md">Reset Hud <img class="brand-logo" align="right" src="./kane.png"></img></div>
                                     <div class="q-pa-md q-gutter-sm">
                                         <q-btn v-on:click="resetStorage($event)" :loading="progress[0].loading" :percentage="progress[0].percentage" text-color="textbutton" color="bgbutton" @click="startComputing(0)" style="width: 150px"> Reset Settings
                                         <template v-slot:loading> <q-spinner-gears class="on-left"></q-spinner-gears> Resetting... </template></q-btn>
@@ -118,10 +125,10 @@
                                 <hr>
                                 <div class="text-h6 q-mb-md">Status</div>
                                 <div class="text-h7">
-                                    <q-checkbox v-on:click="dynamicHunger($event)" label='Show Hunger only when its low' v-model="isDynamicHungerChecked" color="checkbox" val="12" style="display: flex;"></q-checkbox>
+                                    <q-checkbox v-on:click="dynamicHunger($event)" label='Show Hunger always' v-model="isDynamicHungerChecked" color="checkbox" val="12" style="display: flex;"></q-checkbox>
                                     <q-checkbox v-on:click="dynamicThirst($event)" label='Show Thirst always' v-model="isDynamicThirstChecked" color="checkbox" val="13" style="display: flex;"></q-checkbox>
-                                    <q-checkbox v-on:click="dynamicStress($event)" label='Show Stress only when you are stress' v-model="isDynamicStressChecked" color="checkbox" val="14" style="display: flex;"></q-checkbox>
-                                    <q-checkbox v-on:click="dynamicOxygen($event)" label='Show Oxygen only when its in used' v-model="isDynamicOxygenChecked" color="checkbox" val="15" style="display: flex;"></q-checkbox>
+                                    <q-checkbox v-on:click="dynamicStress($event)" label='Show Stress always' v-model="isDynamicStressChecked" color="checkbox" val="14" style="display: flex;"></q-checkbox>
+                                    <q-checkbox v-on:click="dynamicOxygen($event)" label='Show Oxygen always' v-model="isDynamicOxygenChecked" color="checkbox" val="15" style="display: flex;"></q-checkbox>
                                 </div>
                                 <hr>
                                 <div class="text-h6 q-mb-md">Vehicle</div>
@@ -219,7 +226,7 @@
                         <div v-if="showVoice" style="position: relative; margin-left: 4px;">
                             <div class="ldBar" data-value="0" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill-dir="btt" data-fill-background="var(--talk-bar-color)" data-fill-background-extrude="1" style="width:59px;height:59px;top: 10px;left: -30px; position:absolute; opacity:58%;"></div>
                             <div id="Voices" class="ldBar" data-value :value="voice" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill="var(--talk-bar-color)" data-fill-dir="btt" data-fill-background="#84898f5f"  data-fill-background-extrude="0" style="width:48px;height:48px;top: 15px; left: -25px;"></div>
-                            <q-icon id="Icons" style="top: -18px; left: -5px; font-size: 18px;" :name="voiceIcon" color="white"/>
+                            <q-icon id="Icons" style="top: -18px; left: -4px; font-size: 17px;" :name="voiceIcon" color="white"/>
                         </div>
                     </transition>    
                     <transition name="fade">
@@ -227,35 +234,35 @@
                             <!-- Health Bar -->
                             <div class="ldBar" data-value="0" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill-dir="btt" data-fill-background="#147a47" data-fill-background-extrude="1" style="width:59px;height:59px;top: 10px;left: -35px; position:absolute; opacity:55%;"></div>
                             <div id="Health" class="ldBar" data-value :value="health" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill="#20ae67" data-fill-dir="btt" data-fill-background="#20ae6754"  data-fill-background-extrude="0" style="width:48px;height:48px;top: 15px; left: -30px;"></div>
-                            <q-icon id="Icons" style="top: -18px; left: -10px; font-size: 18px;" name="fas fa-heart" color="white"/>
+                            <q-icon id="Icons" style="top: -16px; left: -9px; font-size: 17px;" name="fas fa-heart" color="white"/>
                         </div>
                     </transition>                    
                     <transition name="fade">
                         <div v-show="showArmor" id="armorGroup" style="position: relative;margin-left: 4px;;">
                             <div class="ldBar" data-value="0" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill-dir="btt" data-fill-background="#1e4264" data-fill-background-extrude="1" style="width:59px;height:59px;top: 10px;left: -40px; position:absolute; opacity:55%;"></div>
                             <div id="Armor" class="ldBar" data-value :value="armor" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill="#216098" data-fill-dir="btt" data-fill-background="#1a436a94"  data-fill-background-extrude="0" style="width:48px;height:48px;top: 15px; left: -35px;"></div>
-                            <q-icon id="Icons" style="top: -18px; left: -15px; font-size: 18px;" name="fas fa-shield" color="white"/>
+                            <q-icon id="Icons" style="top: -17px; left: -14px; font-size: 17px;" name="fas fa-shield" color="white"/>
                         </div>
                     </transition>
                     <transition name="fade">
                         <div v-show="showHunger" id="hungerGroup" style="position: relative;margin-left: 5px;">
                             <div class="ldBar" data-value="0" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill-dir="btt" data-fill-background="#985f31" data-fill-background-extrude="1" style="width:59px;height:59px;top: 10px;left: -45px; position:absolute; opacity:55%;"></div>
                             <div id="Hunger" class="ldBar" data-value :value="hunger" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill="#cd7e3e" data-fill-dir="btt" data-fill-background="#985f3182"  data-fill-background-extrude="0" style="width:48px;height:48px;top: 15px; left: -40px;"></div>
-                            <q-icon id="Icons" style="top: -18px; left: -20px; font-size: 18px;" name="fas fa-hamburger" color="white"/>
+                            <q-icon id="Icons" style="top: -18px; left: -19.5px; font-size: 17px;" name="fas fa-hamburger" color="white"/>
                         </div>
                     </transition>
                     <transition name="fade">
                         <div v-show="showThirst" id="thirstGroup" :style="{ 'margin-left': (showArmor || showHunger) ? '5px' : '4px' }" style="position: relative;">
                             <div class="ldBar"  data-value="0" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill-dir="btt" data-fill-background="#0f8585" data-fill-background-extrude="1" style="width:59px;height:59px;top: 10px;left: -50px; position:absolute; opacity:55%;"></div>
                             <div id="Thirst" class="ldBar" data-value :value="thirst" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill="#12b9b9" data-fill-dir="btt" data-fill-background="#0f85858f"  data-fill-background-extrude="0" style="width:48px;height:48px;top: 15px; left: -45px;"></div>
-                            <q-icon id="Icons" style="top: -18px; left: -25px; font-size: 18px;" name="fas fa-tint" color="white"/>
+                            <q-icon id="Icons" style="top: -18px; left: -24.9px; font-size: 18px;" name="fas fa-tint" color="white"/>
                         </div>
                     </transition>
                     <transition name="fade">
                         <div v-show="showStress" id="stressGroup" :style="{ 'margin-left': showArmor ? (showHunger ? '5px' : (showThirst ? '8px' : '15px')) : '4px' }" style="position: relative;">
                             <div class="ldBar" data-value="0" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill-dir="btt" data-fill-background="#4f2a32" data-fill-background-extrude="1" style="width:59px;height:59px;top: 10px;left: -55px; position:absolute; opacity:50%;"></div>
                             <div id="Stress" class="ldBar" data-value :value="stress" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill="#a0383a" data-fill-dir="btt" data-fill-background="#4f2a3282"  data-fill-background-extrude="0" style="width:48px;height:48px;top: 15px; left: -50px;"></div>
-                            <q-icon id="Icons" style="top: -18px; left: -30px; font-size: 18px;" name="fas fa-brain" color="white"/>
+                            <q-icon id="Icons" style="top: -18px; left: -29.5px; font-size: 17px;" name="fas fa-brain" color="white"/>
                         </div>
                     </transition>
                     <transition name="fade">
@@ -288,8 +295,8 @@
                     </transition>
                     <transition name="fade">
                         <div v-show="showHarness"  id="harnessGroup" :style="{ 'margin-left': showEngine ? '2px' : (showArmor ? (showThirst ? '8px' : (showStress ? '2px' : (showHunger ? '13px' : '18px'))) : '4px') }" style="position: relative;">
-                            <div class="ldBar" data-value="0" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill-dir="btt" data-fill-background="rgb(182, 72, 255)" data-fill-background-extrude="1" style="width:58px;height:58px;top: 10px;left: -60px; position:absolute; opacity:50%;"></div>
-                            <div id="Harness" class="ldBar" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill="rgb(182, 72, 255)" data-fill-dir="btt" data-fill-background="rgba(182, 72, 255, 0.483)"  data-fill-background-extrude="0" style="width:48px;height:48px;top: 15px; left: -55.1px;"></div>
+                            <div class="ldBar" data-value="0" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill-dir="btt" data-fill-background="rgba(182, 72, 255, 0.540)" data-fill-background-extrude="1" style="width:58px;height:58px;top: 10px;left: -60px; position:absolute; opacity:50%;"></div>
+                            <div id="Harness" class="ldBar" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill="rgb(182, 72, 255)" data-fill-dir="btt" data-fill-background="rgba(182, 72, 255, 0.540)"  data-fill-background-extrude="0" style="width:48px;height:48px;top: 15px; left: -55.1px;"></div>
                             <q-icon id="Icons" style="top: -20px; left: -35px; font-size: 18px;" name="fas fa-user-slash" color="white"/>
                         </div>
                     </transition>
@@ -320,15 +327,15 @@
                 <div v-show="show">                    
                     <div class="responsive" id="speedometer">
                         <div id="rpmBar" class="container" style="width: 100%; left: -20%;top: 20%;"></div>
-                        <div id="Speed" style="transform: scale(2.7) rotate(0deg); left: 35%; top: -140%;" v-html="speedDisplay"></div>
-                        <div id="gearBox" style="top: -170%;left: -10%;">
+                        <div id="Speed" style="transform: scale(2.7) rotate(0deg); left: 40%; top: -150%;" v-html="speedDisplay"></div>
+                        <div id="gearBox" style="top: -182%;left: -16%;">
                         <div id="gear" style="text-align: center; position: absolute; left: -85%; bottom: -92%; width: 100px; height: 100px;">0</div>
                         <q-icon id="Icons" style="top: 2.6vh; left: 0.9vh; font-size: 17px;" name="fas fa-cogs" color="black"/>
                         <!-- This is the html file for the number hud -->
                         </div>
                     </div>
                     <div class="responsive" id="fuelgauge">
-                        <div id="progressBar" style="left: 10vh; top: 0.3vh;">
+                        <div id="progressBar" style="left: 800%; top: 100%;">
                             <div class="progress" style="height: 0;">
                         </div>
                         <q-icon id="FuelGaugeIcon" name="fas fa-gas-pump" style="font-size: 15px;left: -0.10vw; top: -2.5vh;" color="white"/>

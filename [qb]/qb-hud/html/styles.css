@@ -268,23 +268,25 @@ altitude {
 }
 
 /* Compass */
+
+#baseplate-container {
+    background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0) 60%, rgba(0,0,0,0) 100%);
+}
+
 .baseplate {
     position: relative;
     margin: 0 auto;
-    top: -0.8vh;
-    width: 150px;
+    width: 400px;
     height: auto;
 }
 
 .street-container {
     position: relative;
-    top: 0.5vh;
+    top: 0.7vh;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.4vh;
-    letter-spacing: 0.7px;
     text-decoration: none;
     font-style: normal;
-    font-variant: small-caps;
     text-transform: none;
     font-weight: 800;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6);
@@ -293,37 +295,37 @@ altitude {
 .street1 {
     position: absolute;
     margin: 0 auto;
-    right: 55%;
+    right: 62%;
     text-align: right !important;
-    color: rgb(255, 255, 255);
+    color: #3bd2a8;
 }
 
 .street2 {
     position: absolute;
     margin: 0 auto;
-    left: 55%;
+    left: 62%;
     text-align: left !important;
-    color: rgb(255, 255, 255);
+    color: #3bd2a8;
 }
 
 .pointer {
     position: absolute;
     margin: 0 auto;
-    top: -2%;
+    top: -15%;
     left: 0;
     right: 0;
     font-family: "Yantramanav", sans-serif;
-    color: rgb(255, 255, 255);
+    color: #13eaba;
     font-size: 2.2vh;
     text-align: center;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6);
+    text-shadow: rgba(59,210,167,1) 0px 0px 5px;
     z-index: 9999;
 }
 
 .degrees {
     position: absolute;
     margin: 0 auto;
-    top: 80%;
+    top: 100%;
     left: 0;
     right: 0;
     opacity: 0.8;
@@ -342,24 +344,19 @@ altitude {
     font-family: "Yantramanav", sans-serif;
     font-size: 0.35vh;
     font-weight: 700;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6);
 }
 
 .bearing {
     position: relative;
     width: 100%;
-    top: -0.5vh;
-    height: 3.5vh;
+    height: 1.5vh;
     padding-left: 0.12vw;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 2.3vh;
-    letter-spacing: 0.7px;
+    font-size: .6vh;
     text-decoration: none;
     font-style: normal;
     font-variant: small-caps;
     text-transform: none;
-    font-weight: 600;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.6);
 }
 
 
@@ -374,7 +371,7 @@ altitude {
 /* Fuel Counter */
 #progressBar {
     width: 0.630vw; /* Adjust as needed */
-    height: 8.5vh; /* Adjust as needed */
+    height: 8.3vh; /* Adjust as needed */
     position: relative;
     border-width: 0.15vw; /* Adjust as needed */
     border-style: solid;
@@ -389,8 +386,9 @@ altitude {
     height: 0%; /* Start with 0% height */
     background: #ffffff;
     transition: height 0.5s;
+    box-sizing: border-box; /* Include padding and border in width */
 }
-  
+
 
 #SeatbeltIcon {
     position: absolute;
@@ -412,14 +410,14 @@ altitude {
 }
 
 .item {
-    width: 0.62vh;
+    width: 0.5vh;
     /*border: 1px solid #5f6167;*/
     background-color: rgb(70, 70, 70);
     border-radius: 10px;
-    margin-left:3.5px;
+    margin-left:4px;
     float: left;
     display: block;
-    height: 3.3vh;
+    height: 3.1vh;
 }
 
 .filled {
@@ -456,4 +454,9 @@ altitude {
     font-weight: 500;
     color: rgb(21, 20, 24);
     text-align: center;
+}
+
+
+#god {
+    color: rgba(182, 72, 255, 0.5);
 }
