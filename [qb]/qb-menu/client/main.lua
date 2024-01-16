@@ -1,20 +1,29 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
+RegisterNetEvent('QBCore:Client:UpdateObject', function() QBCore = exports['qb-core']:GetCoreObject() end)
 
 local headerShown = false
 local sendData = nil
 
 -- Functions
-local function openMenu(data)
+
+local function sortData(data, skipfirst)
+    local header = data[1]
+    local tempData = data
+    if skipfirst then table.remove(tempData,1) end
+    table.sort(tempData, function(a,b) return a.header < b.header end)
+    if skipfirst then table.insert(tempData,1,header) end
+    return tempData
+end
+
+local function openMenu(data, sort, skipFirst)
     if not data or not next(data) then return end
+    if sort then data = sortData(data, skipFirst) end
 	for _,v in pairs(data) do
 		if v["icon"] then
-			local img = "qb-inventory/html/"
 			if QBCore.Shared.Items[tostring(v["icon"])] then
-				if not string.find(QBCore.Shared.Items[tostring(v["icon"])].image, "images/") then
-					img = img.."images/"
+				if not string.find(QBCore.Shared.Items[tostring(v["icon"])].image, "//") and not string.find(v["icon"], "//") then
+                    v["icon"] = "nui://qb-inventory/html/images/"..QBCore.Shared.Items[tostring(v["icon"])].image
 				end
-				v["icon"] = img..QBCore.Shared.Items[tostring(v["icon"])].image
 			end
 		end
 	end
@@ -48,8 +57,8 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-menu:client:openMenu', function(data)
-    openMenu(data)
+RegisterNetEvent('qb-menu:client:openMenu', function(data, sort, skipFirst)
+    openMenu(data, sort, skipFirst)
 end)
 
 RegisterNetEvent('qb-menu:client:closeMenu', function()
@@ -89,6 +98,7 @@ RegisterNUICallback('closeMenu', function(_, cb)
     sendData = nil
     SetNuiFocus(false)
     cb('ok')
+    TriggerEvent("qb-menu:client:menuClosed")
 end)
 
 -- Command and Keymapping
@@ -106,3 +116,49 @@ RegisterKeyMapping('playerFocus', 'Give Menu Focus', 'keyboard', 'LMENU')
 exports('openMenu', openMenu)
 exports('closeMenu', closeMenu)
 exports('showHeader', showHeader)
+
+
+-- test
+RegisterCommand('testmenu', function(args, rawCommand)
+    openMenu({
+        {
+            header = "Main Title",
+            icon = "fas fa-mug-hot",
+            isMenuHeader = true, -- Set to true to make a nonclickable title
+        },
+        {
+            header = "Eat Some Food",
+            txt = "This goes to a sub menu",
+            icon = "fas fa-box",
+            disabled = true, -- Set to true to disable the button
+            params = {
+                event = "qb-menu:client:testMenu2",
+                args = {
+                    number = 1,
+                }
+            }
+        },
+        {
+            header = "Nmsh Is A Poor Developer",
+            txt = "This goes to a sub menu",
+            icon = "fas fa-box",
+            params = {
+                event = "qb-menu:client:testMenu2",
+                args = {
+                    number = 1,
+                }
+            }
+        },
+        {
+            header = "Nmsh",
+            txt = "Poor developer",
+            icon = "fas fa-crosshairs",
+            params = {
+                event = "qb-menu:client:testMenu2",
+                args = {
+                    number = 1,
+                }
+            }
+        },
+    })
+end)

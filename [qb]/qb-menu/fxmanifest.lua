@@ -1,8 +1,8 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-Menu'
-version '0.0.1'
+description 'Nmsh QBCore Menu'
+version '1.2.0'
 
 client_script 'client/main.lua'
 
