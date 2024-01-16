@@ -261,7 +261,7 @@ Config.Objects = { -- for object removal
 
 -- You may add more than 2 selections and it will bring up a menu for the player to select which floor be sure to label each section though
 Config.Teleports = {
-    [1] = {
+    --[[ [1] = {
         [1] = {
             coords = vector4(1066.2, -3183.38, -39.16, 89.3),
             ["AllowVehicle"] = false,
@@ -271,6 +271,18 @@ Config.Teleports = {
             coords = vector4(-66.95, -1312.37, 29.28, 180.95),
             ["AllowVehicle"] = false,
             drawText = '[E] Enter Lab'
+        },
+    }, ]]
+    [1] = {
+        [1] = {
+            coords = vector4(909.49, -1589.22, 30.51, 92.24),
+            ["AllowVehicle"] = false,
+            drawText = '[E] Enter Coke Processing'
+        },
+        [2] = {
+            coords = vector4(1088.81, -3187.57, -38.99, 181.7),
+            ["AllowVehicle"] = false,
+            drawText = '[E] Leave'
         },
     },
 }
