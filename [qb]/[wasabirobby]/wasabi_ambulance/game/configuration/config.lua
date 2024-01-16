@@ -221,7 +221,7 @@ Config.BleedoutTimer = 20 * minutes -- Time before it forces respawn
 
 Config.removeItemsOnDeath = false   -- Must have Config.Inventory set properly
 Config.Inventory =
-'ox'                                --Options include: 'ox' - (ox_inventory) / 'qb' - (QBCore qb-inventory) 'mf' - (mf-inventory) / 'qs' (qs-inventory) / 'esx' (default esx) / 'other' (whatever else can customize in client/cl_customize.lua)
+'qb'                                --Options include: 'ox' - (ox_inventory) / 'qb' - (QBCore qb-inventory) 'mf' - (mf-inventory) / 'qs' (qs-inventory) / 'esx' (default esx) / 'other' (whatever else can customize in client/cl_customize.lua)
 
 Config.AntiCombatLog = {            --  When enabled will kill player who logged out while dead
     enabled = true,                 --  enabled?
