@@ -1074,4 +1074,31 @@ QBShared.Items = {
 	["bubble-morango"] 	    = {["name"] = "bubble-morango", 	   ["label"] = "Strawberry Bubble Tea",   ["weight"] = 1000, 	["type"] = "item", 	 ["image"] = "btmorango.png",   ["unique"] = false, 	["useable"] = true,   ["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
 	["milkshake-morango"]   = {["name"] = "milkshake-morango",     ["label"] = "Strawberry Milkshake",    ["weight"] = 1000, 	["type"] = "item", 	 ["image"] = "msmorango.png",   ["unique"] = false, 	["useable"] = true,   ["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
 	["milkshake-chocolate"] = {["name"] = "milkshake-chocolate",   ["label"] = "Chocolate Milkshake", 	  ["weight"] = 1000, 	["type"] = "item", 	 ["image"] = "mschocolate.png", ["unique"] = false, 	["useable"] = true,   ["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+
+
+    ['tunertablet']                          = {['name'] = 'tunertablet',                            ['label'] = 'Tablet',                    ['weight'] = 2000,         ['type'] = 'item',         ['image'] = 'tablet.png',                  ['unique'] = true,         ['useable'] = true,     ['shouldClose'] = true,      ['combinable'] = nil,   ['description'] = 'Tuner Tablet'},
+    ['tunerchecker']                          = {['name'] = 'tunerchecker',                            ['label'] = 'Tablet',                    ['weight'] = 2000,         ['type'] = 'item',         ['image'] = 'tablet.png',                  ['unique'] = true,         ['useable'] = true,     ['shouldClose'] = true,      ['combinable'] = nil,   ['description'] = 'Tuner Tablet'},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

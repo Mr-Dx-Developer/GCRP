@@ -151,7 +151,7 @@ Config.startCinematic = 5              -- Cinematic Cams being AFK in the garage
 Config.PlayerToVehicleAnimation = true -- Enable or disable the animation of the player entering the car
 Config.SetEntityAlpha = true           -- When he saves the car, he makes animations and degrades the car
 Config.GarageSync = true               -- This option will make the garages share the same number of slots and players will see all the cars inside their shell
-Config.PersistentVehicles = true       -- Configure if the vehicles are persistent on the map or not
+Config.PersistentVehicles = false       -- Configure if the vehicles are persistent on the map or not
 Config.PersistentVehiclesLocked = true -- When persistent vehicles appear, will they be closed or open?
 
 Config.RepairKit = false               -- Enable or disable the 'repairkit' item
