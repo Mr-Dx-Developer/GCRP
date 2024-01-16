@@ -1707,7 +1707,7 @@ app.use(store).mount("#app");
 
 const resourceName = window.GetParentResourceName
   ? window.GetParentResourceName()
-  : "m-carplay";
+  : "dx-carplay";
 
 window.postNUI = async (name, data) => {
   try {
