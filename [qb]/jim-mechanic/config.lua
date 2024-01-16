@@ -19,10 +19,10 @@ Config = {
 	Main = { -- Main variables
 		isVehicleOwned = false, 	-- Keep this true if you only want changes to be made to owned vehicles
 		ItemRequiresJob = true, 	-- Do the specfic items require the mechanic job?
-		JobLocationRequired = false, -- Are the mecahanics locked to specific locations?
+		JobLocationRequired = true, -- Are the mecahanics locked to specific locations?
 		LocationBlips = true, 		-- Enable to grab the blip locations from locations.lua
-		CosmeticsJob = false, 		-- Do vehicle cosmetics require a mechanic job role?
-		JobRoles = { "mechanic", }, -- These are the job roles who can use items if RequiresJob is enabled.
+		CosmeticsJob = true, 		-- Do vehicle cosmetics require a mechanic job role?
+		JobRoles = { "mechanic","mechanictuner" }, -- These are the job roles who can use items if RequiresJob is enabled.
 									-- Add your extra job roles here or just leave as "mechanic"
 									-- Example-- --JobRoles = { "mechanic", "tuner" }
 	},
@@ -52,9 +52,9 @@ Config = {
 	},
 	Harness = {
 		JobOnly = false,			-- Only allow job roles to add a Harness to vehicle
-		HarnessControl = false,		-- Enable harness AND seatbelt features of the script, requires edits to smallresources and hud scripts
-		seatbeltEasyLeave = true,	-- if true players can exit vehicled before removing seatbelt
-		harnessEasyLeave = true,	-- if true players can exit vehicled before removing harness
+		HarnessControl = true,		-- Enable harness AND seatbelt features of the script, requires edits to smallresources and hud scripts
+		seatbeltEasyLeave = false,	-- if true players can exit vehicled before removing seatbelt
+		harnessEasyLeave = false,	-- if true players can exit vehicled before removing harness
 
 		progOn = true,				-- if true add a progressBar to buckle harness
 		progOff = true,				-- if true add a progressBar to unbuckle harness
@@ -68,9 +68,9 @@ Config = {
 	},
 	vehFailure = { 				-- Enabling these will make allow you to no longer need qb-vehiclefailure
 									-- ONLY ENABLE IF NOT USING VEHICLEFAILURE OR ANOTHER SCRIPT TO REPLACE IT
-		repairKits = false,			-- Takes control of repairkit and advancedrepairkit
-		fixCommand = false,			-- takes control of /fix command
-		PreventRoll = false,			-- takes control of preventing rolling your car back over when upside down
+		repairKits = true,			-- Takes control of repairkit and advancedrepairkit
+		fixCommand = true,			-- takes control of /fix command
+		PreventRoll = true,			-- takes control of preventing rolling your car back over when upside down
 	},
 	CarLifts = {
 		Enable = true,					-- Disable this if using a different carlift script
@@ -124,9 +124,9 @@ Config = {
 		hardCam = true,				-- Enable this to make preview make hard camera locations for previewing
 
 		PreviewPhone = true, 		-- Enable this is preview menu generates an email, False if you want to give an item
-		PreviewJob = false, 		-- Enable this if you want /preview to require a Job Role
+		PreviewJob = true, 		-- Enable this if you want /preview to require a Job Role
 		PreviewLocation = true, 	-- Enable this if you want to lock /preview to a job location (ignored if LocationRequired is false)
-		PhoneMail = "qb", 			-- If PreviewPhone is true, change this to choose the correct phone system
+		PhoneMail = "lb", 			-- If PreviewPhone is true, change this to choose the correct phone system
 									-- "qb" = use qb-phone for emails
 									-- "gks" = use gks-phone for emails
 									-- "qs" = use qs-smartphone for emails
@@ -146,7 +146,7 @@ Config = {
 	},
 	StoreCraft = {
 		Crafting = true, 			-- Set true to turn on crafting features
-		StashCraft = false,  		-- Set true to grab materials from mechaincs stash for crafting
+		StashCraft = true,  		-- Set true to grab materials from mechaincs stash for crafting
 		Stores = true, 				-- Set true to turn on shop store features
 
 		StashCraftTimeout = 15000, 	-- This controls the timeout of how long a stash is kept in the clients cache
@@ -176,7 +176,7 @@ Config = {
 		},
 	},
 	Emergency = {
-		requireDutyCheck = false,	-- if true, when a mechanic is online, the repair button won't show
+		requireDutyCheck = true,	-- if true, when a mechanic is online, the repair button won't show
 									-- if false, the repair option will always be available
 		Jobs = {
 			["police"] = 0, -- Job and Job Grade
@@ -185,7 +185,7 @@ Config = {
 		},
 		LockEmergency = true,  -- Enable this to lock make only "Emergency" (Class 18) vehicles to be used with the bench
 		Locations = {
-			{ coords = vec4(451.05, -973.19, 25.7, 180.0), prop = true, }, -- MRPD UNDERGROUND PARKING
+			{ coords = vec4(457.374, -975.157, 25.706, 92.876), prop = true, }, -- MRPD UNDERGROUND PARKING
 			{ coords = vec4(342.51, -570.98, 28.8, 70.0), prop = true, }, -- PILL BOX GARAGE
 		},
 		CosmeticTable = { 			-- This controls what will appear in the emergency mech bench, "false" to hide it
@@ -269,7 +269,7 @@ Config = {
 
 	},
 	NOS = { -- NOS STUF
-		JobOnly = false,			-- Only allow job roles to change NOS
+		JobOnly = true,			-- Only allow job roles to change NOS
 		NosRefillCharge = 1000, 	-- amount in dollars required to refill a nos can
 
 		NosBoostPower = { 			-- NOS boost acceleration power
@@ -297,7 +297,7 @@ Config = {
 
 		EnableScreen = true, 		-- True adds screen effects while boosting
 
-		skillcheck = "qb-skillbar", -- When adding Nos to a vehicle there are three script options available
+		skillcheck = "ps-ui", -- When adding Nos to a vehicle there are three script options available
 									-- "qb-skillbar" "qb-lock" "ps-ui" "ox_lib"
 
 		explosiveFail = true, 		-- Better not fail that skill check. (1 in 10 chance of explosion)
