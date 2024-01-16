@@ -446,12 +446,6 @@ function FormatItemInfo(itemData) {
             $(".item-info-description").html(
                 "<p>" + itemData.info.uses + " uses left.</p>"
             );
-        } else if (itemData.name == "mechboard") {
-            $(".item-info-title").html("<p>" + itemData.label + "</p>");
-            $(".item-info-description").html(
-                "<p>" + itemData.info.vehplate + "</p>" +
-                "<p>" + itemData.info.veh + "</p>"
-            );
         } else if (itemData.type == "weapon") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             if (itemData.info.ammo == undefined) {
@@ -2517,11 +2511,9 @@ var requiredItemOpen = false;
             });
         }
 
-        $("#player-inv-weight").html(
-            "⚖️: " +
-            (totalWeight / 1000).toFixed(2) +
-            " / " +
-            (data.maxweight / 1000).toFixed(2)
+        $("#player-inv-label").html(
+            // "Player Inventory: " + (totalWeight / 1000).toFixed(2) + " / " + (data.maxweight / 1000).toFixed(2)
+            `Player Inventory: ${(totalWeight / 1000).toFixed(2)} / ${(data.maxweight / 1000).toFixed(2)}`
         );
         playerMaxWeight = data.maxweight;
         if (data.other != null) {
@@ -2544,11 +2536,12 @@ var requiredItemOpen = false;
             otherLabel = data.other.label;
         } else {
             $("#other-inv-label").html(Inventory.droplabel);
-            $("#other-inv-weight").html(
-                "⚖️: " +
-                (totalWeightOther / 1000).toFixed(2) +
-                " / " +
-                (Inventory.dropmaxweight / 1000).toFixed(2)
+            $("#other-inv-label").html(
+                // "⚖️: " +
+                // (totalWeightOther / 1000).toFixed(2) +
+                // " / " +
+                // (Inventory.dropmaxweight / 1000).toFixed(2)
+                `Drop: ${(totalWeightOther / 1000).toFixed(2)} / ${(Inventory.dropmaxweight / 1000).toFixed(2)}`
             );
             otherMaxWeight = Inventory.dropmaxweight;
             otherLabel = Inventory.droplabel;
