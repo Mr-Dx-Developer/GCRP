@@ -695,7 +695,7 @@ if Config.Harness.HarnessControl == true then
 					seatbeltOn = not seatbeltOn
 					if seatbeltOn then SeatBeltLoop() end
 					--Drop your hud seatbelt event here:
-					--TriggerEvent("seatbelt:client:ToggleSeatbelt")
+					TriggerEvent("seatbelt:client:ToggleSeatbelt")
 					if GetResourceState("esx_hud"):find("start") then
 						exports["esx_hud"]:SeatbeltState(seatbeltOn)
 					end
