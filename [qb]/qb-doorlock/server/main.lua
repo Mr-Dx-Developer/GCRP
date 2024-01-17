@@ -323,3 +323,23 @@ end, Config.CommandPermission)
 QBCore.Commands.Add('doordebug', Lang:t("general.doordebug_command_description"), {}, false, function(source)
 	TriggerClientEvent('qb-doorlock:client:ToggleDoorDebug', source)
 end, Config.CommandPermission)
+
+
+RegisterNetEvent('qb-doorlock:server:ToggleHotel', function(doorID)
+	local playerId = sentSource or source
+	local Player = QBCore.Functions.GetPlayer(playerId)
+
+	if Config.DoorList[doorID].locked then
+		Config.DoorList[doorID].locked = false
+		TriggerClientEvent('qb-doorlock:client:setState', -1, playerId, doorID, false, src or false, true, true)
+	else
+		Config.DoorList[doorID].locked = true
+		TriggerClientEvent('qb-doorlock:client:setState', -1, playerId, doorID, true, src or false, true, true)
+	end
+
+	SetTimeout(30000, function()
+		if Config.DoorList[doorID].locked then return end
+		Config.DoorList[doorID].locked = true
+		TriggerClientEvent('qb-doorlock:client:setState', -1, playerId, doorID, true, src or false, false, false)
+	end)
+end)

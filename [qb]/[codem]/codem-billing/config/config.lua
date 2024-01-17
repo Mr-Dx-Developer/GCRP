@@ -66,7 +66,7 @@ Config.Bills = {
 
 Config.UsableItem = "" -- leave blank or set to false to disable item name | item control for open menu
 Config.EnableRegisterKeyMapping = true
-Config.EnableRegisterKeyMappingKey = "Y"
+Config.EnableRegisterKeyMappingKey = "F7"
 
 --[[
     if set to true adjust the keys down below by referencing this url

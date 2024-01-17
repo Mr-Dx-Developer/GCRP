@@ -417,6 +417,9 @@ function FormatItemInfo(itemData) {
                 itemData.info.type +
                 "</span></p>"
             );
+        } else if (itemData.name == "hotel_card") {
+            $(".item-info-title").html('<p>Room Access</p>')
+            $(".item-info-description").html('<p><strong>Room Number: </strong><span>' + itemData.info.roomnumber + '</span></p><strong>Expires: </strong><span>' + itemData.info.date + '</span></p>');    
         } else if (itemData.name == "weaponlicense") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(

@@ -1234,7 +1234,7 @@ QBShared.Items = {
 
 
 
-    
+    ["hotel_card"] = {["name"] = "hotel_card",["label"] = "Room Access",["weight"] = 5000,["type"] = "item",["image"] = "hotel_card.png",["unique"] = true,["useable"] = true,["shouldClose"] = true,["combinable"] = nil,["description"] = "Hotel Room Access"},
 
 
 
