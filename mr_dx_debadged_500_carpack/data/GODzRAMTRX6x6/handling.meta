@@ -1,31 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>  <!---->
-
+<?xml version="1.0" encoding="UTF-8"?>
 <CHandlingDataMgr>
   <HandlingData>
 	<Item type="CHandlingData">
-      <handlingName>GODzRAMTRX6x6</handlingName>     <!--Vehicle Spawn Code Here-->
-      <fMass value="1800.0" />
-			<fInitialDragCoeff value="6.000" />
-			<fDownforceModifier value="2.0" />
+      <handlingName>GODzRAMTRX6x6</handlingName>     
+      <fMass value="2000.000000" />
+			<fInitialDragCoeff value="8.00000" />
+			<fDownforceModifier value="1.000000" />
 			<fPercentSubmerged value="85.0" />
 			<vecCentreOfMassOffset x="0.0" y="0.0" z="-0.0" />
 			<vecInertiaMultiplier x="1.0" y="1.3999999761581" z="1.7999999523163" />
 			<fDriveBiasFront value="0.0" />
 			<nInitialDriveGears value="6" />
-			<fInitialDriveForce value="0.55" />
-			<fDriveInertia value="0.35" />
-			<fClutchChangeRateScaleUpShift value="2.5" />
-			<fClutchChangeRateScaleDownShift value="2.5" />
-			<fInitialDriveMaxFlatVel value="230.0" />
-			<fBrakeForce value="2.5" />
+			<fInitialDriveForce value="0.22000000" />
+			<fDriveInertia value="1.0000000" />
+			<fClutchChangeRateScaleUpShift value="3.000000" />
+			<fClutchChangeRateScaleDownShift value="3.000000" />
+			<fInitialDriveMaxFlatVel value="140.000000" />
+			<fBrakeForce value="1.000000" />
 			<fBrakeBiasFront value="0.525" />
 			<fHandBrakeForce value="2.0" />
-			<fSteeringLock value="45.0" />
-			<fTractionCurveMax value="5.5" />
-			<fTractionCurveMin value="5.7" />
-			<fTractionCurveLateral value="25.5" />
+			<fSteeringLock value="40.000000" />
+			<fTractionCurveMax value="2.600000" />
+			<fTractionCurveMin value="2.000000" />
+			<fTractionCurveLateral value="22.500000" />
 			<fTractionSpringDeltaMax value="0.15" />
-			<fLowSpeedTractionLossMult value="0.5" />
+			<fLowSpeedTractionLossMult value="1.000000" />
 			<fCamberStiffnesss value="0.0" />
 			<fTractionBiasFront value="0.485" />
 			<fTractionLossMult value="0.4" />
@@ -40,10 +39,10 @@
 			<fAntiRollBarBiasFront value="0.66" />
 			<fRollCentreHeightFront value="1.0" />
 			<fRollCentreHeightRear value="1.02" />
-			<fCollisionDamageMult value="0.4" />
-			<fWeaponDamageMult value="1.0" />
-			<fDeformationDamageMult value="0.4" />
-			<fEngineDamageMult value="1.0" />
+			<fCollisionDamageMult value="0.700000" />
+			<fWeaponDamageMult value="1.000000" />
+			<fDeformationDamageMult value="0.700000" />
+			<fEngineDamageMult value="1.500000" />
 			<fPetrolTankVolume value="65.0" />
 			<fOilVolume value="5.0" />
 			<fSeatOffsetDistX value="0.125" />
