@@ -1,7 +1,5 @@
-Loc = Loc or {}
-
 Loc["ro"] = {
-	common = { --commonly used strings
+	["common"] = { --commonly used strings
 		owned = "Nu detii acest vehicul, nu il poti modifca",
 		close = "Inchide",
 		ret = "Intoarce",
@@ -24,11 +22,11 @@ Loc["ro"] = {
 		closer = "Move closer to the headlights",
 		harness = "Attaching Racing Harness..",
 	},
-	tires = {
+	["tires"] = {
 		swap = "Cauciucurile anti glont au fost schimbate!",
 		swap2 = "Cauciucurile de drift au fost schimbate!",
 	},
-	xenons = {
+	["xenons"] = {
 		notinstall = "Xenoanele nu sunt montate",
 		--Menus
 		neonheader1 = "Contol faruri",
@@ -48,15 +46,15 @@ Loc["ro"] = {
 		xenontxt = "Ajusteaza culoarea farurilor",
 	},
 	--Cosmetic Items
-	bumpers = {
+	["bumpers"] = {
 		menugrille = "Grilaj",
 		menuFBumper = "Bara fata",
 		menuBBumper = "Bara spate",
 	},
-	exhaust = {
+	["exhaust"] = {
 		menuheader = "Modificari ale tobei de esapament ",
 	},
-	exterior = {
+	["exterior"] = {
 		stockMod = "Exterior stock..",
 
 		label1 = "Trim A",
@@ -70,13 +68,13 @@ Loc["ro"] = {
 		label9 = "Rezervor de benzina",
 		label10 = "Aerials",
 	},
-	hood = {
+	["hood"] = {
 		menuheader = "Modificari capota",
 	},
-	horns = {
+	["horns"] = {
 		menuheader = "Modificari claxon",
 	},
-	interior = {
+	["interior"] = {
 		label1 = "Bare de sustinere",
 		label2 = "Ornamente",
 		label3 = "Panou",
@@ -87,12 +85,12 @@ Loc["ro"] = {
 		label8 = "Placute",
 		label9 = "Boxe",
 	},
-	livery = {
+	["livery"] = {
 		oldMod = "Vechi",
 		menuheader = "Modificari livery",
 		menuoldheader = " Roof Livery Modification",
 	},
-	nos = {
+	["nos"] = {
 		notinstalled = "NOS nu este montat",
 
 		nosColour = "NOS Purge Colour",
@@ -101,7 +99,7 @@ Loc["ro"] = {
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	paint = {
+	["paint"] = {
 		primary = "Culoare primara",
 		secondary = "Culoare secundara",
 		pearl = "Perla",
@@ -117,7 +115,7 @@ Loc["ro"] = {
 
 		menuheader = "Revopsire",
 	},
-	paintrgb = {
+	["paintrgb"] = {
 		select = "Selecteaza",
 		finish = "Termina selectarea",
 		error = "Hex Code input needs to be 6 characters",
@@ -126,12 +124,12 @@ Loc["ro"] = {
 		hexP = "HEX Picker",
 		rgbP = "RGB Picker",
 	},
-	plates = {
+	["plates"] = {
 		label1 = "Rama Placute",
 		label2 = "Vanity Plates",
 		label3 = "Placute custom",
 	},
-	rims = {
+	["rims"] = {
 		menuheader = "Modificari jante",
 
 		label1 = "Sport",
@@ -152,24 +150,24 @@ Loc["ro"] = {
 
 		labelcustom = "Custom Rims",
 	},
-	rollcage = {
+	["rollcage"] = {
 		menuheader = " Roll Cage Modification",
 	},
-	roof = {
+	["roof"] = {
 		menuheader = "Modificari plafon",
 	},
-	seat = {
+	["seat"] = {
 		menuheader = "Modificari sacune",
 	},
-	skirts = {
+	["skirts"] = {
 		menuskirt = "Praguri",
 		menuRF = "Fender drept",
 		menuLF = "Fender stang",
 	},
-	spoilers = {
+	["spoilers"] = {
 		menuheader = "Modificari spoiler",
 	},
-	smoke = {
+	["smoke"] = {
 		already = "Culoarea e deja aplicata",
 		menuheader = "Modificari culoare cauciucuri",
 
@@ -190,10 +188,10 @@ Loc["ro"] = {
 		purple = "Mov",
 		blacklight = "Blacklight",
 	},
-	windows = {
+	["windows"] = {
 		menuheader = "Modificari folie geamuri",
 	},
-	stores = {
+	["stores"] = {
 		browse = "Cauta in magazin",
 		tools = "Scule mecanic",
 		perform = "Upgradeuri performanta",
@@ -201,7 +199,7 @@ Loc["ro"] = {
 		repairs = "Repair Items",
 		nos = "NOS Items",
 	},
-	crafting = {
+	["crafting"] = {
 		menuheader = "Crafting mecanici",
 		toolheader = "Scule mecanici",
 		repairheader = "Repair Items",
@@ -210,10 +208,10 @@ Loc["ro"] = {
 		nosheader = "NOS Items",
 		numitems = " Obiecte", --for menu. eg. "11 items"
 	},
-	payments = {
+	["payments"] = {
 		charge = "Scoate factura",
 	},
-	check = {
+	["check"] = {
 		plate = "Placuta",
 		value = "Valoare",
 		unavail = "❌ Nu e valoare",
@@ -274,7 +272,7 @@ Loc["ro"] = {
 		label53 = "Livery - [ ",
 		label58 = "NOS:",
 	},
-	repair = {
+	["repair"] = {
 		browse = "Cauta in stash",
 		materials = "Nu ai destule materiale",
 		checkeng = "Verifica daune motor..",
@@ -304,7 +302,7 @@ Loc["ro"] = {
 		ductfull = "Prea multa banda izoliera ,dao dracu ca nu-i dacie",
 		nocar = "Nu exista nici un vehicul in apropiere",
 	},
-	police = {
+	["police"] = {
 		header = "Modification Station",
 		userepair = "Foloseste statia de reparare",
 		repair = "Repara",
@@ -318,18 +316,18 @@ Loc["ro"] = {
 		complete = "Repair Complete",
 		restrict = "Only for Emergency Vehicles",
 	},
-	manual = {
+	["manual"] = {
 		tyres = "Replacing Damaged Tyres",
 		window = "Removing Damaged Windows",
 		doors = "Repairing Doors",
 	},
-	carwax = {
+	["carwax"] = {
 		head1 = "Clean Vehicle",
 		head2 = "Clean and Wax",
 		head3 = "Clean and Premium Wax",
 		head4 = "Clean and Ultimate Wax",
 	},
-	extras = {
+	["extras"] = {
 		clean = "Spala vehicul",
 		doorerr = "Eroare usa",
 		locked = "Usa masinii e incuiata",
@@ -342,7 +340,7 @@ Loc["ro"] = {
 		notseat = "Acest scaun nu e disponibil..",
 		harness = "Ai hamul pus..",
 	},
-	functions = {
+	["functions"] = {
 		distance = "Distanta: ",
 		inCar = "Nu poti face asta din vehicul",
 		outCar = "Nu poti face asta din afara vehiculului",
@@ -352,7 +350,7 @@ Loc["ro"] = {
 		mechanic = "Ai nevoie de un mecanic sa te ajute cu asta",
 		checking = "Checking Stash.."
 	},
-	servfunction = {
+	["servfunction"] = {
 		checkdamage = "Verifica vehicul de daune",
 		checkmods = "Verifica masina de moduri",
 		flipvehicle = "Intoarce cel mai apropiat vehicul",
@@ -364,11 +362,11 @@ Loc["ro"] = {
 		door = "Inchide/deschide portiera [0-3]",
 		seat = "Schimba scaunul [-1 to 10]",
 	},
-	previews = {
+	["previews"] = {
 		changes = "Numar de modificari: ",
 		previewing = "Can't do this while previewing",
 	},
-	stancer = {
+	["stancer"] = {
 		wheel_lf = "Left Front Wheel",
 		wheel_rf = "Right Front Wheel",
 		wheel_lr = "Left Rear Wheel",

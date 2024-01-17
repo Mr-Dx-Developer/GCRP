@@ -16,7 +16,7 @@ Config.Locations[#Config.Locations+1] = { --[[ GABZ ALTA STREET BENNYS ]]--
 		vec2(-177.41833496094, -1311.566772461),
 		vec2(-177.5919342041, -1351.1942138672)
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(-226.48, -1316.17, 31.27, 0.0), w = 3.6, d = 0.8, },
 	},
@@ -33,8 +33,8 @@ Config.Locations[#Config.Locations+1] = { --[[ GABZ ALTA STREET BENNYS ]]--
 		{ coords = vec4(-200.28, -1311.62, 31.3, 0.0), prop = true, },
 	},
 	carLift = {
-        { coords = vec4(-201.85, -1319.65, 31.3, 19.36), useMLOLift = true },
-        { coords = vec4(-221.27, -1318.71, 31.3, 352.67), useMLOLift = true },
+        { coords = vec4(-201.85, -1319.65, 31.3, 19.36), use = true },
+        { coords = vec4(-221.27, -1318.71, 31.3, 352.67), use = true },
     },
 	garage = {
 		spawn = vec4(-182.74, -1317.61, 30.63, 357.23),
@@ -74,7 +74,7 @@ Config.Locations[#Config.Locations+1] = { --[[ LS CUSTOMS IN CITY ]]--
 		vec2(-309.05, -128.79),
 		vec2(-324.44, -148.96)
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(-346.14, -130.52, 39.01, 340.0), w = 4.0, d = 1.0, },
 	},
@@ -130,7 +130,7 @@ Config.Locations[#Config.Locations+1] = { --[[ HAYES AUTOS ]]--
 		vec2(479.38552856445, -1330.6906738281),
 		vec2(469.89437866211, -1309.5773925781)
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(478.84, -1326.94, 29.21, 27.0), w = 1.6, d = 0.6, },
 	},
@@ -187,7 +187,7 @@ Config.Locations[#Config.Locations+1] = { -- [[LS CUSTOMS ROUTE 68]] --
 		vec2(1170.39, 2634.2),
 		vec2(1170.33, 2645.83)
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(1180.85, 2635.0, 37.75, 90.0), w = 1.6, d = 0.6 },
 	},
@@ -245,15 +245,15 @@ Config.Locations[#Config.Locations+1] = { --[[ BEEKERS GARAGE PALETO ]]--
 		vec2(95.51, 6619.93),
 		vec2(108.8, 6633.98)
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
-		{ coords = vec4(102.7, 6626.23, 31.79, 315.0), w = 1.6, d = 1.0, },
+		{ coords = vec4(105.98, 6628.84, 31.79, 315.0), w = 3.2, d = 1.0, },
 	},
 	store = {
 		{ coords = vec4(109.9, 6632.02, 31.79, 270.0), w = 0.6, d = 0.5, },
 	},
 	crafting = {
-		{ coords = vec4(105.98, 6628.84, 31.79, 315.0), w = 3.2, d = 1.0, },
+		{ coords = vec4(102.7, 6626.23, 31.79, 315.0), w = 1.6, d = 0.6, },
 	},
 	clockin = {
 		{ coords = vec4(100.61, 6623.84, 31.81, 74.0), prop = true, },
@@ -324,8 +324,8 @@ Config.Locations[#Config.Locations+1] = { --[[ GABZ LS TUNER SHOP ]]--
 		{ coords = vec4(121.17, -3044.73, 7.04, 268.96) },
 	},
 	carLift = {
-		{ coords = vec4(123.0, -3038.0, 7.04, 90.0), useMLOLift = true, },
-		{ coords = vec4(123.0, -3044.0, 7.04, 90.0), useMLOLift = true, },
+		{ coords = vec4(123.0, -3038.0, 7.04, 90.0), use = true, },
+		{ coords = vec4(123.0, -3044.0, 7.04, 90.0), use = true, },
 		{ coords = vector4(128.28, -3023.01, 7.04, 90.41) }
 	},
 	garage = {
@@ -366,7 +366,7 @@ Config.Locations[#Config.Locations+1] = { --[[ AIRPORT LS CUSTOMS ]]--
 		vec2(-1172.8060302734, -2014.1071777344),
 		vec2(-1147.3665771484, -1988.7028808594)
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(-1141.11, -2004.79, 13.18, 45.0), w = 1.6, d = 0.6, },
 	},
@@ -399,9 +399,6 @@ Config.Locations[#Config.Locations+1] = { --[[ AIRPORT LS CUSTOMS ]]--
 		Vehicle = { "Compacts", "Sedans", "SUVs", "Coupes", "Muscle", "Sports Classics", "Sports", "Super", "Motorcycles", "Off-road", "Industrial", "Utility", "Vans", "Cycles", "Service", "Emergency", "Commercial", },
 		Allow = { "tools", "cosmetics", "repairs", "nos", "perform" },
 	},
-	nosrefill = {
-        { coords = vec4(-1154.25, -1997.88, 13.18, 215.84) }
-    },
 	blip = {
 		coords = vec3(-1150.68, -2002.48, 13.18),
 		label = "Los Santos Customs",
@@ -427,7 +424,7 @@ Config.Locations[#Config.Locations+1] = { --[[ POPULAR STREET LS CUSTOMS ]]--
 		vec2(770.71307373047, -1113.0911865234),
 		vec2(741.73657226562, -1108.9860839844)
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(736.25, -1063.52, 22.17, 87.0), w = 3.2, d = 0.6, },
 	},
@@ -485,7 +482,7 @@ Config.Locations[#Config.Locations+1] = { --[[ OTTOS AUTOS ]]--
 		vec2(837.53460693359, -830.51928710938),
 		vec2(823.86810302734, -830.36676025391)
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(836.97, -814.73, 26.33, 90.0), w = 0.6, d = 3.6, },
 	},
@@ -544,7 +541,7 @@ Config.Locations[#Config.Locations+1] = { --[[ HAYES AUTOS ]]--
 		vec2(-1400.1343994141, -451.71572875977),
 		vec2(-1414.7999267578, -427.64019775391)
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(-1414.94, -452.35, 35.91, 302.0), w = 4.0, d = 1.0, },
 	},
@@ -600,7 +597,7 @@ Config.Locations[#Config.Locations+1] = { --[[ BENNYS NEXT TO PDM ]]--
 		vec2(-20.210899353027, -1079.1593017578),
 		vec2(-6.8900542259216, -1038.0417480469),
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(-40.9, -1056.62, 28.4, 70.0), w = 3.6, d = 0.6 },
 	},
@@ -668,7 +665,7 @@ Config.Locations[#Config.Locations+1] = { --[[ LA MESA IMPORT SHOP ]]--
 		vec2(962.56, -955.52),
 		vec2(964.37, -983.87),
 	},
-	autoClock = { enter = true, exit = true, },
+	autoClock = { enter = false, exit = false, },
 	stash = {
 		{ coords = vec4(948.48, -972.38, 39.5, 5.0), w = 1.5, d = 1.0, },
 	},
@@ -958,7 +955,7 @@ Config.Locations[#Config.Locations+1] = { --[[ RFC LS CUSTOMS ]]--
         vec2(-334.67007446289, -113.93590545654),
         vec2(-346.6354675293, -109.56227111816)
     },
-    autoClock = { enter = true, exit = true, },
+    autoClock = { enter = false, exit = false, },
     stash = {
         { coords = vec4(-329.54, -112.39, 39.0-0.4, 340.92), w = 0.6, d = 3.6, },
         { coords = vec4(-322.47, -114.78, 38.95-0.4, 343.93), w = 0.6, d = 3.6, },
@@ -978,10 +975,10 @@ Config.Locations[#Config.Locations+1] = { --[[ RFC LS CUSTOMS ]]--
         { coords = vec4(-347.52, -130.47, 41.9, 250), prop = false, },
     },
     carLift = {
-        -- { coords = vec4(-334.65, -136.87, 39.00, 340), useMLOLift = false }, -- Bay 4 [GTA Prop]
-        { coords = vec4(-324.56, -155.07, 39.00, 250), useMLOLift = true }, -- Bay 3 [GTA Prop]
-        { coords = vec4(-320.22, -144.26, 39.00, 250), useMLOLift = true }, -- Bay 2 [GTA Prop]
-        { coords = vec4(-316.65, -133.79, 39.00, 250), useMLOLift = true }, -- Bay 1 [GTA Prop]
+        -- { coords = vec4(-334.65, -136.87, 39.00, 340), use = false }, -- Bay 4 [GTA Prop]
+        { coords = vec4(-324.56, -155.07, 39.00, 250), use = true }, -- Bay 3 [GTA Prop]
+        { coords = vec4(-320.22, -144.26, 39.00, 250), use = true }, -- Bay 2 [GTA Prop]
+        { coords = vec4(-316.65, -133.79, 39.00, 250), use = true }, -- Bay 1 [GTA Prop]
     },
     manualRepair = {
         { coords = vector4(-337.34, -132.77, 38.98, 250), prop = false, },

@@ -1,3 +1,5 @@
+local toolbox = nil
+
 RegisterNetEvent('jim-mechanic:client:Menu', function(editable)
 	local ped = PlayerPedId()
 	emptyHands(PlayerPedId())
@@ -10,20 +12,20 @@ RegisterNetEvent('jim-mechanic:client:Menu', function(editable)
 	local possMods = checkHSWMods(vehicle)
 	if editable then
 		if not enforceRestriction("perform") then return end
-		if not enforceClassRestriction(searchCar(vehicle).class) then return end
+		if not enforceClassRestriction(getClass(vehicle)) then return end
 		if not jobChecks() then return end
 		if not locationChecks() then return end
+		loadAnimDict("anim@heists@narcotics@trash") playAnim("anim@heists@narcotics@trash", "idle", 6000, 8)
+		if not Config.Overrides.disableToolboxProp then
+			if not toolbox then toolbox = makeProp({prop = "v_ind_cs_toolbox4", coords = vec4(0,0,0,0)}, 1, 1) else emptyHands(ped) end
+			AttachEntityToEntity(toolbox, ped, GetPedBoneIndex(ped, 57005),0.3, -0.04, 0.0, 20.0, 245.0, 95.0, true, true, false, true, 1, true)
+			CreateThread(function() Wait(8000)	DeleteEntity(toolbox) toolbox = nil unloadAnimDict("anim@heists@narcotics@trash") end)
+		end
 	end
 	local plate = trim(GetVehicleNumberPlateText(vehicle))
-	GetVehicleStatus(VehToNet(vehicle))
+	GetVehicleStatus(plate)
 	local CheckMenu = {}
-	local headertxt = Loc[Config.Lan]["check"].plate
-	.." ["..trim(GetVehicleNumberPlateText(vehicle))
-	.."]"..br..(isOx() and br or "")
-	..Loc[Config.Lan]["check"].value
-	..cv(searchCar(vehicle).price)
-	..br..(isOx() and br or "")
-	..searchDist(vehicle)
+	local headertxt = Loc[Config.Lan]["check"].plate.." ["..trim(GetVehicleNumberPlateText(vehicle)).."]"..br..(isOx() and br or "")..Loc[Config.Lan]["check"].value..searchPrice(vehicle)..br..(isOx() and br or "")..searchDist(vehicle)
 
 	local CheckTable = {
 		[1] = { lock = true, part = "nos", head = Loc[Config.Lan]["check"].label58.." "..Loc[Config.Lan]["common"].notinstall, hide = true },
@@ -43,105 +45,101 @@ RegisterNetEvent('jim-mechanic:client:Menu', function(editable)
 	--NOS--
 	if VehicleNitrous[plate] and not Config.Overrides.disableNos then CheckTable[1].lock = false
 		CheckTable[1].head = Loc[Config.Lan]["check"].label58.." "..math.floor(VehicleNitrous[plate].level).."%"
-		CheckTable[1].icon = invImg(CheckTable[1].part)
+		CheckTable[1].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[1].part].image
 		CheckTable[1].progress = math.floor(VehicleNitrous[plate].level)
 	end
 	--Engine--
 	if possMods[11] == 0 then CheckTable[2].head = Loc[Config.Lan]["check"].label1.." "..Loc[Config.Lan]["check"].unavail CheckTable[2].desc = nil end
 	if GetVehicleMod(vehicle, 11) ~= -1 then local lvl = (GetVehicleMod(vehicle, 11)+1) CheckTable[2].lock = false
-		CheckTable[2].desc = Items[CheckTable[2].part..lvl].label..": [LVL "..lvl.." / "..possMods[11].."]"
-		CheckTable[2].icon = invImg(CheckTable[2].part..lvl)
+		CheckTable[2].desc = QBCore.Shared.Items[CheckTable[2].part..lvl].label..": [LVL "..lvl.." / "..possMods[11].."]"
+		CheckTable[2].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[2].part..lvl].image
 	end
 	--Brakes--
 	if possMods[12] == 0 then CheckTable[3].head = Loc[Config.Lan]["check"].label2.." "..Loc[Config.Lan]["check"].unavail CheckTable[3].desc = nil end
 	if GetVehicleMod(vehicle, 12) ~= -1 then local lvl = (GetVehicleMod(vehicle, 12)+1) CheckTable[3].lock = false
-		CheckTable[3].desc = Items[CheckTable[3].part..lvl].label..": [LVL "..lvl.." / "..possMods[12].."]"
-		CheckTable[3].icon = invImg(CheckTable[3].part..lvl)
+		CheckTable[3].desc = QBCore.Shared.Items[CheckTable[3].part..lvl].label..": [LVL "..lvl.." / "..possMods[12].."]"
+		CheckTable[3].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[3].part..lvl].image
 	end
 	--Suspension--
 	if possMods[15] == 0 then CheckTable[4].head = Loc[Config.Lan]["check"].label3.." "..Loc[Config.Lan]["check"].unavail CheckTable[4].desc = nil end
 	if GetVehicleMod(vehicle, 15) ~= -1 then local lvl = (GetVehicleMod(vehicle, 15)+1) CheckTable[4].lock = false
-		CheckTable[4].desc = Items[CheckTable[4].part..lvl].label..": [LVL "..lvl.." / "..possMods[15].."]"
-		CheckTable[4].icon = invImg(CheckTable[4].part..lvl)
+		CheckTable[4].desc = QBCore.Shared.Items[CheckTable[4].part..lvl].label..": [LVL "..lvl.." / "..possMods[15].."]"
+		CheckTable[4].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[4].part..lvl].image
 	end
 	--Transmission--
 	if possMods[13] == 0 then CheckTable[5].head = Loc[Config.Lan]["check"].label4.." "..Loc[Config.Lan]["check"].unavail CheckTable[5].desc = nil end
 	if GetVehicleMod(vehicle, 13) ~= -1 then local lvl = (GetVehicleMod(vehicle, 13)+1) CheckTable[5].lock = false
-		CheckTable[5].desc = Items[CheckTable[5].part..lvl].label.." [LVL "..lvl.." / "..possMods[13].."]"
-		CheckTable[5].icon = invImg(CheckTable[5].part..lvl)
+		CheckTable[5].desc = QBCore.Shared.Items[CheckTable[5].part..lvl].label.." [LVL "..lvl.." / "..possMods[13].."]"
+		CheckTable[5].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[5].part..lvl].image
 	end
 	--Armor--
 	if GetNumVehicleMods(vehicle, 16) == 0 then CheckTable[6].head = Loc[Config.Lan]["check"].label5.." "..Loc[Config.Lan]["check"].unavail CheckTable[6].desc = nil end
 	if (GetVehicleMod(vehicle, 16)+1) == GetNumVehicleMods(vehicle, 16) then CheckTable[6].lock = false
 		CheckTable[6].head = Loc[Config.Lan]["check"].label5
 		CheckTable[6].desc = Loc[Config.Lan]["common"].installed:gsub("!","")
-		CheckTable[6].icon = invImg(CheckTable[6].part)
+		CheckTable[6].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[6].part].image
 	end
 	--Turbo--
 	if not IsToggleModOn(vehicle, 18) and GetNumVehicleMods(vehicle,11) ~= 0 then
 	elseif IsToggleModOn(vehicle, 18) then CheckTable[7].lock = false
 		CheckTable[7].head = Loc[Config.Lan]["check"].label6
 		CheckTable[7].desc = Loc[Config.Lan]["common"].installed:gsub("!","")
-		CheckTable[7].icon = invImg(CheckTable[7].part)
+		CheckTable[7].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[7].part].image
 	elseif GetNumVehicleMods(vehicle,11) == 0 then CheckTable[7].desc = Loc[Config.Lan]["check"].unavail end
 	--Xenons--
 	local custom, r, g, b = GetVehicleXenonLightsCustomColor(vehicle) local xenonColor = ""
 	if not IsToggleModOn(vehicle, 22) and GetNumVehicleMods(vehicle,11) ~= 0 then
 	elseif IsToggleModOn(vehicle, 22) then CheckTable[8].lock = false
 		CheckTable[8].head = Loc[Config.Lan]["check"].label7
-		CheckTable[8].icon = invImg(CheckTable[8].part)
+		CheckTable[8].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[8].part].image
 		if Config.System.Menu == "ox" then	CheckTable[8].desc = "R: "..r.." G: "..g.." B: "..b
 		else CheckTable[8].desc = "<span style='color:#"..rgbToHex(r, g, b):upper().."; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 0em 0em 0.5em white, 0em 0em 0.5em white'> ⯀ </span> R: "..r.." G: "..g.." B: "..b end
 	elseif GetNumVehicleMods(vehicle,11) == 0 then CheckTable[8].desc = Loc[Config.Lan]["check"].unavail  end
 	--Drift
 	if GetGameBuildNumber() >= 2372 then
-		if GetDriftTyresEnabled(vehicle) == 1 then CheckTable[9].head = Items[CheckTable[9].part].label
-			CheckTable[9].desc = Loc[Config.Lan]["common"].installed:gsub("!","")
-			CheckTable[9].icon = invImg(CheckTable[9].part)
-			CheckTable[9].lock = false
+		if GetDriftTyresEnabled(vehicle) == 1 then CheckTable[9].head = QBCore.Shared.Items[CheckTable[9].part].label
+			CheckTable[9].desc = Loc[Config.Lan]["common"].installed:gsub("!","") CheckTable[9].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[9].part].image CheckTable[9].lock = false
 		end
 	end
 	--BulletProof
-	if GetVehicleTyresCanBurst(vehicle) == false then CheckTable[10].head = Items[CheckTable[10].part].label
+	if GetVehicleTyresCanBurst(vehicle) == false then CheckTable[10].head = QBCore.Shared.Items[CheckTable[10].part].label
 		CheckTable[10].desc = Loc[Config.Lan]["common"].installed:gsub("!","")
-		CheckTable[10].icon = invImg(CheckTable[10].part)
+		CheckTable[10].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[10].part].image
 		CheckTable[10].lock = false
 	end
 	--Anitlag
-	if not IsThisModelABicycle(GetEntityModel(vehicle)) then
-		if VehicleStatus[plate].antiLag == 1 then CheckTable[11].head = Items[CheckTable[11].part].label
-			CheckTable[11].desc = Loc[Config.Lan]["common"].installed:gsub("!","")
-			CheckTable[11].icon = invImg(CheckTable[11].part) CheckTable[11].lock = false
-		end
-		--Harness
-		if VehicleStatus[plate].harness == 1 then CheckTable[12].head = Items[CheckTable[12].part].label
-			CheckTable[12].icon = invImg(CheckTable[12].part) CheckTable[12].lock = false end
-		if Config.Harness.HarnessControl ~= true then
-			CheckTable[12] = nil
-		end
-		if Config.Repairs.ExtraDamages == true then
-			CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].oillevel == 0, part = "oilp", head = "Oil Pump",
-				icon = VehicleStatus[plate].oillevel ~= 0 and invImg("oilp"..VehicleStatus[plate].oillevel) or "",
-				desc =  (VehicleStatus[plate].oillevel ~= 0 and Items["oilp"..VehicleStatus[plate].oillevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].oillevel.." / ".."3".."]"
-			}
-			CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].shaftlevel == 0, part = "drives", head = "Drive Shaft",
-				icon = VehicleStatus[plate].shaftlevel ~= 0 and invImg("drives"..VehicleStatus[plate].shaftlevel) or "",
-				desc =  (VehicleStatus[plate].shaftlevel ~= 0 and Items["drives"..VehicleStatus[plate].shaftlevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].shaftlevel.." / ".."3".."]"
-			}
-			CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].cylinderlevel == 0, part = "cylind", head = "Cylinder Head",
-				icon = VehicleStatus[plate].cylinderlevel ~= 0 and invImg("cylind"..VehicleStatus[plate].cylinderlevel) or "",
-				desc =  (VehicleStatus[plate].cylinderlevel ~= 0 and Items["cylind"..VehicleStatus[plate].cylinderlevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].cylinderlevel.." / ".."3".."]"
-			}
-			CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].cablelevel == 0, part = "cables", head = "Battery Cables",
-				icon = VehicleStatus[plate].cablelevel ~= 0 and invImg("cables"..VehicleStatus[plate].cablelevel) or "",
-				desc =  (VehicleStatus[plate].cablelevel ~= 0 and Items["cables"..VehicleStatus[plate].cablelevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].cablelevel.." / ".."3".."]"
-			}
-			CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].fuellevel == 0, part = "fueltank", head = "Fuel Tank",
-				icon = VehicleStatus[plate].fuellevel ~= 0 and invImg("fueltank"..VehicleStatus[plate].fuellevel) or "",
-				desc =  (VehicleStatus[plate].fuellevel ~= 0 and Items["fueltank"..VehicleStatus[plate].fuellevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].fuellevel.." / ".."3".."]"
-			}
-		end
+	if VehicleStatus[plate].antiLag == 1 then CheckTable[11].head = QBCore.Shared.Items[CheckTable[11].part].label
+		CheckTable[11].desc = Loc[Config.Lan]["common"].installed:gsub("!","") CheckTable[11].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[11].part].image CheckTable[11].lock = false
 	end
+	--Harness
+	if VehicleStatus[plate].harness == 1 then CheckTable[12].head = QBCore.Shared.Items[CheckTable[12].part].label
+		CheckTable[12].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[12].part].image CheckTable[12].lock = false end
+	if Config.Harness.HarnessControl ~= true then
+		CheckTable[12] = nil
+	end
+	if Config.Repairs.ExtraDamages == true then
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].oillevel == 0, part = "oilp", head = "Oil Pump",
+			icon = VehicleStatus[plate].oillevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["oilp"..VehicleStatus[plate].oillevel].image or "",
+			desc =  (VehicleStatus[plate].oillevel ~= 0 and QBCore.Shared.Items["oilp"..VehicleStatus[plate].oillevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].oillevel.." / ".."3".."]"
+		}
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].shaftlevel == 0, part = "drives", head = "Drive Shaft",
+			icon = VehicleStatus[plate].shaftlevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["drives"..VehicleStatus[plate].shaftlevel].image or "",
+			desc =  (VehicleStatus[plate].shaftlevel ~= 0 and QBCore.Shared.Items["drives"..VehicleStatus[plate].shaftlevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].shaftlevel.." / ".."3".."]"
+		}
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].cylinderlevel == 0, part = "cylind", head = "Cylinder Head",
+			icon = VehicleStatus[plate].cylinderlevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["cylind"..VehicleStatus[plate].cylinderlevel].image or "",
+			desc =  (VehicleStatus[plate].cylinderlevel ~= 0 and QBCore.Shared.Items["cylind"..VehicleStatus[plate].cylinderlevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].cylinderlevel.." / ".."3".."]"
+		}
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].cablelevel == 0, part = "cables", head = "Battery Cables",
+			icon = VehicleStatus[plate].cablelevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["cables"..VehicleStatus[plate].cablelevel].image or "",
+			desc =  (VehicleStatus[plate].cablelevel ~= 0 and QBCore.Shared.Items["cables"..VehicleStatus[plate].cablelevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].cablelevel.." / ".."3".."]"
+		}
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].fuellevel == 0, part = "fueltank", head = "Fuel Tank",
+			icon = VehicleStatus[plate].fuellevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["fueltank"..VehicleStatus[plate].fuellevel].image or "",
+			desc =  (VehicleStatus[plate].fuellevel ~= 0 and QBCore.Shared.Items["fueltank"..VehicleStatus[plate].fuellevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].fuellevel.." / ".."3".."]"
+		}
+	end
+
 	for k, v in ipairs(CheckTable) do
 		if v.hide and v.lock then else
 			local extra = false
@@ -163,8 +161,7 @@ RegisterNetEvent('jim-mechanic:client:Menu', function(editable)
 			onSelect = function() TriggerEvent("jim-mechanic:client:Menu:List") end,
 		}
 	end
-	propHoldCoolDown("toolbox")
-	openMenu(CheckMenu, { header = searchCar(vehicle).name, headertxt = headertxt, canClose = true, onExit = function() removePropHoldCoolDown() end, })
+	openMenu(CheckMenu, { header = searchCar(vehicle), headertxt = headertxt, canClose = true, onExit = function() end, })
 end)
 
 RegisterNetEvent('jim-mechanic:client:Menu:List', function() local Ped = PlayerPedId()
@@ -228,11 +225,10 @@ RegisterNetEvent('jim-mechanic:client:Menu:List', function() local Ped = PlayerP
 	for k in pairs(inTable) do if GetNumVehicleMods(vehicle, k) ~= 0 then mods = true break end end
 	if GetVehicleLiveryCount(vehicle) ~= -1 then mods = true end
 	if mods then
-		propHoldCoolDown("toolbox")
 		openMenu(CheckMenu,{
-			header = Loc[Config.Lan]["check"].label11..searchCar(vehicle).name,
+			header = Loc[Config.Lan]["check"].label11..searchCar(vehicle),
 			headertxt = Loc[Config.Lan]["check"].label10, canClose = true,
-			onExit = function() removePropHoldCoolDown() end,
+			onExit = function() end,
 		})
 	else
 		triggerNotify(nil, Loc[Config.Lan]["common"].noOptions, "error") return
@@ -241,32 +237,32 @@ end)
 
 RegisterNetEvent('jim-mechanic:client:Menu:Remove', function(data) local plate = trim(GetVehicleNumberPlateText(vehicle))
 	local orgTable = {
-		["brakes"] = { icon = invImg((GetVehicleMod(data.vehicle, 12)+1) > 0 and "brakes"..(GetVehicleMod(data.vehicle, 12)+1) or ""),
-			head = ((GetVehicleMod(data.vehicle, 12)+1) > 0 and Items["brakes"..(GetVehicleMod(data.vehicle, 12)+1)].label or ""), event = "applyBrakes", },
-		["engine"] = { icon = invImg((GetVehicleMod(data.vehicle, 11)+1) > 0 and "engine"..(GetVehicleMod(data.vehicle, 11)+1) or ""),
-			head = ((GetVehicleMod(data.vehicle, 11)+1) > 0 and Items["engine"..(GetVehicleMod(data.vehicle, 11)+1)].label or ""), event = "applyEngine" },
-		["suspension"] = { icon = invImg((GetVehicleMod(data.vehicle, 15)+1) > 0 and "suspension"..(GetVehicleMod(data.vehicle, 15)+1) or ""),
-			head = ((GetVehicleMod(data.vehicle, 15)+1) > 0 and Items["suspension"..(GetVehicleMod(data.vehicle, 15)+1)].label or ""), event = "applySuspension" },
-		["transmission"] = { icon = invImg((GetVehicleMod(data.vehicle, 13)+1) > 0 and "transmission"..(GetVehicleMod(data.vehicle, 13)+1) or ""),
-			head = ((GetVehicleMod(data.vehicle, 13)+1) > 0 and Items["transmission"..(GetVehicleMod(data.vehicle, 13)+1)].label or ""), event = "applyTransmission" },
-		["car_armor"] = { icon = invImg("car_armor"), head = Items["car_armor"].label, event = "applyArmour" },
-		["turbo"] = { icon = invImg("turbo"), head = Items["turbo"].label, event = "applyTurbo" },
-		["headlights"] = {icon = invImg("headlights"), head = Items["headlights"].label, event = "giveXenon" },
-		["drifttires"] = { icon = invImg("drifttires"), head = Items["drifttires"].label, event = "applyDrift" },
-		["bprooftires"] = { icon = invImg("bprooftires"), head = Items["bprooftires"].label, event = "applyBulletProof" },
-		["nos"] = { icon = invImg("noscan"), head = Items["noscan"].label, event = "giveNOS" },
-		["oilp"] = { icon = invImg(VehicleStatus[plate].oillevel > 0 and "oilp"..VehicleStatus[plate].oillevel or ""),
-			head = (VehicleStatus[plate].oillevel > 0 and Items["oilp"..VehicleStatus[plate].oillevel].label or ""), event = "applyExtraPart" },
-		["drives"] = { icon = invImg(VehicleStatus[plate].shaftlevel > 0 and "drives"..VehicleStatus[plate].shaftlevel or ""),
-			head = (VehicleStatus[plate].shaftlevel > 0 and Items["drives"..VehicleStatus[plate].shaftlevel].label or ""), event = "applyExtraPart" },
-		["cylind"] = { icon = invImg(VehicleStatus[plate].cylinderlevel > 0 and "cylind"..VehicleStatus[plate].cylinderlevel or ""),
-			head = (VehicleStatus[plate].cylinderlevel > 0 and Items["cylind"..VehicleStatus[plate].cylinderlevel].label or ""), event = "applyExtraPart" },
-		["cables"] = { icon = invImg(VehicleStatus[plate].cablelevel > 0 and "cables"..VehicleStatus[plate].cablelevel or ""),
-			head = (VehicleStatus[plate].cablelevel > 0 and Items["cables"..VehicleStatus[plate].cablelevel].label or ""), event = "applyExtraPart" },
-		["fueltank"] = { icon = invImg(VehicleStatus[plate].fuellevel > 0 and "fueltank"..VehicleStatus[plate].fuellevel or ""),
-			head = (VehicleStatus[plate].fuellevel > 0 and Items["fueltank"..VehicleStatus[plate].fuellevel].label or ""), event = "applyExtraPart" },
-		["harness"] = { icon = invImg("harness"), head = Items["harness"].label, event = "applyHarness" },
-		["antilag"] = { icon = invImg("antilag"), head = Items["antilag"].label, event = "applyAntiLag" },
+		["brakes"] = { icon = "nui://"..Config.System.img..((GetVehicleMod(data.vehicle, 12)+1) > 0 and QBCore.Shared.Items["brakes"..(GetVehicleMod(data.vehicle, 12)+1)].image or ""),
+			head = ((GetVehicleMod(data.vehicle, 12)+1) > 0 and QBCore.Shared.Items["brakes"..(GetVehicleMod(data.vehicle, 12)+1)].label or ""), event = "applyBrakes", },
+		["engine"] = { icon = "nui://"..Config.System.img..((GetVehicleMod(data.vehicle, 11)+1) > 0 and QBCore.Shared.Items["engine"..(GetVehicleMod(data.vehicle, 11)+1)].image or ""),
+			head = ((GetVehicleMod(data.vehicle, 11)+1) > 0 and QBCore.Shared.Items["engine"..(GetVehicleMod(data.vehicle, 11)+1)].label or ""), event = "applyEngine" },
+		["suspension"] = { icon = "nui://"..Config.System.img..((GetVehicleMod(data.vehicle, 15)+1) > 0 and QBCore.Shared.Items["suspension"..(GetVehicleMod(data.vehicle, 15)+1)].image or ""),
+			head = ((GetVehicleMod(data.vehicle, 15)+1) > 0 and QBCore.Shared.Items["suspension"..(GetVehicleMod(data.vehicle, 15)+1)].label or ""), event = "applySuspension" },
+		["transmission"] = { icon = "nui://"..Config.System.img..((GetVehicleMod(data.vehicle, 13)+1) > 0 and QBCore.Shared.Items["transmission"..(GetVehicleMod(data.vehicle, 13)+1)].image or ""),
+			head = ((GetVehicleMod(data.vehicle, 13)+1) > 0 and QBCore.Shared.Items["transmission"..(GetVehicleMod(data.vehicle, 13)+1)].label or ""), event = "applyTransmission" },
+		["car_armor"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["car_armor"].image, head = QBCore.Shared.Items["car_armor"].label, event = "applyArmour" },
+		["turbo"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["turbo"].image, head = QBCore.Shared.Items["turbo"].label, event = "applyTurbo"},
+		["headlights"] = {icon = "nui://"..Config.System.img..QBCore.Shared.Items["headlights"].image, head = QBCore.Shared.Items["headlights"].label, event = "giveXenon" },
+		["drifttires"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["drifttires"].image, head = QBCore.Shared.Items["drifttires"].label, event = "applyDrift" },
+		["bprooftires"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["bprooftires"].image, head = QBCore.Shared.Items["bprooftires"].label, event = "applyBulletProof" },
+		["nos"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["noscan"].image, head = QBCore.Shared.Items["noscan"].label, event = "giveNOS" },
+		["oilp"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].oillevel > 0 and QBCore.Shared.Items["oilp"..VehicleStatus[plate].oillevel].image or ""),
+			head = (VehicleStatus[plate].oillevel > 0 and QBCore.Shared.Items["oilp"..VehicleStatus[plate].oillevel].label or ""), event = "applyExtraPart" },
+		["drives"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].shaftlevel > 0 and QBCore.Shared.Items["drives"..VehicleStatus[plate].shaftlevel].image or ""),
+			head = (VehicleStatus[plate].shaftlevel > 0 and QBCore.Shared.Items["drives"..VehicleStatus[plate].shaftlevel].label or ""), event = "applyExtraPart" },
+		["cylind"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].cylinderlevel > 0 and QBCore.Shared.Items["cylind"..VehicleStatus[plate].cylinderlevel].image or ""),
+			head = (VehicleStatus[plate].cylinderlevel > 0 and QBCore.Shared.Items["cylind"..VehicleStatus[plate].cylinderlevel].label or ""), event = "applyExtraPart" },
+		["cables"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].cablelevel > 0 and QBCore.Shared.Items["cables"..VehicleStatus[plate].cablelevel].image or ""),
+			head = (VehicleStatus[plate].cablelevel > 0 and QBCore.Shared.Items["cables"..VehicleStatus[plate].cablelevel].label or ""), event = "applyExtraPart" },
+		["fueltank"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].fuellevel > 0 and QBCore.Shared.Items["fueltank"..VehicleStatus[plate].fuellevel].image or ""),
+			head = (VehicleStatus[plate].fuellevel > 0 and QBCore.Shared.Items["fueltank"..VehicleStatus[plate].fuellevel].label or ""), event = "applyExtraPart" },
+		["harness"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["harness"].image, head = QBCore.Shared.Items["harness"].label, event = "applyHarness" },
+		["antilag"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["antilag"].image, head = QBCore.Shared.Items["antilag"].label, event = "applyAntiLag" },
 	}
 	local CheckMenu = { }
 	CheckMenu[#CheckMenu+1] = { icon = orgTable[data.mod].icon,
@@ -275,16 +271,14 @@ RegisterNetEvent('jim-mechanic:client:Menu:Remove', function(data) local plate =
 	}
 	CheckMenu[#CheckMenu+1] = { icon = "fas fa-circle-check",
 		txt = Loc[Config.Lan]["check"].label47,
-		onSelect = function() TriggerEvent("jim-mechanic:client:"..orgTable[data.mod].event, not data.extra and { client = { level = 0,  remove = true } } or { mod = data.mod, remove = true}) end,
+		onSelect = function() TriggerEvent("jim-mechanic:client:"..orgTable[data.mod].event, not data.extra and true or { mod = data.mod, remove = true}) end,
 	}
 	CheckMenu[#CheckMenu+1] = { icon = "fas fa-circle-xmark",
 		txt = Loc[Config.Lan]["check"].label48,
 		onSelect = function() TriggerEvent("jim-mechanic:client:Menu", true) end,
 	}
-	propHoldCoolDown("screwdriver")
 	openMenu(CheckMenu, {
-		header = searchCar(data.vehicle).name,
-		headertxt = Loc[Config.Lan]["check"].plate.." ["..trim(GetVehicleNumberPlateText(data.vehicle)).."]"..br..(isOx() and br or "")..Loc[Config.Lan]["check"].value..cv(searchCar(data.vehicle).price)..br..(isOx() and br or "")..searchDist(data.vehicle),
-		onExit = function() removePropHoldCoolDown() end,
+		header = searchCar(data.vehicle),
+		headertxt = Loc[Config.Lan]["check"].plate.." ["..trim(GetVehicleNumberPlateText(data.vehicle)).."]"..br..(isOx() and br or "")..Loc[Config.Lan]["check"].value..searchPrice(data.vehicle)..br..(isOx() and br or "")..searchDist(data.vehicle),
 	})
 end)

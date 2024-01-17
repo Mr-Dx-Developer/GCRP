@@ -1,7 +1,5 @@
-Loc = Loc or {}
-
 Loc["nl"] = {
-	common = { --commonly used strings
+	["common"] = { --commonly used strings
 		owned = "Voertuig is geen eigendom, kan niet worden gewijzigd",
 		close = "Sluiten",
 		ret = "Terug",
@@ -24,11 +22,11 @@ Loc["nl"] = {
 		closer = "Ga dichter bij de koplampen staan",
 		harness = "Raceharnas bevestigen..",
 	},
-	tires = {
+	["tires"] = {
 		swap = "Kogelweerende Banden verwijderd!",
 		swap2 = "Kogelvrije Banden verwijderd!",
 	},
-	xenons = {
+	["xenons"] = {
 		notinstall = "Xenons koplampen niet geïnstalleerd",
 		--Menus
 		neonheader1 = "Lichtsturingen",
@@ -48,15 +46,15 @@ Loc["nl"] = {
 		xenontxt = "Aanpassen kleur koplamp van voertuig",
 	},
 	--Cosmetic Items
-	bumpers = {
+	["bumpers"] = {
 		menugrille = "Gril",
 		menuFBumper = "Voor Bumper",
 		menuBBumper = "Achter Bumper",
 	},
-	exhaust = {
+	["exhaust"] = {
 		menuheader = " Uitlaat Modificatie", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	exterior = {
+	["exterior"] = {
 		stockMod = "Originele Exterior Mod..",
 
 		label1 = "Trim A",
@@ -70,13 +68,13 @@ Loc["nl"] = {
 		label9 = "Brandstoftanks",
 		label10 = "Antennes",
 	},
-	hood = {
+	["hood"] = {
 		menuheader = "Motorkap modificatie",
 	},
-	horns = {
+	["horns"] = {
 		menuheader = "Claxon Wijzigen",
 	},
-	interior = {
+	["interior"] = {
 		label1 = "Rolkooien",
 		label2 = "Ornamenten",
 		label3 = "Dashboards",
@@ -87,12 +85,12 @@ Loc["nl"] = {
 		label8 = "Platen",
 		label9 = "Luidsprekers",
 	},
-	livery = {
+	["livery"] = {
 		oldMod = "oud",
 		menuheader = " Stickers Aanpassing", --eg "Sultan RS Grille and Bumper Cosmetics"
 		menuoldheader = " Roof Livery Modification",
 	},
-	nos = {
+	["nos"] = {
 		notinstalled = "Turbo is niet geïnstalleerd",
 
 		nosColour = "NOS Purge Colour",
@@ -101,7 +99,7 @@ Loc["nl"] = {
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	paint = {
+	["paint"] = {
 		primary = "Primair",
 		secondary = "Secundair",
 		pearl = "Parelmoer",
@@ -117,7 +115,7 @@ Loc["nl"] = {
 
 		menuheader = "Overspuiten",
 	},
-	paintrgb = {
+	["paintrgb"] = {
 		select = "Selectie:",
 		finish = "Finaliseer selectie:",
 		error = "Hex Code invoer dient 6 characters te zijn",
@@ -126,12 +124,12 @@ Loc["nl"] = {
 		hexP = "HEX Kiezer",
 		rgbP = "RGB Kiezer",
 	},
-	plates = {
+	["plates"] = {
 		label1 = "Kentekenhouder",
 		label2 = "Vanity kenteken",
 		label3 = "Custom kenteken",
 	},
-	rims = {
+	["rims"] = {
 		menuheader = "Velgen Modificatie",
 
 		label1 = "Sport",
@@ -152,24 +150,24 @@ Loc["nl"] = {
 
 		labelcustom = "Custom Velgen",
 	},
-	rollcage = {
+	["rollcage"] = {
 		menuheader = " Rolkooi modificatie",
 	},
-	roof = {
+	["roof"] = {
 		menuheader = " Dakaanpassing", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	seat = {
+	["seat"] = {
 		menuheader = " Stoelwijziging", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	skirts = {
+	["skirts"] = {
 		menuskirt = "Skirts",
 		menuRF = "Rechter spatbord",
 		menuLF = "Linker Spatbord",
 	},
-	spoilers = {
+	["spoilers"] = {
 		menuheader = " Spoiler Wijziging", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	smoke = {
+	["smoke"] = {
 		already = "Deze kleur is momenteel toegepast!",
 		menuheader = " Bandenrook modificatie", --eg "Sultan RS Grille and Bumper Cosmetics"
 
@@ -190,10 +188,10 @@ Loc["nl"] = {
 		purple = "Paars",
 		blacklight = "Blacklight",
 	},
-	windows = {
+	["windows"] = {
 		menuheader = " Raam Tints", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	stores = {
+	["stores"] = {
 		browse = "Winkel doorbladeren",
 		tools = "Mechanisch Gereedschap",
 		perform = "Prestatie Artikelen",
@@ -201,7 +199,7 @@ Loc["nl"] = {
 		repairs = "Repair Items",
 		nos = "NOS Items",
 	},
-	crafting = { --crafting.lua
+	["crafting"] = { --crafting.lua
 		menuheader = "Mechanisch Handwerk",
 		toolheader = "Werktuigkundige gereedschappen",
 		repairheader = "Repair Items",
@@ -210,10 +208,10 @@ Loc["nl"] = {
 		nosheader = "NOS Items",
 		numitems = " items", --for menu. eg. "11 items"
 	},
-	payments = {
+	["payments"] = {
 		charge = "Klant rekening geven",
 	},
-	check = {
+	["check"] = {
 		plate = "Kenteken ",
 		value = "Waarde: €",
 		unavail = "❌ Niet beschikbaar",
@@ -274,7 +272,7 @@ Loc["nl"] = {
 		label53 = "Livery - [ ",
 		label58 = "Lachgas:",
 	},
-	repair = {
+	["repair"] = {
 		browse = "Blader door Stash",
 		materials = "Je hebt niet genoeg materialen",
 		checkeng = "De schade aan de motor controleren...",
@@ -304,7 +302,7 @@ Loc["nl"] = {
 		ductfull = "U kunt geen Duct Tape meer gebruiken op deze auto",
 		nocar = "Er is geen voertuig in de buurt",
 	},
-	police = {
+	["police"] = {
 		header = "Modification Station",
 		userepair = "Gebruik reparatiestation",
 		repair = "Reparatie",
@@ -318,18 +316,18 @@ Loc["nl"] = {
 		complete = "Gerepareerd",
 		restrict = "Only for Emergency Vehicles",
 	},
-	manual = {
+	["manual"] = {
 		tyres = "Vervangen beschadigde wielen",
 		window = "Vervangen beschadigde ramen",
 		doors = "Repareren deuren",
 	},
-	carwax = {
+	["carwax"] = {
 		head1 = "Voertuig schoonmaken",
 		head2 = "Schoonmaken en waxen",
 		head3 = "Schoonmaken en waxen met Premium",
 		head4 = "Schoonmaken en waxen met ultimate",
 	},
-	extras = {
+	["extras"] = {
 		clean = "Voertuig schoongemaakt",
 		doorerr = "Deur Fout",
 		locked = "Deuren van voertuig vergrendeld",
@@ -342,7 +340,7 @@ Loc["nl"] = {
 		notseat = "Deze stoel is niet beschikbaar...",
 		harness = "U heeft een race harnas om, u kunt niet wisselen...",
 	},
-	functions = {
+	["functions"] = {
 		distance = "Afstand: ",
 		inCar = "Kan dit niet doen van binnen het voertuig",
 		outCar = "Dit kan niet van buiten het voertuig",
@@ -352,7 +350,7 @@ Loc["nl"] = {
 		mechanic = "Alleen een monteur weet hoe je dit moet doen",
 		checking = "Checking Stash.."
 	},
-	servfunction = {
+	["servfunction"] = {
 		checkdamage = "Controleer voertuig op schade",
 		checkmods = "Controleer mods die beschikbaar zijn op een voertuig",
 		flipvehicle = "Draai dichtstbijzijnde voertuig om",
@@ -364,11 +362,11 @@ Loc["nl"] = {
 		door = "Deur openen/sluiten [0-3]",
 		seat = "Ga naar een andere stoel [-1 tot 10]",
 	},
-	previews = {
+	["previews"] = {
 		changes = "Aantal veranderingen: ",
 		previewing = "Can't do this while previewing",
 	},
-	stancer = {
+	["stancer"] = {
 		wheel_lf = "Left Front Wheel",
 		wheel_rf = "Right Front Wheel",
 		wheel_lr = "Left Rear Wheel",

@@ -1,7 +1,5 @@
-Loc = Loc or {}
-
 Loc["cn"] = {
-	common = { --commonly used strings
+	["common"] = { --commonly used strings
 		owned = "无法改装没有车主的车",
 		close = "关闭",
 		ret = "返回",
@@ -24,23 +22,11 @@ Loc["cn"] = {
 		closer = "Move closer to the headlights",
 		harness = "Attaching Racing Harness..",
 	},
-	progressbar = {
-		progress_washing = "Washing hands",
-		progress_mix = "Mixing a ",
-		progress_pour = "Pouring a ",
-		progress_drink = "Drinking a ",
-		progress_eat = "Eating a ",
-		progress_make = "Making a ",
-	},
-	error = {
-		not_clockedin = "Not On Duty",
-		cancelled = "Cancelled",
-	},
-	tires = {
+	["tires"] = {
 		swap = "防弹轮胎已移除!",
 		swap2 = "漂移轮胎已移除!",
 	},
-	xenons = {
+	["xenons"] = {
 		notinstall = "未安装氙气灯",
 		--Menus
 		neonheader1 = "氙气灯控制",
@@ -60,15 +46,15 @@ Loc["cn"] = {
 		xenontxt = "调整车头灯颜色",
 	},
 	--Cosmetic Items
-	bumpers = {
+	["bumpers"] = {
 		menugrille = "中网",
 		menuFBumper = "前保险杠",
 		menuBBumper = "后保险杠",
 	},
-	exhaust = {
+	["exhaust"] = {
 		menuheader = " 排气改装", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	exterior = {
+	["exterior"] = {
 		stockMod = "原厂外观..",
 
 		label1 = "部件A",
@@ -82,13 +68,13 @@ Loc["cn"] = {
 		label9 = "油箱",
 		label10 = "天线",
 	},
-	hood = {
+	["hood"] = {
 		menuheader = " 引擎盖改装", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	horns = {
+	["horns"] = {
 		menuheader = " 喇叭改装", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	interior = {
+	["interior"] = {
 		label1 = "防滚架",
 		label2 = "装饰品",
 		label3 = "仪表台",
@@ -99,12 +85,12 @@ Loc["cn"] = {
 		label8 = "装饰牌",
 		label9 = "音响",
 	},
-	livery = { --exhaust.lua
+	["livery"] = { --exhaust.lua
 		oldMod = "旧的",
 		menuheader = " 涂装改装", --eg "Sultan RS Grille and Bumper Cosmetics"
 		menuoldheader = " Roof Livery Modification", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	nos = { --exhaust.lua
+	["nos"] = { --exhaust.lua
 		notinstalled = "未安装涡轮增压器",
 		remfail = "NOS罐移除失败!",
 		nosColour = "氮气喷射颜色",
@@ -113,7 +99,7 @@ Loc["cn"] = {
 		boost = "加速强度: ",
 		spray = "喷射强度: ",
 	},
-	paint = { --paints.lua
+	["paint"] = { --paints.lua
 		primary = "主色调",
 		secondary = "副色调",
 		pearl = "珠光颜色",
@@ -129,7 +115,7 @@ Loc["cn"] = {
 
 		menuheader = " 喷漆",
 	},
-	paintrgb = {
+	["paintrgb"] = {
 		select = "色调:",
 		finish = "材质:",
 		error = "Hex值最少是6个字符",
@@ -138,12 +124,12 @@ Loc["cn"] = {
 		hexP = "HEX输入",
 		rgbP = "RGB输入",
 	},
-	plates = {
+	["plates"] = {
 		label1 = "牌照架",
 		label2 = "牌照背景",
 		label3 = "牌照DIY",
 	},
-	rims = {
+	["rims"] = {
 		menuheader = "轮圈改装",
 
 		label1 = "运动",
@@ -164,24 +150,24 @@ Loc["cn"] = {
 
 		labelcustom = "自定义轮圈",
 	},
-	rollcage = {
+	["rollcage"] = {
 		menuheader = "防滚架改装",
 	},
-	roof = {
+	["roof"] = {
 		menuheader = " 车棚改装",
 	},
-	seat = {
+	["seat"] = {
 		menuheader = " 车座改装",
 	},
-	skirts = {
+	["skirts"] = {
 		menuskirt = "侧裙",
 		menuRF = "右侧叶子板",
 		menuLF = "左侧叶子板",
 	},
-	spoilers = {
+	["spoilers"] = {
 		menuheader = " 尾翼改装",
 	},
-	smoke = { --tiresmoke.lua
+	["smoke"] = { --tiresmoke.lua
 		already = "这个颜色当前已经在使用了!",
 		menuheader = " 车轮烟雾改装",
 
@@ -202,10 +188,10 @@ Loc["cn"] = {
 		purple = "紫色",
 		blacklight = "黑光",
 	},
-	windows = {
+	["windows"] = {
 		menuheader = " 玻璃膜", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	stores = {
+	["stores"] = {
 		browse = "查看商店",
 		tools = "技工工具",
 		perform = "性能升级套件",
@@ -213,7 +199,7 @@ Loc["cn"] = {
 		repairs = "Repair Items",
 		nos = "NOS Items",
 	},
-	crafting = { --crafting.lua
+	["crafting"] = { --crafting.lua
 		menuheader = "技工制作",
 		toolheader = "技工工具",
 		repairheader = "Repair Items",
@@ -222,10 +208,10 @@ Loc["cn"] = {
 		nosheader = "NOS Items",
 		numitems = " 个物品", --for menu. eg. "11 items"
 	},
-	payments = { --payments.lua
+	["payments"] = { --payments.lua
 		charge = "向客户收费",
 	},
-	check = { --check_tunes.lua
+	["check"] = { --check_tunes.lua
 		plate = "车牌号: [",
 		value = "]<br>价值: $",
 		unavail = "❌ 不可用",
@@ -286,7 +272,7 @@ Loc["cn"] = {
 		label53 = "Livery - [ ",
 		label58 = "氮气:",
 	},
-	repair = {
+	["repair"] = {
 		browse = "查看仓库",
 		materials = "你没有足够的材料",
 		checkeng = "查看引擎受损状况..",
@@ -316,7 +302,7 @@ Loc["cn"] = {
 		ductfull = "你不能在这辆车上用更多的胶带了",
 		nocar = "附近没有车啊",
 	},
-	police = {
+	["police"] = {
 		header = "Modification Station",
 		userepair = "使用修理站",
 		repair = "修理",
@@ -330,18 +316,18 @@ Loc["cn"] = {
 		complete = "车辆修复完成",
 		restrict = "Only for Emergency Vehicles",
 	},
-	manual = {
+	["manual"] = {
 		tyres = "更换破损轮胎中",
 		window = "移除破损车窗中",
 		doors = "车门修复中",
 	},
-	carwax = {
+	["carwax"] = {
 		head1 = "清洗车辆",
 		head2 = "清洗和打蜡",
 		head3 = "清洗和高级打蜡",
 		head4 = "清洗和终极打蜡",
 	},
-	extras = {
+	["extras"] = {
 		clean = "车辆清理",
 		doorerr = "车门错误",
 		locked = "车门已锁",
@@ -354,7 +340,7 @@ Loc["cn"] = {
 		notseat = "这个座位不可用..",
 		harness = "你正用着赛车安全带不能换座..",
 	},
-	functions = {
+	["functions"] = {
 		distance = "行驶里程: ",
 		inCar = "不能在车内这么做",
 		outCar = "只有在车内才能这么做",
@@ -364,7 +350,7 @@ Loc["cn"] = {
 		mechanic = "只有修理技工知道该怎么做",
 		checking = "Checking Stash.."
 	},
-	servfunction = {
+	["servfunction"] = {
 		checkdamage = "查看车辆受损状况",
 		checkmods = "查看车辆可用的改装件",
 		flipvehicle = "翻转最近的车辆",
@@ -376,11 +362,11 @@ Loc["cn"] = {
 		door = "开/关 车门 [0-3]",
 		seat = "换座位 [-1 到 10]",
 	},
-	previews = {
+	["previews"] = {
 		changes = "改装项目: ",
 		previewing = "Can't do this while previewing",
 	},
-	stancer = {
+	["stancer"] = {
 		wheel_lf = "Left Front Wheel",
 		wheel_rf = "Right Front Wheel",
 		wheel_lr = "Left Rear Wheel",

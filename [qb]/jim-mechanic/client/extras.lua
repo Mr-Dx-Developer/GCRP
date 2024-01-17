@@ -4,7 +4,7 @@ local antiLagCooldown = 0
 local DistAdd, maxSpeed, ShowingOdo, ShowOdo, owned, veh, databasecalc, nosUpdate = 0, 0, false, Config.Odometer.ShowOdo, false, 0, false, false
 
 --Vehicle Ejection Variables
-local harnessBreakSpeed, newVehBody, curVehBody, frameBodyChange, lastSpeed, lastSpeed2, thisFrameSpeed, tick, damagedone, lastVehicle, modifierDensity = 200, 0, 0, 0, 0, 0, 0, 0, false, nil, true
+local isBike, harnessBreakSpeed, newVehBody, curVehBody, frameBodyChange, lastSpeed, lastSpeed2, thisFrameSpeed, tick, damagedone, lastVehicle, modifierDensity = false, 200, 0, 0, 0, 0, 0, 0, 0, false, nil, true
 local seatbeltOn, harnessOn, harnessProp = false, false, nil
 local seat = nil
 local plate, model = nil, nil
@@ -15,9 +15,9 @@ RegisterNetEvent("jim-mechanic:client:CarWax", function(data) local Ped = Player
 	local vehicle
 	if not IsPedInAnyVehicle(Ped, false) then vehicle = getClosest(GetEntityCoords(Ped)) end
 	local plate = trim(GetVehicleNumberPlateText(vehicle))
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+	local cam = createTempCam(Ped, vehicle)
 	startTempCam(cam)
-	propHoldCoolDown("sponge")
+	ExecuteCommand("e clean2")
 	while cleaning do
 		local dirtLevel = GetVehicleDirtLevel(vehicle)
 		if dirtLevel >= 1.0 then
@@ -32,11 +32,11 @@ RegisterNetEvent("jim-mechanic:client:CarWax", function(data) local Ped = Player
 	end
 	Wait(1000)
 	stopTempCam()
-	emptyHands(Ped)
+	emptyHands(Ped, true)
 	if not cleaning and data.time ~= 0 then
 		SetVehicleStatus(plate, "carwax", data.time, true)
 	end
-	if Config.Overrides.CosmeticItemRemoval and not data.skip then removeItem("cleaningkit", 1) end
+	if Config.Overrides.CosmeticItemRemoval and not data.skip then toggleItem(false, "cleaningkit", 1) end
 end)
 
 --== Car Cleaning ==--
@@ -44,14 +44,14 @@ RegisterNetEvent('jim-mechanic:client:cleanVehicle', function(skip) local Ped = 
 	local coords = GetEntityCoords(Ped)
 	if not inCar() then return end
 	if not nearPoint(coords) then return end
-	local vehicle = getClosest(coords) pushVehicle(vehicle) lookEnt(vehicle)
+	local vehicle = getClosest(coords) pushVehicle(vehicle) lookVeh(vehicle)
 	local plate = trim(GetVehicleNumberPlateText(vehicle))
 
 	if DoesEntityExist(vehicle) then
 		local Menu = {}
 		Menu[#Menu+1] = { arrow = true, header = Loc[Config.Lan]["carwax"].head1, onSelect = function() TriggerEvent("jim-mechanic:client:CarWax", { time = 0, skip = skip }) end, }
 		if Config.Overrides.WaxFeatures then
-			GetVehicleStatus(VehToNet(vehicle))
+			GetVehicleStatus(plate)
 			Menu[#Menu+1] = { arrow = true,
 				header = Loc[Config.Lan]["carwax"].head2,
 				onSelect = function() TriggerEvent("jim-mechanic:client:CarWax", { time = 86400, skip = skip }) end,
@@ -66,11 +66,11 @@ RegisterNetEvent('jim-mechanic:client:cleanVehicle', function(skip) local Ped = 
 			}
 		end
 		openMenu(Menu, {
-			header = searchCar(vehicle).name,
+			header = searchCar(vehicle),
 			headertxt =
-			"Class: "..searchCar(vehicle).class or "N/A"..br..(isOx() and br or "")..
+			"Class: "..getClass(vehicle) or "N/A"..br..(isOx() and br or "")..
 			Loc[Config.Lan]["check"].plate..trim(GetVehicleNumberPlateText(vehicle))..
-			Loc[Config.Lan]["check"].value..searchCar(vehicle).price..br..(isOx() and br or "")..
+			Loc[Config.Lan]["check"].value..searchPrice(vehicle)..br..(isOx() and br or "")..
 			searchDist(vehicle),
 			canClose = true,
 			onExit = function() end,
@@ -94,7 +94,7 @@ RegisterNetEvent('jim-mechanic:quickrepair', function() local Ped = PlayerPedId(
 		if damageTable["engine"] >= Config.DuctTape.MaxDuctEngine then repaireng = false else repaireng = true end
 		if Config.DuctTape.DuctTapeBody and damageTable["body"] >= Config.DuctTape.MaxDuctBody then repairbody = false else repairbody = true end
 		if repaireng or repairbody then
-			lookEnt(vehicle)
+			lookVeh(vehicle)
 			SetVehicleDoorOpen(vehicle, 4, false, false)
 			repairing = true
 			if progressBar({label = Loc[Config.Lan]["repair"].applyduct, time = 10000, cancel = true, anim = "fixing_a_ped", dict = "mini@repair", flag = 16, icon = "ducttape",}) then
@@ -116,7 +116,7 @@ RegisterNetEvent('jim-mechanic:quickrepair', function() local Ped = PlayerPedId(
 						end
 					end
 				end
-				if Config.DuctTape.RemoveDuctTape then removeItem("ducttape", 1) end
+				if Config.DuctTape.RemoveDuctTape then toggleItem(false, "ducttape", 1) end
 			end
 			repairing = false
 			SetVehicleDoorShut(vehicle, 4, false, false)
@@ -154,8 +154,8 @@ RegisterNetEvent("jim-mechanic:flipvehicle", function() local Ped = PlayerPedId(
 	if not nearPoint(coords) then return end
 	local vehicle = getClosest(coords) pushVehicle(vehicle)
 	if DoesEntityExist(vehicle) then
-		lookEnt(vehicle)
-		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+		lookVeh(vehicle)
+		local cam = createTempCam(Ped, vehicle)
 		startTempCam(cam)
 		if progressBar({label = Loc[Config.Lan]["extras"].flipping, time = 12000, cancel = true, dict = "missfinale_c2ig_11", anim = "pushcar_offcliff_f", flag = 32 }) then
 			stopTempCam()
@@ -227,8 +227,8 @@ local function updateOdo(dist, veh, plate, possMods)
 		maxSpeed = (GetEntitySpeed(veh) > maxSpeed) and GetEntitySpeed(veh) or maxSpeed
 		odotext =
 		"<br><b>Vehicle Debug Info</b>:"..
-		"<br>"..searchCar(veh).name..
-		"<br>Class: "..(searchCar(veh).class or "N/A")..
+		"<br>"..searchCar(veh)..
+		"<br>Class: "..(getClass(veh) or "N/A")..
 		"<br>"..Loc[Config.Lan]["check"].plate.." "..plate
 		..tostring((dist ~= "") and "<br>Dist: "..odotext or "")..
 		"<br>DistAdd: "..DistAdd..
@@ -239,11 +239,11 @@ local function updateOdo(dist, veh, plate, possMods)
 		"<br>TopSpeedModifier: "..GetVehicleTopSpeedModifier(veh)..
 		"<br>EntityID: "..veh..
 		"<br>netID: "..VehToNet(veh)..
-		"<br>MaxSeats: "..GetVehicleMaxNumberOfPassengers(veh)+1
-		--[["<br>HandlingFloat: "..GetVehicleHandlingFloat(veh , "CHandlingData","fMass")..
+		"<br>MaxSeats: "..GetVehicleMaxNumberOfPassengers(veh)+1 ..
+		"<br>HandlingFloat: "..GetVehicleHandlingFloat(veh , "CHandlingData","fMass")..
 		"<br>TurboPressure: "..string.format("%.2f", GetVehicleTurboPressure(veh)) ..
 		"<br>PowerIncrease: "..string.format("%.2f", GetVehicleCheatPowerIncrease(veh))..
-		"<br>SteeringLock: "..GetVehicleHandlingFloat(veh, "CHandlingData", "fSteeringLock")]]
+		"<br>SteeringLock: "..GetVehicleHandlingFloat(veh, "CHandlingData", "fSteeringLock")
 
 		if not (IsPedInAnyBoat(PlayerPedId()) or IsPedInAnySub(PlayerPedId())) and not (IsPedInAnyHeli(PlayerPedId()) or IsPedInAnyPlane(PlayerPedId())) then
 			local vehcoord = GetEntityCoords(veh)
@@ -376,7 +376,7 @@ local function updateOdo(dist, veh, plate, possMods)
 			end
 		end
 
-		if not isBike(model) and VehicleStatus[plate] then
+		if VehicleStatus[plate] then
 			if Config.Harness.HarnessControl then
 				if Config.Odometer.OdoIconsToShow["harness"] then
 					if VehicleStatus[plate].harness == 1 then
@@ -398,15 +398,7 @@ local function updateOdo(dist, veh, plate, possMods)
 	end
 end
 
-if GetResourceState("ox_lib"):find("start") then
-	lib.onCache('vehicle', function(vehicle)
-		if vehicle then TriggerEvent("jim-mechanic:Client:EnteredVehicle")
-		else TriggerEvent("jim-mechanic:Client:ExitVehicle") end
-	end)
-end
-
 RegisterNetEvent("jim-mechanic:Client:ExitVehicle", function()
-	Wait(1000)
 	if Config.System.Debug then print("^5Debug^7: ^3ExitVehicle^7: ^2Player has exited vehicle ^7- ^4Seat^7: ^1"..tostring(seat) .."^7") end
 	local veh = GetVehiclePedIsIn(PlayerPedId(), true)
 	if seat == -1 then
@@ -417,9 +409,10 @@ RegisterNetEvent("jim-mechanic:Client:ExitVehicle", function()
 		TriggerServerEvent('jim-mechanic:server:UpdateDrivingDistance', plate, math.round(DistAdd))
 		if DoesEntityExist(veh) and veh ~= 0 and veh ~= nil and defVehStats[plate] then
 			if Config.Overrides.saveOnExit == true and not GetInPreview() then
-				local mods = getVehicleProperties(veh)
+				updateVehicle(veh)
+				local mods = QBCore.Functions.GetVehicleProperties(veh)
 				if mods.model == model then
-					saveStatus(veh)
+					updateVehicle(veh)
 					TriggerServerEvent('jim-mechanic:updateVehicle', mods, plate)
 				end
 			end
@@ -444,6 +437,7 @@ RegisterNetEvent("jim-mechanic:Client:ExitVehicle", function()
 	destroyHarness()
 	seat = nil
 	plate = nil
+	isBike = false
 end)
 
 RegisterNetEvent("jim-mechanic:Client:EnteredVehicle", function()
@@ -457,61 +451,55 @@ RegisterNetEvent("jim-mechanic:Client:EnteredVehicle", function()
 	local dist = ""
 	if Config.System.Debug then print("^5Debug^7: ^3EnteredVehicle^7: ^2Player has entered vehicle ^7- ^4Seat^7: ^1"..seat .."^7") end
 
-	GetVehicleStatus(VehToNet(veh))
+	GetVehicleStatus(plate)
+
 	getDefStats(veh, plate)
-	Wait(1000)
 	-- Grab/Save default vehicle stats at time of entering
 	-- This SHOULD be the defaults of the vehicle, not edited
 
 	if VehicleStatus[plate]["carwax"] ~= 0 then
 		CreateThread(function() -- Check server time for if it should remove car wax status
-			VehicleStatus[plate]["carwax"] = triggerCallback('jim-mechanic:checkWax', plate)
+			local p = promise.new()
+			QBCore.Functions.TriggerCallback('jim-mechanic:checkWax', function(cb) p:resolve(cb) end, plate)
+			VehicleStatus[plate]["carwax"] = Citizen.Await(p)
 		end)
 	end
 
 	-- LOOP TO CHECK FOR CRASHES AND WETHER TO EJECT
 	CreateThread(function()
+		local vehModel = GetEntityModel(veh)
 		local possMods = checkHSWMods(veh)
-		local wait = 100
-
-		while GetVehiclePedIsIn(Ped, false) == veh and not IsThisModelABicycle(model) do
+		isBike = (IsThisModelABike(vehModel) or IsThisModelAJetski(vehModel) or IsThisModelAQuadbike(vehModel) or IsThisModelATrain(vehModel) or IsThisModelABoat(vehModel))
+		local wait = 0
+		while GetVehiclePedIsIn(Ped, false) == veh do
 			if ShowOdo then
 				if seat == -1 or Config.Odometer.ShowToAll then updateOdo(dist, veh, plate, possMods) end
 			end
-			if IsVehicleStopped(veh) then wait = 5000
-			else wait = 10
-			end -- delay loop when car is stopped
+			if IsVehicleStopped(veh) then wait = 2000 else wait = 10 end -- delay loop when car is stopped
 			SetPedHelmet(Ped, false)
 			thisFrameSpeed = GetEntitySpeed(veh) * 3.6
 			curVehBody = GetVehicleBodyHealth(veh)
-			if curVehBody == 1000 and frameBodyChange ~= 0 then
-				frameBodyChange = 0
-			end
+			if curVehBody == 1000 and frameBodyChange ~= 0 then frameBodyChange = 0 end
 			-- Work out wether should eject based on speed how much damage is done to the body at time of impact
 			if frameBodyChange ~= 0 then
-				if not HasHarness() then
-					if lastSpeed > 110 and thisFrameSpeed < (lastSpeed * 0.75) and not damagedone and not isBike(model) and (Config.Harness.HarnessControl and not HasHarness()) then
-						if frameBodyChange > 15.0 then -- if 0.15% damage done
-							if seatBeltOn() then
-								if lastSpeed > math.random(100, 120) then -- if travelling at more than 100mph
-									EjectFromVehicle(GetEntityVelocity(veh), thisFrameSpeed, frameBodyChange)
-								end
-							else
-								if lastSpeed > math.random(50, 70) then -- if travelling at more than 50mph
-									EjectFromVehicle(GetEntityVelocity(veh), thisFrameSpeed, frameBodyChange)
-								end
-							end
+				if lastSpeed > 110 and thisFrameSpeed < (lastSpeed * 0.75) and not damagedone and not isBike and (Config.Harness.HarnessControl and not HasHarness()) then
+					if frameBodyChange > 18.0 then
+						if not seatBeltOn() then
+							if math.random(math.ceil(lastSpeed)) > 60 then EjectFromVehicle(GetEntityVelocity(veh)) end
+						else
+							if lastSpeed > 150 then EjectFromVehicle(GetEntityVelocity(veh)) end
 						end
-						damagedone = true
+					else
+						if not seatBeltOn() then
+							if math.random(math.ceil(lastSpeed)) > 60 then EjectFromVehicle(GetEntityVelocity(veh)) end
+						else
+							if lastSpeed > 120 then if math.random(math.ceil(lastSpeed)) > 200 then EjectFromVehicle(GetEntityVelocity(veh)) end end
+						end
 					end
-					if curVehBody < 350.0 and not damagedone then
-						damagedone = true
-						Wait(1000)
-					end
+					damagedone = true
 				end
-				if seat == -1 and Config.vehFailure.damages then
-					DamageRandomComponent(veh) -- Added DamageRandomComponent here to remove need for qb-vehiclefailure
-				end
+				if curVehBody < 350.0 and not damagedone then damagedone = true --[[SetVehicleEngineOn(veh, false, true, false)]] Wait(1000) end
+				if seat == -1 then DamageRandomComponent(plate) end -- Added DamageRandomComponent here to remove need for qb-vehiclefailure
 			end
 			if lastSpeed < 100 then Wait(100) tick = 0 end
 			frameBodyChange = newVehBody - curVehBody
@@ -542,7 +530,11 @@ RegisterNetEvent("jim-mechanic:Client:EnteredVehicle", function()
 			nos = { VehicleNitrous[plate].hasnitro, VehicleNitrous[plate].level }
 		end
 		TriggerEvent('hud:client:UpdateNitrous', nos[1] or false, nos[2] or 0, false)
-		if owned then dist = triggerCallback('jim-mechanic:distGrab', plate) end -- grab milage
+		if owned then
+			local p = promise.new()
+			QBCore.Functions.TriggerCallback('jim-mechanic:distGrab', function(cb) p:resolve(cb) end, plate)
+			dist = tonumber(Citizen.Await(p))
+		end
 		-- LOOP TO UPDATE DATABASE WHILE DRIVING
 		CreateThread(function()
 			local wait = 1000
@@ -560,11 +552,12 @@ RegisterNetEvent("jim-mechanic:Client:EnteredVehicle", function()
 		CreateThread(function()
 			while seat == -1 do
 				-- AntiLag featrue loop mixed into this loop to reduce ms
-				if plate and VehicleStatus[plate] and VehicleStatus[plate].antiLag == 1 then
+				if VehicleStatus[plate].antiLag == 1 then
 					antiLagCooldown -= 1
-					if veh ~= 0 and DoesEntityExist(veh) and GetVehicleCurrentGear(veh) ~= 0 then
+					if GetVehicleCurrentGear(veh) ~= 0 then
 						if not IsControlPressed(1, 71) and not IsControlPressed(1, 72) and not IsEntityInAir(veh) and not NitrousActivated and GetIsVehicleEngineRunning(veh) then
 							if GetVehicleCurrentRpm(veh) > 0.75 then
+								local vehPos = GetEntityCoords(veh)
 								antiLagCooldown -= 1
 								if antiLagCooldown <= 0 then
 									TriggerServerEvent("jim-mechanic:server:AntiLag", VehToNet(veh), GetEntityCoords(veh))
@@ -581,25 +574,50 @@ RegisterNetEvent("jim-mechanic:Client:EnteredVehicle", function()
 						DisableControlAction(2, 60, true) -- Disable up/down
 					end
 				end
+				if not IsVehicleStopped(veh) then
+					-- Slip in damageEffects in odometer update loop
+					if Config.Repairs.ExtraDamages == true then
+						effectTimer += 1
+						if effectTimer >= math.random(1000, 1500) then ApplyEffects(veh) effectTimer = 0 end
+					end
+				else
+					damageTimer = 0
+				end
 
 				if (harnessOn and not Config.Harness.harnessEasyLeave) or (seatbeltOn and not Config.Harness.seatbeltEasyLeave) then
 					DisableControlAction(0, 75, true)
 					DisableControlAction(27, 75, true)
 				end
 
-				local wait = Config.System.Debug == true and 0 or (Config.vehFailure.PreventRoll and 5 or 100)
+				local wait = Config.System.Debug == true and 0 or 5
 				Wait((wait))
 			end
 		end)
 	end
 end)
 
+function triggerFlame(veh)
+	TriggerServerEvent('jim-mechanic:server:SyncFlame', VehToNet(veh), true, true, nil, GetEntityCoords(veh))
+	SetVehicleTurboPressure(veh, 25.0)
+	Wait(math.random(100, 800))
+	TriggerServerEvent('jim-mechanic:server:SyncFlame', VehToNet(veh), false, true, nil, GetEntityCoords(veh))
+	SetVehicleTurboPressure(veh, 0.0)
+end
+
 RegisterNetEvent("jim-mechanic:client:AntiLag", function(vehicle, vehPos) -- Separated Antilag because it was lag
-	local veh = NetworkGetEntityFromNetworkId(vehicle)
-	for i = 1, math.random(1, 4) do
-		TriggerEvent('jim-mechanic:client:playWithinDistance', vehPos, tostring(math.random(1, 4)))
-		CreateVehicleExhaustBackfire(veh)
-		Wait(math.random(150,350))
+	local veh = NetToVeh(vehicle)
+	if Config.antiLag.antiLagExp then
+		for i = 1, math.random(1, 4) do
+			AddExplosion(vehPos.x, vehPos.y, vehPos.z, 61, 0.0, true, true, 0.0, true)
+			CreateVehicleExhaustBackfire(veh)
+		end
+	elseif Config.antiLag.scriptAudio then
+		for i = 1, math.random(1, 4) do
+			triggerNotify("test", "test")
+			TriggerEvent('jim-mechanic:client:playWithinDistance', vehPos, tostring(math.random(1, 4)))
+			CreateVehicleExhaustBackfire(veh)
+			Wait(math.random(150,350))
+		end
 	end
 end)
 
@@ -626,7 +644,6 @@ if Config.Harness.HarnessControl == true then
 	function EjectFromVehicle(veloc) local Ped = PlayerPedId()
 		local veh = GetVehiclePedIsIn(Ped, false)
 		if DoesEntityExist(veh) and veh ~= 0 then
-			if Config.System.Debug then print("Ejecting player from vehicle", speed, damage) end
 			local coords = GetOffsetFromEntityInWorldCoords(veh, 1.0, 0.0, 1.0)
 			SetEntityCoords(Ped, coords.x, coords.y, coords.z)
 			SmashVehicleWindow(veh, 6)
@@ -650,9 +667,6 @@ if Config.Harness.HarnessControl == true then
 				end
 				Wait(5)
 			end
-			if GetResourceState("esx_hud"):find("start") then
-				exports["esx_hud"]:SeatbeltState(false)
-			end
 			destroyHarness()
 		end)
 	end
@@ -663,48 +677,46 @@ if Config.Harness.HarnessControl == true then
 		if IsPedSittingInAnyVehicle(Ped) then
 			local veh = GetVehiclePedIsIn(Ped, false)
 			local plate = trim(GetVehicleNumberPlateText(veh))
-			GetVehicleStatus(VehToNet(veh))
-			if isBike(GetEntityModel(veh)) then return end
-			CreateThread(function()
-				if not inProgress then inProgress = true
-					if VehicleStatus[plate].harness == 1 then
-						if (Config.Harness.progOn and not harnessOn) or (Config.Harness.progOff and harnessOn) then
-							if progressBar({
-								label = (not harnessOn and Loc[Config.Lan]["common"].harness or Loc[Config.Lan]["common"].removing),
-								time = (not harnessOn and (Config.Harness.timeOn or math.random(4000, 7000)) or (Config.Harness.timeOff or math.random(3000, 5000))),
-								cancel = true, anim = "fixing_a_ped", dict = "mini@repair", flag = 48, icon = "harness",
-							}) then
+			GetVehicleStatus(plate)
+			if IsPedInAnyVehicle(Ped) then
+				if isBike then return end
+				CreateThread(function()
+					if not inProgress then inProgress = true
+						if VehicleStatus[plate].harness == 1 then
+							if (Config.Harness.progOn and not harnessOn) or (Config.Harness.progOff and harnessOn) then
+								if progressBar({
+									label = (not harnessOn and Loc[Config.Lan]["common"].harness or Loc[Config.Lan]["common"].removing),
+									time = (not harnessOn and (Config.Harness.timeOn or math.random(4000, 7000)) or (Config.Harness.timeOff or math.random(3000, 5000))),
+									cancel = true, anim = "fixing_a_ped", dict = "mini@repair", flag = 48, icon = "harness",
+								}) then
+									if IsPedInAnyVehicle(Ped) then
+										if not harnessOn then createHarness(Ped) end
+										harnessOn = not harnessOn
+									else
+										destroyHarness()
+										harnessOn = false
+									end
+								else
+									if not harnessOn then createHarness(Ped) end
+									harnessOn = not harnessOn
+								end
+							else
 								if IsPedInAnyVehicle(Ped) then
 									if not harnessOn then createHarness(Ped) end
 									harnessOn = not harnessOn
-								else
-									destroyHarness()
-									harnessOn = false
 								end
-							else
-								if not harnessOn then createHarness(Ped) end
-								harnessOn = not harnessOn
-							end
-						else
-							if IsPedInAnyVehicle(Ped) then
-								if not harnessOn then createHarness(Ped) end
-								harnessOn = not harnessOn
 							end
 						end
+						seatbeltOn = not seatbeltOn
+						if seatbeltOn then SeatBeltLoop() end
+						TriggerEvent("seatbelt:client:ToggleSeatbelt")
+						TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
+						if Config.Harness.seatbeltNotify then triggerNotify(nil, "Seatbelt "..(seatbeltOn and "on" or "off"), "success") end
+						Wait(500)
+						inProgress = false
 					end
-					seatbeltOn = not seatbeltOn
-					if seatbeltOn then SeatBeltLoop() end
-					--Drop your hud seatbelt event here:
-					TriggerEvent("seatbelt:client:ToggleSeatbelt")
-					if GetResourceState("esx_hud"):find("start") then
-						exports["esx_hud"]:SeatbeltState(seatbeltOn)
-					end
-					TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, seatbeltOn and "carbuckle" or "carunbuckle", 0.25)
-					if Config.Harness.seatbeltNotify then triggerNotify(nil, "Seatbelt "..(seatbeltOn and "on" or "off"), "success") end
-					Wait(500)
-					inProgress = false
-				end
-			end)
+				end)
+			end
 		end
 	end
 

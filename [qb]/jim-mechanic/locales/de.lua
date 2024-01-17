@@ -1,7 +1,5 @@
-Loc = Loc or {}
-
 Loc["de"] = {
-	common = { --commonly used strings
+	["common"] = { --commonly used strings
 		owned = "Fahrzeug gehört keinem und kann nicht modifiziert werden",
 		close = "Schließen",
 		ret = "Zurück",
@@ -24,11 +22,11 @@ Loc["de"] = {
 		closer = "Move closer to the headlights",
 		harness = "Attaching Racing Harness..",
 	},
-	tires = {
+	["tires"] = {
 		swap = "Bulletproofreifen entfernt",
 		swap2 = "Driftreifen entfernen fehlgeschlagen",
 	},
-	xenons = {
+	["xenons"] = {
 		notinstall = "Xenonslichter nicht installiert",
 		--Menus
 		neonheader1 = "Beleuchtungssteuerung",
@@ -48,15 +46,15 @@ Loc["de"] = {
 		xenontxt = "Fahrzeugscheinwerferfarbe anpassen",
 	},
 	--Cosmetic Items
-	bumpers = {
+	["bumpers"] = {
 		menugrille = "Grille",
 		menuFBumper = "Vordere Stoßstangen",
 		menuBBumper = "Hintere Stoßstangen",
 	},
-	exhaust = {
+	["exhaust"] = {
 		menuheader = " Auspuffmodifikationen",
 	},
-	exterior = {
+	["exterior"] = {
 		stockMod = "Standart Exterior",
 
 		label1 = "Trim A",
@@ -70,13 +68,13 @@ Loc["de"] = {
 		label9 = "Fuel Tanks",
 		label10 = "Aerials",
 	},
-	hood = {
+	["hood"] = {
 		menuheader = " Haube Modifikation",
 	},
-	horns = {
+	["horns"] = {
 		menuheader = " Hupe Modifikation",
 	},
-	interior = {
+	["interior"] = {
 		label1 = "Überrollkäfig",
 		label2 = "Ornaments",
 		label3 = "Dashboards",
@@ -87,12 +85,12 @@ Loc["de"] = {
 		label8 = "Plaques",
 		label9 = "Lautsprecher",
 	},
-	livery = {
+	["livery"] = {
 		oldMod = "old",
 		menuheader = " Livery Modification",
 		menuoldheader = " Roof Livery Modification",
 	},
-	nos = {
+	["nos"] = {
 		notinstalled = "Turbo ist nicht installiert",
 
 		nosColour = "NOS Purge Colour",
@@ -101,7 +99,7 @@ Loc["de"] = {
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	paint = { --paints.lua
+	["paint"] = { --paints.lua
 		primary = "Primär",
 		secondary = "Sekundär",
 		pearl = "Perleneffekt",
@@ -117,7 +115,7 @@ Loc["de"] = {
 
 		menuheader = " Respray",
 	},
-	paintrgb = {
+	["paintrgb"] = {
 		select = "Auswahl:",
 		finish = "Fertig:",
 		error = "Die Eingabe des Hex-Codes muss 6 Zeichen umfassen.",
@@ -126,12 +124,12 @@ Loc["de"] = {
 		hexP = "HEX Picker",
 		rgbP = "RGB Picker",
 	},
-	plates = {
+	["plates"] = {
 		label1 = "Kennzeichenhalter",
 		label2 = "Vanity Kennzeichen",
 		label3 = "Custom Kennzeichen",
 	},
-	rims = {
+	["rims"] = {
 		menuheader = "Felgen Modifikation",
 
 		label1 = "Sport",
@@ -152,24 +150,24 @@ Loc["de"] = {
 
 		labelcustom = "Custom Felgen",
 	},
-	rollcage = {
+	["rollcage"] = {
 		menuheader = " Überrollkäfig Modifikation",
 	},
-	roof = {
+	["roof"] = {
 		menuheader = " Dach Modifikation",
 	},
-	seat = {
+	["seat"] = {
 		menuheader = " Sitze Modifikation", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	skirts = {
+	["skirts"] = {
 		menuskirt = "Skirts",
 		menuRF = "Rechte Kotflügel",
 		menuLF = "Linke Kotflügel",
 	},
-	spoilers = {
+	["spoilers"] = {
 		menuheader = " Spoiler Modifikation", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	smoke = {
+	["smoke"] = {
 		already = "Diese Farbe wird derzeit verwendet",
 		menuheader = " Reifensmoke Modifikation", --eg "Sultan RS Grille and Bumper Cosmetics"
 
@@ -190,10 +188,10 @@ Loc["de"] = {
 		purple = "Lila",
 		blacklight = "Schwarzlicht",
 	},
-	windows = {
+	["windows"] = {
 		menuheader = " Fenster Farbton",
 	},
-	stores = {
+	["stores"] = {
 		browse = "Shop durchsuchen",
 		tools = "Mechaniker Werkzeuge",
 		perform = "Performance Items",
@@ -201,7 +199,7 @@ Loc["de"] = {
 		repairs = "Repair Items",
 		nos = "NOS Items",
 	},
-	crafting = { --crafting.lua
+	["crafting"] = { --crafting.lua
 		menuheader = "Mechaniker Crafting",
 		toolheader = "Mechaniker Werkzeuge",
 		repairheader = "Repair Items",
@@ -210,10 +208,10 @@ Loc["de"] = {
 		nosheader = "NOS Items",
 		numitems = " items", --for menu. eg. "11 items"
 	},
-	payments = { --payments.lua
+	["payments"] = { --payments.lua
 		charge = "Charge Customer",
 	},
-	check = { --check_tunes.lua
+	["check"] = { --check_tunes.lua
 		plate = "Plate: [",
 		value = "]<br>Value: $",
 		unavail = "❌ Nicht verfügbar",
@@ -274,7 +272,7 @@ Loc["de"] = {
 		label53 = "Livery - [ ",
 		label58 = "Nitrous:",
 	},
-	repair = {
+	["repair"] = {
 		browse = "Lager öffnen",
 		materials = "Du hast nicht genug Materialien",
 		checkeng = "Motorschaden überprüfen",
@@ -304,7 +302,7 @@ Loc["de"] = {
 		ductfull = "Sie können an diesem Auto kein Klebeband mehr verwenden",
 		nocar = "Es ist kein Fahrzeug in der nähe",
 	},
-	police = {
+	["police"] = {
 		header = "Modification Station",
 		userepair = "Verwenden Sie die Reparaturstation",
 		repair = "Reparatur",
@@ -318,18 +316,18 @@ Loc["de"] = {
 		complete = "Repair Complete",
 		restrict = "Only for Emergency Vehicles",
 	},
-	manual = {
+	["manual"] = {
 		tyres = "Replacing Damaged Tyres",
 		window = "Removing Damaged Windows",
 		doors = "Repairing Doors",
 	},
-	carwax = {
+	["carwax"] = {
 		head1 = "Clean Vehicle",
 		head2 = "Clean and Wax",
 		head3 = "Clean and Premium Wax",
 		head4 = "Clean and Ultimate Wax",
 	},
-	extras = {
+	["extras"] = {
 		clean = "Fahrzeug Sauber",
 		doorerr = "Tür Error",
 		locked = "Fahrzeugtüren geschlossen",
@@ -342,7 +340,7 @@ Loc["de"] = {
 		notseat = "Dieser Platz ist nicht verfügbar",
 		harness = "Sie haben ein Renngurt an, du kannst den Sitz nicht wechseln",
 	},
-	functions = {
+	["functions"] = {
 		distance = "Distanz: ",
 		inCar = "Aus dem Fahrzeuginneren ist dies nicht möglich",
 		outCar = "Von außerhalb des Fahrzeugs ist dies nicht möglich",
@@ -352,7 +350,7 @@ Loc["de"] = {
 		mechanic = "Nur ein Mechaniker weiß, wie das geht",
 		checking = "Checking Stash.."
 	},
-	servfunction = {
+	["servfunction"] = {
 		checkdamage = "Fahrzeug auf Schäden prüfen",
 		checkmods = "Überprüfen Sie die für ein Fahrzeug verfügbaren Mods",
 		flipvehicle = "Drehen Sie das nächste Fahrzeug um",
@@ -364,11 +362,11 @@ Loc["de"] = {
 		door = "Öffne/Schließe Tür [0-3]",
 		seat = "Wechsle den Sitz [-1 to 10]",
 	},
-	previews = {
+	["previews"] = {
 		changes = "Amount of changes: ",
 		previewing = "Can't do this while previewing",
 	},
-	stancer = {
+	["stancer"] = {
 		wheel_lf = "Left Front Wheel",
 		wheel_rf = "Right Front Wheel",
 		wheel_lr = "Left Rear Wheel",

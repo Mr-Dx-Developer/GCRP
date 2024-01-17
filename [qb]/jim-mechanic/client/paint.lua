@@ -5,7 +5,7 @@ local Ped = nil
 RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 	local coords = GetEntityCoords(Ped)
 	local vehicle
-	if not IsPedInAnyVehicle(Ped, false) then	vehicle = getClosest(coords) pushVehicle(vehicle) lookEnt(vehicle) else	vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle) end
+	if not IsPedInAnyVehicle(Ped, false) then	vehicle = getClosest(coords) pushVehicle(vehicle) lookVeh(vehicle) else	vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle) end
 	local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", GetOffsetFromEntityInWorldCoords(Ped, 3.0, -0.5, 0.5), 0.0, 0.0, 0.0, 60.00, false, 0)
 	PointCamAtEntity(cam, Ped)
 	local vehPrimaryColour, vehSecondaryColour = GetVehicleColours(vehicle)
@@ -45,7 +45,7 @@ RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 		playAnim(isVehicleLift(vehicle) and "amb@prop_human_movie_bulb@idle_a" or "switch@franklin@lamar_tagging_wall", isVehicleLift(vehicle) and "idle_b" or "lamar_tagging_exit_loop_lamar", time, 8)
 
 		if progressBar({label = Loc[Config.Lan]["common"].installing..data.paint.." "..data.finish.." "..data.name, time = time, cancel = true }) then SetVehicleModKit(vehicle, 0)
-			qblog("`paintcan - "..Items["paintcan"].label.." - "..data.paint.." "..data.finish.." "..data.name.."` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
+			qblog("`paintcan - "..QBCore.Shared.Items["paintcan"].label.." - "..data.paint.." "..data.finish.." "..data.name.."` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
 			if data.paint == Loc[Config.Lan]["paint"].primary then ClearVehicleCustomPrimaryColour(vehicle) SetVehicleColours(vehicle, data.id, vehSecondaryColour)
 			elseif data.paint == Loc[Config.Lan]["paint"].secondary then ClearVehicleCustomSecondaryColour(vehicle) SetVehicleColours(vehicle, vehPrimaryColour, data.id)
 			elseif data.paint == Loc[Config.Lan]["paint"].pearl then SetVehicleExtraColours(vehicle, data.id, vehWheelColour)
@@ -54,7 +54,7 @@ RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 			elseif data.paint == Loc[Config.Lan]["paint"].interior then SetVehicleInteriorColour(vehicle, data.id) end
 			updateCar(vehicle)
 			triggerNotify(nil, Loc[Config.Lan]["common"].installed, "success")
-			if Config.Overrides.CosmeticItemRemoval then removeItem("paintcan", 1)
+			if Config.Overrides.CosmeticItemRemoval then toggleItem(false, "paintcan", 1)
 			else TriggerEvent('jim-mechanic:client:Paints:Choose:Paint', data) end
 			emptyHands(Ped)
 			stopTempCam()
@@ -75,8 +75,8 @@ RegisterNetEvent('jim-mechanic:client:Paints:Check', function()
 	local coords = GetEntityCoords(Ped)
 	if not nearPoint(coords) then return end
 	local vehicle = nil
-	if not IsPedInAnyVehicle(Ped, false) then	vehicle = getClosest(coords) pushVehicle(vehicle) lookEnt(vehicle) else vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle) end
-    if not enforceClassRestriction(searchCar(vehicle).class) then return end
+	if not IsPedInAnyVehicle(Ped, false) then	vehicle = getClosest(coords) pushVehicle(vehicle) lookVeh(vehicle) else vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle) end
+    if not enforceClassRestriction(getClass(vehicle)) then return end
     if GetInPreview() then triggerNotify(nil, Loc[Config.Lan]["previews"].previewing, "error") return end
 	if lockedCar(vehicle) then return end
 	if Config.Main.isVehicleOwned and not IsVehicleOwned(trim(GetVehicleNumberPlateText(vehicle))) then triggerNotify(nil, Loc[Config.Lan]["common"].owned, "error") return end
@@ -111,6 +111,7 @@ RegisterNetEvent('jim-mechanic:client:Paints:Check', function()
 	if type(interiorColor) == "number" then interiorColor = Loc[Config.Lan]["common"].stock end
 	if type(dashboardColor) == "number" then dashboardColor = Loc[Config.Lan]["common"].stock end
 		local PaintMenu = {}
+		local header = searchCar(vehicle)
 		if not IsPedInAnyVehicle(Ped, false) then
 			PaintMenu[#PaintMenu + 1] = { arrow = true,
 				header = Loc[Config.Lan]["paint"].primary, txt = Loc[Config.Lan]["common"].current..": "..vehPrimaryColour,
@@ -139,7 +140,7 @@ RegisterNetEvent('jim-mechanic:client:Paints:Check', function()
 			}
 		end
 		openMenu(PaintMenu, {
-			header = searchCar(vehicle).name,
+			header = searchCar(vehicle),
 			headertxt = Loc[Config.Lan]["paint"].menuheader,
 			canClose = true, onExit = function() end, })
 	end
@@ -196,7 +197,7 @@ RegisterNetEvent('jim-mechanic:client:Paints:Choose', function(data)
 			}
 		end
 		openMenu(PaintMenu, {
-			header = searchCar(vehicle).name,
+			header = searchCar(vehicle),
 			headertxt = Loc[Config.Lan]["paint"].menuheader..br..(isOx() and br or "")..data,
 			onBack = function() TriggerEvent("jim-mechanic:client:Paints:Check") end,
 		})
@@ -240,7 +241,7 @@ RegisterNetEvent('jim-mechanic:client:Paints:Choose:Paint', function(data)
 		end
 
 		openMenu(PaintMenu, {
-			header = searchCar(vehicle).name,
+			header = searchCar(vehicle),
 			headertxt = Loc[Config.Lan]["paint"].menuheader..br..(isOx() and br or "")..data.finish.." "..data.paint,
 			onBack = function() TriggerEvent("jim-mechanic:client:Paints:Choose", data.paint) end,
 		})
@@ -302,8 +303,8 @@ RegisterNetEvent('jim-mechanic:client:RGBApply', function(data)
 	stopTempCam()
 	updateCar(vehicle)
 	SetVehicleModKit(vehicle, 0)
-	qblog("`paintcan - "..Items["paintcan"].label.." - {"..r..", "..g..", "..b.."}` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
-	if Config.Overrides.CosmeticItemRemoval then removeItem("paintcan", 1)
+	qblog("`paintcan - "..QBCore.Shared.Items["paintcan"].label.." - {"..r..", "..g..", "..b.."}` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
+	if Config.Overrides.CosmeticItemRemoval then toggleItem(false, "paintcan", 1)
 	else TriggerEvent("jim-mechanic:client:Paints:Choose", data.select) end
 	emptyHands(Ped)
 end)

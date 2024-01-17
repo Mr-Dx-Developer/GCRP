@@ -1,7 +1,8 @@
 RegisterNetEvent('jim-mechanic:client:Manual:Menu', function(data) local Ped = PlayerPedId()
 	if not outCar() then return end
 	if Config.ManualRepairs.requireDutyCheck == true then
-		if triggerCallback('jim-mechanic:mechCheck') then triggerNotify(nil, Config.ManualRepairs.dutyMessage, "error") return end
+		local p = promise.new()	QBCore.Functions.TriggerCallback('jim-mechanic:mechCheck', function(cb) p:resolve(cb) end)
+		if Citizen.Await(p) == true then triggerNotify(nil, Config.ManualRepairs.dutyMessage, "error") return end
 	end
 	local vehicle = GetVehiclePedIsIn(Ped, false)
 	local health = 0
@@ -11,34 +12,29 @@ RegisterNetEvent('jim-mechanic:client:Manual:Menu', function(data) local Ped = P
 	local bodHealth = (GetVehicleBodyHealth(vehicle)/10)
 	if GetVehicleEngineHealth(vehicle) > 1000 then bodHealth = 100 end
 	if GetVehicleEngineHealth(vehicle) < 0 then bodHealth = 1 end
-	if Config.ManualRepairs.repairEngine then
-		health = math.ceil(engHealth/2)+math.ceil(bodHealth/2)
-	elseif not Config.ManualRepairs.repairEngine then
-		health = math.ceil((bodHealth))
-	end
+	if Config.ManualRepairs.repairEngine then health = math.ceil(engHealth/2)+math.ceil(bodHealth/2)
+	elseif not Config.ManualRepairs.repairEngine then health = math.ceil((bodHealth)) end
 	local cost = 0
 	if Config.ManualRepairs.ManualRepairBased then
-		local info = searchCar(vehicle)
-		local percent = (Config.ManualRepairs.ManualRepairPercent / 100)
-		if Config.System.Debug then
-			print("^5Debug^7: ^2Vehicle^7: '^6"..GetEntityModel(vehicle).. "^7' (^6"..info.name.."^7) (^6"..info.price.."^7)")
+		local model = GetEntityModel(vehicle)
+		for k, v in pairs(QBCore.Shared.Vehicles) do
+			if tonumber(v.hash) == model or GetHashKey(v.hash) == model then
+				local percent = (Config.ManualRepairs.ManualRepairPercent / 100)
+				if Config.System.Debug then print("^5Debug^7: ^2Vehicle^7: '^6"..v.hash.. "^7' (^6"..QBCore.Shared.Vehicles[k].name.."^7)") end
+				cost = math.ceil((QBCore.Shared.Vehicles[k].price * percent) - math.ceil((health/100) * (QBCore.Shared.Vehicles[k].price * percent)))
+			end
 		end
-		cost = math.ceil((info.price * percent) - math.ceil((health/100) * (info.price * percent)))
 	else
-		if Config.ManualRepairs.ManualRepairCostBased then
-			cost = Config.ManualRepairs.ManualRepairCost
-		else
-			cost = Config.ManualRepairs.ManualRepairCost - math.ceil((health/100) * Config.ManualRepairs.ManualRepairCost)
-		end
+		if Config.ManualRepairs.ManualRepairCostBased then cost = Config.ManualRepairs.ManualRepairCost
+		else cost = Config.ManualRepairs.ManualRepairCost - math.ceil((health/100) * Config.ManualRepairs.ManualRepairCost) end
 	end
 
 	if GetPedInVehicleSeat(vehicle, -1) ~= Ped then return end
-	local cash = triggerCallback('jim-mechanic:checkCash')
-
+	local p2 = promise.new() QBCore.Functions.TriggerCallback('jim-mechanic:checkCash', function(cb) p2:resolve(cb) end) local cash = Citizen.Await(p2)
 	local headertxt =
-		"Class: "..searchCar(vehicle).class..br..(isOx() and br or "")..
+		"Class: "..getClass(vehicle)..br..(isOx() and br or "")..
 		Loc[Config.Lan]["check"].plate.." ["..trim(GetVehicleNumberPlateText(vehicle)).."]"..br..(isOx() and br or "")..
-		Loc[Config.Lan]["check"].value..searchCar(vehicle).price..br..(isOx() and br or "")..
+		Loc[Config.Lan]["check"].value..searchPrice(vehicle)..br..(isOx() and br or "")..
 		searchDist(vehicle)
 	local RepairMenu = {}
 	local seticon, greyed, check = "fas fa-wrench", false, "✅"
@@ -65,7 +61,7 @@ RegisterNetEvent('jim-mechanic:client:Manual:Menu', function(data) local Ped = P
 		header = "Test", txt = "Vehicle Death Simulator", params = { event = "jim-mechanic:client:Emergency:Damage" },
 	} end
 
-	openMenu(RepairMenu, { header = searchCar(vehicle).name, headertxt = headertxt, canClose = true, onExit = function() end, })
+	openMenu(RepairMenu, { header = searchCar(vehicle), headertxt = headertxt, canClose = true, onExit = function() end, })
 end)
 
 local repairing = false
@@ -112,7 +108,7 @@ RegisterNetEvent('jim-mechanic:client:Manual:Repair', function(data)
 		SetVehicleBodyHealth(vehicle, 1000.0)
 		SetVehicleDeformationFixed(vehicle)
 		SetVehicleFixed(vehicle)
-		if GetResourceState("qs-advancedgarages"):find("start") then exports["qs-advancedgarages"]:RepairNearestVehicle() end
+		if GetResourceState("qs-advancedgarages") == "started" then exports["qs-advancedgarages"]:RepairNearestVehicle() end
 		TriggerEvent('jim-mechanic:client:Manual:Menu', { society = data.society })
 		updateCar(vehicle)
 		triggerNotify(nil, Loc[Config.Lan]["police"].complete, "success")
@@ -127,7 +123,7 @@ RegisterNetEvent('jim-mechanic:client:Manual:Repair', function(data)
 			if Config.Repairs.ExtraDamages == true and Config.ManualRepairs.repairExtras then
 				TriggerServerEvent("jim-mechanic:server:fixAllPart", trim(GetVehicleNumberPlateText(vehicle)))
 			end
-			if GetResourceState("qs-advancedgarages"):find("start") then exports["qs-advancedgarages"]:RepairNearestVehicle() end
+			if GetResourceState("qs-advancedgarages") == "started" then exports["qs-advancedgarages"]:RepairNearestVehicle() end
 			TriggerServerEvent("jim-mechanic:chargeCash", data.cost, data.society)
 			TriggerEvent('jim-mechanic:client:Manual:Menu', { society = data.society })
 			updateCar(vehicle)
