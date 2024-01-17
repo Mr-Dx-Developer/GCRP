@@ -94,6 +94,7 @@ const app = Vue.createApp({
     },
 
     async mounted() {
+        document.querySelector('#app').style.display = 'block'
         window.addEventListener('resize', this.updateNavbarActive);
         this.$nextTick(() => {
             this.updateNavbarActive();
