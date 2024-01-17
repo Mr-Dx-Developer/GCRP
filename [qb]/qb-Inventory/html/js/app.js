@@ -390,7 +390,7 @@ function FormatItemInfo(itemData) {
             }
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(
-                "<p><strong>CSN: </strong><span>" +
+                "<p><strong>UID: </strong><span>" +
                 itemData.info.citizenid +
                 "</span></p><p><strong>First Name: </strong><span>" +
                 itemData.info.firstname +
@@ -417,12 +417,11 @@ function FormatItemInfo(itemData) {
                 itemData.info.type +
                 "</span></p>"
             );
-        } else if (itemData.name == "hotel_card") {
-            $(".item-info-title").html('<p>Room Access</p>')
-            $(".item-info-description").html('<p><strong>Room Number: </strong><span>' + itemData.info.roomnumber + '</span></p><strong>Expires: </strong><span>' + itemData.info.date + '</span></p>');    
         } else if (itemData.name == "weaponlicense") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(
+                "<p><strong>UID: </strong><span>" +
+                itemData.info.citizenid +
                 "<p><strong>First Name: </strong><span>" +
                 itemData.info.firstname +
                 "</span></p><p><strong>Last Name: </strong><span>" +
@@ -430,6 +429,20 @@ function FormatItemInfo(itemData) {
                 "</span></p><p><strong>Birth Date: </strong><span>" +
                 itemData.info.birthdate +
                 "</span></p>"
+            );
+        } else if (itemData.name == "huntinglicence") {
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p><strong>UID: </strong><span>" +
+                itemData.info.citizenid +
+                "<p><strong>First Name: </strong><span>" +
+                itemData.info.firstname +
+                "</span></p><p><strong>Last Name: </strong><span>" +
+                itemData.info.lastname +
+                "</span></p><p><strong>Birth Date: </strong><span>" +
+                itemData.info.birthdate +
+                "</span></p>"
+                
             );
         } else if (itemData.name == "lawyerpass") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
@@ -440,9 +453,21 @@ function FormatItemInfo(itemData) {
                 itemData.info.firstname +
                 "</span></p><p><strong>Last Name: </strong><span>" +
                 itemData.info.lastname +
-                "</span></p><p><strong>CSN: </strong><span>" +
+                "</span></p><p><strong>UID: </strong><span>" +
                 itemData.info.citizenid +
                 "</span></p>"
+            );
+        } else if (itemData.name == "syphoningkit") { // Syphoning Kit (cdn-fuel or CDN-Syphoning!)
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p>" + "A kit used to syphon gasoline from vehicles! <br><br>" + itemData.info.gasamount + " Liters Inside.</p>" +
+                "</span></p><p style=\"padding-top: .8vh;font-size:11px\"><b>Weight: </b>" + ((itemData.weight * itemData.amount) / 1000).toFixed(1) + " | <b>Amount: </b> " + itemData.amount
+            );
+        } else if (itemData.name == "jerrycan") { // Jerry Can (cdn-fuel!)
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p>" + "A Jerry Can, designed to hold fuel! <br><br>" + itemData.info.gasamount + " Liters Inside.</p>" +
+                "</span></p><p style=\"padding-top: .8vh;font-size:11px\"><b>Weight: </b>" + ((itemData.weight * itemData.amount) / 1000).toFixed(1) + " | <b>Amount: </b> " + itemData.amount
             );
         } else if (itemData.name == "harness") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
@@ -556,19 +581,12 @@ function FormatItemInfo(itemData) {
                 itemData.info.cash +
                 "</span></p>"
             );
-        } else if (itemData.name == "markedbills") {
-            $(".item-info-title").html("<p>" + itemData.label + "</p>");
-            $(".item-info-description").html(
-                "<p><strong>Worth: </strong><span>$" +
-                itemData.info.worth +
-                "</span></p>"
-            );
         } else if (itemData.name == "visa" || itemData.name == "mastercard") {
             $(".item-info-title").html('<p>'+itemData.label+'</p>')
             var str = ""+ itemData.info.cardNumber + "";
             var res = str.slice(12);
             var cardNumber = "************" + res;
-            $(".item-info-description").html('<p><strong>Card Holder: </strong><span>' + itemData.info.name + '</span></p><p><strong>Citizen ID: </strong><span>' + itemData.info.citizenid + '</span></p><p><strong>Card Number: </strong><span>' + cardNumber + '</span></p>');			
+            $(".item-info-description").html('<p><strong>Card Holder: </strong><span>' + itemData.info.name + '</span></p><p><strong>Citizen ID: </strong><span>' + itemData.info.citizenid + '</span></p><p><strong>Card Number: </strong><span>' + cardNumber + '</span></p>');	
         } else if (itemData.name == "labkey") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html("<p>Lab: " + itemData.info.lab + "</p>");
@@ -2308,16 +2326,17 @@ var requiredItemOpen = false;
     Inventory.Open = function(data) {
         totalWeight = 0;
         totalWeightOther = 0;
-
+        var v = data
         $(".player-inventory").find(".item-slot").remove();
         $(".ply-hotbar-inventory").find(".item-slot").remove();
-
+        $('.namejs').html('<i class="fa fa-id-badge"> ID:</i> '+v.pid+' | NAME: '+v.pname+' |  '+'<i class="fas fa-wallet"></i>'+' CASH: $'+v.money)
         if (requiredItemOpen) {
             $(".requiredItem-container").hide();
             requiredItemOpen = false;
         }
 
         $("#qbcore-inventory").fadeIn(300);
+        $("#inv-dialog-return").fadeOut(0);
         if (data.other != null && data.other != "") {
             $(".other-inventory").attr("data-inventory", data.other.name);
         } else {
@@ -2514,9 +2533,11 @@ var requiredItemOpen = false;
             });
         }
 
-        $("#player-inv-label").html(
-            // "Player Inventory: " + (totalWeight / 1000).toFixed(2) + " / " + (data.maxweight / 1000).toFixed(2)
-            `Player Inventory: ${(totalWeight / 1000).toFixed(2)} / ${(data.maxweight / 1000).toFixed(2)}`
+        $("#player-inv-weight").html(
+            "⚖️: " +
+            (totalWeight / 1000).toFixed(2) +
+            " / " +
+            (data.maxweight / 1000).toFixed(2)
         );
         playerMaxWeight = data.maxweight;
         if (data.other != null) {
@@ -2539,12 +2560,11 @@ var requiredItemOpen = false;
             otherLabel = data.other.label;
         } else {
             $("#other-inv-label").html(Inventory.droplabel);
-            $("#other-inv-label").html(
-                // "⚖️: " +
-                // (totalWeightOther / 1000).toFixed(2) +
-                // " / " +
-                // (Inventory.dropmaxweight / 1000).toFixed(2)
-                `Drop: ${(totalWeightOther / 1000).toFixed(2)} / ${(Inventory.dropmaxweight / 1000).toFixed(2)}`
+            $("#other-inv-weight").html(
+                "⚖️: " +
+                (totalWeightOther / 1000).toFixed(2) +
+                " / " +
+                (Inventory.dropmaxweight / 1000).toFixed(2)
             );
             otherMaxWeight = Inventory.dropmaxweight;
             otherLabel = Inventory.droplabel;
@@ -2577,17 +2597,24 @@ var requiredItemOpen = false;
         handleDragDrop();
     };
 
+
     Inventory.Close = function() {
         $(".item-slot").css("border", "1px solid rgba(255, 255, 255, 0.1)");
         $(".ply-hotbar-inventory").css("display", "block");
         $(".ply-iteminfo-container").css("display", "none");
         $("#qbcore-inventory").fadeOut(300);
         $(".combine-option-container").hide();
+        $("#item-amount").fadeIn();
+        $("#item-use").fadeIn();
+        $("#item-give").fadeIn();
+        $("#inv-close").fadeIn();
+        $(".inv-dialog-content").remove();
         $(".item-slot").remove();
         if ($("#rob-money").length) {
             $("#rob-money").remove();
         }
         $.post("https://qb-inventory/CloseInventory", JSON.stringify({}));
+        $("#dialog").html("");
 
         if (AttachmentScreenActive) {
             $("#qbcore-inventory").css({ left: "0vw" });
@@ -2602,6 +2629,34 @@ var requiredItemOpen = false;
             });
         }
     };
+
+    Inventory.NearPlayers = function(data) {
+        $("#nearPlayers").html("");
+
+        $.each(data.players, function (index, player) {
+            $(".inv-dialog").append('<div class="inv-dialog-content" id="nearbyPlayerButton" data-player="' + player.ped + '" data-inventory="' + data.inventory + '" data-amount="' + data.amount + '" data-item="' + data.item + '" data-slot="' + data.slot + '"><p>'+ player.name + '</p></div>');
+        });
+    };
+
+    $(document).on("click", "#nearbyPlayerButton", function(e) {
+        e.preventDefault();
+
+        player = $(this).data("player");
+        itemamount = $(this).data("amount");
+        slot = $(this).data("slot");
+        fromInventory = $(this).data("inventory");
+        item = $(this).data("item");
+        $.post("https://qb-inventory/GiveItem",
+            JSON.stringify({
+                inventory: fromInventory,
+                item: item,
+                amount: itemamount,
+                player: player,
+                slot: slot,
+            })
+        );
+        Inventory.Close();
+    })
 
     Inventory.Update = function(data) {
         totalWeight = 0;
@@ -2888,6 +2943,9 @@ var requiredItemOpen = false;
                 case "toggleHotbar":
                     Inventory.ToggleHotbar(event.data);
                     break;
+                case "NearPlayers":
+                    Inventory.NearPlayers(event.data)
+                    break
                 case "RobMoney":
                     $(".inv-options-list").append(
                         '<div class="inv-option-item" id="rob-money"><p>TAKE MONEY</p></div>'
@@ -2917,6 +2975,12 @@ $("#item-give").droppable({
         setTimeout(function() {
             IsDragging = false;
         }, 300);
+        $("#item-amount").fadeOut(0);
+        $("#item-use").fadeOut(0);
+        $("#item-give").fadeOut(0);
+        $("#inv-close").fadeOut(0);
+        $("#inv-dialog-return").fadeIn(0);
+        $("#weapon-attachments").fadeOut(0);
         fromData = ui.draggable.data("item");
         fromInventory = ui.draggable.parent().attr("data-inventory");
         amount = $("#item-amount").val();
@@ -2924,7 +2988,7 @@ $("#item-give").droppable({
             amount = fromData.amount;
         }
         $.post(
-            "https://qb-inventory/GiveItem",
+            "https://qb-inventory/GetNearPlayers",
             JSON.stringify({
                 inventory: fromInventory,
                 item: fromData,
@@ -2933,3 +2997,13 @@ $("#item-give").droppable({
         );
     },
 });
+
+$(document).on("click", "#inv-dialog-return", function(e) {
+    e.preventDefault();
+    $("#item-amount").fadeIn(0);
+    $("#item-use").fadeIn(0);
+    $("#item-give").fadeIn(0);
+    $("#inv-close").fadeIn(0);
+    $("#inv-dialog-return").fadeOut(0);
+    $(".inv-dialog-content").remove();
+})

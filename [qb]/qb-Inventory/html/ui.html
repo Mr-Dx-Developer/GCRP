@@ -18,10 +18,12 @@
         <div id="qbcore-inventory">
             <div class="inventory-info">
                 <div class="player-inv-info">
-                    <span id="player-inv-label">Player Inventory</span><br>
+                    <span class="namejs" id="player-inv-label">Player</span><br>
+                    <span id="player-inv-weight"></span>
                 </div>
                 <div class="other-inv-info">
                     <span id="other-inv-label"></span><br>
+                    <span id="other-inv-weight"></span>
                 </div>
             </div>
             <div class="inv-container">
@@ -35,6 +37,9 @@
                         <div class="inv-option-item" id="item-give"><p>GIVE</p></div>
                         <div class="inv-option-item" id="inv-close"><p>CLOSE</p></div>
                     </div>
+                </div>
+                <div class="inv-dialog">
+                    <div class="inv-dialog-item" id="inv-dialog-return"><p>Return</p></div>
                 </div>
                 <div class="oth-inv-container">
                     <div class="other-inventory" data-inventory="other">

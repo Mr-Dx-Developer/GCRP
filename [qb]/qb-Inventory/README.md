@@ -11,26 +11,6 @@ So, I know the NoPixel 3.5 inventory update is a very controversial topic for mo
 
 Runs at ~ 0.00 to 0.01 ms if you have more optimization suggestions feel free to reach out
 
-# Important, If you want the decay to work follow this steps, this is not needed if you dont want to use decay
-you need to add a decay and created value in your qb-core/shared/items for all items, the decay is set to be the days the item lasts
-<br>
-
-```lua
--- created = this will get filled in with the time when it's created, just leave this
--- decay = amount of days that an item will decay
--- delete = choice whether to remove the item when it's decayed or not
-["created"] = nil, ["decay"] = 28.0, ["delete"] = true
-```
-<br>
-Example:
-<br>
-
-```lua
-['sandwich'] = {['name'] = 'sandwich', ['label'] = 'Sandwich', ['weight'] = 200, ['type'] = 'item', ['image'] = 'sandwich.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true,	['combinable'] = nil, ['description'] = 'Nice bread for your stomach', ["created"] = nil, ["decay"] = 3.0, ["delete"] = true},
-```
-In this example our sandwich will decay in 3 days and removed when used.
-<br>
-
 In collaboration with [OnlyCats](https://github.com/onlycats) who helped reorganized and also created some custom images.
 # Dependencies
 * [qbcore framework](https://github.com/qbcore-framework)
@@ -92,9 +72,6 @@ In collaboration with [OnlyCats](https://github.com/onlycats) who helped reorgan
 
 # Credits
 * ihyajb (Aj) for [original version](https://github.com/ihyajb/aj-inventory)
-* Jay for [decay](https://github.com/tnj-development/inventory)
-* i-kulgu for [updated decay](https://github.com/i-kulgu/qb-inventory-decay)
-
 
 # Issues and Suggestions
 Please use the GitHub issues system to report issues or make suggestions, when making suggestion, please keep [Suggestion] in the title to make it clear that it is a suggestion.
