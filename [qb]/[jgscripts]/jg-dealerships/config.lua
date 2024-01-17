@@ -10,7 +10,7 @@ Config.PlateFormat = "1AA111AA" -- 1 = number, A = letter (max 8 characters)
 Config.Framework = "QBCore"  -- or "ESX"
 Config.FuelSystem = "LegacyFuel" -- or "LegacyFuel", "ps-fuel", "lj-fuel", "ox_fuel", "cdn-fuel", "hyon_gas_station", "okokGasStation", "nd_fuel", "myFuel", "ti_fuel", "none"
 Config.VehicleKeys = "qb-vehiclekeys" -- or "qb-vehiclekeys", "jaksam-vehicles-keys", "qs-vehiclekeys", "mk_vehiclekeys", "wasabi_carlock", "cd_garage", "okokGarage", "t1ger_keys", "none"
-Config.Notifications = "default" -- or "okokNotify", "ox_lib", "ps-ui"
+Config.Notifications = "ox_lib" -- or "okokNotify", "ox_lib", "ps-ui"
 
 Config.DrawText = "ox_lib" -- or "qb-DrawText", "okokTextUI", "ox_lib", "ps-ui"
 Config.OpenShowroomPrompt = "[E] Open Showroom"
@@ -68,7 +68,7 @@ Config.DealershipLocations = {
       coords = vector4(-146.6166, -596.6301, 166.0000, 120.0),
       positions = {5.0, 8.0, 12.0, 8.0}
     },
-    categories = {"sedans", "compacts", "motorcycles", "offroad", "coupes", "muscle", "suvs", "sportsclassics", "super", "sports"},
+    categories = {"sedans", "compacts", "motorcycles", "offroad", "coupes", "muscle", "suvs", "sportsclassics", "super", "sports", "cycles"},
     enableTestDrive = true,
     hideBlip = false,
     blip = {
@@ -91,7 +91,7 @@ Config.DealershipLocations = {
     directSaleDistance = 50,
   },
   ["luxury"] = {
-    type = "self-service", -- or "owned", "self-service"
+    type = "owned", -- or "owned", "self-service"
     openShowroom = vector3(-1257.4, -369.12, 36.98),
     openManagement = vector3(-1249.04, -346.96, 37.34),
     purchaseSpawn = vector4(-1233.46, -346.81, 37.33, 23.36),
