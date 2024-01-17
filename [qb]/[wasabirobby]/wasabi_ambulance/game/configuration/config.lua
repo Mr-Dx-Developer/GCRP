@@ -123,7 +123,7 @@ Config.DeathAnimation = {
 Config.KnockoutFeature = {
     enabled = false,           -- Enable knockout features? (player's can knock eachother out using fist fighting)
     healthForKnockout = 150,   -- At what HP will player knockout from fist fighting
-    fistDamageModifier = 0.25, -- How much damage will fist cause? (1.0 is default, 0.5 is half as strong, etc)
+    fistDamageModifier = 1.0, -- How much damage will fist cause? (1.0 is default, 0.5 is half as strong, etc)
     duration = 7 * seconds     -- Time to be knocked out when occurs?
 }
 
@@ -216,8 +216,8 @@ Config.jobMenu = 'F6'               -- Default job menu key
 Config.billingSystem = false        -- Current options: 'esx' (For esx_billing) / 'qb' (For qbcore users) 'okok' (For okokBilling) / 'pefcl' (For NPWD billing system) (Easy to add more in editable client - SET TO false IF UNDESIRED) or of course false to disable
 Config.targetSystem = true          -- Target system for targetting players, medbags, and stretcher(If disabled with replace with menus/3D text) (Compatible out of the box with qTarget, qb-target, and ox_target)
 
-Config.RespawnTimer = 5 * minutes   -- Time before optional respawn
-Config.BleedoutTimer = 20 * minutes -- Time before it forces respawn
+Config.RespawnTimer = 2 * minutes   -- Time before optional respawn
+Config.BleedoutTimer = 15 * minutes -- Time before it forces respawn
 
 Config.removeItemsOnDeath = false   -- Must have Config.Inventory set properly
 Config.Inventory =
@@ -239,7 +239,7 @@ Config.CompleteDeath = { --DOES NOT APPLY TO QBCORE --  When enabled players can
 }
 
 Config.Bandages = {
-    enabled = false,       -- Useable bandages? (Leave false if ox_inventory because they're built in)
+    enabled = true,       -- Useable bandages? (Leave false if ox_inventory because they're built in)
     item = 'bandage',      -- YOU MUST ADD THIS ITEM TO YOUR ITEMS, IT DOES NOT COME IN INSTALLATION(COMES WITH QBCORE BY DEFAULT AS ITEM)
     hpRegen = 30,          -- Percentage of health it replenishes (30% by default)
     healBleed = false,     -- Heal bleed that is inflicted by injury system? (Requires injury system enabled)
