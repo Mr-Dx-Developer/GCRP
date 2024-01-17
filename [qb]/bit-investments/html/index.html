@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css" type="text/css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@800&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet"> 
+        <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+	</head>
+	<body id="body">
+        <div id="alert" class="alert">
+		<div class="v2_3"></div>
+        <div class="v2_5"></div>
+        <span class="v3_6">REMAINING</span><span class="v3_7">BEFORE RECEIVING</span><span id="time" class="v3_8">00:01</span><span id="amount" class="v3_9">1000</span>
+        </div>
+
+        <div id="panel" class="panel">
+            <img src="./img/gold.png" class="gold">
+            <img src="./img/money.png" class="money">
+            <img src="./img/moneydrop.png" class="moneydrop">
+            <span class="v4_4">DAYTIME</span>
+            <div id="investment" class="investment">
+                <div class="v4_5"><img src="./img/1.jpg">
+                    <span class="v5_7">Investment #1</span><span class="v5_8">This investment will bring you $10000 profit in 1 hours</span><span class="v5_9">DURATION 🕑 1 HOUR</span><span class="v5_13">PROFIT</span><span class="v5_14">$10000</span>
+                    <div class="v5_15" id="select1"><span class="v5_16">INVEST</span></div>
+                </div>
+
+                <div class="v4_52"><img src="./img/2.jpg">
+                    <span class="v5_7">Investment #2</span><span class="v5_8">This investment will bring you $25000 profit in 2 hours</span><span class="v5_9">DURATION 🕑 2 HOUR</span><span class="v5_13">PROFIT</span><span class="v5_14">$25000</span>
+                    <div class="v5_15" id="select2"><span class="v5_16">INVEST</span></div>
+                </div>
+
+                <div class="v4_53"><img src="./img/3.jpg">
+                    <span class="v5_7">Investment #3</span><span class="v5_8">This investment will bring you $40000 profit in 3 hours</span><span class="v5_9">DURATION 🕑 3 HOUR</span><span class="v5_13">PROFIT</span><span class="v5_14">$40000</span>
+                    <div class="v5_15" id="select3"><span class="v5_16">INVEST</span></div>
+                </div>
+
+                <div class="v4_54"><img src="./img/4.jpg">
+                    <span class="v5_7">Investment #4</span><span class="v5_8">This investment will bring you $55000 profit in 4 hours</span><span class="v5_9">DURATION 🕑 4 HOUR</span><span class="v5_13">PROFIT</span><span class="v5_14">$55000</span>
+                    <div class="v5_15" id="select4"><span class="v5_16">INVEST</span></div>
+                </div>
+
+                <div class="v4_55"><img src="./img/5.jpg">
+                    <span class="v5_7">Investment #5</span><span class="v5_8">This investment will bring you $75000 profit in 5 hours</span><span class="v5_9">DURATION 🕑 5 HOUR</span><span class="v5_13">PROFIT</span><span class="v5_14">$75000</span>
+                    <div class="v5_15" id="select5"><span class="v5_16">INVEST</span></div>
+                </div>
+
+                <div class="v4_56"><img src="./img/6.jpg">
+                    <span class="v5_7">Investment #6</span><span class="v5_8">This investment will bring you $10000 profit in 6 hours</span><span class="v5_9">DURATION 🕑 6 HOUR</span><span class="v5_13">PROFIT</span><span class="v5_14">$100000</span>
+                    <div class="v5_15" id="select6"><span class="v5_16">INVEST</span></div>
+                </div>
+            </div>
+            <div id="confirmation" class="confirmation">
+                <span class="conalert">ALERT!</span><br><br>
+                <span class="confirm1">Do you really want to start this investment?</span><br><br>
+                <span class="confirm1">All your current progress will be reset</span><br><br>
+                <span class="confirm1">Remember that you must remain logged in for the duration of the investment, otherwise your progress will be reset.</span>
+                <div class="v5_152" id="confirmate"><span class="v5_162">CONFIRM</span></div>
+            </div>
+             
+        </div>
+
+        <div id="notification" class="notification">
+            <div class="notificationitem">
+                <img id="imgnoti" src="./img/big1.png"> 
+                <div class="congrats"><span class="titlenoti">CONGRATS!</span><br></div>
+                <span class="descnoti">You have received</span><br>
+                <span id="moneynoti" class="moneynoti">$1000</span>
+            </div>
+            
+        </div>
+
+        
+
+
+        <script src="./script.js" type="text/javascript"></script>
+	</body>
+</html>
