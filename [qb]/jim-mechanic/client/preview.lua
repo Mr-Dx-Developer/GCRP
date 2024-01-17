@@ -11,39 +11,39 @@ local function printDifferences(vehicle, properties, newproperties)
 	for k in pairs(newproperties) do
 		if properties[k] ~= newproperties[k] then
 			local conTable = {
-				["modSpoilers"] = { mod = 0, label = Loc[Config.Lan]["check"].label15, item = QBCore.Shared.Items["spoiler"].label },
-				["modFrontBumper"] = { mod = 1, label = Loc[Config.Lan]["check"].label16, item = QBCore.Shared.Items["bumper"].label },
-				["modRearBumper"] = { mod = 2, label = Loc[Config.Lan]["check"].label17, item = QBCore.Shared.Items["bumper"].label },
-				["modSideSkirt"] = { mod = 3, label = Loc[Config.Lan]["check"].label18, item = QBCore.Shared.Items["skirts"].label },
-				["modExhaust"] = { mod = 4, label = Loc[Config.Lan]["check"].label19, item = QBCore.Shared.Items["exhaust"].label },
-				["modGrille"] = { mod = 6, label = Loc[Config.Lan]["check"].label20, item = QBCore.Shared.Items["bumper"].label },
-				["modHood"] = { mod = 7, label = Loc[Config.Lan]["check"].label21, item = QBCore.Shared.Items["hood"].label },
-				["modFender"] = { mod = 8, label = Loc[Config.Lan]["check"].label22, item = QBCore.Shared.Items["skirts"].label },
-				["modRightFender"] = { mod = 9, label = Loc[Config.Lan]["check"].label23, item = QBCore.Shared.Items["skirts"].label },
-				["modRoof"] = { mod = 10, label = Loc[Config.Lan]["check"].label24, item = QBCore.Shared.Items["roof"].label },
-				["modPlateHolder"] = { mod = 25, label = Loc[Config.Lan]["check"].label25, item = QBCore.Shared.Items["customplate"].label },
-				["modVanityPlate"] = { mod = 26, label = Loc[Config.Lan]["check"].label26, item = QBCore.Shared.Items["customplate"].label },
-				["modTrimA"] = { mod = 27, label = Loc[Config.Lan]["check"].label27, item = QBCore.Shared.Items["externals"].label },
-				["modTrimB"] = { mod = 44, label = Loc[Config.Lan]["check"].label28, item = QBCore.Shared.Items["externals"].label },
-				["modTrunk"] = { mod = 37, label = Loc[Config.Lan]["check"].label29, item = QBCore.Shared.Items["externals"].label },
-				["modEngineBlock"] = { mod = 39, label = Loc[Config.Lan]["check"].label30, item = QBCore.Shared.Items["externals"].label },
-				["modAirFilter"] = { mod = 40, label = Loc[Config.Lan]["check"].label31, item = QBCore.Shared.Items["externals"].label },
-				["modStruts"] = { mod = 41, label = Loc[Config.Lan]["check"].label32, item = QBCore.Shared.Items["externals"].label },
-				["modArchCover"] = { mod = 42, label = Loc[Config.Lan]["check"].label33, item = QBCore.Shared.Items["externals"].label },
-				["modFrame"] = { mod = 5, label = Loc[Config.Lan]["check"].label34, item = QBCore.Shared.Items["rollcage"].label },
-				["modOrnaments"] = { mod = 28, label = Loc[Config.Lan]["check"].label35, item = QBCore.Shared.Items["internals"].label },
-				["modDashboard"] = { mod = 29, label = Loc[Config.Lan]["check"].label36, item = QBCore.Shared.Items["internals"].label },
-				["modDial"] = { mod = 30, label = Loc[Config.Lan]["check"].label37, item = QBCore.Shared.Items["internals"].label },
-				["modDoorSpeaker"] = { mod = 31, label = Loc[Config.Lan]["check"].label38, item = QBCore.Shared.Items["internals"].label },
-				["modSeats"] = { mod = 32, label = Loc[Config.Lan]["check"].label39, item = QBCore.Shared.Items["seat"].label },
-				["modSteeringWheel"] = { mod = 33, label = Loc[Config.Lan]["check"].label40, item = QBCore.Shared.Items["internals"].label },
-				["modShifterLeavers"] = { mod = 34, label = Loc[Config.Lan]["check"].label41, item = QBCore.Shared.Items["internals"].label },
-				["modAPlate"] = { mod = 35, label = Loc[Config.Lan]["check"].label42, item = QBCore.Shared.Items["internals"].label },
-				["modSpeakers"] = { mod = 36, label = Loc[Config.Lan]["check"].label43, item = QBCore.Shared.Items["internals"].label },
-				["modHydrolic"] = { mod = 38, label = Loc[Config.Lan]["check"].label44, item = QBCore.Shared.Items["externals"].label },
-				["modAerials"] = { mod = 43, label = Loc[Config.Lan]["check"].label45, item = QBCore.Shared.Items["externals"].label },
-				["modTank"] = { mod = 45, label = Loc[Config.Lan]["check"].label46, item = QBCore.Shared.Items["externals"].label },
-				["modLivery"] = { mod = 48, label = Loc[Config.Lan]["check"].label53, item = QBCore.Shared.Items["livery"].label },
+				["modSpoilers"] = { mod = 0, label = Loc[Config.Lan]["check"].label15, item = Items["spoiler"].label },
+				["modFrontBumper"] = { mod = 1, label = Loc[Config.Lan]["check"].label16, item = Items["bumper"].label },
+				["modRearBumper"] = { mod = 2, label = Loc[Config.Lan]["check"].label17, item = Items["bumper"].label },
+				["modSideSkirt"] = { mod = 3, label = Loc[Config.Lan]["check"].label18, item = Items["skirts"].label },
+				["modExhaust"] = { mod = 4, label = Loc[Config.Lan]["check"].label19, item = Items["exhaust"].label },
+				["modGrille"] = { mod = 6, label = Loc[Config.Lan]["check"].label20, item = Items["bumper"].label },
+				["modHood"] = { mod = 7, label = Loc[Config.Lan]["check"].label21, item = Items["hood"].label },
+				["modFender"] = { mod = 8, label = Loc[Config.Lan]["check"].label22, item = Items["skirts"].label },
+				["modRightFender"] = { mod = 9, label = Loc[Config.Lan]["check"].label23, item = Items["skirts"].label },
+				["modRoof"] = { mod = 10, label = Loc[Config.Lan]["check"].label24, item = Items["roof"].label },
+				["modPlateHolder"] = { mod = 25, label = Loc[Config.Lan]["check"].label25, item = Items["customplate"].label },
+				["modVanityPlate"] = { mod = 26, label = Loc[Config.Lan]["check"].label26, item = Items["customplate"].label },
+				["modTrimA"] = { mod = 27, label = Loc[Config.Lan]["check"].label27, item = Items["externals"].label },
+				["modTrimB"] = { mod = 44, label = Loc[Config.Lan]["check"].label28, item = Items["externals"].label },
+				["modTrunk"] = { mod = 37, label = Loc[Config.Lan]["check"].label29, item = Items["externals"].label },
+				["modEngineBlock"] = { mod = 39, label = Loc[Config.Lan]["check"].label30, item = Items["externals"].label },
+				["modAirFilter"] = { mod = 40, label = Loc[Config.Lan]["check"].label31, item = Items["externals"].label },
+				["modStruts"] = { mod = 41, label = Loc[Config.Lan]["check"].label32, item = Items["externals"].label },
+				["modArchCover"] = { mod = 42, label = Loc[Config.Lan]["check"].label33, item = Items["externals"].label },
+				["modFrame"] = { mod = 5, label = Loc[Config.Lan]["check"].label34, item = Items["rollcage"].label },
+				["modOrnaments"] = { mod = 28, label = Loc[Config.Lan]["check"].label35, item = Items["internals"].label },
+				["modDashboard"] = { mod = 29, label = Loc[Config.Lan]["check"].label36, item = Items["internals"].label },
+				["modDial"] = { mod = 30, label = Loc[Config.Lan]["check"].label37, item = Items["internals"].label },
+				["modDoorSpeaker"] = { mod = 31, label = Loc[Config.Lan]["check"].label38, item = Items["internals"].label },
+				["modSeats"] = { mod = 32, label = Loc[Config.Lan]["check"].label39, item = Items["seat"].label },
+				["modSteeringWheel"] = { mod = 33, label = Loc[Config.Lan]["check"].label40, item = Items["internals"].label },
+				["modShifterLeavers"] = { mod = 34, label = Loc[Config.Lan]["check"].label41, item = Items["internals"].label },
+				["modAPlate"] = { mod = 35, label = Loc[Config.Lan]["check"].label42, item = Items["internals"].label },
+				["modSpeakers"] = { mod = 36, label = Loc[Config.Lan]["check"].label43, item = Items["internals"].label },
+				["modHydrolic"] = { mod = 38, label = Loc[Config.Lan]["check"].label44, item = Items["externals"].label },
+				["modAerials"] = { mod = 43, label = Loc[Config.Lan]["check"].label45, item = Items["externals"].label },
+				["modTank"] = { mod = 45, label = Loc[Config.Lan]["check"].label46, item = Items["externals"].label },
+				["modLivery"] = { mod = 48, label = Loc[Config.Lan]["check"].label53, item = Items["livery"].label },
 			}
 			for l in pairs(conTable) do
 				if conTable[k] then
@@ -76,7 +76,7 @@ local function printDifferences(vehicle, properties, newproperties)
 								paintNames[typeNo].." - [ "..v[i].name.." ("..typeList[k]..") ]"
 								modlist[#modlist+1] = {
 									['type'] = v[i].name.." ("..typeList[k]..")",
-									["item"] = paintNames[typeNo].." - "..QBCore.Shared.Items["paintcan"].label
+									["item"] = paintNames[typeNo].." - "..Items["paintcan"].label
 								}
 						end
 					end
@@ -113,7 +113,7 @@ local function printDifferences(vehicle, properties, newproperties)
 			vehlist[#vehlist+1] = (typeNo == 1 and "" or "Back ").."Wheels - [ "..GetLabelText(GetModTextLabel(vehicle, typeNo == 1 and 23 or 24, (newproperties[typeName]))).." ("..newproperties[typeName]..") ("..name..") ]"
 			modlist[#modlist+1] = {
 				['type'] = "("..name..")",
-				["item"] = (typeNo == 1 and "" or "Back ").."Wheels - [ "..GetLabelText(GetModTextLabel(vehicle, typeNo == 1 and 23 or 24, (newproperties[typeName]))).." ("..newproperties[typeName]..") - "..QBCore.Shared.Items["rims"].label
+				["item"] = (typeNo == 1 and "" or "Back ").."Wheels - [ "..GetLabelText(GetModTextLabel(vehicle, typeNo == 1 and 23 or 24, (newproperties[typeName]))).." ("..newproperties[typeName]..") - "..Items["rims"].label
 			}
 			SetVehicleWheelType(vehicle, originalWheel)
 		end
@@ -123,7 +123,7 @@ local function printDifferences(vehicle, properties, newproperties)
 		for k, v in pairs(Loc[Config.Lan].vehiclePlateOptions) do
 			if newproperties["plateIndex"] == v.id then
 				vehlist[#vehlist+1] = Loc[Config.Lan]["police"].plates.." - [ "..v.name.." ]"
-				modlist[#modlist+1] = {['type'] = "("..v.name..")", ["item"] = Loc[Config.Lan]["police"].plates.." - "..QBCore.Shared.Items["customplate"].label }
+				modlist[#modlist+1] = {['type'] = "("..v.name..")", ["item"] = Loc[Config.Lan]["police"].plates.." - "..Items["customplate"].label }
 			end
 		end
 	end
@@ -134,20 +134,20 @@ local function printDifferences(vehicle, properties, newproperties)
 			for _, v in pairs(Loc[Config.Lan].vehicleWindowOptions) do if v.id == newproperties["windowTint"] then name = v.name end end
 		end
 		vehlist[#vehlist+1] = Loc[Config.Lan]["windows"].menuheader.." - [ "..name.." ] - "
-		modlist[#modlist+1] = {['type'] = "("..name..")", ["item"] = Loc[Config.Lan]["windows"].menuheader.." - "..QBCore.Shared.Items["tint_supplies"].label }
+		modlist[#modlist+1] = {['type'] = "("..name..")", ["item"] = Loc[Config.Lan]["windows"].menuheader.." - "..Items["tint_supplies"].label }
 	end
 	-- VEHICLE EXTRAS DIFFERENCES --
 	for k, v in pairs(newproperties["extras"]) do
 		if properties["extras"][k] ~= newproperties["extras"][k] then
 			vehlist[#vehlist+1] = Loc[Config.Lan]["police"].extras.." - [ Extra: "..k..": "..(v and "ON" or "OFF").." ] - "
-			modlist[#modlist+1] = {['type'] = "(Extra: "..k..": "..(v and "ON" or "OFF")..")", ["item"] = Loc[Config.Lan]["police"].extras.." - "..QBCore.Shared.Items["externals"].label }
+			modlist[#modlist+1] = {['type'] = "(Extra: "..k..": "..(v and "ON" or "OFF")..")", ["item"] = Loc[Config.Lan]["police"].extras.." - "..Items["externals"].label }
 		end
 	end
 
 	-- FINIALIZE AND MAKE LIST --
 	local hasPhone = false
 	for _, v in pairs(Config.Previews.PhoneItems) do
-		if HasItem(v) then hasPhone = true break end end
+		if hasItem(v) then hasPhone = true break end end
 
     if Config.Previews.PreviewPhone and hasPhone then
 		if vehlist[1] then local newlist = ""
@@ -156,7 +156,6 @@ local function printDifferences(vehicle, properties, newproperties)
 				["qs"] = "qs-smartphone:server:sendNewMail",
 				["qb"] = "qb-phone:server:sendNewMail",
 				["roadphone"] = "roadphone:receiveMail",
-				--["lb"] = "roadphone:receiveMail",
 			}
 			local br = Config.Previews.PhoneMail == "roadphone" and "\n" or "<br>"
 			for i = 1, #vehlist do newlist = newlist..br..vehlist[i] end
@@ -214,7 +213,6 @@ local currentCam = 2
 function startPreviewCamera(vehicle)
 	local vehcoords = GetEntityCoords(vehicle)
 	for k, v in ipairs({
-		GetOffsetFromEntityInWorldCoords(vehicle, 1.8, 3.5, 2.0), -- Front
 		GetOffsetFromEntityInWorldCoords(vehicle, 0.0, 4.0, 0.5),
 		GetOffsetFromEntityInWorldCoords(vehicle, -1.8, 3.5, 2.0),
 
@@ -227,6 +225,8 @@ function startPreviewCamera(vehicle)
 
 		GetOffsetFromEntityInWorldCoords(vehicle, 3.5, 0.0, 0.5), -- Right
 		GetOffsetFromEntityInWorldCoords(vehicle, 2.6, 0.0, 3.0), -- Right
+
+		GetOffsetFromEntityInWorldCoords(vehicle, 1.8, 3.5, 2.0), -- Front
 	}) do
 		camTable[k] = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", v.x, v.y, v.z, 0.0, 0.0, 180.0, 60.00, false, 0)
 		PointCamAtCoord(camTable[k], vehcoords.x, vehcoords.y, vehcoords.z)
@@ -247,10 +247,10 @@ local function preview(Ped, vehicle)
 		FreezeEntityPosition(vehicle, true)
 		if Config.Previews.hardCam then startPreviewCamera(vehicle) end
 	else return end
-	properties = QBCore.Functions.GetVehicleProperties(vehicle)
+	properties = getVehicleProperties(vehicle)
 	currentPlate = trim(GetVehicleNumberPlateText(vehicle))
 	if not Config.Overrides.disablePreviewPlate then
-		if GetResourceState("cd_garage") == "started" then
+		if GetResourceState("cd_garage"):find("start") then
 			TriggerServerEvent('cd_garage:RemovePersistentVehicles', exports['cd_garage']:GetPlate(vehicle))
 		end
 		TriggerServerEvent("jim-mechanic:server:changePlate", VehToNet(vehicle), "PREVIEWZ", true)
@@ -273,14 +273,15 @@ local function preview(Ped, vehicle)
 			if DoesEntityExist(vehicle) then
 				FreezeEntityPosition(vehicle, false)
 				TriggerServerEvent("jim-mechanic:server:preview", false)
-				local newproperties = QBCore.Functions.GetVehicleProperties(vehicle)
-				QBCore.Functions.SetVehicleProperties(vehicle, properties)
+				print("test")
+				local newproperties = getVehicleProperties(vehicle)
+				setVehicleProperties(vehicle, properties)
 				SetVehicleEngineOn(vehicle, true, false, false)
 				if newproperties == nil then return	else
 				printDifferences(vehicle, properties, newproperties)
 				if not Config.Overrides.disablePreviewPlate then
 					TriggerServerEvent("jim-mechanic:server:changePlate", VehToNet(vehicle), currentPlate)
-					if GetResourceState("cd_garage") == "started" then
+					if GetResourceState("cd_garage"):find("start") then
 						TriggerServerEvent('cd_garage:AddPersistentVehicles', exports['cd_garage']:GetPlate(vehicle), NetworkGetNetworkIdFromEntity(vehicle))
 					end
 				end end
@@ -294,7 +295,7 @@ end
 
 RegisterNetEvent("jim-mechanic:preview:exploitfix", function(vehicle, resetprop)
 	if Config.System.Debug then print("^5Debug^7: ^3Preview: ^2Using client to reset vehicle properties of abandoned vehicle^7") end
-	QBCore.Functions.SetVehicleProperties(NetToVeh(vehicle), resetprop)
+	setVehicleProperties(NetToVeh(vehicle), resetprop)
 	FreezeEntityPosition(NetToVeh(vehicle), false)
 end)
 
@@ -317,7 +318,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Menu', function() local validMods,
 	if IsPedInAnyVehicle(Ped, false) then
 		vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle)
 		if GetPedInVehicleSeat(vehicle, -1) ~= Ped then return end
-		carMeta = { ["search"] = searchCar(vehicle), ["class"] = getClass(vehicle), ["plate"] = trim(GetVehicleNumberPlateText(vehicle)), ["price"] = searchPrice(vehicle), ["dist"] = searchDist(vehicle), }
+		carMeta = { ["search"] = searchCar(vehicle).name, ["class"] = searchCar(vehicle).class, ["plate"] = trim(GetVehicleNumberPlateText(vehicle)), ["price"] = searchCar(vehicle).price, ["dist"] = searchDist(vehicle), }
 
 		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
 			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
@@ -715,7 +716,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Check', function() local Menu
 			isMenuHeader = (GetVehicleMod(vehicle, 23) == -1),
 			header = Loc[Config.Lan]["common"].stock,
 			txt = (GetVehicleMod(vehicle, 23) == -1) and Loc[Config.Lan]["common"].current or "",
-			onSelect = function() TriggerEvent("jim-mechanic:client:Previews:Rims:Apply", { mods = -1 , wheeltype = 0 }) end,
+			onSelect = function() TriggerEvent("jim-mechanic:client:Previews:Rims:Apply", { mod = -1 , wheeltype = 0 }) end,
 		}
 		for k, v in pairs(wheelType) do
 			Menu[#Menu+1] = { arrow = true, header = v,
@@ -880,7 +881,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Extras:Apply', function(data) loca
 		SetVehicleExtra(vehicle, data.mod, 0)
 		SetVehicleFixed(vehicle)
 		SetVehicleDeformationFixed(vehicle)
-		if GetResourceState("qs-advancedgarages") == "started" then exports["qs-advancedgarages"]:RepairNearestVehicle() end
+		if GetResourceState("qs-advancedgarages"):find("start") then exports["qs-advancedgarages"]:RepairNearestVehicle() end
 	end
 	doCarDamage(vehicle, veh)
 	Wait(100)

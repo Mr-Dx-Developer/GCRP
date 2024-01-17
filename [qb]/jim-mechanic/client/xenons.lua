@@ -1,10 +1,8 @@
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function() GetXenonColour() end)
+onPlayerLoaded(function() GetXenonColour() end)
 local xenonColour = {}
 
 function GetXenonColour()
-    local p = promise.new()
-    QBCore.Functions.TriggerCallback('jim-mechanic:GetXenonColour', function(cb) p:resolve(cb) end)
-    newxenonColour = Citizen.Await(p)
+    local newxenonColour = triggerCallback('jim-mechanic:GetXenonColour')
     for k, v in pairs(newxenonColour) do xenonColour[k] = v end
     for k, v in pairs(xenonColour) do
 		local entity = NetworkDoesEntityExistWithNetworkId(k)
@@ -18,7 +16,7 @@ function GetXenonColour()
     end
 end
 --========================================================== Headlights
-RegisterNetEvent('jim-mechanic:client:applyXenons', function() local Ped = PlayerPedId() local item = QBCore.Shared.Items["headlights"]
+RegisterNetEvent('jim-mechanic:client:applyXenons', function() local Ped = PlayerPedId() local item = Items["headlights"]
 	if not Checks() then return end
     if GetInPreview() then triggerNotify(nil, Loc[Config.Lan]["previews"].previewing, "error") return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
@@ -32,7 +30,7 @@ RegisterNetEvent('jim-mechanic:client:applyXenons', function() local Ped = Playe
 		if above or (distanceToL <= 1 or distanceToR <= 1) then
 			if IsToggleModOn(vehicle, 22) then triggerNotify(nil, Loc[Config.Lan]["common"].already, "error")
 			else
-				lookVeh(vehicle)
+				lookEnt(vehicle)
 				if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(3000,7000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, icon = "headlights", cam = cam }) then SetVehicleModKit(vehicle, 0)
 					if IsToggleModOn(vehicle, 22) then TriggerServerEvent("jim-mechanic:server:DupeWarn", "headlights") emptyHands(Ped) return end
 					if checkToggleVehicleMod(vehicle, 22, true) then
@@ -46,7 +44,7 @@ RegisterNetEvent('jim-mechanic:client:applyXenons', function() local Ped = Playe
 							SetVehicleLights(vehicle, 0)
 						end)
 						updateCar(vehicle)
-						toggleItem(false, "headlights", 1)
+						removeItem("headlights", 1)
 						triggerNotify(nil, Loc[Config.Lan]["common"].installing.." "..item.label, "success")
 					end
 				else
@@ -58,7 +56,7 @@ RegisterNetEvent('jim-mechanic:client:applyXenons', function() local Ped = Playe
 	end
 end)
 
-RegisterNetEvent('jim-mechanic:client:giveXenon', function() local Ped = PlayerPedId()  local item = QBCore.Shared.Items["headlights"]
+RegisterNetEvent('jim-mechanic:client:giveXenon', function() local Ped = PlayerPedId()  local item = Items["headlights"]
 	if not Checks() then return end
 	local vehicle = vehChecks() above = isVehicleLift(vehicle)
 	local emote = { anim = above and "idle_b" or "machinic_loop_mechandplayer", dict = above and "amb@prop_human_movie_bulb@idle_a" or "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", flag = above and 1 or 8 }
@@ -66,14 +64,14 @@ RegisterNetEvent('jim-mechanic:client:giveXenon', function() local Ped = PlayerP
 		local distanceToL = #(GetEntityCoords(Ped) - GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "headlight_l")))
 		local distanceToR = #(GetEntityCoords(Ped) - GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "headlight_r")))
 		if above or (distanceToR <= 1 or distanceToL <= 1) then
-			lookVeh(vehicle)
+			lookEnt(vehicle)
 			if progressBar({label = Loc[Config.Lan]["common"].removing..item.label, time = math.random(3000,7000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, icon = "headlights"}) then SetVehicleModKit(vehicle, 0)
 				if not IsToggleModOn(vehicle, 22) then TriggerServerEvent("jim-mechanic:server:DupeWarn", "headlights") emptyHands(playerPed) return end
 				if checkToggleVehicleMod(vehicle, 22, false) then
 					qblog("`"..item.label.." - headlights` removed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
 					SetVehicleXenonLightsColor(vehicle, 0)
 					updateCar(vehicle)
-					toggleItem(true, "headlights", 1)
+					addItem("headlights", 1)
 					triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].removed, "success")
 				end
 			else
@@ -297,13 +295,16 @@ RegisterNetEvent('jim-mechanic:client:ChangeXenonColour', function(netId, newCol
         if NetworkDoesEntityExistWithNetworkId(k) then
             if k ~= 0 and DoesEntityExist(NetToVeh(k)) and IsEntityAVehicle(NetToVeh(k)) then
                 SetVehicleXenonLightsCustomColor(NetToVeh(k), v[1], v[2], v[3])
-                if Config.System.Debug then print("^5Debug^7: ^2Recieving new ^3Xenon Colour ^7[^6"..tostring(NetToVeh(k)).."^7] = { ^2RBG ^7= ^6"..v[1].."^7, ^6"..v[2].."^7, ^6"..v[3].." ^7}") end
+                if Config.System.Debug then
+					print("^5Debug^7: ^2Recieving new ^3Xenon Colour ^7[^6"..tostring(NetToVeh(k)).."^7] = { ^2RBG ^7= ^6"..v[1].."^7, ^6"..v[2].."^7, ^6"..v[3].." ^7}")
+				end
             end
         end
     end
 end)
 
-RegisterNetEvent('jim-mechanic:client:ChangeXenonStock', function(netId) local netVeh = NetToVeh(netId)
+RegisterNetEvent('jim-mechanic:client:ChangeXenonStock', function(netId)
+	local netVeh = NetToVeh(netId)
 	if not NetworkDoesEntityExistWithNetworkId(netId) then return end
 	xenonColour[netId] = nil
 	if DoesEntityExist(netVeh) and IsEntityAVehicle(netVeh) then
@@ -317,11 +318,11 @@ end)
 CreateThread(function()
     while true do
         for netId, v in pairs(xenonColour) do
-            if NetworkDoesEntityExistWithNetworkId(netId) then
-				local netEntity = NetToVeh(netId)
-                if netEntity ~= 0 and DoesEntityExist(netEntity) and IsEntityAVehicle(netEntity) then
-                    if Config.System.Debug then print("^5Debug^7: ^2Ensuring ^3Xenon Colour^7[^6"..tostring(netEntity).."^7] = { ^2RBG ^7= ^6"..v[1].."^7, ^6"..v[2].."^7, ^6"..v[3].." ^7}") end
-                    SetVehicleXenonLightsCustomColor(netEntity, v[1], v[2], v[3])
+			local veh = NetworkGetEntityFromNetworkId(netId)
+			if veh ~= 0 and NetworkDoesEntityExistWithNetworkId(netId) then
+                if veh ~= 0 and DoesEntityExist(veh) and IsEntityAVehicle(veh) then
+                    if Config.System.Debug then print("^5Debug^7: ^2Ensuring ^3Xenon Colour^7[^6"..tostring(veh).."^7] = { ^2RBG ^7= ^6"..v[1].."^7, ^6"..v[2].."^7, ^6"..v[3].." ^7}") end
+                    SetVehicleXenonLightsCustomColor(veh, v[1], v[2], v[3])
 				end
             end
         end

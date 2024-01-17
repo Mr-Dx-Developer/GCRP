@@ -6,17 +6,20 @@ local wheelType = {
 	[12] = Loc[Config.Lan]["rims"].label12,
 }
 
-RegisterNetEvent('jim-mechanic:client:Rims:Apply', function(data) local Ped = PlayerPedId() local item = QBCore.Shared.Items["rims"]
+RegisterNetEvent('jim-mechanic:client:Rims:Apply', function(data)
+	removePropHoldCoolDown() Wait(10)
+	local Ped = PlayerPedId()
+	local item = Items["rims"]
 	local vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) local above = isVehicleLift(vehicle)
 	if not above and not lookAtWheel(vehicle) then return end
 	local emote = { anim = above and "idle_b" or "machinic_loop_mechandplayer", dict = above and "amb@prop_human_movie_bulb@idle_a" or "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", flag = above and 1 or 8 }
-	local cam = createTempCam(vehicle, Ped, { wheel = true })
+	local cam = createTempCam(Ped, GetEntityCoords(vehicle))
 	if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(3000,5000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then SetVehicleModKit(vehicle, 0)
 		SetVehicleWheelType(vehicle, tonumber(data.wheeltype))
 		if not data.bike then SetVehicleMod(vehicle, 23, tonumber(data.mod), true)
 		else SetVehicleMod(vehicle, 24, tonumber(data.mod), false) end
 		updateCar(vehicle)
-		if Config.Overrides.CosmeticItemRemoval then toggleItem(false, "rims", 1) else
+		if Config.Overrides.CosmeticItemRemoval then removeItem("rims", 1) else
 			if data.mod == -1 then TriggerEvent('jim-mechanic:client:Rims:Check', data) else TriggerEvent('jim-mechanic:client:Rims:SubMenu', data) end
 		end
 		qblog("`rims - "..item.label.."` changed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
@@ -36,7 +39,7 @@ RegisterNetEvent('jim-mechanic:client:Rims:Check', function() local Menu, Ped = 
 	if not nearPoint(GetEntityCoords(Ped)) then return end
 	if not IsPedInAnyVehicle(Ped, false) then vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) end local above = isVehicleLift(vehicle)
 	if not above and not lookAtWheel(vehicle) then return end
-    if not enforceClassRestriction(getClass(vehicle)) then return end
+    if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
 		local cycle = false
 		getDefStats(vehicle, trim(GetVehicleNumberPlateText(vehicle)))
@@ -65,10 +68,12 @@ RegisterNetEvent('jim-mechanic:client:Rims:Check', function() local Menu, Ped = 
 				onSelect = function() TriggerEvent("jim-mechanic:client:Rims:Choose", { wheeltype = 6, bike = true }) end,
 			}
 		end
+		propHoldCoolDown("rims")
 		openMenu(Menu, {
-			header = searchCar(vehicle),
+			header = searchCar(vehicle).name,
 			headertxt = headertxt,
-			canClose = true
+			canClose = true,
+			onExit = function() removePropHoldCoolDown() end,
 		})
 	end
 end)
@@ -82,7 +87,7 @@ RegisterNetEvent('jim-mechanic:client:Rims:Choose', function(data) local Ped = P
 	if not nearPoint(GetEntityCoords(Ped)) then return end
 	if not IsPedInAnyVehicle(Ped, false) then vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) end local above = isVehicleLift(vehicle)
 	if not above and not lookAtWheel(vehicle) then return end
-    if not enforceClassRestriction(getClass(vehicle)) then return end
+    if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	local validMods = {}
 	if DoesEntityExist(vehicle) then
 		originalWheel = GetVehicleWheelType(vehicle)
@@ -126,8 +131,9 @@ RegisterNetEvent('jim-mechanic:client:Rims:Choose', function(data) local Ped = P
 			}
 		end
 		SetVehicleWheelType(vehicle, originalWheel)
+		propHoldCoolDown("rims")
 		openMenu(Menu, {
-			header = searchCar(vehicle),
+			header = searchCar(vehicle).name,
 			headertxt = headertxt,
 			onBack = function() TriggerEvent("jim-mechanic:client:Rims:Check") end,
 		})
@@ -143,7 +149,7 @@ RegisterNetEvent('jim-mechanic:client:Rims:SubMenu', function(data)	local Menu, 
 	if not nearPoint(GetEntityCoords(Ped)) then return end
 	if not IsPedInAnyVehicle(Ped, false) then vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) end local above = isVehicleLift(vehicle)
 	if not above and not lookAtWheel(vehicle) then return end
-    if not enforceClassRestriction(getClass(vehicle)) then return end
+    if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
 		local headertxt =
 		Loc[Config.Lan]["rims"].menuheader..br.."("..string.upper(data.label)..")"..br..(isOx() and br or "")..
@@ -160,11 +166,12 @@ RegisterNetEvent('jim-mechanic:client:Rims:SubMenu', function(data)	local Menu, 
 				onSelect = function() TriggerEvent("jim-mechanic:client:Rims:Apply", { mod = data.wheeltable[i].id, wheeltype = data.wheeltype, wheeltable = data.wheeltable, bike = data.bike, label = data.label }) end,
 			}
 		end
+		propHoldCoolDown("rims")
 		openMenu(Menu, {
-			header = searchCar(vehicle),
+			header = searchCar(vehicle).name,
 			headertxt = headertxt,
 			onBack = function() TriggerEvent("jim-mechanic:client:Rims:Choose", { wheeltype = data.wheeltype, bike = data.bike }) end,
-		 })
+		})
 	end
 end)
 
@@ -258,4 +265,123 @@ CreateThread(function()
 	AddTextEntry("0xE2B517BE", "Forgiato Monoleggera Fissato-M (Custom)")
 	AddTextEntry("0xF9CD46E1", "Forgiato Ventoso-ECL")
 	AddTextEntry("0xF569BC4F", "Forgiato Monoleggera Labbro-M")
+
+	--https://www.gta5-mods.com/vehicles/hq-b-rims-pack
+	AddTextEntry('0x01887837', 'VORSTEINER VSE-003 - Black')
+	AddTextEntry('0x0275FD6A', 'GNOSIS GS1 - Gray')
+	AddTextEntry('0x04E48E2B', 'Rotiform Concave Nue HD - Gray')
+	AddTextEntry('0x05C2F495', 'Lexus Wheels Morro - Chrome')
+	AddTextEntry('0x0A9F18B4', 'Rotiform BUC - Black')
+	AddTextEntry('0x0A850A34', 'VORSTEINER VS190 - Black')
+	AddTextEntry('0x0C117DA6', 'HRE RS105 - Black')
+	AddTextEntry('0x0CFC1F82', 'Volk Racing CE28N - Gray')
+	AddTextEntry('0x0DD98136', 'HRE RS105 - Gray')
+	AddTextEntry('0x1B9AAC5F', 'VORSTEINER VS190 - Gray')
+	AddTextEntry('0x1C4ABC0B', 'Rotiform BLQ-T - Chrome')
+	AddTextEntry('0x2EAEE1BF', 'Rotiform Concave Nue HD - Chrome')
+	AddTextEntry('0x3AD5FB35', 'Volk Racing CE28N - Chrome')
+	AddTextEntry('0x3B615DAD', 'HRE 945RL - Gray')
+	AddTextEntry('0x3E0AF5C7', 'GNOSIS GS1 - Chrome')
+	AddTextEntry('0x3F8B6601', 'HRE 945RL - Black')
+	AddTextEntry('0x4BE21C25', 'Rotiform DAB - Chrome')
+	AddTextEntry('0x4C631C3B', 'Rotiform Concave SJC - Black')
+	AddTextEntry('0x4CB88F56', 'Vossen CV3-R - Gray')
+	AddTextEntry('0x4CE00672', 'GramLights 57Xtreme - Black')
+	AddTextEntry('0x4D47A018', 'VolkRays G25 - Gray')
+	AddTextEntry('0x5A2C2E09', 'SEEKER FX - Chrome')
+	AddTextEntry('0x5A2CB8BA', 'Rotiform DAB - Gray')
+	AddTextEntry('0x5AD02B85', 'Vossen CV3-R - Black')
+	AddTextEntry('0x5BD32FE7', 'GNOSIS FCV04 - Gray')
+	AddTextEntry('0x5C47AFF4', 'Vossen VPS303 - Black')
+	AddTextEntry('0x5E4AB512', 'WEDS Maverick 508s - Gray')
+	AddTextEntry('0x6BC757B8', 'ADV5 TSSL - Gray')
+	AddTextEntry('0x6C855187', 'WEDS Maverick 508s - Chrome')
+	AddTextEntry('0x6F395457', 'VORSTEINER VSR-163 Forged Monoblock - Gray')
+	AddTextEntry('0x6FDFCC71', 'Avant Garde F433 - Chrome')
+	AddTextEntry('0x7B1AE2E7', 'Enkei RS05RR - Chrome')
+	AddTextEntry('0x7BEBFB4C', 'Rotiform Concave SJC - Gray')
+	AddTextEntry('0x7CC5F208', 'Equip E10 - Black')
+	AddTextEntry('0x7D8FFF80', 'Rotiform SNA - Colored')
+	AddTextEntry('0x7D677AF8', 'ADV5 TRACK SPEC SL - Gray')
+	AddTextEntry('0x7E6A71FD', 'VORSTEINER VS190 - Chrome')
+	AddTextEntry('0x7EB500E2', 'Rotiform BLQ-T - Black')
+	AddTextEntry('0x8EBB1D9F', 'ADV5 TRACK SPEC SL - Chrome')
+	AddTextEntry('0x9AD8AB99', 'Vossen VPS 316 - Gray')
+	AddTextEntry('0x9F59C43B', 'VolkRays G25 - Black')
+	AddTextEntry('0x10E1992D', 'Vossen VPS304 - Colored')
+	AddTextEntry('0x16B232EE', 'VolkRacing CE28N - Black')
+	AddTextEntry('0x16F594D6', 'HRE 797RS - Chrome')
+	AddTextEntry('0x22FC32AF', 'GramLights 57Xtreme - Gray')
+	AddTextEntry('0x23A4B3FC', 'Avant Garde F433 - Black')
+	AddTextEntry('0x26EEC307', 'VORSTEINER VSM313 - Black')
+	AddTextEntry('0x28DD5530', 'Rotiform Concave SJC - Chrome')
+	AddTextEntry('0x28E4B8B4', 'HRE 797RS - Colored')
+	AddTextEntry('0x44A06F33', 'HRE P101 - Chrome')
+	AddTextEntry('0x45DF8BE9', 'ADV 08 deepconcave - Gray')
+	AddTextEntry('0x59CCB3C3', 'ADV5 TSSL - Black')
+	AddTextEntry('0x61C6C916', 'VIP MODULAR VR08 - Chrome')
+	AddTextEntry('0x65F6C352', 'Vossen VPS 316 - Chrome')
+	AddTextEntry('0x66C03A32', 'BC FORGED RS41 - Chrome')
+	AddTextEntry('0x77B866D9', 'Vossen VPS304 - Chrome')
+	AddTextEntry('0x86F6F4D7', 'HRE 948RL - Gray')
+	AddTextEntry('0x90ABA5F7', 'STANCE SC7 - Gray')
+	AddTextEntry('0x96F814D9', 'HRE P101 - Colored')
+	AddTextEntry('0x97E118CF', 'Lexus Wheels Morro - Colored')
+	AddTextEntry('0x222DC486', 'ADV5 TRACK SPEC SL - Black')
+	AddTextEntry('0x656DC244', 'Vossen VPS308 - Black')
+	AddTextEntry('0x2206B9F3', 'VORSTEINER VSR-163 Forged Monoblock - Chrome')
+	AddTextEntry('0x3421E86E', 'ADV 08 deepconcave - Black')
+	AddTextEntry('0x4506EF90', 'iFORGED AEGIS - Chrome')
+	AddTextEntry('0x4800F6D4', 'GramLights 57Xtreme - Chrome')
+	AddTextEntry('0x6316ABAF', 'INCURVE IC-S10 - Colored')
+	AddTextEntry('0x13312AC4', 'Rotiform Concave - Black')
+	AddTextEntry('0x13691CB8', 'VORSTEINER VTM-350 - Black')
+	AddTextEntry('0x23133D90', 'Vossen VPS303 - Chrome')
+	AddTextEntry('0x32454A0D', 'iFORGED AEGIS - Colored')
+	AddTextEntry('0x39185EE7', 'Enkei RS05RR - Colored')
+	AddTextEntry('0x44158DB4', 'VolkRays G25 - Chrome')
+	AddTextEntry('0x54220F2E', 'HRE 945RL - Chrome')
+	AddTextEntry('0x766753B8', 'HRE 948RL - Chrome')
+	AddTextEntry('0x2084268B', 'HRE RS105 - Chrome')
+	AddTextEntry('0x10752115', 'ADV 08 deepconcave - Chrome')
+	AddTextEntry('0x44140069', 'GNOSIS FCV04 - Black')
+	AddTextEntry('0x95691783', 'Avant Garde F433 - Gray')
+	AddTextEntry('0xA06FB567', 'VORSTEINER VSR-163 -Black')
+	AddTextEntry('0xA0E43A48', 'Equip E10 - Gray')
+	AddTextEntry('0xA82CC641', 'VORSTEINER VTM-350 - Chrome')
+	AddTextEntry('0xB5C86F08', 'Rotiform BLQ-T - Gray')
+	AddTextEntry('0xB8F5DE9C', 'BC FORGED RS41 - Black')
+	AddTextEntry('0xB3046AA8', 'Rotiform DAB - Black')
+	AddTextEntry('0xB67362CE', 'VORSTEINER VTM-350 - Gray')
+	AddTextEntry('0xB746670C', 'Equip E10 - Chrome')
+	AddTextEntry('0xBE777456', 'Vossen VPS303 - Gray')
+	AddTextEntry('0xC0F48774', 'STANCE SC7 - Chrome')
+	AddTextEntry('0xC1DA6A9D', 'HRE 948RL - Black')
+	AddTextEntry('0xC1E183EB', 'ADV5 TSSL - Chrome')
+	AddTextEntry('0xC6D00227', 'VORSTEINER VSM-313 - Gray')
+	AddTextEntry('0xC8E60B7F', 'SEEKER FX - Black')
+	AddTextEntry('0xC35FF370', 'BC FORGED RS41 - Gray')
+	AddTextEntry('0xCA188B98', 'WEDS Maverick 508s - Black')
+	AddTextEntry('0xD2A20E54', 'ISS RS 5R - Chrome')
+	AddTextEntry('0xD3BD9CA2', 'VORSTEINER VSE-003 - Gray')
+	AddTextEntry('0xD8DE1740', 'HRE P104 - Black')
+	AddTextEntry('0xDB07AFC2', 'SEEKER FX - Gray')
+	AddTextEntry('0xDBF02F47', 'Vossen VPS308 - Chrome')
+	AddTextEntry('0xDDDF343D', 'GNOSIS FCV04 - Chrome')
+	AddTextEntry('0xE4B53E91', 'VORSTEINER VSE-003 - Chrome')
+	AddTextEntry('0xE5AE42C3', 'Vossen VPS308 - Gray')
+	AddTextEntry('0xE79CB4BD', 'HRE P104 - Gray')
+	AddTextEntry('0xE4124DAF', 'VIP MODULAR VR-08 - Gray')
+	AddTextEntry('0xE74251FB', 'Rotiform BUC - Chrome')
+	AddTextEntry('0xE833464D', 'Vossen VPS 316 - Black')
+	AddTextEntry('0xEA6A5973', 'STANCE SC7 - Black')
+	AddTextEntry('0xEC33D0E6', 'GNOSIS GS1 - Black')
+	AddTextEntry('0xED9B60C1', 'VIP MODULAR VR-08 - Black')
+	AddTextEntry('0xF8D4F520', 'Rotiform BUC - Gray')
+	AddTextEntry('0xF48A5224', 'ISS RS 5R - Colored')
+	AddTextEntry('0xF90A5B8C', 'INCURVE IC-S10 - Chrome')
+	AddTextEntry('0xF95BD83B', 'HRE P104 - Chrome')
+	AddTextEntry('0xF665E2B2', 'Vossen CV3-R - Chrome')
+	AddTextEntry('0xFC1FFCDE', 'Rotiform SNA - Chrome')
+	AddTextEntry('0xFCFE6E83', 'VORSTEINER VSM-313 - Chrome')
 end)

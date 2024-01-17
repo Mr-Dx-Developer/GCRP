@@ -1,41 +1,54 @@
-AddEventHandler('onResourceStart', function(r) if GetCurrentResourceName() ~= r then return end Wait(2000) TriggerServerEvent("jim-mechanic:server:getStatusList", true) end)
+AddEventHandler('onResourceStart', function(r) if GetCurrentResourceName() ~= r then return end
+    Wait(2000)
+    TriggerServerEvent("jim-mechanic:server:getStatusList", true)
+end)
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function() Wait(5000) TriggerServerEvent("jim-mechanic:server:getStatusList", true) end)
+onPlayerLoaded(function() Wait(5000) TriggerServerEvent("jim-mechanic:server:getStatusList", true) end)
 
-function GetVehicleStatus(plate) local temp = nil local plate = plate
+function GetVehicleStatus(vehicle)
+    local plate = trim(GetVehicleNumberPlateText(NetworkGetEntityFromNetworkId(vehicle)))
     if not VehicleStatus[plate] then
         if Config.System.Debug then print("^5Debug^7: ^4GetVehicleStatus^7[^6"..plate.."^7]^2 not found^7,^2 loading^7...") end
-        TriggerServerEvent("jim-mechanic:server:setupVehicleStatus", plate, GetVehicleEngineHealth(veh), GetVehicleBodyHealth(veh))
-        while not VehicleStatus[plate] do Wait(10) end
+        VehicleStatus[plate] = triggerCallback("jim-mechanic:server:GetStatus", vehicle)
+        while not VehicleStatus[plate] do print("waiting") Wait(10) end
     else
-        if Config.System.Debug then print("^5Debug^7: ^4GetVehicleStatus^7[^6"..plate.."^7]^2 found^7,^2 updating^7...") end
-        local p = promise.new()
-        QBCore.Functions.TriggerCallback('jim-mechanic:server:GetStatus', function(cb) p:resolve(cb) end, plate)
-        VehicleStatus[plate] = Citizen.Await(p)
+        if Config.System.Debug then print("^5Debug^7: ^4GetVehicleStatus^7[^6"..plate.."^7]^2 found^7,^2 ensuring^7...") end
+        VehicleStatus[plate] = triggerCallback("jim-mechanic:server:GetStatus", vehicle)
     end
     return VehicleStatus[plate]
 end
 
-function SetVehicleStatus(plate, part, level, all)
-    if Config.System.Debug then print("^5Debug^7: ^2Updating ^4VehicleStatus^7[^6"..plate.."^7][^6"..part.."^7] = ^6"..json.encode(level).."^7"..(all == true and " (^1SYNCED^7)" or "")) end
-    VehicleStatus[plate][part] = level
-    TriggerServerEvent("jim-mechanic:server:updatePart", plate, part, level, all)
+function SetVehicleStatus(vehicle, part, level)
+    --if Config.System.Debug then print("^5Debug^7: ^2Updating ^4VehicleStatus ^2with server") end
+    TriggerServerEvent("jim-mechanic:server:updateVehiclePart", VehToNet(vehicle), part, level)
 end
+
+AddStateBagChangeHandler('jim_updateVehiclePart', nil, function(bagName, key, value)
+    local entity = GetEntityFromStateBagName(bagName)
+    if entity == 0 then return end
+
+    VehicleStatus[value.plate][value.part] = value.level
+    if Config.System.Debug then print("^5Debug^7: ^2Recieving ^4VehicleStatus^7[^6"..value.plate.."^7][^6"..value.part.."^7] = ^6"..json.encode(value.level).."^7") end
+end)
 
 local DamageComponents = { "oil", "axle", "battery", "fuel", "spark" }
 
-function DamageRandomComponent(plate)
-    if Config.Repairs.ExtraDamages then
-        GetVehicleStatus(plate)
-        local dmgFctr = math.random() + math.random(0, 2)
-        local randomComponent = DamageComponents[math.random(1, #DamageComponents)]
-        local durabilityTable = { ["oil"] = "oillevel", ["axle"] = "shaftlevel", ["battery"] = "cylinderlevel", ["spark"] = "cablelevel", ["fuel"] = "fuellevel", }
-        local randomDamage = (math.random() + math.random(0, 1)) * dmgFctr
-        for i = 1, VehicleStatus[plate][durabilityTable[randomComponent]] do randomDamage -= ((randomDamage / 2) - VehicleStatus[plate][durabilityTable[randomComponent]] / 4) end
-        SetVehicleStatus(plate, randomComponent, VehicleStatus[plate][randomComponent] - randomDamage)
-    else
-        if Config.System.Debug then
-            print("^5Debug^7: ^4Vehicle damaged and tried to change ^6ExtraDamages^2 but it was disabled^7")
+function DamageRandomComponent(vehicle)
+    if vehicle ~= 0 and DoesEntityExist(vehicle) and not IsThisModelABicycle(GetEntityModel(vehicle)) then
+        local plate = trim(GetVehicleNumberPlateText(vehicle))
+        if Config.Repairs.ExtraDamages and VehicleStatus[plate] then
+            local plate = trim(GetVehicleNumberPlateText(vehicle))
+            local dmgFctr = math.random() + math.random(0, 2)
+            local randomComponent = DamageComponents[math.random(1, #DamageComponents)]
+            local durabilityTable = { ["oil"] = "oillevel", ["axle"] = "shaftlevel", ["battery"] = "cylinderlevel", ["spark"] = "cablelevel", ["fuel"] = "fuellevel", }
+            local randomDamage = (math.random() + math.random(0, 1)) * dmgFctr
+            for i = 1, VehicleStatus[plate][durabilityTable[randomComponent]] do randomDamage -= ((randomDamage / 2) - VehicleStatus[plate][durabilityTable[randomComponent]] / 4) end
+            SetVehicleStatus(vehicle, randomComponent, VehicleStatus[plate][randomComponent] - randomDamage)
+            ApplyEffects(vehicle, randomComponent)
+        else
+            if Config.System.Debug then
+                print("^5Debug^7: ^4Vehicle damaged and tried to change ^6ExtraDamages^2 but it was disabled^7")
+            end
         end
     end
 end
@@ -54,16 +67,17 @@ end)
 
 --=== ADD/REMOVE UPGRADE PARTS ===--
 RegisterNetEvent('jim-mechanic:client:applyExtraPart', function(data) local Ped = PlayerPedId() emptyHands(Ped)
+    local data = data.client and data.client or data
     if not enforceRestriction("perform") then return end
     if not Checks() then return end
     local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(vehicle, Ped)
-    if not enforceClassRestriction(getClass(vehicle)) then return end
+    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+    if not enforceClassRestriction(searchCar(vehicle).class) then return end
     if DoesEntityExist(vehicle) then
         local emote = { anim = above and "idle_b" or "fixing_a_ped", dict = above and "amb@prop_human_movie_bulb@idle_a" or "mini@repair", flag = above and 1 or 16 }
         local plate = trim(GetVehicleNumberPlateText(vehicle))
 
-        GetVehicleStatus(plate)
+        GetVehicleStatus(VehToNet(vehicle))
         local extrapart = ""
         if data.mod == "oilp" then extrapart = "oillevel"
         elseif data.mod == "drives" then extrapart = "shaftlevel"
@@ -78,13 +92,13 @@ RegisterNetEvent('jim-mechanic:client:applyExtraPart', function(data) local Ped 
         if data.remove ~= true then
             if currentLevel == data.level then triggerNotify(nil, "LVL: "..data.level..Loc[Config.Lan]["common"].already, "error") else
                 if progressBar({label = Loc[Config.Lan]["common"].installing.." LVL: "..data.level, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then
-                    if (VehicleStatus[plate][extrapart] ~= currentLevel) or (not HasItem(data.mod..data.level, 1)) then TriggerServerEvent("jim-mechanic:server:DupeWarn", data.mod..data.level) emptyHands(Ped) return end
-                    qblog("`"..QBCore.Shared.Items[data.mod..data.level].label.." - "..data.mod..data.level.."` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
-                    SetVehicleStatus(plate, extrapart, data.level)
+                    if (VehicleStatus[plate][extrapart] ~= currentLevel) or (not hasItem(data.mod..data.level, 1)) then TriggerServerEvent("jim-mechanic:server:DupeWarn", data.mod..data.level) emptyHands(Ped) return end
+                    qblog("`"..Items[data.mod..data.level].label.." - "..data.mod..data.level.."` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
+                    SetVehicleStatus(vehicle, extrapart, data.level)
                     updateCar(vehicle)
-                    toggleItem(false, data.mod..data.level, 1)
-                    if currentLevel ~= 0 then toggleItem(true, data.mod..currentLevel, 1) end
-                    triggerNotify(nil, QBCore.Shared.Items[data.mod..data.level].label.." "..Loc[Config.Lan]["common"].installed, "success")
+                    removeItem(data.mod..data.level, 1)
+                    if currentLevel ~= 0 then addItem( data.mod..currentLevel, 1) end
+                    triggerNotify(nil, Items[data.mod..data.level].label.." "..Loc[Config.Lan]["common"].installed, "success")
                 else
                     triggerNotify(nil, Loc[Config.Lan]["common"].instfail, "error")
                 end
@@ -92,11 +106,11 @@ RegisterNetEvent('jim-mechanic:client:applyExtraPart', function(data) local Ped 
         else
             if progressBar({label = Loc[Config.Lan]["common"].removing, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then
                 if VehicleStatus[plate][extrapart] ~= currentLevel then emptyHands(Ped) TriggerServerEvent("jim-mechanic:server:DupeWarn", data.mod..currentLevel) return end
-                SetVehicleStatus(plate, extrapart, 0)
-                    qblog("`"..QBCore.Shared.Items[data.mod..currentLevel].label.." - "..data.mod..currentLevel.."` removed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
+                SetVehicleStatus(vehicle, extrapart, 0)
+                    qblog("`"..Items[data.mod..currentLevel].label.." - "..data.mod..currentLevel.."` removed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
                     updateCar(vehicle)
-                    toggleItem(true, data.mod..currentLevel, 1)
-                    triggerNotify(nil, QBCore.Shared.Items[data.mod..currentLevel].label.." "..Loc[Config.Lan]["common"].removed, "success")
+                    addItem( data.mod..currentLevel, 1)
+                    triggerNotify(nil, Items[data.mod..currentLevel].label.." "..Loc[Config.Lan]["common"].removed, "success")
             else
                 triggerNotify(nil, Loc[Config.Lan]["common"].remfail, "error")
             end
@@ -106,52 +120,31 @@ RegisterNetEvent('jim-mechanic:client:applyExtraPart', function(data) local Ped 
     end
 end)
 
---=== Damage Handling ===--
-local function oilEffect(vehicle, plate)
+--=== Damage Effects ===--
+local effectActive = false
+local function oilEffect(vehicle)
     triggerNotify(nil, "Your engine is overheating")
     local engineHealth = GetVehicleEngineHealth(vehicle)
-    local partLvl, effect, effectTable = VehicleStatus[plate]["axle"], 0, { [1] = math.random(10, 15), [2] = math.random(15, 20), [3] = math.random(20, 30), [4] = math.random(30, 40), [5] = math.random(40, 50), }
-    if partLvl <= 80 and partLvl >= 60 then effect = effectTable[1]
-    elseif partLvl <= 59 and partLvl >= 40 then effect = effectTable[2]
-    elseif partLvl <= 39 and partLvl >= 20 then effect = effectTable[3]
-    elseif partLvl <= 19 and partLvl >= 6 then effect = effectTable[4]
-    else effect = effectTable[5] end
-    SetVehicleEngineHealth(vehicle, engineHealth - effect)
+    SetVehicleEngineHealth(vehicle, engineHealth - math.random(20, 30))
+    effectActive = false
 end
 
-local function axleEffect(vehicle, plate)
+local function axleEffect(vehicle)
     triggerNotify(nil, "The steering feels wrong..")
-    local partLvl, effect, effectTable = VehicleStatus[plate]["axle"], 0, { [1] = 5, [2] = 10, [3] = 15, [4] = 20, [5] = 25, }
-    if partLvl <= 80 and partLvl >= 60 then effect = effectTable[1]
-    elseif partLvl <= 59 and partLvl >= 40 then effect = effectTable[2]
-    elseif partLvl <= 39 and partLvl >= 20 then effect = effectTable[3]
-    elseif partLvl <= 19 and partLvl >= 6 then effect = effectTable[4]
-    else effect = effectTable[5] end
-    for i=0,360 do SetVehicleSteeringScale(vehicle,i) Wait(effect) end
+    for i = 0, 360 do SetVehicleSteeringScale(vehicle,i) Wait(15) end
+    effectActive = false
 end
 
-local function sparkEffect(vehicle, plate)
+local function sparkEffect(vehicle)
     triggerNotify(nil, "The Engine has stalled")
-    local partLvl, effect, effectTable = VehicleStatus[plate]["spark"], 0, { [1] = 300, [2] = 600, [3] = 900, [4] = 1200, [5] = 1500, }
-    if partLvl <= 80 and partLvl >= 60 then effect = effectTable[1]
-    elseif partLvl <= 59 and partLvl >= 40 then effect = effectTable[2]
-    elseif partLvl <= 39 and partLvl >= 20 then effect = effectTable[3]
-    elseif partLvl <= 19 and partLvl >= 6 then effect = effectTable[4]
-    else effect = effectTable[5] end
     SetVehicleEngineOn(vehicle, 0, 0, 1)
-    SetVehicleUndriveable(vehicle, true)
-    Wait(effect*6)
-    SetVehicleUndriveable(vehicle, false)
+    Wait(5000)
     SetVehicleEngineOn(vehicle, 1, 0, 0)
+    effectActive = false
 end
 
-local function batteryEffect(vehicle, plate)
-    local partLvl, effect, effectTable = VehicleStatus[plate]["battery"], 0, { [1] = 300, [2] = 600, [3] = 900, [4] = 1200, [5] = 1500, }
-    if partLvl <= 80 and partLvl >= 60 then effect = effectTable[1]
-    elseif partLvl <= 59 and partLvl >= 40 then effect = effectTable[2]
-    elseif partLvl <= 39 and partLvl >= 20 then effect = effectTable[3]
-    elseif partLvl <= 19 and partLvl >= 6 then effect = effectTable[4]
-    else effect = effectTable[5] end
+local function batteryEffect(vehicle)
+    triggerNotify(nil, "There's something affecting your lights..")
     local lightLvl = 1.0
     for i = 0, 1000 do lightLvl -= 0.003
         SetVehicleLightMultiplier(vehicle, lightLvl)
@@ -159,44 +152,51 @@ local function batteryEffect(vehicle, plate)
         if lightLvl <= 0 then break end
     end
     SetVehicleBrakeLights(vehicle, false)
-    triggerNotify(nil, "The Engine has stalled")
-    SetVehicleEngineOn(vehicle, 0, 0, 1)
-    SetVehicleUndriveable(vehicle, true)
     SetVehicleLights(vehicle, 0)
+    SetVehicleInteriorlight(vehicle, 0)
     SetVehicleLightMultiplier(vehicle, 1.0)
-    Wait(effect*3)
+    Wait(2500)
     SetVehicleLights(vehicle, 2)
-    SetVehicleUndriveable(vehicle, false)
-    SetVehicleEngineOn(vehicle, 1, 0, 0)
-    for i=1,360 do SetVehicleSteeringScale(vehicle, i) Wait(5) end
+    effectActive = false
 end
 
-local function fuelEffect(vehicle, plate)
+local function fuelEffect(vehicle)
     triggerNotify(nil, "You hear something dripping..")
     local fuel = GetVehicleFuelLevel(vehicle)
-    local partLvl, effect, effectTable = VehicleStatus[plate]["fuel"], 0, { [1] = 2.0, [2] = 4.0, [3] = 6.0, [4] = 8.0, [5] = 10.0 }
-    if partLvl <= 80 and partLvl >= 60 then effect = effectTable[1]
-    elseif partLvl <= 59 and partLvl >= 40 then effect = effectTable[2]
-    elseif partLvl <= 39 and partLvl >= 20 then effect = effectTable[3]
-    elseif partLvl <= 19 and partLvl >= 6 then effect = effectTable[4]
-    else effect = effectTable[5] end
-
-    SetVehicleFuelLevel(vehicle, fuel - effect)
+    SetVehicleFuelLevel(vehicle, fuel - math.random(1, 6))
+    --[[local tankHealth = GetVehiclePetrolTankHealth(vehicle)
+    local engineHealth = GetVehicleEngineHealth(vehicle)
+    local cooldown = 300
+    SetVehicleCanLeakPetrol(vehicle, true)
+    SetVehiclePetrolTankHealth(vehicle, 640.0)
+    while cooldown > 0 do cooldown -= 1
+        SetVehicleEngineHealth(vehicle, engineHealth)
+        Wait(0)
+    end
+    SetVehicleCanLeakPetrol(vehicle, false)
+    SetVehiclePetrolTankHealth(vehicle, 1000.0)
+    SetVehicleEngineHealth(vehicle, engineHealth)]]
+    effectActive = false
 end
 
-function ApplyEffects(vehicle)
-    local plate = QBCore.Functions.GetPlate(vehicle)
+function ApplyEffects(vehicle, randomComponent)
+    if effectActive == true then return end
+    local plate = trim(GetVehicleNumberPlateText(vehicle))
     local noEffect = { "Vans", "Cycles", "Boats", "Helicopters", "Commercial", "Trains" }
     local canEffect = true
-    for _, class in pairs(noEffect) do if getClass(vehicle) == class then canEffect = false end end
+    for _, class in pairs(noEffect) do if searchCar(vehicle).class == class then canEffect = false break end end
     if canEffect then
         if VehicleStatus[plate] then
-            local chance = math.random(1, 100)
-            if VehicleStatus[plate]["oil"] <= 80 and (chance >= 1 and chance <= 20) then oilEffect(vehicle, plate) end
-            if VehicleStatus[plate]["axle"] <= 80 and (chance >= 21 and chance <= 40) then axleEffect(vehicle, plate) end
-            if VehicleStatus[plate]["spark"] <= 80 and (chance >= 41 and chance <= 60) then sparkEffect(vehicle, plate) end
-            if VehicleStatus[plate]["battery"] <= 80 and (chance >= 61 and chance <= 80) then batteryEffect(vehicle, plate) end
-            if VehicleStatus[plate]["fuel"] <= 80 and (chance >= 81 and chance <= 100) then fuelEffect(vehicle, plate) end
+            local parts = {
+                ["oil"] = function() if VehicleStatus[plate]["oil"] <= Config.Repairs.EffectLevels["oil"] then oilEffect(vehicle) end end,
+                ["axle"] = function() if VehicleStatus[plate]["axle"] <= Config.Repairs.EffectLevels["axle"] then axleEffect(vehicle) end end,
+                ["spark"] = function() if VehicleStatus[plate]["spark"] <= Config.Repairs.EffectLevels["spark"] then sparkEffect(vehicle) end end,
+                ["battery"] = function() if VehicleStatus[plate]["battery"] <= Config.Repairs.EffectLevels["battery"] then batteryEffect(vehicle) end end,
+                ["fuel"] = function() if VehicleStatus[plate]["fuel"] <= Config.Repairs.EffectLevels["fuel"] then fuelEffect(vehicle) end end,
+            }
+            if math.random(1, 100) <= 50 then
+                parts[randomComponent]()
+            end
         end
     end
 end

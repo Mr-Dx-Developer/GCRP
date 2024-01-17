@@ -153,13 +153,13 @@ If you enable this, there are a few steps you need to take as this is handled in
 2. REMOVE these 3 events from `qb-smallresources > server > main.lua`:
 
 ```lua
-QBCore.Functions.CreateUseableItem("harness", function(source, item)
+Core.Functions.CreateUseableItem("harness", function(source, item)
     TriggerClientEvent('seatbelt:client:UseHarness', source, item)
 end)
 
 RegisterNetEvent('equip:harness', function(item)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = Core.Functions.GetPlayer(src)
 
     if not Player then return end
 
@@ -167,7 +167,7 @@ RegisterNetEvent('equip:harness', function(item)
         Player.PlayerData.items[item.slot].info.uses = Config.HarnessUses - 1
         Player.Functions.SetInventory(Player.PlayerData.items)
     elseif Player.PlayerData.items[item.slot].info.uses == 1 then
-        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['harness'], "remove")
+        TriggerClientEvent("inventory:client:ItemBox", src, Items['harness'], "remove")
         Player.Functions.RemoveItem('harness', 1)
     else
         Player.PlayerData.items[item.slot].info.uses -= 1
@@ -177,7 +177,7 @@ end)
 
 RegisterNetEvent('seatbelt:DoHarnessDamage', function(hp, data)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = Core.Functions.GetPlayer(src)
 
     if not Player then return end
 
@@ -301,7 +301,7 @@ To add the ability to save RGB paints, their colour finishes and drift/bulletpro
 
 Replace GetVehicleProperties and SetVehicleProperties functions with these:
 ```lua
-function QBCore.Functions.GetVehicleProperties(vehicle)
+function Core.Functions.GetVehicleProperties(vehicle)
     if DoesEntityExist(vehicle) then
         local pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
 		local colorPrimary, colorSecondary = GetVehicleColours(vehicle)
@@ -343,14 +343,14 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
         for i = 0, 5 do doorStatus[i] = IsVehicleDoorDamaged(vehicle, i) == 1 end
         return {
             model = GetEntityModel(vehicle),
-            plate = QBCore.Functions.GetPlate(vehicle),
+            plate = Core.Functions.GetPlate(vehicle),
             plateIndex = GetVehicleNumberPlateTextIndex(vehicle),
-            bodyHealth = QBCore.Shared.Round(GetVehicleBodyHealth(vehicle), 0.1),
-            engineHealth = QBCore.Shared.Round(GetVehicleEngineHealth(vehicle), 0.1),
-            tankHealth = QBCore.Shared.Round(GetVehiclePetrolTankHealth(vehicle), 0.1),
-            fuelLevel = QBCore.Shared.Round(GetVehicleFuelLevel(vehicle), 0.1),
-            dirtLevel = QBCore.Shared.Round(GetVehicleDirtLevel(vehicle), 0.1),
-            oilLevel = QBCore.Shared.Round(GetVehicleOilLevel(vehicle), 0.1),
+            bodyHealth = Core.Shared.Round(GetVehicleBodyHealth(vehicle), 0.1),
+            engineHealth = Core.Shared.Round(GetVehicleEngineHealth(vehicle), 0.1),
+            tankHealth = Core.Shared.Round(GetVehiclePetrolTankHealth(vehicle), 0.1),
+            fuelLevel = Core.Shared.Round(GetVehicleFuelLevel(vehicle), 0.1),
+            dirtLevel = Core.Shared.Round(GetVehicleDirtLevel(vehicle), 0.1),
+            oilLevel = Core.Shared.Round(GetVehicleOilLevel(vehicle), 0.1),
             color1 = colorPrimary,
             color2 = colorSecondary,
             pearlescentColor = pearlescentColor,
@@ -437,7 +437,7 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
     end
 end
 
-function QBCore.Functions.SetVehicleProperties(vehicle, props)
+function Core.Functions.SetVehicleProperties(vehicle, props)
     if DoesEntityExist(vehicle) then
         if props.extras then
             for id, disable in pairs(props.extras) do
@@ -587,16 +587,21 @@ end
 
 # Changelog:
 
+## 3.3:
+    NEW:
+        - Full support for `qbx_core`
+            - This includes a major rewrite of alot of files
+
 ## 3.2.6:
-    Fix:
-        - Remove Antilag "test" notify - `extras.lua`
-        - Revert more changes to fivem keymappings - `nos.lua`, `extras.lua`
-        - Remove random test function print when saving vehicles - `functionserver.lua`
-        - Remove print telling servers when vehicles were being saved as this upset some users - `functionserver.lua`
-        - Remove vehiclestatus test print when script started as far too many users assumed this was an error - `functionserver.lua`
-        - Fix harness prop disappearing instantly when buckling it
-    New:
-        - Added testing support for cd_garages persistant vehicles when preview plates exploit protection is used - `preview.lua`
+Fix:
+    - Remove Antilag "test" notify - `extras.lua`
+    - Revert more changes to fivem keymappings - `nos.lua`, `extras.lua`
+    - Remove random test function print when saving vehicles - `functionserver.lua`
+    - Remove print telling servers when vehicles were being saved as this upset some users - `functionserver.lua`
+    - Remove vehiclestatus test print when script started as far too many users assumed this was an error - `functionserver.lua`
+    - Fix harness prop disappearing instantly when buckling it
+New:
+    - Added testing support for cd_garages persistant vehicles when preview plates exploit protection is used - `preview.lua`
 
 ## 3.2.5:
     Fix:

@@ -1,5 +1,7 @@
+Loc = Loc or {}
+
 Loc["fr"] = {
-	["common"] = { --commonly used strings
+	common = { --commonly used strings
 		owned = "Le véhicule n'appartient pas a vous,il ne peut pas être modifié",
 		close = "Fermer",
 		ret = "Retour",
@@ -22,11 +24,23 @@ Loc["fr"] = {
 		closer = "Move closer to the headlights",
 		harness = "Attaching Racing Harness..",
 	},
-	["tires"] = {
+    progressbar = {
+        progress_washing = "Washing hands",
+        progress_mix = "Mixing a ",
+        progress_pour = "Pouring a ",
+        progress_drink = "Drinking a ",
+        progress_eat = "Eating a ",
+        progress_make = "Making a ",
+    },
+	error = {
+		not_clockedin = "Not On Duty",
+		cancelled = "Cancelled",
+	},
+	tires = {
 		swap = "Pneus pare-balles supprimés !",
 		swap2 = "Pneus Drift supprimés !",
 	},
-	["xenons"] = {
+	xenons = {
 		notinstall = "Phares xénons non installés",
 		--Menus
 		neonheader1 = "Commandes d'éclairage",
@@ -46,15 +60,15 @@ Loc["fr"] = {
 		xenontxt = "Ajuster la couleur des phares du véhicule",
 	},
 	--Cosmetic Items
-	["bumpers"] = {
+	bumpers = {
 		menugrille = "Grille",
 		menuFBumper = "Pare-choc avant",
 		menuBBumper = "Pare-choc arriere",
 	},
-	["exhaust"] = {
+	exhaust = {
 		menuheader = " L'installation de l'échappement a échoué !", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["exterior"] = {
+	exterior = {
 		stockMod = "Carrosserie..",
 
 		label1 = "Garniture A",
@@ -68,13 +82,13 @@ Loc["fr"] = {
 		label9 = "Réservoir d'essence",
 		label10 = "Antennes",
 	},
-	["hood"] = {
+	hood = {
 		menuheader = " Modification du capot",
 	},
-	["horns"] = {
+	horns = {
 		menuheader = " Modification du klaxon",
 	},
-	["interior"] = {
+	interior = {
 		label1 = "Cages de sécurité",
 		label2 = "accessoire",
 		label3 = "Tableaux de bord",
@@ -85,12 +99,12 @@ Loc["fr"] = {
 		label8 = "Plaques",
 		label9 = "Enceintes",
 	},
-	["livery"] = { --exhaust.lua
+	livery = { --exhaust.lua
 		oldMod = "Motifs",
 		menuheader = " Modification motifs", --eg "Sultan RS Grille and Bumper Cosmetics"
 		menuoldheader = " Roof Livery Modification",
 	},
-	["nos"] = { --exhaust.lua
+	nos = { --exhaust.lua
 		notinstalled = "Turbo n'est pas installé",
 
 		nosColour = "NOS Purge Colour",
@@ -99,7 +113,7 @@ Loc["fr"] = {
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	["paint"] = {
+	paint = {
 		primary = "Primaire",
 		secondary = "Secondaire",
 		pearl = "Nacré",
@@ -115,7 +129,7 @@ Loc["fr"] = {
 
 		menuheader = "Repulvériser",
 	},
-	["paintrgb"] = {
+	paintrgb = {
 		select = "Selectionner:",
 		finish = "Terminer Sélectionner:",
 		error = "La saisie du code hexadécimal doit comporter 6 caractères",
@@ -124,13 +138,13 @@ Loc["fr"] = {
 		hexP = "Sélecteur HEX",
 		rgbP = "Sélecteur RGB",
 	},
-	["plates"] = {
+	plates = {
 		label1 = "Porte-plaques",
 		label2 = "Plaques de vanité",
 		label3 = "Plaques personnalisées",
 		menuheader2 = " Styles de plaque personnalisés",
 	},
-	["rims"] = {
+	rims = {
 		menuheader = "Modification des jantes",
 
 		label1 = "Sport",
@@ -151,24 +165,24 @@ Loc["fr"] = {
 
 		labelcustom = "Jantes personnalisées",
 	},
-	["rollcage"] = {
+	rollcage = {
 		menuheader = " Roll Cage Modification",
 	},
-	["roof"] = {
+	roof = {
 		menuheader = " Modifications du toit",
 	},
-	["seat"] = {
+	seat = {
 		menuheader = " Modifications des siéges",
 	},
-	["skirts"] = {
+	skirts = {
 		menuskirt = "Bas de caisses",
 		menuRF = "Ailes droite",
 		menuLF = "Ailes gauche",
 	},
-	["spoilers"] = {
+	spoilers = {
 		menuheader = "Modifiaction de l'aileron",
 	},
-	["smoke"] = { --tiresmoke.lua
+	smoke = { --tiresmoke.lua
 		already = "Cette couleur est actuellement appliquée !",
 		menuheader = "Modification de la fumée des pneus",
 
@@ -189,10 +203,10 @@ Loc["fr"] = {
 		violet = "Violet",
 		blacklight = "Lumiere noir",
 	},
-	["windows"] = {
+	windows = {
 		menuheader = "Teintes de fenêtre",
 	},
-	["stores"] = {
+	stores = {
 		browse = "Parcourir la boutique",
 		tools = "Outils de mécanique",
 		perform = "Éléments de performance",
@@ -200,7 +214,7 @@ Loc["fr"] = {
 		repairs = "Repair Items",
 		nos = "NOS Items",
 	},
-	["crafting"] = { --crafting.lua
+	crafting = { --crafting.lua
 		menuheader = "Fabrication mécanique",
 		toolheader = "Outils de mécanique",
 		repairheader = "Repair Items",
@@ -209,10 +223,10 @@ Loc["fr"] = {
 		nosheader = "NOS Items",
 		numitems = " éléments", --for menu. eg. "11 items"
 	},
-	["payments"] = {
+	payments = {
 		charge = "Facturer le client",
 	},
-	["check"] = {
+	check = {
 		plate = "Plaque: [",
 		value = "]<br>Prix: $",
 		unavail = "❌ Indisponible",
@@ -273,7 +287,7 @@ Loc["fr"] = {
 		label53 = "Livery - [ ",
 		label58 = "Nitro:",
 	},
-	["repair"] = {
+	repair = {
 		browse = "Parcourir la réserve",
 		materials = "Vous n'avez pas assez de matériel",
 		checkeng = "Vérification des dommages au moteur..",
@@ -303,7 +317,7 @@ Loc["fr"] = {
 		ductfull = "Vous ne pouvez plus utiliser de ruban adhésif sur cette voiture",
 		nocar = "Il n'y a pas de véhicule à proximité",
 	},
-	["police"] = {
+	police = {
 		header = "Modification Station",
 		userepair = "Utiliser la station de réparation",
 		repair = "Réparation",
@@ -317,18 +331,18 @@ Loc["fr"] = {
 		complete = "Repair Complete",
 		restrict = "Only for Emergency Vehicles",
 	},
-	["manual"] = {
+	manual = {
 		tyres = "Replacing Damaged Tyres",
 		window = "Removing Damaged Windows",
 		doors = "Repairing Doors",
 	},
-	["carwax"] = {
+	carwax = {
 		head1 = "Clean Vehicle",
 		head2 = "Clean and Wax",
 		head3 = "Clean and Premium Wax",
 		head4 = "Clean and Ultimate Wax",
 	},
-	["extras"] = {
+	extras = {
 		clean = "Véhicule propre",
 		doorerr = "Erreur de porte",
 		locked = "Portes du véhicule verrouillées",
@@ -341,7 +355,7 @@ Loc["fr"] = {
 		notseat = "Ce siège n'est pas disponible..",
 		harness = "Vous avez un harnais de course sur vous ne pouvez pas changer..",
 	},
-	["functions"] = {
+	functions = {
 		distance = "Distance: ",
 		inCar = "Impossible de le faire depuis l'intérieur du véhicule",
 		outCar = "Impossible de le faire depuis l'extérieur du véhicule",
@@ -351,7 +365,7 @@ Loc["fr"] = {
 		mechanic = "Seul un mécanicien sait faire ça",
 		checking = "Checking Stash.."
 	},
-	["servfunction"] = {
+	servfunction = {
 		checkdamage = "Vérifier le véhicule pour les dommages",
 		checkmods = "Vérifier les mods disponibles sur un véhicule",
 		flipvehicle = "Retourner le véhicule le plus proche",
@@ -363,11 +377,11 @@ Loc["fr"] = {
 		door = "Ouvrir/fermer la porte [0-3]",
 		seat = "Passer à un autre siège [-1 to 10]",
 	},
-	["previews"] = {
+	previews = {
 		changes = "Montant des modifications: ",
 		previewing = "Can't do this while previewing",
 	},
-	["stancer"] = {
+	stancer = {
 		wheel_lf = "Left Front Wheel",
 		wheel_rf = "Right Front Wheel",
 		wheel_lr = "Left Rear Wheel",

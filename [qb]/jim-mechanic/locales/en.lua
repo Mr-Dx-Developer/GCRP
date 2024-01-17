@@ -1,5 +1,7 @@
+Loc = Loc or {}
+
 Loc["en"] = {
-	["common"] = { --commonly used strings
+	common = { --commonly used strings
 		owned = "Vehicle isn't owned, cannot modify",
 		close = "Close",
 		ret = "Return",
@@ -22,11 +24,23 @@ Loc["en"] = {
 		closer = "Move closer to the headlights",
 		harness = "Attaching Racing Harness..",
 	},
-	["tires"] = {
+    progressbar = {
+        progress_washing = "Washing hands",
+        progress_mix = "Mixing a ",
+        progress_pour = "Pouring a ",
+        progress_drink = "Drinking a ",
+        progress_eat = "Eating a ",
+        progress_make = "Making a ",
+    },
+	error = {
+		not_clockedin = "Not On Duty",
+		cancelled = "Cancelled",
+	},
+	tires = {
 		swap = "BulletProof Tires removed!",
 		swap2 = "Drift Tires removed!",
 	},
-	["xenons"] = {
+	xenons = {
 		notinstall = "Xenons Headlights Not Installed",
 		--Menus
 		neonheader1 = "Lighting Controls",
@@ -46,15 +60,15 @@ Loc["en"] = {
 		xenontxt = "Adjust vehicle headlight color",
 	},
 	--Cosmetic Items
-	["bumpers"] = {
+	bumpers = {
 		menugrille = "Grille",
 		menuFBumper = "Front Bumper",
 		menuBBumper = "Back Bumper",
 	},
-	["exhaust"] = {
+	exhaust = {
 		menuheader = " Exhaust Modification",
 	},
-	["exterior"] = {
+	exterior = {
 		stockMod = "Stock Exterior Mod..",
 
 		label1 = "Trim A",
@@ -68,13 +82,13 @@ Loc["en"] = {
 		label9 = "Fuel Tanks",
 		label10 = "Aerials",
 	},
-	["hood"] = {
+	hood = {
 		menuheader = " Hood Modification",
 	},
-	["horns"] = {
+	horns = {
 		menuheader = " Horn Modification",
 	},
-	["interior"] = {
+	interior = {
 		label1 = "Roll Cages",
 		label2 = "Ornaments",
 		label3 = "Dashboards",
@@ -85,12 +99,12 @@ Loc["en"] = {
 		label8 = "Plaques",
 		label9 = "Speakers",
 	},
-	["livery"] = {
+	livery = {
 		oldMod = "old",
 		menuheader = " Livery Modification",
 		menuoldheader = " Roof Livery Modification",
 	},
-	["nos"] = {
+	nos = {
 		notinstalled = "Turbo isn't installed",
 
 		nosColour = "NOS Purge Colour",
@@ -99,7 +113,7 @@ Loc["en"] = {
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	["paint"] = {
+	paint = {
 		primary = "Primary",
 		secondary = "Secondary",
 		pearl = "Pearlescent",
@@ -115,7 +129,7 @@ Loc["en"] = {
 
 		menuheader = " Respray",
 	},
-	["paintrgb"] = {
+	paintrgb = {
 		select = "Selection:",
 		finish = "Finish Select:",
 		error = "Hex Code input needs to be 6 characters",
@@ -124,12 +138,12 @@ Loc["en"] = {
 		hexP = "HEX Picker",
 		rgbP = "RGB Picker",
 	},
-	["plates"] = { --paints.lua
+	plates = { --paints.lua
 		label1 = "Plate Holder",
 		label2 = "Vanity Plates",
 		label3 = "Custom Plates",
 	},
-	["rims"] = {
+	rims = {
 		menuheader = "Rims Modification",
 
 		label1 = "Sport",
@@ -150,24 +164,24 @@ Loc["en"] = {
 
 		labelcustom = "Custom Rims",
 	},
-	["rollcage"] = {
+	rollcage = {
 		menuheader = " Roll Cage Modification",
 	},
-	["roof"] = {
+	roof = {
 		menuheader = " Roof Modification",
 	},
-	["seat"] = {
+	seat = {
 		menuheader = " Seat Modification",
 	},
-	["skirts"] = {
+	skirts = {
 		menuskirt = "Skirts",
 		menuRF = "Right Fender",
 		menuLF = "Left Fender",
 	},
-	["spoilers"] = {
+	spoilers = {
 		menuheader = " Spoiler Modification",
 	},
-	["smoke"] = {
+	smoke = {
 		already = "This colour is currently applied!",
 		menuheader = " Tire Smoke Modification",
 
@@ -188,10 +202,10 @@ Loc["en"] = {
 		purple = "Purple",
 		blacklight = "Blacklight",
 	},
-	["windows"] = {
+	windows = {
 		menuheader = " Window Tints",
 	},
-	["stores"] = {
+	stores = {
 		browse = "Browse Store",
 		tools = "Mechanic Tools",
 		perform = "Performance Items",
@@ -199,7 +213,7 @@ Loc["en"] = {
 		repairs = "Repair Items",
 		nos = "NOS Items",
 	},
-	["crafting"] = {
+	crafting = {
 		menuheader = "Mechanic Crafting",
 		toolheader = "Mechanics Tools",
 		repairheader = "Repair Items",
@@ -208,10 +222,10 @@ Loc["en"] = {
 		nosheader = "NOS Items",
 		numitems = " items", --for menu. eg. "11 items"
 	},
-	["payments"] = {
+	payments = {
 		charge = "Charge Customer",
 	},
-	["check"] = {
+	check = {
 		plate = "Plate:",
 		value = "Value: $",
 		unavail = "❌ Unavailable",
@@ -272,7 +286,7 @@ Loc["en"] = {
 		label53 = "Livery - [ ",
 		label58 = "Nitrous:",
 	},
-	["repair"] = {
+	repair = {
 		browse = "Browse Stash",
 		materials = "You don't have enough materials",
 		checkeng = "Checking the Engine damage..",
@@ -302,7 +316,7 @@ Loc["en"] = {
 		ductfull = "You can't use any more Duct Tape on this car",
 		nocar = "There is no vehicle nearby",
 	},
-	["police"] = {
+	police = {
 		header = "Modification Station",
 		userepair = "Use Modification Station",
 		repair = "Repair",
@@ -316,18 +330,18 @@ Loc["en"] = {
 		complete = "Repair Complete",
 		restrict = "Only for Emergency Vehicles",
 	},
-	["manual"] = {
+	manual = {
 		tyres = "Replacing Damaged Tyres",
 		window = "Removing Damaged Windows",
 		doors = "Repairing Doors",
 	},
-	["carwax"] = {
+	carwax = {
 		head1 = "Clean Vehicle",
 		head2 = "Clean and Wax",
 		head3 = "Clean and Premium Wax",
 		head4 = "Clean and Ultimate Wax",
 	},
-	["extras"] = {
+	extras = {
 		clean = "Vehicle Clean",
 		doorerr = "Door Error",
 		locked = "Vehicle Doors Locked",
@@ -340,7 +354,7 @@ Loc["en"] = {
 		notseat = "This seat isn't available..",
 		harness = "You have a race harness on you cant switch..",
 	},
-	["functions"] = {
+	functions = {
 		distance = "Distance: ",
 		inCar = "Cannot do this from inside the vehicle",
 		outCar = "Cannot do this from outside the vehicle",
@@ -350,7 +364,7 @@ Loc["en"] = {
 		mechanic = "Only a mechanic knows how to do this",
 		checking = "Checking Stash.."
 	},
-	["servfunction"] = {
+	servfunction = {
 		checkdamage = "Check vehicle for damage",
 		checkmods = "Check mods available on a vehicle",
 		flipvehicle = "Flip nearest vehicle",
@@ -362,11 +376,11 @@ Loc["en"] = {
 		door = "Open/Close Door [0-3]",
 		seat = "Move to another seat [-1 to 10]",
 	},
-	["previews"] = {
+	previews = {
 		changes = "Amount of changes: ",
 		previewing = "Can't do this while previewing",
 	},
-	["stancer"] = {
+	stancer = {
 		wheel_lf = "Left Front Wheel",
 		wheel_rf = "Right Front Wheel",
 		wheel_lr = "Left Rear Wheel",

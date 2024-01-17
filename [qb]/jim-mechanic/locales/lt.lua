@@ -1,5 +1,7 @@
+Loc = Loc or {}
+
 Loc["lt"] = {
-	["common"] = { --commonly used strings
+	common = { --commonly used strings
 		owned = "Ši tr. priemonė niekam nepriklauso, negalima modifikuoti",
 		close = "Uždaryti",
 		ret = "Atgal",
@@ -22,11 +24,23 @@ Loc["lt"] = {
 		closer = "Move closer to the headlights",
 		harness = "Attaching Racing Harness..",
 	},
-	["tires"] = {
+    progressbar = {
+        progress_washing = "Washing hands",
+        progress_mix = "Mixing a ",
+        progress_pour = "Pouring a ",
+        progress_drink = "Drinking a ",
+        progress_eat = "Eating a ",
+        progress_make = "Making a ",
+    },
+	error = {
+		not_clockedin = "Not On Duty",
+		cancelled = "Cancelled",
+	},
+	tires = {
 		swap = "Išmontuotos neperšaunamos padangos!",
 		swap2 = "Išmontuotos šonaslydžio padangos!",
 	},
-	["xenons"] = {
+	xenons = {
 		notinstall = "Xenon žibintai nėra sumontuoti",
 		--Menus
 		neonheader1 = "Apšvietimo valdymas",
@@ -46,15 +60,15 @@ Loc["lt"] = {
 		xenontxt = "Keiskite Xenon žibintų spalvą",
 	},
 	--Cosmetic Items
-	["bumpers"] = {
+	bumpers = {
 		menugrille = "Grotelės",
 		menuFBumper = "Priekinis buferis",
 		menuBBumper = "Galinis buferis",
 	},
-	["exhaust"] = {
+	exhaust = {
 		menuheader = " išmetimo modifikavimas",
 	},
-	["exterior"] = {
+	exterior = {
 		stockMod = "Įprastinė eksterjero modifikacija..",
 
 		label1 = "Apdaila A",
@@ -68,13 +82,13 @@ Loc["lt"] = {
 		label9 = "Kuro bakas",
 		label10 = "Aerodinamika",
 	},
-	["hood"] = {
+	hood = {
 		menuheader = " Hood Modification", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["horns"] = {
+	horns = {
 		menuheader = " garso signalo modifikacija",
 	},
-	["interior"] = {
+	interior = {
 		label1 = "Saugos lankai",
 		label2 = "Ornamentai",
 		label3 = "Prietaisų skydeliai",
@@ -85,12 +99,12 @@ Loc["lt"] = {
 		label8 = "Plokštelės",
 		label9 = "Garsiakalbiai",
 	},
-	["livery"] = {
+	livery = {
 		oldMod = "Senas",
 		menuheader = " lipdukai",
 		menuoldheader = " Roof Livery Modification",
 	},
-	["nos"] = {
+	nos = {
 		notinstalled = "Turbina nėra sumontuota",
 
 		nosColour = "NOS Purge Colour",
@@ -99,7 +113,7 @@ Loc["lt"] = {
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	["paint"] = {
+	paint = {
 		primary = "Pirminė",
 		secondary = "Antrinė",
 		pearl = "Atspalvis",
@@ -115,7 +129,7 @@ Loc["lt"] = {
 
 		menuheader = " Perdažyti",
 	},
-	["paintrgb"] = {
+	paintrgb = {
 		select = "Pasirinkimas:",
 		finish = "Galutinis pasirinkimas:",
 		error = "Hex kodą turi sudaryti 6 simboliai",
@@ -124,13 +138,13 @@ Loc["lt"] = {
 		hexP = "HEX pasirinkimas",
 		rgbP = "RGB pasirinkimas",
 	},
-	["plates"] = {
+	plates = {
 		label1 = "Numerių rėmeliai",
 		label2 = "XXX 000 formato numeriai",
 		label3 = "Vardiniai numeriai",
 		menuheader2 = " pasirinktinis numerių lentelių stilius",
 	},
-	["rims"] = {
+	rims = {
 		menuheader = "Ratlankių modifikavimas",
 
 		label1 = "Sport",
@@ -151,24 +165,24 @@ Loc["lt"] = {
 
 		labelcustom = "Importiniai ratlankiai",
 	},
-	["rollcage"] = {
+	rollcage = {
 		menuheader = " Roll Cage Modification",
 	},
-	["roof"] = {
+	roof = {
 		menuheader = " stogo modifikavimas", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["seat"] = {
+	seat = {
 		menuheader = " Sėdynių modifikavimas", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["skirts"] = {
+	skirts = {
 		menuskirt = "Slekščiai",
 		menuRF = "Dešinys slenkstis",
 		menuLF = "Kairys slenkstis",
 	},
-	["spoilers"] = {
+	spoilers = {
 		menuheader = " spoilerio modifikavimas",
 	},
-	["smoke"] = {
+	smoke = {
 		already = "Ši spalva jau naudojama!",
 		menuheader = " padangų dūmų modifikavimas", --eg "Sultan RS Grille and Bumper Cosmetics"
 
@@ -189,10 +203,10 @@ Loc["lt"] = {
 		purple = "Violetinė",
 		blacklight = "Blacklight",
 	},
-	["windows"] = {
+	windows = {
 		menuheader = " langų atspalviai",
 	},
-	["stores"] = {
+	stores = {
 		browse = "Peržiūrėti parduotuvę",
 		tools = "Mechanikų įrankiai",
 		perform = "Daiktai našumo didinimui",
@@ -200,7 +214,7 @@ Loc["lt"] = {
 		repairs = "Repair Items",
 		nos = "NOS Items",
 	},
-	["crafting"] = {
+	crafting = {
 		menuheader = "Gamyba mechanikams",
 		toolheader = "Mechanikų įrankiai",
 		repairheader = "Repair Items",
@@ -209,10 +223,10 @@ Loc["lt"] = {
 		nosheader = "NOS Items",
 		numitems = " daiktai", --for menu. eg. "11 items"
 	},
-	["payments"] = {
+	payments = {
 		charge = "Apmokestinti klientą",
 	},
-	["check"] = {
+	check = {
 		plate = "Numeriai: [",
 		value = "]<br>Vertė: $",
 		unavail = "❌ Negalima",
@@ -273,7 +287,7 @@ Loc["lt"] = {
 		label53 = "Livery - [ ",
 		label58 = "Nitro:",
 	},
-	["repair"] = {
+	repair = {
 		browse = "Peržiūrėti saugyklą",
 		materials = "Neturite pakankamai medžiagų",
 		checkeng = "Įvertinate variklio žalą..",
@@ -303,7 +317,7 @@ Loc["lt"] = {
 		ductfull = "Šiai tr. priemonei negalite naudoti lipnios juostos",
 		nocar = "Šalia nėra tr. priemonės",
 	},
-	["police"] = {
+	police = {
 		header = "Modification Station",
 		userepair = "Naudoti taisymo įrangą",
 		repair = "Taisyti",
@@ -317,18 +331,18 @@ Loc["lt"] = {
 		complete = "Repair Complete",
 		restrict = "Only for Emergency Vehicles",
 	},
-	["manual"] = {
+	manual = {
 		tyres = "Replacing Damaged Tyres",
 		window = "Removing Damaged Windows",
 		doors = "Repairing Doors",
 	},
-	["carwax"] = {
+	carwax = {
 		head1 = "Clean Vehicle",
 		head2 = "Clean and Wax",
 		head3 = "Clean and Premium Wax",
 		head4 = "Clean and Ultimate Wax",
 	},
-	["extras"] = {
+	extras = {
 		clean = "Tr. priemonės valymas",
 		doorerr = "Durų klaida",
 		locked = "Tr. priemonės durys užrakintos",
@@ -341,7 +355,7 @@ Loc["lt"] = {
 		notseat = "Ši sėdyne nėra pasiekiama..",
 		harness = "Jūs esate prisisegę lenktyninius diržus, šis veiksmas negalimas..",
 	},
-	["functions"] = {
+	functions = {
 		distance = "Atstumas: ",
 		inCar = "Negalite to daryti sėdint viduje tr. priemonės",
 		outCar = "Negalite to daryti nesėdint tr. priemonėje",
@@ -351,7 +365,7 @@ Loc["lt"] = {
 		mechanic = "Tik mechanikas moka naudoti šiuos įrankius",
 		checking = "Checking Stash.."
 	},
-	["servfunction"] = {
+	servfunction = {
 		checkdamage = "Įvertinti tr. priemonės žalą",
 		checkmods = "Patikrinti galimas tr. priemonės modifikacijas",
 		flipvehicle = "Apversti arčiausiai esančią tr. priemonę",
@@ -363,11 +377,11 @@ Loc["lt"] = {
 		door = "Atidaryti/Uždaryti dureles [0-3]",
 		seat = "Persėsti į kitą vietą [-1 to 10]",
 	},
-	["previews"] = {
+	previews = {
 		changes = "Pakeitimu skaičius: ",
 		previewing = "Can't do this while previewing",
 	},
-	["stancer"] = {
+	stancer = {
 		wheel_lf = "Left Front Wheel",
 		wheel_rf = "Right Front Wheel",
 		wheel_lr = "Left Rear Wheel",
