@@ -618,7 +618,13 @@ function GetSocietyMoney(job)
                 if next(societyAccountMoney) then
                     return societyAccountMoney[1].account_balance
                 else
-                    return false
+                    if Config.CreateJobAccount then
+                        exports["qb-banking"]:CreateJobAccount(accountName, 0)
+                        Wait(350)
+                        return 0
+                    else
+                        return false
+                    end
                 end
             else
                 societyAccountMoney = ExecuteSql("SELECT * FROM `management_funds` WHERE `job_name` = '" ..
