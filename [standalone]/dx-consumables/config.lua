@@ -9,14 +9,14 @@ Config = {
 	Inv = "qb", -- set to "ox" if using ox_inventory
 	Notify = "qb",  -- set to "ox" if using ox_lib
 
-	UseProgbar = true,
+	UseProgbar = false,
 	ProgressBar = "qb", -- set to "ox" if using ox_lib
 
 	Consumables = {
 		-- Default QB food and drink item override
 
 		--Effects can be applied here, like stamina on coffee for example
-		-- ["vodka"] = { 			emote = "vodkab", 		canRun = false, 	time = math.random(5000, 6000), stress = 0, heal = 0, armor = 0, type = "alcohol", stats = { effect = "stress", time = 5000, amount = 2, thirst = math.random(10,20), canOD = true }},
+		["vodka"] = { 			emote = "vodkab", 		canRun = false, 	time = math.random(5000, 6000), stress = 0, heal = 0, armor = 0, type = "alcohol", stats = { effect = "stress", time = 5000, amount = 2, thirst = math.random(10,20), canOD = true }},
 		["beer"] = { 			emote = "beer", 		canRun = false, 	time = math.random(5000, 6000), stress = 0, heal = 0, armor = 0, type = "alcohol", stats = { thirst = math.random(10,20), canOD = true }},
 		["whiskey"] = { 		emote = "whiskey",  	canRun = false, 	time = math.random(5000, 6000), stress = 0, heal = 0, armor = 0, type = "alcohol", stats = { thirst = math.random(10,20), canOD = true }},
 
@@ -36,14 +36,14 @@ Config = {
 		["bandage"] = { 		emote = "oxy", 		time = math.random(5000, 6000), stress = 0, heal = 25, armor = 0, type = "drug", stats = { effect = "heal", amount = 3, widepupils = false, canOD = false } },
 		
 
-		--[[  --Testing effects & armor with small functionality to drugs - This may be another one left to default scripts
+		 --Testing effects & armor with small functionality to drugs - This may be another one left to default scripts
 		["joint"] = { 			emote = "smoke3",	time = math.random(5000, 6000), stress = math.random(0, 0), heal = 0, armor = 10, type = "drug", stats = { screen = "weed", effect = "armor", widepupils = false, canOD = false } },
 
 		["cokebaggy"] = { 		emote = "coke",		time = math.random(5000, 6000), stress = math.random(0, 0), heal = 0, armor = 0, type = "drug", stats = { screen = "focus", effect = "stamina", widepupils = false, canOD = true } },
 		--["crackbaggy"] = { 		emote = "coke",		time = math.random(5000, 6000), stress = math.random(12, 24), heal = 0, armor = 0, type = "drug", stats = { effect = "heal", widepupils = false, canOD = true } },
 		["xtcbaggy"] = { 		emote = "oxy",		time = math.random(5000, 6000), stress = math.random(0, 0), heal = 0, armor = 10, type = "drug", stats = { effect = "strength", widepupils = true, canOD = true } },
 		["oxy"] = { 			emote = "oxy",		time = math.random(5000, 6000), stress = math.random(0, 0), heal = 0, armor = 0, type = "drug", stats = { effect = "heal", widepupils = false, canOD = false } },
-		["meth"] = { 			emote = "coke",		time = math.random(5000, 6000), stress = math.random(0, 0), heal = 0, armor = 10, type = "drug", stats = { effect = "stamina", widepupils = false, canOD = true } }, ]]
+		["meth"] = { 			emote = "coke",		time = math.random(5000, 6000), stress = math.random(0, 0), heal = 0, armor = 10, type = "drug", stats = { effect = "stamina", widepupils = false, canOD = true } },
 		----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 		----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
