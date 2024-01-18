@@ -106,7 +106,7 @@ function QBCore.Player.CheckPlayerData(source, PlayerData)
     PlayerData.charinfo.nationality = PlayerData.charinfo.nationality or 'USA'
     PlayerData.charinfo.phone = PlayerData.charinfo.phone or QBCore.Functions.CreatePhoneNumber()
     PlayerData.charinfo.account = PlayerData.charinfo.account or QBCore.Functions.CreateAccountNumber()
-    PlayerData.charinfo.iban = PlayerData.charinfo.iban ~= nil and PlayerData.charinfo.iban or math.random(0,999999)
+    --[[ PlayerData.charinfo.iban = PlayerData.charinfo.iban ~= nil and PlayerData.charinfo.iban or math.random(0,999999) ]]
     -- Metadata
     PlayerData.metadata = PlayerData.metadata or {}
     PlayerData.metadata['hunger'] = PlayerData.metadata['hunger'] or 100

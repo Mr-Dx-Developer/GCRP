@@ -1,3 +1,5 @@
+local lib = exports.loaf_lib:GetLib()
+
 -- Get open companies
 local lastRefresh = 0
 lib.RegisterCallback("phone:services:getOnline", function(_, cb)

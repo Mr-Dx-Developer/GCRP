@@ -2,13 +2,11 @@ if Config.Item.Inventory ~= "ox_inventory" or not Config.Item.Unique or not Conf
     return
 end
 
-SetTimeout(1000, function()
-    exports.ox_inventory:displayMetadata({
-        lbPhoneNumber = "Phone number",
-        lbFormattedNumber = "Formatted number",
-        lbPhoneName = "Phone name",
-    })
-end)
+exports.ox_inventory:displayMetadata({
+    lbPhoneNumber = "Phone number",
+    lbFormattedNumber = "Formatted number",
+    lbPhoneName = "Phone name",
+})
 
 function GetFirstNumber()
     local phones = exports.ox_inventory:Search("slots", Config.Item.Name)

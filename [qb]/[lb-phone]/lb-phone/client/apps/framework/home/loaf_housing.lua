@@ -2,6 +2,8 @@ if Config.HouseScript ~= "loaf_housing" then
     return
 end
 
+local lib = exports.loaf_lib:GetLib()
+
 RegisterNUICallback("Home", function(data, cb)
     local action = data.action
 

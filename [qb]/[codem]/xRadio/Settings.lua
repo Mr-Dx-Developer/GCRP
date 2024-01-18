@@ -1,5 +1,5 @@
 Settings = {
-    Framework = "NewESX", -- Esx or NewESX and QBCore or OldQBCore
+    Framework = "QBCore", -- Esx or NewESX and QBCore or OldQBCore
     Voice = "pma-voice", --  pma-voice & saltychat & mumble-voip
     MaxFrequency = 500, --  Max Frequency
     ResetCommad = "radioreset",

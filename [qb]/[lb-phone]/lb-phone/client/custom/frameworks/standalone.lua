@@ -29,20 +29,11 @@ CreateThread(function()
         return false
     end
 
-    ---Apply vehicle mods
-    ---@param vehicle number
-    ---@param vehicleData table
-    function ApplyVehicleMods(vehicle, vehicleData)
+    function CreateFrameworkVehicle()
+        return false
     end
 
-    ---Create a vehicle and apply vehicle mods
-    ---@param vehicleData table
-    ---@param coords vector3
-    ---@return number? vehicle
-    function CreateFrameworkVehicle(vehicleData, coords)
-    end
-
-    -- Company app
+     -- Company app
     function GetCompanyData(cb)
         cb {}
     end
@@ -68,6 +59,6 @@ CreateThread(function()
     end
 
     function ToggleDuty()
-        return false
+        return false    
     end
 end)

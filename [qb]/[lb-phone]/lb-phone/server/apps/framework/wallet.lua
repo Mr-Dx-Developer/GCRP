@@ -1,3 +1,5 @@
+local lib = exports.loaf_lib:GetLib()
+
 ---Adds a transaction to a phone number, doesn't return anything
 ---@param phoneNumber string
 ---@param amount number

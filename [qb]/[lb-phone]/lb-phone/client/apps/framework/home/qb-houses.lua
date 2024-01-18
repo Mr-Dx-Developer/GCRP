@@ -7,6 +7,8 @@ CreateThread(function()
         Wait(500)
     end
 
+    local QB = exports["qb-core"]:GetCoreObject()
+
     local allHouses = {}
 
     RegisterNetEvent("qb-houses:client:setHouseConfig", function(houseConfig)
