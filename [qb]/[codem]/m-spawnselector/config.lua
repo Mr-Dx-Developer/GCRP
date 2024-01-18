@@ -1,6 +1,6 @@
 Config = {
     UI = {
-        ppType = "discord", -- steam or discord
+        ppType = "steam", -- steam or discord
         welcomeMessage = "Welcome to the M City !",
     },
     Framework = "qbcore", -- esx or qbcore

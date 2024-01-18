@@ -10,14 +10,14 @@ Config.DefaultBucket = 0 -- (please don't change it if you don't know)
 Config.ServerLogo = "mrp.png"
 Config.EnableDeleteButton  = true
 Config.UseMSpawnSelector = true -- if you use m-spawnselector you can change it true
-Config.DateFormat = "en-BD" -- http://www.lingoes.net/en/translator/langcode.htm
+Config.DateFormat = "en-US" -- http://www.lingoes.net/en/translator/langcode.htm
 Config.CodemInventory = false -- if you use codem-inventory you can change it true
 Config.DefaultLogo = "https://www.gitbook.com/cdn-cgi/image/width=40,dpr=2,height=40,fit=contain,format=auto/https%3A%2F%2F3253843082-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FMRUfpMzIuVWlJ1CkzDbb%252Ficon%252FD3wjQp0cCyS6MkqdCs1C%252Fimage_2022-09-06_182033969.png%3Falt%3Dmedia%26token%3D662e0ec6-bb96-40d2-87e0-3e74d4061566"
 Config.Slots = {
     [1] = {tebex = false, id = 1},
     [2] = {tebex = false, id = 2},
-    [3] = {tebex = true, id = 3},
-    [4] = {tebex = true, id = 4},
+    [3] = {tebex = false, id = 3},
+    [4] = {tebex = false, id = 4},
     [5] = {tebex = true, id = 5},
     -- [6] = {tebex = false, id = 6},
     -- [7] = {tebex = true, id = 7},
