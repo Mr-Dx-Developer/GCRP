@@ -1,7 +1,7 @@
 Config = {}
 
 -- NPC Vehicle Lock States
-Config.LockNPCDrivingCars = false -- Lock state for NPC cars being driven by NPCs [true = locked, false = unlocked]
+Config.LockNPCDrivingCars = true -- Lock state for NPC cars being driven by NPCs [true = locked, false = unlocked]
 Config.LockNPCParkedCars = true -- Lock state for NPC parked cars [true = locked, false = unlocked]
 Config.UseKeyfob = false -- you can set this true if you dont need ui
 -- Lockpick Settings
@@ -46,8 +46,8 @@ Config.maxHotwireTime = 40000 --  Maximum hotwire time in ms
 
 -- Police Alert Settings
 Config.AlertCooldown = 10000 -- 10 seconds
-Config.PoliceAlertChance = 0.75 -- Chance of alerting police during the day
-Config.PoliceNightAlertChance = 0.50 -- Chance of alerting police at night (times:01-06)
+Config.PoliceAlertChance = 0.50 -- Chance of alerting police during the day
+Config.PoliceNightAlertChance = 0.30 -- Chance of alerting police at night (times:01-06)
 
 -- Job Settings
 Config.SharedKeys = { -- Share keys amongst employees. Employees can lock/unlock any job-listed vehicle
