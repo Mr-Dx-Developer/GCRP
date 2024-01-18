@@ -321,7 +321,7 @@ Config.Background = "background_projectsloth"
 Config.Opacity = 60
 Config.Header = {
     -- LEFT MENU CONFIG
-    ["TITLE"] = "VLife v4",
+    ["TITLE"] = "Golden City",
     ["SUBTITLE"] = "Life where everything is vartual",
 
     ["MAP"] = "Map",
@@ -336,9 +336,9 @@ Config.Header = {
     ["EDITOR"] = "Rockstar Editor",
 
     -- RIGHT MENU CONFIG
-    ["SERVER_NAME"] = "VLife v4",
-    ["SERVER_TEXT"] = "VLIFE ROLEPLAY",
-    ["SERVER_DISCORD"] = "vlife"
+    ["SERVER_NAME"] = "Golden City",
+    ["SERVER_TEXT"] = "Golden City ROLEPLAY",
+    ["SERVER_DISCORD"] = "Golden City"
 }
 
 --- Evevators
