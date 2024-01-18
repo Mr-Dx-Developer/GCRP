@@ -1,117 +1,212 @@
 local recoils = {
+
+        -- Kyros Weapon Pack V4
+[682284884] = 0.1,         -- WEAPON_GLOCK19X   
+[718812301] = 0.1,         -- WEAPON_GLOCK19 
+[3613198896] = 0.1,        -- WEAPON_GLOCK40
+[1283665035] = 0.2,        -- WEAPON_GLOCK40S 
+[3198471071] = 0.1,        -- WEAPON_DDM4V5   
+[2943064302] = 0.1,        -- WEAPON_MPX
+[3498071921] = 0.1,        -- WEAPON_PD509   
+[2381842680] = 0.1,        -- WEAPON_APS  
+[407090536] = 0.1,         -- WEAPON_PPK 
+[4011089255] = 0.1,        -- WEAPON_PITVIPER 
+[3453563995] = 0.1,        -- WEAPON_BARP 
+[3328335563] = 0.1,        -- WEAPON_RDP 
+[2979413870] = 0.1,        -- WEAPON_LOK
+[362886335] = 0.1,         -- WEAPON_PLR   
+[103397280] = 0.1,         -- WEAPON_XDS9 
+[3924285645] = 0.1,        -- WEAPON_PPS
+[825264973] = 0.1,         -- WEAPON_XDME   
+[13952063] = 0.1,          -- WEAPON_SP  
+[3032380877] = 0.2,        -- WEAPON_GLOCK17S  
+[3345847711] = 0.1,        -- WEAPON_GLOCK18C  
+[903049637] = 0.2,         -- WEAPON_GLOCK19S   
+[133665706] = 0.1,         -- WEAPON_ARPISTOL
+[5304394] = 0.1,           -- WEAPON_GLOCK26S  
+[966284256] = 0.1,         -- WEAPON_GRENADES  
+[790914188] = 0.1,         -- WEAPON_M32S
+[4040129047] = 0.2,        -- WEAPON_MICRODRACO 
+[1486689541] = 0.1,        -- WEAPON_RUGER57 
+[870948696] = 0.1,         -- WEAPON_680
+[3204779161] = 0.1,        -- WEAPON_ZIPTIE
+    -- Melee
+    -- [-1834847097] = 0.3,        --['weapon_dagger']
+    -- [-1786099057] = 0.3,        --['weapon_bat']
+    -- [-102323637] = 0.3,        --['weapon_bottle']
+    -- [2067956739] = 0.3,        --['weapon_crowbar']
+    -- [-1951375401] = 0.3,        --['weapon_flashlight']
+    -- [1141786504] = 0.3,        --['weapon_golfclub']
+    -- [1317494643] = 0.3,        --['weapon_hammer']
+    -- [-102973651] = 0.3,        --['weapon_hatchet']
+    -- [-656458692] = 0.3,        --['weapon_knuckle']
+    -- [-1716189206] = 0.3,        --['weapon_knife']
+    -- [-581044007] = 0.3,        --['weapon_machete']
+    -- [-538741184] = 0.3,        --['weapon_switchblade']
+    -- [1737195953] = 0.3,        --['weapon_nightstick']
+    -- [419712736] = 0.3,        --['weapon_wrench']
+    -- [-853065399] = 0.3,        --['weapon_battleaxe']
+    -- [-1810795771] = 0.3,        --['weapon_poolcue']
+    -- [-2000187721] = 0.0,        --['weapon_briefcase']
+    -- [28811031] = 0.0,        --['weapon_briefcase_02']
+    -- [-499989876] = 0.0,        --['weapon_garbagebag']
+    -- [-800287667] = 0.0,        --['weapon_handcuffs']
+    -- [1309015656] = 0.0,        --['weapon_bread']
+    -- [940833800] = 0.3,        --['weapon_stone_hatchet']
+
     -- Handguns
-    [`weapon_pistol`] = 0.3,
-    [`weapon_pistol_mk2`] = 0.5,
-    [`weapon_combatpistol`] = 0.2,
-    [`weapon_appistol`] = 0.3,
-    [`weapon_stungun`] = 0.1,
-    [`weapon_pistol50`] = 0.6,
-    [`weapon_snspistol`] = 0.2,
-    [`weapon_heavypistol`] = 0.5,
-    [`weapon_vintagepistol`] = 0.4,
-    [`weapon_flaregun`] = 0.9,
-    [`weapon_marksmanpistol`] = 0.9,
-    [`weapon_revolver`] = 0.6,
-    [`weapon_revolver_mk2`] = 0.6,
-    [`weapon_doubleaction`] = 0.3,
-    [`weapon_snspistol_mk2`] = 0.3,
-    [`weapon_raypistol`] = 0.3,
-    [`weapon_ceramicpistol`] = 0.3,
-    [`weapon_navyrevolver`] = 0.3,
-    [`weapon_gadgetpistol`] = 0.3,
-    [`weapon_pistolxm3`] = 0.4,
+    [453432689] = 0.3,            --['weapon_pistol']
+    [-1075685676] = 0.5,        --['weapon_pistol_mk2']
+    [1593441988] = 0.2,            --['weapon_combatpistol']
+    [584646201] = 0.3,            --['weapon_appistol']
+    [911657153] = 0.1,            --['weapon_stungun']
+    [-1716589765] = 0.6,        --['weapon_pistol50']
+    [-1076751822] = 0.2,        --['weapon_snspistol']
+    [-771403250] = 0.5,            --['weapon_heavypistol']
+    [137902532] = 0.4,            --['weapon_vintagepistol']
+    [1198879012] = 0.9,            --['weapon_flaregun']
+    [-598887786] = 0.9,            --['weapon_marksmanpistol']
+    [-1045183535] = 0.6,        --['weapon_revolver']
+    [-879347409] = 0.6,            --['weapon_revolver_mk2']
+    [-1746263880] = 0.3,        --['weapon_doubleaction']
+    [-2009644972] = 0.3,        --['weapon_snspistol_mk2']
+    [-1355376991] = 0.3,        --['weapon_raypistol']
+    [727643628] = 0.3,            --['weapon_ceramicpistol']
+    [-1853920116] = 0.3,        --['weapon_navyrevolver']
+    [1470379660] = 0.3,            --['weapon_gadgetpistol']
 
     -- Submachine Guns
-    [`weapon_microsmg`] = 0.5,
-    [`weapon_smg`] = 0.4,
-    [`weapon_smg_mk2`] = 0.1,
-    [`weapon_assaultsmg`] = 0.1,
-    [`weapon_combatpdw`] = 0.2,
-    [`weapon_machinepistol`] = 0.3,
-    [`weapon_minismg`] = 0.1,
-    [`weapon_raycarbine`] = 0.3,
-    [`weapon_tecpistol`] = 0.3,
+    [324215364] = 0.5,            --['weapon_microsmg']
+    [736523883] = 0.4,            --['weapon_smg']
+    [2024373456] = 0.1,            --['weapon_smg_mk2']
+    [-270015777] = 0.1,            --['weapon_assaultsmg']
+    [171789620] = 0.2,            --['weapon_combatpdw']
+    [-619010992] = 0.3,            --['weapon_machinepistol']
+    [-1121678507] = 0.1,        --['weapon_minismg']
+    [1198256469] = 0.3,            --['weapon_raycarbine']
 
     -- Shotguns
-    [`weapon_pumpshotgun`] = 0.4,
-    [`weapon_sawnoffshotgun`] = 0.7,
-    [`weapon_assaultshotgun`] = 0.4,
-    [`weapon_bullpupshotgun`] = 0.2,
-    [`weapon_musket`] = 0.7,
-    [`weapon_heavyshotgun`] = 0.2,
-    [`weapon_dbshotgun`] = 0.7,
-    [`weapon_autoshotgun`] = 0.2,
-    [`weapon_pumpshotgun_mk2`] = 0.4,
-    [`weapon_combatshotgun`] = 0.0,
+    [487013001] = 0.4,            --['weapon_pumpshotgun']
+    [2017895192] = 0.7,            --['weapon_sawnoffshotgun']
+    [-494615257] = 0.4,            --['weapon_assaultshotgun']
+    [-1654528753] = 0.2,        --['weapon_bullpupshotgun']
+    [-1466123874] = 0.7,        --['weapon_musket']
+    [984333226] = 0.2,            --['weapon_heavyshotgun']
+    [-275439685] = 0.7,            --['weapon_dbshotgun']
+    [317205821] = 0.2,            --['weapon_autoshotgun']
+    [1432025498] = 0.4,            --['weapon_pumpshotgun_mk2']
+    [94989220] = 0.0,            --['weapon_combatshotgun']
 
     -- Assault Rifles
-    [`weapon_assaultrifle`] = 0.5,
-    [`weapon_assaultrifle_mk2`] = 0.2,
-    [`weapon_carbinerifle`] = 0.3,
-    [`weapon_carbinerifle_mk2`] = 0.1,
-    [`weapon_advancedrifle`] = 0.1,
-    [`weapon_specialcarbine`] = 0.2,
-    [`weapon_bullpuprifle`] = 0.2,
-    [`weapon_compactrifle`] = 0.3,
-    [`weapon_specialcarbine_mk2`] = 0.2,
-    [`weapon_bullpuprifle_mk2`] = 0.2,
-    [`weapon_militaryrifle`] = 0.0,
-    [`weapon_heavyrifle`] = 0.3,
-    [`weapon_tacticalrifle`] = 0.2,
+    [-1074790547] = 0.5,        --['weapon_assaultrifle']
+    [961495388] = 0.2,            --['weapon_assaultrifle_mk2']
+    [-2084633992] = 0.3,        --['weapon_carbinerifle']
+    [-86904375] = 0.1,            --['weapon_carbinerifle_mk2']
+    [-1357824103] = 0.1,        --['weapon_advancedrifle']
+    [-1063057011] = 0.2,        --['weapon_specialcarbine']
+    [2132975508] = 0.2,            --['weapon_bullpuprifle']
+    [1649403952] = 0.3,            --['weapon_compactrifle']
+    [-1768145561] = 0.2,        --['weapon_specialcarbine_mk2']
+    [-2066285827] = 0.2,        --['weapon_bullpuprifle_mk2']
+    [-1658906650] = 0.0,        --['weapon_militaryrifle']
 
     -- Light Machine Guns
-    [`weapon_mg`] = 0.1,
-    [`weapon_combatmg`] = 0.1,
-    [`weapon_gusenberg`] = 0.1,
-    [`weapon_combatmg_mk2`] = 0.1,
+    [-1660422300] = 0.1,        --['weapon_mg']
+    [2144741730] = 0.1,            --['weapon_combatmg']
+    [1627465347] = 0.1,            --['weapon_gusenberg']
+    [-608341376] = 0.1,            --['weapon_combatmg_mk2']
 
     -- Sniper Rifles
-    [`weapon_sniperrifle`] = 0.5,
-    [`weapon_heavysniper`] = 0.7,
-    [`weapon_marksmanrifle`] = 0.3,
-    [`weapon_remotesniper`] = 1.2,
-    [`weapon_heavysniper_mk2`] = 0.6,
-    [`weapon_marksmanrifle_mk2`] = 0.3,
-    [`weapon_precisionrifle`] = 0.3,
+    [100416529] = 0.5,            --['weapon_sniperrifle']
+    [205991906] = 0.7,            --['weapon_heavysniper']
+    [-952879014] = 0.3,            --['weapon_marksmanrifle']
+    [856002082] = 1.2,            --['weapon_remotesniper']
+    [177293209] = 0.6,            --['weapon_heavysniper_mk2']
+    [1785463520] = 0.3,            --['weapon_marksmanrifle_mk2']
 
     -- Heavy Weapons
-    [`weapon_rpg`] = 0.0,
-    [`weapon_grenadelauncher`] = 1.0,
-    [`weapon_grenadelauncher_smoke`] = 1.0,
-    [`weapon_minigun`] = 0.1,
-    [`weapon_firework`] = 0.3,
-    [`weapon_railgun`] = 2.4,
-    [`weapon_hominglauncher`] = 0.0,
-    [`weapon_compactlauncher`] = 0.5,
-    [`weapon_rayminigun`] = 0.3,
-}
+    [-1312131151] = 0.0,        --['weapon_rpg']
+    [-1568386805] = 1.0,        --['weapon_grenadelauncher']
+    [1305664598] = 1.0,            --['weapon_grenadelauncher_smoke']
+    [1119849093] = 0.1,            --['weapon_minigun']
+    [2138347493] = 0.3,            --['weapon_firework']
+    [1834241177] = 2.4,            --['weapon_railgun']
+    [1672152130] = 0.0,            --['weapon_hominglauncher']
+    [125959754] = 0.5,            --['weapon_compactlauncher']
+    [-1238556825] = 0.3,        --['weapon_rayminigun']
 
-CreateThread(function()
-    while true do
+    -- Throwables
+    -- [-1813897027] = 0.3,        --['weapon_grenade']
+    -- [-1600701090] = 0.3,        --['weapon_bzgas']
+    -- [615608432] = 0.3,        --['weapon_molotov']
+    -- [741814745] = 0.3,        --['weapon_stickybomb']
+    -- [-1420407917] = 0.3,        --['weapon_proxmine']
+    -- [126349499] = 0.3,        --['weapon_snowball']
+    -- [-1169823560] = 0.3,        --['weapon_pipebomb']
+    -- [600439132] = 0.3,        --['weapon_ball']
+    -- [-37975472] = 0.3,        --['weapon_smokegrenade']
+    -- [1233104067] = 0.3,        --['weapon_flare']
+
+    -- Miscellaneous
+    -- [883325847] = 0.3,        --['weapon_petrolcan']
+    -- [101631238] = 0.3,        --['weapon_fireextinguisher']
+    -- [-1168940174] = 0.3,        --['weapon_hazardcan']
+    	-- CUSTOM WEAPONS
+	[GetHashKey("weapon_ak47")] = 0.5,
+	[GetHashKey("weapon_de")] = 0.5,
+	[GetHashKey("weapon_fnx45")] = 0.3,
+	[GetHashKey("weapon_glock17")] = 0.3,
+	[GetHashKey("weapon_m4")] = 0.3,
+	[GetHashKey("weapon_hk416")] = 0.3,
+	[GetHashKey("weapon_mk14")] = 0.4,
+	[GetHashKey("weapon_m110")] = 0.4,
+	[GetHashKey("weapon_huntingrifle")] = 0.4,
+	[GetHashKey("weapon_ar15")] = 0.4,
+	[GetHashKey("weapon_m9")] = 0.4,
+	[GetHashKey("weapon_m70")] = 0.5,
+	[GetHashKey("weapon_m1911")] = 0.4,
+	[GetHashKey("weapon_mac10")] = 0.7,
+	[GetHashKey("weapon_uzi")] = 0.7,
+	[GetHashKey("weapon_mp9")] = 0.7,
+	[GetHashKey("weapon_mossberg")] = 0.7,
+	[GetHashKey("weapon_remington")] = 0.7,
+	[GetHashKey("weapon_scarh")] = 0.5,
+}
+local loopend = true
+
+RegisterNetEvent('weapons:client:DrawWeapon', function(currentWeapon)
+    loopend = true
+    if currentWeapon == nil then
+        loopend = false
+    end
+    while loopend do
+        if loopend then break end
         local ped = PlayerPedId()
         if IsPedShooting(ped) and not IsPedDoingDriveby(ped) then
-            local _, weap = GetCurrentPedWeapon(ped)
-            if recoils[weap] and recoils[weap] ~= 0 then
+            local _, wep = GetCurrentPedWeapon(ped)
+            _, cAmmo = GetAmmoInClip(ped, wep)
+            if recoils[wep] and recoils[wep] ~= 0 then
+                -- luacheck: ignore
                 local tv = 0
                 if GetFollowPedCamViewMode() ~= 4 then
                     repeat
                         Wait(0)
                         local p = GetGameplayCamRelativePitch()
-                        SetGameplayCamRelativePitch(p + 0.1, 0.2)
+                        SetGameplayCamRelativePitch(p+0.1, 0.2)
                         tv += 0.1
-                    until tv >= recoils[weap]
+                    until tv >= recoils[wep]
                 else
                     repeat
                         Wait(0)
                         local p = GetGameplayCamRelativePitch()
-                        if recoils[weap] > 0.1 then
-                            SetGameplayCamRelativePitch(p + 0.6, 1.2)
+                        if recoils[wep] > 0.1 then
+                            SetGameplayCamRelativePitch(p+0.6, 1.2)
                             tv += 0.6
                         else
-                            SetGameplayCamRelativePitch(p + 0.016, 0.333)
+                            SetGameplayCamRelativePitch(p+0.016, 0.333)
                             tv += 0.1
                         end
-                    until tv >= recoils[weap]
+                    until tv >= recoils[wep]
                 end
             end
         end
