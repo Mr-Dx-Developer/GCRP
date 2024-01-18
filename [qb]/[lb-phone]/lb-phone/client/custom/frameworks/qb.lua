@@ -4,10 +4,8 @@ end
 
 ---@diagnostic disable: param-type-mismatch
 CreateThread(function()
-    local lib = exports.loaf_lib:GetLib()
-
     debugprint("Loading QB")
-    local QB = exports["qb-core"]:GetCoreObject()
+    QB = exports["qb-core"]:GetCoreObject()
     local PlayerJob = {}
 
     while not LocalPlayer.state.isLoggedIn do
@@ -57,21 +55,14 @@ CreateThread(function()
         return false
     end
 
-    ---Create a vehicle
+    ---Apply vehicle mods
+    ---@param vehicle number
     ---@param vehicleData table
-    ---@param coords table
-    function CreateFrameworkVehicle(vehicleData, coords)
-        vehicleData.mods = json.decode(vehicleData.mods)
-
-        local model = tonumber(vehicleData.hash)
-
-        while not HasModelLoaded(model) do
-            RequestModel(model)
-            Wait(500)
+    function ApplyVehicleMods(vehicle, vehicleData)
+        if type(vehicleData.mods) == "string" then
+            vehicleData.mods = json.decode(vehicleData.mods)
         end
 
-        local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, 0.0, true, false)
-        SetVehicleOnGroundProperly(vehicle)
         SetVehicleNumberPlateText(vehicle, vehicleData.plate)
 
         QB.Functions.SetVehicleProperties(vehicle, vehicleData.mods)
@@ -80,7 +71,18 @@ CreateThread(function()
         if GetResourceState("LegacyFuel") == "started" and vehicleData.fuel then
             exports.LegacyFuel:SetFuel(vehicle, vehicleData.fuel)
         end
+    end
 
+    ---Create a vehicle and apply vehicle mods
+    ---@param vehicleData table
+    ---@param coords vector3
+    ---@return number? vehicle
+    function CreateFrameworkVehicle(vehicleData, coords)
+        local model = LoadModel(tonumber(vehicleData.hash))
+        local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, 0.0, true, false)
+
+        SetVehicleOnGroundProperly(vehicle)
+        ApplyVehicleMods(vehicle, vehicleData)
         SetModelAsNoLongerNeeded(model)
 
         return vehicle

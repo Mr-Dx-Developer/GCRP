@@ -1,3 +1,5 @@
+lib = exports.loaf_lib:GetLib()
+
 local function isResourceStartedOrStarting(resource)
     local state = GetResourceState(resource)
     return state == "started" or state == "starting"
@@ -27,7 +29,8 @@ if Config.Item.Unique and Config.Item.Inventory == "auto" then
         "lj-inventory",
         "core_inventory",
         "mf-inventory",
-        "qs-inventory"
+        "qs-inventory",
+        "codem-inventory"
     }
 
     for i = 1, #inventoryScripts do
@@ -88,27 +91,53 @@ function contains(t, v)
             return true, i
         end
     end
+
     return false
 end
 
 local function GenerateLocales(localesFile)
     local tempLocals = {}
-    local function FormatLocales(localeTable, prefix)
+    local function formatLocales(localeTable, prefix)
         for k, v in pairs(localeTable) do
             if type(v) == "table" then
-                FormatLocales(v, prefix .. k .. ".")
+                formatLocales(v, prefix .. k .. ".")
             else
                 tempLocals[prefix .. k] = v
             end
         end
     end
 
-    FormatLocales(localesFile, "")
+    formatLocales(localesFile, "")
     return tempLocals
 end
 
-local locales = GenerateLocales(json.decode(LoadResourceFile(GetCurrentResourceName(), "config/locales/" .. (Config.DefaultLocale or "en") .. ".json")))
-local defaultLocales = GenerateLocales(json.decode(LoadResourceFile(GetCurrentResourceName(), "config/locales/en.json")))
+local function loadLocales(locale)
+    if not locale then
+        return {}
+    end
+
+    local fileContent = LoadResourceFile(GetCurrentResourceName(), "config/locales/" .. locale .. ".json")
+    if not fileContent then
+        print("^6[LB Phone] ^1[ERROR]^7: Invalid locale '" .. locale .. "' (file not found)")
+        return {}
+    end
+
+    local decoded = json.decode(fileContent)
+    if not decoded then
+        print("^6[LB Phone] ^1[ERROR]^7: Invalid locale '" .. locale .. "' (error in file)")
+        return {}
+    end
+
+    return GenerateLocales(decoded)
+end
+
+local locales = loadLocales(Config.DefaultLocale or "en")
+local defaultLocales
+if Config.DefaultLocale ~= "en" then
+    defaultLocales = loadLocales("en")
+else
+    defaultLocales = {}
+end
 
 function L(path, args)
     assert(type(path) == "string", "path must be a string")
@@ -134,15 +163,6 @@ if not IsDuplicityVersion() then
         lastInteraction = GetGameTimer()
         return true
     end
-end
-
-function SpamError(error)
-    CreateThread(function()
-        while error do
-            Wait(0)
-            print("^6[LB Phone] ^1[ERROR]^7: " .. error)
-        end
-    end)
 end
 
 function SeperateNumber(number)
@@ -192,3 +212,20 @@ function FormatNumber(number)
     return table.concat(result)
 end
 exports("FormatNumber", FormatNumber)
+
+local months = { Jan = 1, Feb = 2, Mar = 3, Apr = 4, May = 5, Jun = 6, Jul = 7, Aug = 8, Sep = 9, Oct = 10, Nov = 11, Dec = 12 }
+local pattern = "%a+%s+(%a+)%s+(%d+)%s+(%d+)%s+(%d+):(%d+):(%d+)"
+
+function ConvertJSTimestamp(timestamp)
+    local month, day, year, hour, min, sec = timestamp:match(pattern)
+    local date = {
+        year = tonumber(year),
+        month = months[month],
+        day = tonumber(day),
+        hour = tonumber(hour),
+        min = tonumber(min),
+        sec = tonumber(sec)
+    }
+
+    return os.time(date) * 1000
+end
