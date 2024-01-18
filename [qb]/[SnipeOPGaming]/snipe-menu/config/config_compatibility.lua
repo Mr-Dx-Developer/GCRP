@@ -10,17 +10,17 @@ Config.Inventory = "qb" -- qb or qs or ox or qsv2
 -- use fivem-appearance if you use fivem-appearance
 -- use esx_skin if you use esx_skin
 -- use illenium-appearance if you use illenium-appearance
-Config.Skin = "qb-clothing" -- qb-clothing || fivem-appearance || esx_skin || other
+Config.Skin = "illenium-appearance" -- qb-clothing || fivem-appearance || esx_skin || other
 
 -- use none if you dont use any of the mentioned phones (also set to none if you use quasar phone)
 -- lb is for lb-phone
 -- gks is for gks-phone
 -- renewed is for renewed qb phone (only for jobs)
-Config.Phone = "none" -- "none", "lb", "gks", "renewed"
+Config.Phone = "lb" -- "none", "lb", "gks", "renewed"
 
 -- use none if you dont use any of the mentioned options
 -- wasabi is for wasabi-ambulance
-Config.Ambulance = "none" -- "wasabi", "none"
+Config.Ambulance = "wasabi" -- "wasabi", "none"
 
 -- use none if you dont use any of the mentioned options
 -- okok is for okokChat
@@ -44,7 +44,7 @@ Config.Fuel = "legacy" -- "ps" "ox" "other", "cdn", "legacy"
 -- cd is for cd_garage
 -- if you use any other paid garage system, the code is open in server/open/sv_vehicles.lua for you to edit queries.
 -- Make sure to try with none before making changes in the config or the sv_vehicles.lua file
-Config.Garage = "none" -- cd , none
+Config.Garage = "qs-advancedgarages" -- cd , none
 
 Config.GarageTables = {
     ["QBCore"] = {

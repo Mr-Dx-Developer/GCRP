@@ -71,11 +71,11 @@ Config.Discord = {
 }
 
 Config.Density = {
-    parked = 0.8,
-    vehicle = 0.8,
-    multiplier = 0.8,
-    peds = 0.8,
-    scenario = 0.8
+    parked = 0.1,
+    vehicle = 0.1,
+    multiplier = 0.1,
+    peds = 0.1,
+    scenario = 0.1
 }
 
 Config.Disable = {
