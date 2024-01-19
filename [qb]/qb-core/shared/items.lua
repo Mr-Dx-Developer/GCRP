@@ -1220,7 +1220,15 @@ sparetire                   = { name = "sparetire", label = "Spare Tire", weight
 
 
 
-
+    car_door                   = { name = 'car_door', label = 'car door part', weight = 500, type = 'item', image = 'car_door.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '...' },
+    car_wheel                  = { name = 'car_wheel', label = 'car wheel', weight = 500, type = 'item', image = 'car_wheel.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '...' },
+    car_battery                = { name = 'car_battery', label = 'car battery', weight = 500, type = 'item', image = 'car_battery.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '...' },
+    car_gearbox                = { name = 'car_gearbox', label = 'car gearbox ', weight = 500, type = 'item', image = 'car_gearbox.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '...' },
+    car_radiator               = { name = 'car_radiator', label = 'car radiator', weight = 500, type = 'item', image = 'car_radiator.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '...' },
+    car_scrap                  = { name = 'car_scrap', label = 'car scrap', weight = 500, type = 'item', image = 'car_scrap.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '...' },
+    car_hood                   = { name = 'car_hood', label = 'car hood', weight = 500, type = 'item', image = 'car_hood.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '...' },
+    car_trunk                  = { name = 'car_trunk', label = 'car trunk', weight = 500, type = 'item', image = 'car_trunk.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = '...' },
+    chop_contract              = {name = "chop_contract",                 label = "chop_contract",            weight = 0,         type = "item",         image = "chop_contract.png",                 unique = true,     useable = true,     shouldClose = true,       combinable = nil,   description = "chop_contract.."},
 
 
 
