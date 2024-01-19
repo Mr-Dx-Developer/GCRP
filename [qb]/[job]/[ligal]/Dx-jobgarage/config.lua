@@ -34,7 +34,7 @@ Config = {
 	DistCheck = false, -- Require the vehicle to be near by to remove it
 
 	Locations = {
-		{    zoneEnable = true, -- disable if you want to hide this temporarily
+		--[[ {    zoneEnable = true, -- disable if you want to hide this temporarily
 			job = "mechanic", -- set this to required job grade
 			garage = {
 				spawn = vec4(-362.97, -122.45, 38.7, 153.84),  -- Where the vehicle will spawn
@@ -53,7 +53,7 @@ Config = {
 					
 				},
 			},
-		},
+		}, ]]
 		--[[ { 	zoneEnable = true,
 			job = "mechanic",
 			garage = {
