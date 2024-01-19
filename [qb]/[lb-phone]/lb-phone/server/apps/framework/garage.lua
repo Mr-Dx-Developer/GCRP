@@ -1,3 +1,5 @@
+local lib = exports.loaf_lib:GetLib()
+
 ---Check if a vehicle is out
 ---@param plate string
 ---@param vehicles any
@@ -39,19 +41,21 @@ lib.RegisterCallback("phone:garage:findCar", function(source, cb, plate)
 end)
 
 lib.RegisterCallback("phone:garage:getVehicles", function(source, cb)
-    local vehicles = GetPlayerVehicles(source)
-
-    local allVehicles = #vehicles > 0 and GetAllVehicles() or {}
-    for i = 1, #vehicles do
-        if IsVehicleOut(vehicles[i].plate, allVehicles) then
-            vehicles[i].location = "out"
+    GetPlayerVehicles(source, function(vehicles)
+        if #vehicles > 0 then
+            local allVehicles = GetAllVehicles()
+            for i = 1, #vehicles do
+                if IsVehicleOut(vehicles[i].plate, allVehicles) then
+                    vehicles[i].location = "out"
+                end
+            end
         end
-    end
 
-    cb(vehicles)
+        cb(vehicles)
+    end)
 end)
 
-lib.RegisterCallback("phone:garage:valetVehicle", function(source, cb, plate, coords, heading)
+lib.RegisterCallback("phone:garage:valetVehicle", function(source, cb, plate)
     local phoneNumber = GetEquippedPhoneNumber(source)
     if not phoneNumber then
         return cb()
@@ -66,20 +70,6 @@ lib.RegisterCallback("phone:garage:valetVehicle", function(source, cb, plate, co
         return cb()
     end
 
-    if Config.Valet.Price and GetBalance(source) < Config.Valet.Price then
-        SendNotification(phoneNumber, {
-            app = "Garage",
-            title = L("BACKEND.GARAGE.VALET"),
-            content = L("BACKEND.GARAGE.NO_MONEY"),
-        })
-        return cb()
-    end
-
-    local vehicleData = GetVehicle(source, plate)
-    if not vehicleData then
-        return cb()
-    end
-
     if Config.Valet.Price and not RemoveMoney(source, Config.Valet.Price) then
         SendNotification(phoneNumber, {
             app = "Garage",
@@ -89,35 +79,20 @@ lib.RegisterCallback("phone:garage:valetVehicle", function(source, cb, plate, co
         return cb()
     end
 
-    SendNotification(phoneNumber, {
-        app = "Garage",
-        title = L("BACKEND.GARAGE.VALET"),
-        content = L("BACKEND.GARAGE.ON_WAY"),
-    })
-
-    if Config.ServerSideSpawn then
-        local vehicle = CreateServerVehicle(vehicleData.model, coords, heading)
-        if not vehicle then
-            AddMoney(source, Config.Valet.Price)
-            debugprint("Failed to create vehicle")
+    GetVehicle(source, function(vehicleData)
+        if not vehicleData then
+            if Config.Valet.Price then
+                AddMoney(source, Config.Valet.Price)
+            end
             return cb()
         end
 
-        vehicleData.vehNetId = NetworkGetNetworkIdFromEntity(vehicle)
+        SendNotification(phoneNumber, {
+            app = "Garage",
+            title = L("BACKEND.GARAGE.VALET"),
+            content = L("BACKEND.GARAGE.ON_WAY"),
+        })
 
-        if Config.Valet.Drive then
-            ---@diagnostic disable-next-line: param-type-mismatch
-            local ped = CreateServerPed(Config.Valet.Model, coords + vector3(0.0, 1.0, 1.0), heading)
-            if not ped then
-                AddMoney(source, Config.Valet.Price)
-                DeleteEntity(vehicle)
-                debugprint("Failed to create ped")
-                return cb()
-            end
-
-            vehicleData.pedNetId = NetworkGetNetworkIdFromEntity(ped)
-        end
-    end
-
-    cb(vehicleData)
+        cb(vehicleData)
+    end, plate)
 end)

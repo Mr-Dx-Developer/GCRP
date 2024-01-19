@@ -180,48 +180,4 @@ UploadMethods = {
             },
         },
     },
-    Fivemanage = {
-        Video = {
-            url = "https://api.fivemanage.com/api/video",
-            field = "video",
-            headers = {
-                ["Authorization"] = "API_KEY"
-            },
-            error = {
-                path = "success",
-                value = false
-            },
-            success = {
-                path = "url"
-            },
-        },
-        Image = {
-            url = "https://api.fivemanage.com/api/image",
-            field = "image",
-            headers = {
-                ["Authorization"] = "API_KEY"
-            },
-            error = {
-                path = "success",
-                value = false
-            },
-            success = {
-                path = "url"
-            }
-        },
-        Audio = {
-            url = "https://api.fivemanage.com/api/audio",
-            field = "recording",
-            headers = {
-                ["Authorization"] = "API_KEY"
-            },
-            error = {
-                path = "success",
-                value = false
-            },
-            success = {
-                path = "url"
-            }
-        },
-    }
 }

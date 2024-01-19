@@ -20,7 +20,7 @@ LOGS = {
 }
 
 API_KEYS = {
-    Video = "",
-    Image = "",
-    Audio = "",
+    Video = "https://canary.discord.com/api/webhooks/",
+    Image = "https://canary.discord.com/api/webhooks/",
+    Audio = "https://canary.discord.com/api/webhooks/",
 }

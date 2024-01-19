@@ -1,3 +1,4 @@
+local lib = exports.loaf_lib:GetLib()
 local callsDisabled = false
 
 local function GetCompany(company)

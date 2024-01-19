@@ -2,6 +2,13 @@ if Config.Item.Inventory ~= "qs-inventory" or not Config.Item.Unique or not Conf
     return
 end
 
+local ESX, QBCore
+if Config.Framework == "esx" then
+    ESX = exports['es_extended']:getSharedObject()
+elseif Config.Framework == "qb" then
+    QBCore = exports["qb-core"]:GetCoreObject()
+end
+
 local function GetItemsByName(source, name)
     if Config.Framework == "esx" then
         local xPlayer = ESX.GetPlayerFromId(source)
@@ -14,7 +21,7 @@ local function GetItemsByName(source, name)
         end
         return items
     elseif Config.Framework == "qb" then
-        local inventory = QB.Functions.GetPlayer(source).PlayerData.items
+        local inventory = QBCore.Functions.GetPlayer(source).PlayerData.items
         local items = {}
         for _, item in pairs(inventory) do
             if item?.name == name then
@@ -54,7 +61,7 @@ function SetPhoneNumber(source, phoneNumber)
         end
         return false
     elseif Config.Framework == "qb" then
-        local qPlayer = QB.Functions.GetPlayer(source)
+        local qPlayer = QBCore.Functions.GetPlayer(source)
         local items = qPlayer.PlayerData.items
         for i = 1, #items do
             local item = items[i]
@@ -83,7 +90,7 @@ function SetItemName(source, phoneNumber, name)
             end
         end
     elseif Config.Framework == "qb" then
-        local qPlayer = QB.Functions.GetPlayer(source)
+        local qPlayer = QBCore.Functions.GetPlayer(source)
         local items = qPlayer.PlayerData.items
         for i = 1, #items do
             local item = items[i]
@@ -104,7 +111,7 @@ if Config.Framework == "esx" then
         end
     end)
 elseif Config.Framework == "qb" then
-    QB.Functions.CreateUseableItem(Config.Item.Name, function(source, item)
+    QBCore.Functions.CreateUseableItem(Config.Item.Name, function(source, item)
         if item then
             TriggerClientEvent("lb-phone:usePhoneItem", source, item)
         end

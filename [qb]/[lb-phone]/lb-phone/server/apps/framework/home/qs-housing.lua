@@ -2,6 +2,8 @@ if Config.HouseScript ~= "qs-housing" then
     return
 end
 
+local lib = exports.loaf_lib:GetLib()
+
 local function getNameFromIdentifier(identifier)
     if Config.Framework == "esx" then
         local name = MySQL.Sync.fetchAll("SELECT firstname, lastname FROM users WHERE identifier = @identifier", {

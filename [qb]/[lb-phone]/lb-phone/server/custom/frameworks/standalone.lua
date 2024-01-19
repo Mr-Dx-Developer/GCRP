@@ -78,26 +78,20 @@ function Notify(source, message)
 end
 
 -- GARAGE APP
-
----@param source number
----@return VehicleData[] vehicles An array of vehicles that the player owns
-function GetPlayerVehicles(source)
-    return {}
+function GetPlayerVehicles(source, cb)
+    cb({})
 end
 
----Get a specific vehicle
----@param source number
----@param plate string
----@return table? vehicleData
-function GetVehicle(source, plate)
+function GetVehicle(source, cb, plate)
+    cb(false)
 end
 
 function IsAdmin(source)
     return IsPlayerAceAllowed(source, "command.lbphone_admin") == 1
 end
 
--- COMPANIES APP
-function GetJob(source)
+    -- COMPANIES APP
+    function GetJob(source)
     return "unemployed"
 end
 

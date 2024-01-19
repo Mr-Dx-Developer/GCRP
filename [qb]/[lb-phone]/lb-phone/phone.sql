@@ -1,7 +1,7 @@
 -- phone_number is the identifier used for phones in twitter etc
 CREATE TABLE IF NOT EXISTS `phone_phones` (
     `id` VARCHAR(100) NOT NULL, -- if metadata - unique id for the phone; if not - player identifier
-    `owner_id` VARCHAR(100) NOT NULL, -- the player identifier of the first person who used the phone, used for lookup app etc
+    `owner` VARCHAR(100) NOT NULL, -- the player identifier of the first person who used the phone, used for lookup app etc
     `phone_number` VARCHAR(15) NOT NULL,
     `name` VARCHAR(50),
 
@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS `phone_phones` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_last_phone` (
-    `id` VARCHAR(100) NOT NULL, -- the player's identifier (not named identifier since esx_multicharacter breaks it)
+    `identifier` VARCHAR(100) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
-    PRIMARY KEY (`id`),
+    PRIMARY KEY (`identifier`),
     FOREIGN KEY (`phone_number`) REFERENCES `phone_phones`(`phone_number`) ON DELETE CASCADE ON UPDATE CASCADE
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS `phone_notifications` (
 
     `title` VARCHAR(50) DEFAULT NULL,
     `content` VARCHAR(500) DEFAULT NULL,
-    `thumbnail` VARCHAR(500) DEFAULT NULL,
-    `avatar` VARCHAR(500) DEFAULT NULL,
+    `thumbnail` VARCHAR(250) DEFAULT NULL,
+    `avatar` VARCHAR(250) DEFAULT NULL,
     `show_avatar` BOOLEAN DEFAULT FALSE,
 
     `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -83,12 +83,12 @@ CREATE TABLE IF NOT EXISTS `phone_twitter_accounts` (
 
     `phone_number` VARCHAR(15) NOT NULL,
     `bio` VARCHAR(100) DEFAULT NULL,
-    `profile_image` VARCHAR(500) DEFAULT NULL,
-    `profile_header` VARCHAR(500) DEFAULT NULL,
+    `profile_image` VARCHAR(200) DEFAULT NULL,
+    `profile_header` VARCHAR(200) DEFAULT NULL,
 
     `pinned_tweet` VARCHAR(50) DEFAULT NULL,
 
-    `verified` TINYINT(1) DEFAULT 0,
+    `verified` BOOLEAN DEFAULT FALSE,
     `follower_count` INT(11) NOT NULL DEFAULT 0,
     `following_count` INT(11) NOT NULL DEFAULT 0,
 
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `phone_phone_contacts` (
     `contact_phone_number` VARCHAR(15) NOT NULL, -- the phone number of the contact
     `firstname` VARCHAR(50) NOT NULL DEFAULT "",
     `lastname` VARCHAR(50) NOT NULL DEFAULT "",
-    `profile_image` VARCHAR(500) DEFAULT NULL,
+    `profile_image` VARCHAR(200) DEFAULT NULL,
     `email` VARCHAR(50) DEFAULT NULL,
     `address` VARCHAR(50) DEFAULT NULL,
     `favourite` BOOLEAN DEFAULT FALSE,
@@ -269,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_accounts` (
     `username` VARCHAR(20) NOT NULL,
     `password` VARCHAR(100) NOT NULL,
 
-    `profile_image` VARCHAR(500) DEFAULT NULL,
+    `profile_image` VARCHAR(200) DEFAULT NULL,
     `bio` VARCHAR(100) DEFAULT NULL,
 
     `post_count` INT(11) NOT NULL DEFAULT 0,
@@ -382,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_notifications` (
 CREATE TABLE IF NOT EXISTS `phone_instagram_stories` (
     `id` VARCHAR(10) NOT NULL,
     `username` VARCHAR(20) NOT NULL, 
-    `image` VARCHAR(500) NOT NULL,
+    `image` VARCHAR(200) NOT NULL,
 
     `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -581,10 +581,10 @@ CREATE TABLE IF NOT EXISTS `phone_yellow_pages_posts` (
 
 -- BACKUPS
 CREATE TABLE IF NOT EXISTS `phone_backups` (
-    `id` VARCHAR(100) NOT NULL,
+    `identifier` VARCHAR(100) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
 
-    PRIMARY KEY (`id`),
+    PRIMARY KEY (`identifier`),
     FOREIGN KEY (`phone_number`) REFERENCES `phone_phones`(`phone_number`) ON DELETE CASCADE ON UPDATE CASCADE
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -711,12 +711,12 @@ CREATE TABLE IF NOT EXISTS `phone_maps_locations` (
 
 -- CRYPTO
 CREATE TABLE IF NOT EXISTS `phone_crypto` (
-    `id` VARCHAR(100) NOT NULL, -- player identifier
+    `identifier` VARCHAR(100) NOT NULL, -- player identifier
     `coin` VARCHAR(15) NOT NULL, -- coin, for example "bitcoin"
     `amount` DOUBLE NOT NULL DEFAULT 0, -- amount of coins
     `invested` INT(11) NOT NULL DEFAULT 0, -- amount of $$$ invested
 
-    PRIMARY KEY (`id`, `coin`)
+    PRIMARY KEY (`identifier`, `coin`)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- ACCOUNT SWITCHER
@@ -733,7 +733,7 @@ CREATE TABLE IF NOT EXISTS `phone_logged_in_accounts` (
 CREATE TABLE IF NOT EXISTS `phone_tiktok_accounts` (
     `name` VARCHAR(30) NOT NULL,
     `bio` VARCHAR(100) DEFAULT NULL,
-    `avatar` VARCHAR(500) DEFAULT NULL,
+    `avatar` VARCHAR(200) DEFAULT NULL,
 
     `username` VARCHAR(20) NOT NULL,
     `password` VARCHAR(100) NOT NULL,

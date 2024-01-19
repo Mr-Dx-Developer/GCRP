@@ -2,6 +2,8 @@ if Config.HouseScript ~= "qs-housing" then
     return
 end
 
+local lib = exports.loaf_lib:GetLib()
+
 local waitKeysPromise, waitKeysHouse
 
 RegisterNUICallback("Home", function(data, cb)

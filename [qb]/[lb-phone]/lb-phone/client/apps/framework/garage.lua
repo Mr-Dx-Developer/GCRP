@@ -1,3 +1,5 @@
+local lib = exports.loaf_lib:GetLib()
+
 ---Function to find a spawn point for a car
 ---@param minDist? number Minimum distance from the player. Default 150
 ---@return nil | vector3
@@ -20,109 +22,76 @@ local function FindCarLocation(minDist)
 end
 
 local function BringCar(data, cb)
-    local minDist = Config.Valet.Drive and math.random(75, 150) or 0
-    local location, heading = FindCarLocation(minDist)
+    local location, heading = FindCarLocation(50)
     if not location then
         debugprint("No location found")
-        return cb(false)
+        return
     end
 
     if IsPedInAnyVehicle(PlayerPedId(), false) then
         debugprint("Player is in a vehicle")
-        return cb(false)
-    end
-
-    local plate = data.plate
-    local vehicleData = lib.TriggerCallbackSync("phone:garage:valetVehicle", plate, location, heading)
-    if not vehicleData then
-        return cb(false)
-    end
-
-    local vehicle, ped
-    if Config.ServerSideSpawn then
-        local vehNetId, pedNetId = vehicleData.vehNetId, vehicleData.pedNetId
-        if not vehNetId or (Config.Valet.Drive and not pedNetId) then
-            debugprint("Server did not create vehicle/ped (no vehNetId/pedNetId)")
-            return cb(false)
-        end
-
-        vehicle = WaitForNetworkId(vehNetId)
-        if Config.Valet.Drive then
-            ped = WaitForNetworkId(pedNetId)
-        end
-
-        Wait(1000) -- magic wait that fixes issue with ped not being in vehicle?
-
-        if vehicle and TakeControlOfEntity(vehicle) then
-            if ped and TakeControlOfEntity(ped) then
-                TaskWarpPedIntoVehicle(ped, vehicle, -1)
-            end
-            ApplyVehicleMods(vehicle, vehicleData)
-        end
-    else
-        vehicle = CreateFrameworkVehicle(vehicleData, location)
-
-        if vehicle and Config.Valet.Drive then
-            local model = LoadModel(Config.Valet.Model)
-            ped = CreatePedInsideVehicle(vehicle, 4, model, -1, true, false)
-        end
-    end
-
-    if not vehicle or not DoesEntityExist(vehicle) or not ped or not DoesEntityExist(ped) then
-        return cb(false)
-    end
-
-    SetEntityHeading(vehicle, heading)
-
-    SetVehicleNeedsToBeHotwired(vehicle, false)
-    SetVehRadioStation(vehicle, "OFF")
-    SetVehicleDirtLevel(vehicle, 0.0)
-    SetVehicleEngineOn(vehicle, true, true, true)
-    SetEntityAsMissionEntity(vehicle, true, true)
-
-    cb(true)
-
-
-    if not Config.Valet.Drive then
         return
     end
 
-    -- make the ped bring the vehicle
-    local plyCoords = GetEntityCoords(PlayerPedId())
+    local plate = data.plate
+    lib.TriggerCallback("phone:garage:valetVehicle", function(vehicleData)
+        if not vehicleData then
+            return
+        end
 
-    TaskVehicleDriveToCoord(ped, vehicle, plyCoords.x, plyCoords.y, plyCoords.z, 20.0, 0, Config.Valet.Model, 786603, 1.0, 1)
-    SetPedKeepTask(ped, true)
-    SetEntityAsMissionEntity(ped, true, true)
-    SetBlockingOfNonTemporaryEvents(ped, true)
-    SetPedCombatAttributes(ped, 17, true)
-    SetPedAlertness(ped, 0)
+        local vehicle = CreateFrameworkVehicle(vehicleData, location)
+        SetEntityHeading(vehicle, heading)
 
-    -- create blip for the vehicle
-    local blip = AddBlipForEntity(vehicle)
-    SetBlipSprite(blip, 225)
-    SetBlipColour(blip, 5)
+        SetVehicleNeedsToBeHotwired(vehicle, false)
+        SetVehRadioStation(vehicle, "OFF")
+        SetVehicleDirtLevel(vehicle, 0.0)
+        SetVehicleEngineOn(vehicle, true, true, true)
+        SetEntityAsMissionEntity(vehicle, true, true)
 
-    BeginTextCommandSetBlipName("STRING")
-    AddTextComponentSubstringPlayerName("Valet")
-    EndTextCommandSetBlipName(blip)
+        -- create a ped that drives the vehicle to player
+        local model = `S_M_Y_XMech_01`
+        while not HasModelLoaded(model) do
+            RequestModel(model)
+            Wait(500)
+        end
 
-    -- wait for the ped to arrive
-    while #(GetEntityCoords(ped) - GetEntityCoords(PlayerPedId())) > 10.0 do
-        Wait(1000)
-    end
+        local ped = CreatePedInsideVehicle(vehicle, 4, model, -1, true, false)
+        local plyCoords = GetEntityCoords(PlayerPedId())
+        TaskVehicleDriveToCoord(ped, vehicle, plyCoords.x, plyCoords.y, plyCoords.z, 20.0, 0, model, 786603, 1.0, 1)
+        SetPedKeepTask(ped, true)
+        SetEntityAsMissionEntity(ped, true, true)
+        SetBlockingOfNonTemporaryEvents(ped, true)
+        SetPedCombatAttributes(ped, 17, true)
+        SetPedAlertness(ped, 0)
 
-    RemoveBlip(blip)
+        cb(true)
 
-    -- make the ped exit the vehicle, then wander in area, and set as no longer needed
-    TaskLeaveVehicle(ped, vehicle, 0)
-    TaskWanderStandard(ped, 10.0, 10)
-    SetEntityAsNoLongerNeeded(ped)
+        -- wait for the ped to arrive
+        local blip = AddBlipForEntity(vehicle)
+        SetBlipSprite(blip, 225)
+        SetBlipColour(blip, 5)
+
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentSubstringPlayerName("Valet")
+        EndTextCommandSetBlipName(blip)
+
+        while #(GetEntityCoords(ped) - GetEntityCoords(PlayerPedId())) > 10.0 do
+            Wait(1000)
+        end
+
+        RemoveBlip(blip)
+
+        -- make the ped exit the vehicle, then wander in area, and set as no longer needed
+        TaskLeaveVehicle(ped, vehicle, 0)
+        TaskWanderStandard(ped, 10.0, 10)
+        SetEntityAsNoLongerNeeded(ped)
+    end, plate)
 end
 
 ---Function to find a car
 ---@param plate string
 ---@return vector3 | false
-local function findCar(plate)
+local function FindCar(plate)
     local vehicles = GetGamePool("CVehicle")
     for i = 1, #vehicles do
         local vehicle = vehicles[i]
@@ -167,7 +136,7 @@ RegisterNUICallback("Garage", function(data, cb)
 
         BringCar(data, cb)
     elseif action == "setWaypoint" then
-        local coords = findCar(data.plate)
+        local coords = FindCar(data.plate)
         if coords then
             TriggerEvent("phone:sendNotification", {
                 app = "Garage",

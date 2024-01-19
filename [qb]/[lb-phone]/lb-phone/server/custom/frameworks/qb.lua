@@ -2,8 +2,10 @@ if Config.Framework ~= "qb" then
     return
 end
 
+local lib = exports.loaf_lib:GetLib()
+
 debugprint("Loading QB")
-QB = exports["qb-core"]:GetCoreObject()
+local QB = exports["qb-core"]:GetCoreObject()
 debugprint("QB loaded")
 
 ---@param source number
@@ -106,87 +108,58 @@ function Notify(source, message)
 end
 
 -- GARAGE APP
-
----@param source number
----@return VehicleData[] vehicles An array of vehicles that the player owns
-function GetPlayerVehicles(source)
+function GetPlayerVehicles(source, cb)
     local vehicles = MySQL.Sync.fetchAll("SELECT * FROM player_vehicles WHERE citizenid = @citizenid", {
         ["@citizenid"] = GetIdentifier(source)
     })
 
     local toSend = {}
 
-    for i = 1, #vehicles do
-        local vehicle = vehicles[i]
+    for _, v in pairs(vehicles) do
         if GetResourceState("cd_garage") == "started" then
-            vehicle.state = vehicle.in_garage
-            vehicle.garage = vehicle.garage_id
-            vehicle.type = vehicle.garage_type
+            debugprint("Using cd_garage")
+            v.state = v.in_garage
+            v.garage = v.garage_id
+            v.type = v.garage_type
         elseif GetResourceState("loaf_garage") == "started" then
-            vehicle.state = 1
-        elseif GetResourceState("jg-advancedgarages") == "started" then
-            vehicle.state = vehicle.in_garage
-            vehicle.garage = vehicle.garage_id
-
-            if vehicle.impound == 1 and vehicle.impound_data then
-                vehicle.state = 2
-                vehicle.garage = "Impound"
-
-                local impoundInfo = json.decode(vehicle.impound_data)
-                vehicle.impoundReason = impoundInfo and {
-                    reason = impoundInfo.reason and #impoundInfo.reason > 0 and impoundInfo.reason or nil,
-                    retrievable = ConvertJSTimestamp and ConvertJSTimestamp(impoundInfo.retrieval_date) or nil,
-                    price = impoundInfo.retrieval_cost,
-                    impounder = impoundInfo.charname
-                }
-            end
-        elseif GetResourceState("qs-advancedgarages") == "started" then
-            if vehicle.type == "vehicle" then
-                vehicle.type = "car"
-            end
+            v.state = 1
         end
 
-        local location = "unknown"
-        if vehicle.state == 0 then
-            location = "out"
-        elseif vehicle.state == 1 or vehicle.state == true then
-            location = vehicle.garage or "Garage"
-        elseif vehicle.state == 2 then
-            location = vehicle.garage or "Impound"
+        local state
+        if v.state == 0 then
+            state = "out"
+        elseif v.state == 1 then
+            state = v.garage or "Garage"
+        elseif v.state == 2 then
+            state = "impounded"
         end
 
         local newCar = {
-            plate = vehicle.plate,
-            type = QB.Shared.Vehicles[vehicle.hash]?.category or vehicle.type or "car",
-            location = location,
-            impounded = vehicle.state == 2,
+            plate = v.plate,
+            type = QB.Shared.Vehicles[v.hash]?.category or v.type or "car",
+            location = state,
             statistics = {
-                engine = math.floor(vehicle.engine / 10 + 0.5),
-                body = math.floor(vehicle.body / 10 + 0.5),
-                fuel = vehicle.fuel
+                engine = math.floor(v.engine / 10 + 0.5),
+                body = math.floor(v.body / 10 + 0.5),
+                fuel = v.fuel
             },
-            impoundReason = vehicle.impoundReason
         }
 
-        newCar.model = tonumber(vehicle.hash)
+        newCar.model = tonumber(v.hash)
 
         toSend[#toSend+1] = newCar
     end
 
-    return toSend
+    cb(toSend)
 end
 
----Get a specific vehicle
----@param source number
----@param plate string
----@return table? vehicleData
-function GetVehicle(source, plate)
-    local storedColumn, storedValue, outValue = "state", 1, 0
-    if GetResourceState("cd_garage") == "started" or GetResourceState("jg-advancedgarages") == "started" then
+function GetVehicle(source, cb, plate)
+    local storedColumn, storedValue = "state", 1
+    if GetResourceState("cd_garage") == "started" then
         storedColumn = "in_garage"
     end
 
-    local res = MySQL.Sync.fetchAll(([[
+    MySQL.Async.fetchAll(([[
         SELECT plate, mods, `hash`, fuel
         FROM player_vehicles
         WHERE citizenid = @citizenid AND plate = @plate AND `%s`=@stored
@@ -194,21 +167,17 @@ function GetVehicle(source, plate)
         ["@citizenid"] = GetIdentifier(source),
         ["@plate"] = plate,
         ["@stored"] = storedValue
-    })
+    }, function(res)
+        if not res[1] then
+            return cb(false)
+        end
 
-    local vehicle = res[1]
-    if not vehicle then
-        return
-    end
+        MySQL.Async.execute(("UPDATE player_vehicles SET `%s`=0 WHERE plate=@plate"):format(storedColumn), {
+            ["@plate"] = plate
+        })
 
-    MySQL.Async.execute(("UPDATE player_vehicles SET `%s`=@outValue WHERE plate=@plate"):format(storedColumn), {
-        ["@plate"] = plate,
-        ["@outValue"] = outValue
-    })
-
-    vehicle.model = tonumber(vehicle.hash)
-
-    return vehicle
+        cb(res[1])
+    end)
 end
 
 -- todo
