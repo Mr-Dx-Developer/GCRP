@@ -2,7 +2,7 @@ Config = {}
 Config.Framework = 'qb'  -- esx, oldesx, qb ,oldqb , standalone
 Config.Mysql = "oxmysql" -- mysql-async, ghmattimysql, oxmysql
 Config.DefaultImage = 'https://cdn.discordapp.com/attachments/983471660684423240/1142493143128870922/banshee.jpg'
-Config.SpeedType = 'kmh' -- kmh or mph
+Config.SpeedType = 'mph' -- kmh or mph
 
 
 Config.Radar = {

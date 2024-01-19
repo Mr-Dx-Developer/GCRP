@@ -20,7 +20,7 @@ Config.AutoPilot = {
     ["SPEED"] =  50.0,
     ["DRIVING_MODE"] = 191 --https://vespura.com/fivem/drivingstyle/
 }
-Config.MPH = false
+Config.MPH = true
 Config.Debug = false
 Config.MovingMouse = true
 Config.Fuel = function(vehicle)
