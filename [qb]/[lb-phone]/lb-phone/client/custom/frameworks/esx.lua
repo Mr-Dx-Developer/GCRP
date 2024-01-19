@@ -4,11 +4,13 @@ end
 
 CreateThread(function()
     debugprint("Loading ESX")
-    local export, ESX = pcall(function()
+    local export, obj = pcall(function()
         return exports.es_extended:getSharedObject()
     end)
 
-    if not export then
+    if export then
+        ESX = obj
+    else
         while not ESX do
             TriggerEvent("esx:getSharedObject", function(obj)
                 ESX = obj
@@ -86,21 +88,14 @@ CreateThread(function()
         return false
     end
 
-    ---Create a vehicle
+    ---Apply vehicle mods
+    ---@param vehicle number
     ---@param vehicleData table
-    ---@param coords table
-    function CreateFrameworkVehicle(vehicleData, coords)
-        vehicleData.vehicle = json.decode(vehicleData.vehicle)
-        if vehicleData.damages then
-            vehicleData.damages = json.decode(vehicleData.damages)
+    function ApplyVehicleMods(vehicle, vehicleData)
+        if type(vehicleData.vehicle) == "string" then
+            vehicleData.vehicle = json.decode(vehicleData.vehicle)
         end
 
-        while not HasModelLoaded(vehicleData.vehicle.model) do
-            RequestModel(vehicleData.vehicle.model)
-            Wait(500)
-        end
-
-        local vehicle = CreateVehicle(vehicleData.vehicle.model, coords.x, coords.y, coords.z, 0.0, true, false)
         SetVehicleOnGroundProperly(vehicle)
         SetVehicleNumberPlateText(vehicle, vehicleData.vehicle.plate)
 
@@ -114,8 +109,24 @@ CreateThread(function()
         if vehicleData.vehicle.fuel then
             SetVehicleFuelLevel(vehicle, vehicleData.vehicle.fuel)
         end
+    end
 
-        SetModelAsNoLongerNeeded(vehicleData.vehicle.model)
+    ---Create a vehicle and apply vehicle mods
+    ---@param vehicleData table
+    ---@param coords vector3
+    ---@return number? vehicle
+    function CreateFrameworkVehicle(vehicleData, coords)
+        vehicleData.vehicle = json.decode(vehicleData.vehicle)
+        if vehicleData.damages then
+            vehicleData.damages = json.decode(vehicleData.damages)
+        end
+
+        local model = LoadModel(vehicleData.vehicle.model)
+        local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, 0.0, true, false)
+
+        SetVehicleOnGroundProperly(vehicle)
+        ApplyVehicleMods(vehicle, vehicleData)
+        SetModelAsNoLongerNeeded(model)
 
         return vehicle
     end
