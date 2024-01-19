@@ -60,7 +60,7 @@ CreateThread(function()
     -- Blips
     local blip = AddBlipForCoord(-1206.3458251953, -182.05914306641, 39.324886322021)
     SetBlipSprite(blip, 475)
-    SetBlipScale(blip, 0.6)
+    SetBlipScale(blip, 0.8)
     SetBlipColour(blip, 28)  
     SetBlipAsShortRange(blip, true)
     BeginTextCommandSetBlipName("STRING")
