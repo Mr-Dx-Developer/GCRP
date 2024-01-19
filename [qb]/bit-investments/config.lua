@@ -16,17 +16,17 @@ Config.ESXExport = ""
 --Default ESX: "esx:getSharedObject" | Default QB: "qb-core"
 Config.Core = "qb-core"
 -- Money delivered after 6 hours
-Config.sixhours = 100000 
+Config.sixhours = 10000 
 -- Money delivered after 5 hours
-Config.fivehours = 75000 
+Config.fivehours = 8500
 -- Money delivered after 4 hours
-Config.fourhours = 55000 
+Config.fourhours = 7500 
 -- Money delivered after 3 hours
-Config.threehours = 40000 
+Config.threehours = 6000 
 -- Money delivered after 2 hours
-Config.twohours = 25000 
+Config.twohours = 5000 
 -- Money delivered after 1 hours
-Config.onehour = 10000
+Config.onehour = 2500
 -- Type of currency used 
 Config.currency = "$" 
 -- Command to open investments menu
