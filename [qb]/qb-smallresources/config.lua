@@ -11,7 +11,7 @@ Config.AFK = {
         ['admin'] = true,
         ['god'] = true
     },
-    secondsUntilKick = 1000000, -- AFK Kick Time Limit (in seconds)
+    secondsUntilKick = 1800, -- AFK Kick Time Limit (in seconds)
     kickInCharMenu = false      -- Set to true if you want to kick players for being AFK even when they are in the character menu.
 }
 
@@ -249,13 +249,13 @@ Config.Objects = { -- for object removal
 Config.Teleports = {
     [1] = {                   -- Elevator @ labs
         [1] = {               -- up
-            poly = { coords = vector3(3540.74, 3675.59, 20.99), heading = 167.5, length = 2, width = 2 },
+            poly = { coords = vector3(-436.24, -358.91, 34.91), heading = 355, length = 2, width = 2 },
             allowVeh = false, -- whether or not to allow use in vehicle
             label = false     -- set this to a string for a custom label or leave it false to keep the default. if more than 2 options, label all options
 
         },
         [2] = { -- down
-            poly = { coords = vector3(3540.74, 3675.59, 28.11), heading = 172.5, length = 2, width = 2 },
+            poly = { coords = vector3(-444.43, -333.28, 78.17), heading = 350, length = 2, width = 2 },
             allowVeh = false,
             label = false
         }
