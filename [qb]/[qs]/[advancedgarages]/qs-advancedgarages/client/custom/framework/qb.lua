@@ -28,6 +28,10 @@ function GetJobGrade()
     return GetPlayerData()?.job?.grade?.level
 end
 
+function DrawMarkerZone(x, y, z)
+    DrawMarker(1, x, y, z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 0.8, 255, 255, 255, 150, false, false, false, true, false, false, false)
+end
+
 function SpawnGiveVehicle(model, generatedPlate, playerID, playerName, vehicleType, addcommand)
     QBCore.Functions.SpawnVehicle(model, function(vehicle)
         if DoesEntityExist(vehicle) then

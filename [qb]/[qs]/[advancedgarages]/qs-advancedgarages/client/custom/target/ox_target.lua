@@ -305,7 +305,8 @@ CreateThread(function()
         if garage.isImpound then return sleep end
         if inVehicle then
             sleep = 0
-            DrawMarker(1, garage.coords.spawnCoords.x, garage.coords.spawnCoords.y, garage.coords.spawnCoords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 0.8, 255, 255, 255, 150, false, false, false, true, false, false, false)
+            DrawMarkerZone(garage.coords.spawnCoords.x, garage.coords.spawnCoords.y, garage.coords.spawnCoords.z)
+            -- DrawMarker(1, garage.coords.spawnCoords.x, garage.coords.spawnCoords.y, garage.coords.spawnCoords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 0.8, 255, 255, 255, 150, false, false, false, true, false, false, false)
         end
         return sleep
     end

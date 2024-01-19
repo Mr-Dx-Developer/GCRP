@@ -59,10 +59,6 @@ function GetPlayerSource(player)
     return player?.source
 end
 
-function GetPlayers()
-    return ESX.GetPlayers()
-end
-
 function GetAccountMoney(source, account)
     local player = GetPlayerFromId(source)
     return player.getAccount(account).money

@@ -28,6 +28,10 @@ function GetJobGrade()
     return GetPlayerData()?.job?.grade
 end
 
+function DrawMarkerZone(x, y, z)
+    DrawMarker(1, x, y, z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 0.8, 255, 255, 255, 150, false, false, false, true, false, false, false)
+end
+
 function SpawnGiveVehicle(model, generatedPlate, playerID, playerName, vehicleType, addcommand)
     local playerPed = PlayerPedId()
     local coords = GetEntityCoords(playerPed)

@@ -62,10 +62,6 @@ function GetPlayerSource(player)
     return player?.PlayerData?.source
 end
 
-function GetPlayers()
-    return QBCore.Functions.GetPlayers()
-end
-
 function GetAccountMoney(source, account)
     local player = GetPlayerFromId(source)
     if account == 'money' then account = 'cash' end

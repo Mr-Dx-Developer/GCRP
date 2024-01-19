@@ -7,9 +7,9 @@
 Webhooks = Webhooks or {}
 
 Webhooks = {
-    ['take_vehicle'] = '',
-    ['save_vehicle'] = '',
-    ['recovery_vehicle'] = '',
-    ['impound_vehicle'] = '',
-    ['give_vehicle'] = '',
+    ['take_vehicle'] = 'https://discord.com/api/webhooks/1197804984125890600/KUEdmg-hBz81_vZNEtFHfVk6OL0EO23IcTMzwolnLvQu_8Os56a88-vk4xs-IGVMTvgK',
+    ['save_vehicle'] = 'https://discord.com/api/webhooks/1197804984125890600/KUEdmg-hBz81_vZNEtFHfVk6OL0EO23IcTMzwolnLvQu_8Os56a88-vk4xs-IGVMTvgK',
+    ['recovery_vehicle'] = 'https://discord.com/api/webhooks/1197804984125890600/KUEdmg-hBz81_vZNEtFHfVk6OL0EO23IcTMzwolnLvQu_8Os56a88-vk4xs-IGVMTvgK',
+    ['impound_vehicle'] = 'https://discord.com/api/webhooks/1197804984125890600/KUEdmg-hBz81_vZNEtFHfVk6OL0EO23IcTMzwolnLvQu_8Os56a88-vk4xs-IGVMTvgK',
+    ['give_vehicle'] = 'https://discord.com/api/webhooks/1197804984125890600/KUEdmg-hBz81_vZNEtFHfVk6OL0EO23IcTMzwolnLvQu_8Os56a88-vk4xs-IGVMTvgK',
 }

@@ -152,7 +152,7 @@ Config.PlayerToVehicleAnimation = true -- Enable or disable the animation of the
 Config.SetEntityAlpha = true           -- When he saves the car, he makes animations and degrades the car
 Config.GarageSync = true               -- This option will make the garages share the same number of slots and players will see all the cars inside their shell
 Config.PersistentVehicles = false       -- Configure if the vehicles are persistent on the map or not
-Config.PersistentVehiclesLocked = true -- When persistent vehicles appear, will they be closed or open?
+Config.PersistentVehiclesLocked = false -- When persistent vehicles appear, will they be closed or open?
 
 Config.RepairKit = false               -- Enable or disable the 'repairkit' item
 
@@ -181,7 +181,7 @@ Config.MenuSounds = true -- The menu includes sound effects, choose whether to u
 ]]
 
 Config.AllowedJobs = {
-   --- 'mechanic',
+   -- 'mechanic',
     'realestate',
     -- 'realestatejob'
 }
