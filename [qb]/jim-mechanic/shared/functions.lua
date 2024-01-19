@@ -1,39 +1,13 @@
+vehDatabase = "player_vehicles"
+if ESX ~= nil then vehDatabase = "owned_vehicles"
+elseif Ox ~= nil then vehDatabase = "vehicles" end
+
 function searchDist(vehicle)
-	local dist = ""
-	local p = promise.new() QBCore.Functions.TriggerCallback('jim-mechanic:distGrab', function(cb) p:resolve(cb) end, trim(GetVehicleNumberPlateText(vehicle)))
-	dist = Citizen.Await(p)
+	local dist = triggerCallback('jim-mechanic:distGrab', trim(GetVehicleNumberPlateText(vehicle)))
 	if dist ~= "" then
 		dist = Loc[Config.Lan]["functions"].distance.." "..string.format("%05d", math.floor(dist)).." "..(Config.System.distkph and "Km" or "Mi")
 	end
     return dist
-end
-
-function getClass(vehicle)
-	local classlist = {
-		"Compacts", 		--1
-		"Sedans", 			--2
-		"SUVs", 			--3
-		"Coupes", 			--4
-		"Muscle", 			--5
-		"Sports Classics", 	--6
-		"Sports", 			--7
-		"Super", 			--8
-		"Motorcycles", 		--9
-		"Off-road", 		--10
-		"Industrial", 		--11
-		"Utility", 			--12
-		"Vans", 			--13
-		"Cycles", 			--14
-		"Boats", 			--15
-		"Helicopters", 		--16
-		"Planes", 			--17
-		"Service", 			--18
-		"Emergency", 		--19
-		"Military", 		--20
-		"Commercial", 		--21
-		"Trains", 			--22
-	}
-	return classlist[GetVehicleClass(vehicle) + 1], GetVehicleClass(vehicle)
 end
 
 function getClosest(coords)
@@ -42,72 +16,10 @@ function getClosest(coords)
 	return vehicle
 end
 
-local lastCar, newName = nil, nil
-function searchCar(vehicle)
-	if lastCar ~= vehicle then -- Check variables to use old info instead of checking again
-		lastCar = vehicle
-		newName = nil
-		local model = GetEntityModel(vehicle)
-		for k, v in pairs(QBCore.Shared.Vehicles) do
-			if tonumber(v.hash) == model or GetHashKey(v.hash) == model then
-				if Config.System.Debug then print("^5Debug^7: ^2Vehicle info found in^7 ^4vehicles^7.^4lua^7: ^6"..v.hash.. " ^7(^6"..QBCore.Shared.Vehicles[k].name.."^7)") end
-			newName = QBCore.Shared.Vehicles[k].name.." "..QBCore.Shared.Vehicles[k].brand
-			end
-		end
-		if Config.System.Debug then if not newName then print("^5Debug^7: ^2Vehicle ^1not ^2found in ^4vehicles^7.^4lua^7: ^6"..model.." ^7(^6"..GetDisplayNameFromVehicleModel(model):lower().."^7)") end end
-		if not newName then newName = string.upper(GetMakeNameFromVehicleModel(model).." "..GetDisplayNameFromVehicleModel(model)) end
-		if Config.System.Menu == "ox" then newName = newName.."\n" end
-		return newName
-	else
-		return newName
-	end
-end
-
-function searchPrice(vehicle)
-	local price = nil
-	local model = GetEntityModel(vehicle)
-	for _, v in pairs(QBCore.Shared.Vehicles) do
-		if tonumber(v.hash) == model or GetHashKey(v.hash) == model then
-			price = cv(v.price)
-		end
-	end
-	if not price then price = (0)..br end
-    return price
-end
-
--- Push as in push to every player
--- Doubles up as a way to reduce spam of commands
-function pushVehicle(entity)
-	--if Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Running function^7...") end
-	SetVehicleModKit(entity, 0)
-	if entity ~= 0 and DoesEntityExist(entity) then
-		if not NetworkHasControlOfEntity(entity) then
-			if Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Requesting network control of vehicle^7.") end
-			NetworkRequestControlOfEntity(entity)
-			local timeout = 2000
-			while timeout > 0 and not NetworkHasControlOfEntity(entity) do
-				Wait(100)
-				timeout = timeout - 100
-			end
-			if NetworkHasControlOfEntity(entity) and Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Network has control of entity^7.") end
-		end
-		if not IsEntityAMissionEntity(entity) then
-			if Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Setting vehicle as a ^7'^2mission^7' &2entity^7.") end
-			SetEntityAsMissionEntity(entity, true, true)
-			local timeout = 2000
-			while timeout > 0 and not IsEntityAMissionEntity(entity) do
-				Wait(100)
-				timeout = timeout - 100
-			end
-			if IsEntityAMissionEntity(entity) and Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Vehicle is a ^7'^2mission^7'^2 entity^7.") end
-		end
-	end
-end
-
 local updateDelay = {}
 function updateCar(vehicle)
 	if DoesEntityExist(vehicle) and vehicle ~= 0 and vehicle ~= nil then
-		updateDelay[vehicle] = { delay = Config.updateDelay or 2, mods = QBCore.Functions.GetVehicleProperties(vehicle) }
+		updateDelay[vehicle] = { delay = Config.updateDelay or 2, mods = getVehicleProperties(vehicle) }
 		if Config.System.Debug then print("^5Debug^7: ^2Updating database timer started/reset^7: '^6" ..updateDelay[vehicle].mods.plate.."^7' - ^4"..(updateDelay[vehicle].delay * 10).." ^2Seconds^7.") end
 	else
 		if Config.System.Debug then print("^5Debug^7: ^1ERROR^7 - ^2Attempted to add vehicle to update timer but vehicle entity recieved was ^7'^6nil^7'") end
@@ -120,7 +32,7 @@ function forceUpdateCar(vehicle, mods)
 		TriggerServerEvent('jim-mechanic:updateVehicle', mods, trim(mods.plate))
 		if Config.System.Debug then print("^5Debug^7: ^2Updating database mods of vehicle^7: '^6" ..mods.plate.."^7'") end
 		-- Attempt to update status damages
-		updateVehicle(vehicle)
+		saveStatus(vehicle)
 	end
 	--Update everyone with the new changes (helps syncing)
 	TriggerServerEvent("jim-mechanic:server:updateCar", VehToNet(vehicle), mods)
@@ -145,7 +57,7 @@ end)
 RegisterNetEvent("jim-mechanic:forceProperties", function(vehicle, props) -- This forces updates of the vehicle from the person who updated it
 	if NetToVeh(vehicle) ~= 0 and DoesEntityExist(NetToVeh(vehicle)) then
 		SetVehicleModKit(NetToVeh(vehicle), 0)
-		QBCore.Functions.SetVehicleProperties(NetToVeh(vehicle), props)
+		setVehicleProperties(NetToVeh(vehicle), props)
 	end
 end)
 
@@ -202,7 +114,7 @@ function jobChecks()
 	local check = true
 	if Config.Main.ItemRequiresJob == true then check = false
 		for _, v in pairs(Config.Main.JobRoles) do
-			if v == PlayerJob.name then check = true end
+			if hasJob(v) then check = true break end
 		end
 		if check == false then triggerNotify(nil, Loc[Config.Lan]["functions"].mechanic, "error") end
 	end
@@ -212,7 +124,7 @@ end
 function previewJobChecks()
 	local check = false
 	for _, v in pairs(Config.Main.JobRoles) do
-		if v == PlayerJob.name then check = true break end
+		if hasJob(v) then check = true break end
 	end
 	if check == false then
 		triggerNotify(nil, Loc[Config.Lan]["functions"].mechanic, "error")
@@ -221,9 +133,10 @@ function previewJobChecks()
 end
 
 function qblog(text)
-	local Player = QBCore.Functions.GetPlayerData()
+	--[[local Player = Core.Functions.GetPlayerData()
 	TriggerServerEvent('qb-log:server:CreateLog', 'vehicleupgrades', GetCurrentResourceName() .. " - "..Player.charinfo.firstname.." "..Player.charinfo.lastname.."("..Player.source..") ["..Player.citizenid.."]", 'blue',	text)
 	if Config.System.Debug then print("^5QBLog Message^7: ^3"..GetCurrentResourceName() .. " - "..Player.charinfo.firstname.." "..Player.charinfo.lastname.."("..Player.source..") ["..Player.citizenid.."]^7", text) end
+]]
 end
 
 function Checks()
@@ -249,7 +162,7 @@ function lookAtWheel(vehicle)
 		Pos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, v))
 		if #(GetEntityCoords(PlayerPedId()) - Pos) <= 1.5 then	found = true break end
 	end
-	lookVeh(Pos)
+	lookEnt(Pos)
 	if not found then triggerNotify(nil, Loc[Config.Lan]["common"].nearwheel, "error") else return found end
 end
 
@@ -260,13 +173,12 @@ function lookAtEngine(vehicle)
 			Pos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, v)) found = true break
 		else found = true Pos = vehicle end
 	end
-	lookVeh(Pos)
+	lookEnt(Pos)
 	if not found then triggerNotify(nil, Loc[Config.Lan]["common"].nearengine, "error") else return found end
 end
 
 function trim(value) if not value then return nil end return (string.gsub(value, '^%s*(.-)%s*$', '%1')) end
 
---not a function, but a widely used event
 RegisterNetEvent('jim-mechanic:client:Menu:Close', function() local Ped = PlayerPedId()
 	emptyHands(PlayerPedId())
 	FreezeEntityPosition(PlayerPedId(), false)
@@ -335,17 +247,6 @@ function doCarDamage(currentVehicle, veh)
 	end
 end
 
-function keyGen()
-	local charset = {
-		"q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m",
-		"Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M",
-		"1","2","3","4","5","6","7","8","9","0"
-	}
-	local GeneratedID = ""
-	for i = 1, 3 do GeneratedID = GeneratedID..charset[math.random(1, #charset)] end
-	return GeneratedID
-end
-
 function nosBar(level, colour)
     local colour = colour
 	local colours = {
@@ -372,7 +273,6 @@ function nosBar(level, colour)
 	elseif level <= 31 then colour = "red.8" end
     if not string.find(colour, "%.") then colour = colour..".5" end
     local uniquename = keyGen()
-	print(level, colour, uniquename)
     local barstring =
     '<style>.container { width: 6vw ; background-color: '..colours["dark.0"]..'; border-radius: 5px; }'..
     '.'..uniquename..' { text-align: right; padding-top: 0.3vh; padding-bottom: 0.3vh; color:white; width:'..tostring(math.ceil(level))..'%; background-color: '..colours[colour]..'; border-radius: 5px; }'..
@@ -381,38 +281,6 @@ function nosBar(level, colour)
     '<div class="'..uniquename..' html"></div>'..
     '</div>'
     return barstring
-end
-
-function progressBar(data)
-	local result = nil
-	lockInv(true)
-	if data.cam then startTempCam(data.cam) end
-	if Config.System.ProgressBar == "ox" then
-		if exports.ox_lib:progressBar({	duration = Config.System.Debug and 1000 or data.time, label = data.label, useWhileDead = data.dead or false, canCancel = data.cancel or true,
-			anim = { dict = data.dict, clip = data.anim, flag = (data.flag == 8 and 32 or data.flag) or nil, scenario = data.task }, disable = { combat = true }, }) then
-			result = true
-			lockInv(false)
-			if data.cam then stopTempCam(data.cam) end
-		else
-			result = false
-			lockInv(false)
-			if data.cam then stopTempCam(data.cam) end
-		end
-	else
-		QBCore.Functions.Progressbar("mechbar",	data.label,	Config.System.Debug and 1000 or data.time, data.dead, data.cancel or true,
-			{ disableMovement = true, disableCarMovement = false, disableMouse = false, disableCombat = true, },
-			{ animDict = data.dict, anim = data.anim, flags = (data.flag == 8 and 32 or data.flag) or nil, task = data.task }, {}, {}, function()
-				result = true
-				lockInv(false)
-				if data.cam then stopTempCam(data.cam) end
-		end, function()
-			result = false
-				lockInv(false)
-				if data.cam then stopTempCam(data.cam) end
-		end, data.icon)
-	end
-	while result == nil do Wait(10) end
-	return result
 end
 
 function checkRestriction() local Ped = PlayerPedId()
@@ -456,13 +324,25 @@ function enforceClassRestriction(class)
 end
 
 function convertOxRGB(string)
-	string = json.decode(string:gsub("rgb", "["):gsub("%(", '"'):gsub(",", '","'):gsub("%)", '"]'):gsub("%s", ""))
+	string = string:gsub("rgb", "["):gsub("%(", '"'):gsub(",", '","'):gsub("%)", '"]'):gsub("%s", "")
+	string = json.decode(string)
 	return string
 end
 
 function checkHSWMods(vehicle)
-	local possMods = { [12] = GetNumVehicleMods(vehicle, 12), [15] = GetNumVehicleMods(vehicle, 15), [13] = GetNumVehicleMods(vehicle, 13), [11] = GetNumVehicleMods(vehicle, 11) }
-	local currentMods = { [12] = GetVehicleMod(vehicle, 12), [15] = GetVehicleMod(vehicle, 15), [13] = GetVehicleMod(vehicle, 13), [11] = GetVehicleMod(vehicle, 11) }
+	SetVehicleModKit(vehicle, 0)
+	local possMods = {
+		[12] = GetNumVehicleMods(vehicle, 12),
+		[15] = GetNumVehicleMods(vehicle, 15),
+		[13] = GetNumVehicleMods(vehicle, 13),
+		[11] = GetNumVehicleMods(vehicle, 11)
+	}
+	local currentMods = {
+		[12] = GetVehicleMod(vehicle, 12),
+		[15] = GetVehicleMod(vehicle, 15),
+		[13] = GetVehicleMod(vehicle, 13),
+		[11] = GetVehicleMod(vehicle, 11)
+	}
 	for k, v in pairs(possMods) do
 		for i = 1, v do
 			SetVehicleMod(vehicle, k, i-1)
@@ -488,7 +368,9 @@ RegisterNetEvent('vehiclemod:client:fixEverything', function()
 end)
 
 if Config.vehFailure.repairKits then
-	RegisterNetEvent('jim-mechanic:vehFailure:RepairVehicle', function(item, full)
+	RegisterNetEvent('jim-mechanic:vehFailure:RepairVehicle', function(data)
+		local item = data.client.item
+		local full = data.client.full
 		local vehicle = vehChecks()
 		if #(GetEntityCoords(PlayerPedId()) - GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "engine"))) >= 2.0 then return end
 		SetVehicleDoorOpen(vehicle, 4, false, false)
@@ -500,12 +382,12 @@ if Config.vehFailure.repairKits then
 				SetVehiclePetrolTankHealth(vehicle, 1000.0)
 				SetVehicleDeformationFixed(vehicle)
 				SetVehicleFixed(vehicle)
-				if GetResourceState("qs-advancedgarages") == "started" then exports["qs-advancedgarages"]:RepairNearestVehicle() end
+				if GetResourceState("qs-advancedgarages"):find("start") then exports["qs-advancedgarages"]:RepairNearestVehicle() end
 			else
 				SetVehicleEngineHealth(vehicle, GetVehicleEngineHealth(vehicle) + 100)
 				SetVehicleBodyHealth(vehicle, GetVehicleBodyHealth(vehicle) + 100)
 			end
-			toggleItem(false, item.name, 1)
+			removeItem(item.name, 1)
 			ClearPedTasks(PlayerPedId())
 		else
 			ClearPedTasks(PlayerPedId())
@@ -513,10 +395,11 @@ if Config.vehFailure.repairKits then
 		SetVehicleDoorShut(vehicle, 4, false)
 	end)
 end
+
 if Config.vehFailure.fixCommand then
 	RegisterNetEvent('jim-mechanic:client:fixEverything', function() local vehicle = nil local Ped = PlayerPedId()
 		if not IsPedInAnyVehicle(Ped, false) then
-			vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) lookVeh(vehicle)
+			vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) lookEnt(vehicle)
 		else
 			vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle)
 		end
@@ -528,12 +411,12 @@ if Config.vehFailure.fixCommand then
 		SetVehicleDirtLevel(vehicle, 0.0)
 		SetVehicleDeformationFixed(vehicle)
 		SetVehicleFixed(vehicle)
-		if GetResourceState("qs-advancedgarages") == "started" then exports["qs-advancedgarages"]:RepairNearestVehicle() end
+		if GetResourceState("qs-advancedgarages"):find("start") then exports["qs-advancedgarages"]:RepairNearestVehicle() end
 		for i = 0, 5 do SetVehicleTyreFixed(vehicle, i) end
 		for i = 0, 7 do FixVehicleWindow(vehicle, i) end
 		SetVehicleFuelLevel(vehicle, 100.0)
 		TriggerServerEvent("jim-mechanic:server:fixEverything", trim(GetVehicleNumberPlateText(vehicle)))
-		updateVehicle(vehicle)
+		saveStatus(vehicle)
 		pushVehicle(vehicle)
 	end)
 end

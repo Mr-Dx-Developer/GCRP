@@ -1,5 +1,7 @@
+Loc = Loc or {}
+
 Loc["sv"] = {
-	["common"] = { --commonly used strings
+	common = { --commonly used strings
 		owned = "Fordonet ägs inte, kan inte ändras",
 		close = "Stäng",
 		ret = "Tillbaka",
@@ -22,11 +24,11 @@ Loc["sv"] = {
 		closer = "Move closer to the headlights",
 		harness = "Attaching Racing Harness..",
 	},
-	["tires"] = {
+	tires = {
 		swap = "BulletProof-däck borttagna!",
 		swap2 = "Driftdäck borttagna!",
 	},
-	["xenons"] = {
+	xenons = {
 		notinstall = "Xenonstrålkastare ej installerade",
 		--Menus
 		neonheader1 = "Lighting Controls",
@@ -46,15 +48,15 @@ Loc["sv"] = {
 		xenontxt = "Adjust vehicle headlight color",
 	},
 	--Cosmetic Items
-	["bumpers"] = {
+	bumpers = {
 		menugrille = "Grill",
 		menuFBumper = "Främre stötfångare",
 		menuBBumper = "Stötfångare bak",
 	},
-	["exhaust"] = {
+	exhaust = {
 		menuheader = " Modifiering av avgaser",
 	},
-	["exterior"] = {
+	exterior = {
 		stockMod = "Lager Exteriör Mod..",
 
 		label1 = "Trima A",
@@ -68,13 +70,13 @@ Loc["sv"] = {
 		label9 = "Bränsletankar",
 		label10 = "Antenner",
 	},
-	["hood"] = {
+	hood = {
 		menuheader = " Huvmodifiering",
 	},
-	["horns"] = {
+	horns = {
 		menuheader = " Tut Modifikation",
 	},
-	["interior"] = {
+	interior = {
 		label1 = "Rullburar",
 		label2 = "Ornaments",
 		label3 = "Instrumentbrädor",
@@ -85,12 +87,12 @@ Loc["sv"] = {
 		label8 = "Plaques",
 		label9 = "Högtalare",
 	},
-	["livery"] = {
+	livery = {
 		oldMod = "gammal",
 		menuheader = " Livery Modifiering",
 		menuoldheader = " Roof Livery Modification",
 	},
-	["nos"] = {
+	nos = {
 		notinstalled = "Turbo är inte installerad",
 
 		nosColour = "NOS Purge Colour",
@@ -99,7 +101,7 @@ Loc["sv"] = {
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	["paint"] = {
+	paint = {
 		primary = "Primär",
 		secondary = "Sekundär",
 		pearl = "Pärlemorskimrande",
@@ -115,7 +117,7 @@ Loc["sv"] = {
 
 		menuheader = " Spraya om",
 	},
-	["paintrgb"] = {
+	paintrgb = {
 		select = "Urval:",
 		finish = "Slutför Välj:",
 		error = "Hexkodinmatning måste vara 6 tecken",
@@ -124,12 +126,12 @@ Loc["sv"] = {
 		hexP = "HEX Picker",
 		rgbP = "RGB-väljare",
 	},
-	["plates"] = {
+	plates = {
 		label1 = "Plåt hållare",
 		label2 = "Vanity Plåtar",
 		label3 = "Custom Plåtar",
 	},
-	["rims"] = {
+	rims = {
 		menuheader = "Modifiering av fälgar",
 
 		label1 = "Sport",
@@ -150,24 +152,24 @@ Loc["sv"] = {
 
 		labelcustom = "Anpassade fälgar		",
 	},
-	["rollcage"] = {
+	rollcage = {
 		menuheader = " Modifiering av rullbur",
 	},
-	["roof"] = {
+	roof = {
 		menuheader = " Takmodifiering",
 	},
-	["seat"] = {
+	seat = {
 		menuheader = " Säte Modifiering",
 	},
-	["skirts"] = {
+	skirts = {
 		menuskirt = "Skirts",
 		menuRF = "Höger stänkskärm",
 		menuLF = "Vänster stänkskärm",
 	},
-	["spoilers"] = {
+	spoilers = {
 		menuheader = " Modifiering av spoiler",
 	},
-	["smoke"] = {
+	smoke = {
 		already = "Denna färg används för närvarande!",
 		menuheader = " Modifiering av däckrök",
 
@@ -188,10 +190,10 @@ Loc["sv"] = {
 		purple = "Lila",
 		blacklight = "Blacklight",
 	},
-	["windows"] = {
+	windows = {
 		menuheader = " Fönstertoning",
 	},
-	["stores"] = {
+	stores = {
 		browse = "Bläddra i butik",
 		tools = "Mekaniska verktyg",
 		perform = "Prestandaobjekt",
@@ -199,7 +201,7 @@ Loc["sv"] = {
 		repairs = "Repair Items",
 		nos = "NOS Items",
 	},
-	["crafting"] = {
+	crafting = {
 		menuheader = "Crafting Bänk",
 		toolheader = "Mekaniska Verktyg",
 		repairheader = "Repair Items",
@@ -208,10 +210,10 @@ Loc["sv"] = {
 		nosheader = "NOS Items",
 		numitems = " föremål", --for menu. eg. "11 items"
 	},
-	["payments"] = {
+	payments = {
 		charge = "Debitera kunden",
 	},
-	["check"] = {
+	check = {
 		plate = "Plåt: [",
 		value = "]<br>Värde: SEK",
 		unavail = "❌ Inte tillgänglig",
@@ -272,7 +274,7 @@ Loc["sv"] = {
 		label53 = "Livery - [ ",
 		label58 = "Nitrous:",
 	},
-	["repair"] = {
+	repair = {
 		browse = "Bläddra i Stash",
 		materials = "Du har inte tillräckligt med material",
 		checkeng = "Kontrollera motorskadan..",
@@ -302,7 +304,7 @@ Loc["sv"] = {
 		ductfull = "Du kan inte använda mer tejp på den här bilen",
 		nocar = "Det finns inget fordon i närheten",
 	},
-	["police"] = {
+	police = {
 		header = "Modification Station",
 		userepair = "Använd Reparationsstation",
 		repair = "Reparera",
@@ -316,18 +318,18 @@ Loc["sv"] = {
 		complete = "Reparation slutförd",
 		restrict = "Only for Emergency Vehicles",
 	},
-	["manual"] = {
+	manual = {
 		tyres = "Byte av skadade däck",
 		window = "Ta bort skadade fönster",
 		doors = "Reparera dörrar",
 	},
-	["carwax"] = {
+	carwax = {
 		head1 = "Clean Vehicle",
 		head2 = "Clean and Wax",
 		head3 = "Clean and Premium Wax",
 		head4 = "Clean and Ultimate Wax",
 	},
-	["extras"] = {
+	extras = {
 		clean = "Rengöring av fordon",
 		doorerr = "Dörrfel",
 		locked = "Fordonsdörrar låsta",
@@ -340,7 +342,7 @@ Loc["sv"] = {
 		notseat = "Denna plats är inte tillgänglig..",
 		harness = "Du har en racersele på dig, du kan inte byta..",
 	},
-	["functions"] = {
+	functions = {
 		distance = "Distans: ",
 		inCar = "Kan inte göra detta inifrån fordonet",
 		outCar = "Kan inte göra detta från utsidan av fordonet",
@@ -350,7 +352,7 @@ Loc["sv"] = {
 		mechanic = "Bara en mekaniker vet hur man gör detta",
 		checking = "Checking Stash.."
 	},
-	["servfunction"] = {
+	servfunction = {
 		checkdamage = "Kontrollera fordonet för skador",
 		checkmods = "Kontrollera mods tillgängliga på ett fordon",
 		flipvehicle = "Vänd närmaste fordon",
@@ -362,11 +364,11 @@ Loc["sv"] = {
 		door = "Öppna/stäng dörr [0-3]",
 		seat = "Flytta till en annan plats [-1 to 10]",
 	},
-	["previews"] = {
+	previews = {
 		changes = "Antal förändringar: ",
 		previewing = "Can't do this while previewing",
 	},
-	["stancer"] = {
+	stancer = {
 		wheel_lf = "Left Front Wheel",
 		wheel_rf = "Right Front Wheel",
 		wheel_lr = "Left Rear Wheel",

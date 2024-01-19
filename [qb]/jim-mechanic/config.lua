@@ -3,31 +3,33 @@ Config = {
 	System = {
 		Debug = false, -- Set to true to show green debug boxes to help track any issues
 
-		img = "qb-inventory/html/images/", 	-- Set this to the directory for your inventory image files
-											-- "ox_inventory/web/images/", "qb-inventory/html/images", "lj-inventory/html/images"
-		Inv = "qb",  				-- "qb", "ox", "qs"
-		Menu = "qb",  				-- "qb", "ox"
-		Notify = "qb",				-- "qb", "ox"
-		ProgressBar = "qb", 		-- "qb", "ox"
-
-		JimShops = false, 			-- If using my free script jim-shops, enable this to use it with the mechanic item stores.
+		Menu = "qb",  				-- "qb", "ox", "gta"
+		Notify = "qb",				-- "qb", "ox", "gta", "esx"
+		ProgressBar = "qb", 		-- "qb", "ox", "gta", "esx"
 
 		distkph = false, 			-- Set to false to read distance travelled in Miles.
 
 		RenewedBanking = false, 	-- This is used for manualrepair benches, enable to use
 	},
+
+	General = {
+		JimShops = false,			-- Enable to open shops in jim-shops menu's
+		showClockInTill = true,		-- Enable to show toggle duty options at payment tills
+		showBossMenuTill = true,	-- Enable to show bossmenu options at payment tills
+	},
+
 	Main = { -- Main variables
 		isVehicleOwned = false, 	-- Keep this true if you only want changes to be made to owned vehicles
 		ItemRequiresJob = true, 	-- Do the specfic items require the mechanic job?
 		JobLocationRequired = true, -- Are the mecahanics locked to specific locations?
 		LocationBlips = true, 		-- Enable to grab the blip locations from locations.lua
-		CosmeticsJob = true, 		-- Do vehicle cosmetics require a mechanic job role?
-		JobRoles = { "mechanic","mechanictuner" }, -- These are the job roles who can use items if RequiresJob is enabled.
+		CosmeticsJob = false, 		-- Do vehicle cosmetics require a mechanic job role?
+		JobRoles = { "mechanic", }, -- These are the job roles who can use items if RequiresJob is enabled.
 									-- Add your extra job roles here or just leave as "mechanic"
 									-- Example-- --JobRoles = { "mechanic", "tuner" }
 	},
+
 	Overrides = {
-		ShowAllStash = false, 		-- If true, it will show the locations job stash if `StashRepair` or `StashCraft` is enabled or not
 		CosmeticItemRemoval = true, -- If "true" items will be removed on successful application of a mod
 									-- If "false" items will not be removed on use.
 		updateServerDelay = 20, 	-- default 20 second database update delay from the LAST upgrade done to a vehicle
@@ -39,17 +41,20 @@ Config = {
 
 		disableNos = false,			-- Disable nos if you wish to use a separate script
 
-		showItemBox = true,			-- toggle itemBox for adding/removing items, helpful if using custom item change events
 
 		disablePreviewPlate = false,-- enable this to disable temporary plate while previewing
-
-		modCam = true,				-- Set to false to stop custom cameras angles when editing vehicles
-
-		disableToolboxProp = false, -- If users are having LONG delays using `toolbox` item and no prop appearing/loading enable this
 
 		saveOnExit = true,			-- Enable this to save a vehicle to database when player exits their vehicle
 									-- Does not work if they "delete" it, eg. If your garage system doesn't remove the player from the car before parking
 	},
+
+	Crafting = {
+		craftCam = true,
+		MultiCraft = true,
+		MultiCraftAmounts = { [1], [2], [3], [4], [5], [6], [7], [8], [9], [10] },
+		showItemBox = true,			-- toggle itemBox for adding/removing items, helpful if using custom item change events
+	},
+
 	Harness = {
 		JobOnly = false,			-- Only allow job roles to add a Harness to vehicle
 		HarnessControl = true,		-- Enable harness AND seatbelt features of the script, requires edits to smallresources and hud scripts
@@ -59,19 +64,22 @@ Config = {
 		progOn = true,				-- if true add a progressBar to buckle harness
 		progOff = true,				-- if true add a progressBar to unbuckle harness
 
-		seatbeltNotify = true,		-- if true, show a notification when seatbelt is put on or off
+		seatbeltNotify = false,		-- if true, show a notification when seatbelt is put on or off
 
 		timeOn = 3000,				-- Time for the progress bar to put on harness
 		timeOff = 2000,				-- Time for the progress bar to put on harness
 
 		crashKill = false			-- Set to true if you want ejecting when crashing to kill/injure
 	},
+
 	vehFailure = { 				-- Enabling these will make allow you to no longer need qb-vehiclefailure
 									-- ONLY ENABLE IF NOT USING VEHICLEFAILURE OR ANOTHER SCRIPT TO REPLACE IT
-		repairKits = true,			-- Takes control of repairkit and advancedrepairkit
-		fixCommand = true,			-- takes control of /fix command
-		PreventRoll = true,			-- takes control of preventing rolling your car back over when upside down
+		damages = true,				-- Makes jim-mechanic automatically handle extra damages instead of needing an edit to vehfailure
+		repairKits = false,			-- Takes control of repairkit and advancedrepairkit
+		fixCommand = false,			-- takes control of /fix command
+		PreventRoll = false,			-- takes control of preventing rolling your car back over when upside down
 	},
+
 	CarLifts = {
 		Enable = true,					-- Disable this if using a different carlift script
 		Sound = true,					-- Enable/Disable carlift movement noises
@@ -101,11 +109,20 @@ Config = {
 			}
 		},
 	},
+
 	Repairs = {	--Repair Related
 		FreeRepair = false,  		-- Are repairs free? True means yes
 		StashRepair = false, 		-- Enable for repair materials to be removed from a job stash (disabled if RequiresJob = false)
 
 		ExtraDamages = true,		-- When enabled, it will use the built in extra damage systems (Like qb-mechanicjobs functions)
+
+		EffectLevels = {			-- What level the parts need to be below before the effects kick in when crashing
+			["oil"] = 50,
+			["axle"] = 30,
+			["spark"] = 20,
+			["battery"] = 10,
+			["fuel"] = 10,
+		},
 
 		--Vehicle Part Repair Costs
 		Parts = {  --- Part repair item and its MAX cost
@@ -119,13 +136,14 @@ Config = {
 			["wheels"] = { part = "sparetire" }, -- Has no cost, 1 per damaged wheel
 		},
 	},
+
 	Previews = {
 
 		hardCam = true,				-- Enable this to make preview make hard camera locations for previewing
 
-		PreviewPhone = true, 		-- Enable this is preview menu generates an email, False if you want to give an item
+		PreviewPhone = false, 		-- Enable this is preview menu generates an email, False if you want to give an item
 		PreviewJob = true, 		-- Enable this if you want /preview to require a Job Role
-		PreviewLocation = true, 	-- Enable this if you want to lock /preview to a job location (ignored if LocationRequired is false)
+		PreviewLocation = false, 	-- Enable this if you want to lock /preview to a job location (ignored if LocationRequired is false)
 		PhoneMail = "qb", 			-- If PreviewPhone is true, change this to choose the correct phone system
 									-- "qb" = use qb-phone for emails
 									-- "gks" = use gks-phone for emails
@@ -144,15 +162,13 @@ Config = {
 			"white_phone"
 		}
 	},
+
 	StoreCraft = {
 		Crafting = true, 			-- Set true to turn on crafting features
-		StashCraft = true,  		-- Set true to grab materials from mechaincs stash for crafting
+		StashCraft = false,  		-- Set true to grab materials from mechaincs stash for crafting
 		Stores = true, 				-- Set true to turn on shop store features
-
-		StashCraftTimeout = 15000, 	-- This controls the timeout of how long a stash is kept in the clients cache
-									-- Raising this speeds up crafting for users, but opens up exploits
-									-- Lowering this will most likely add load on to the server database
 	},
+
 	Odometer = {
 		ShowOdo = true, 			-- Wether the distance is showed in car by default
 		OdoLocation  = "bottom-right", 	-- Where the Odometer will show,
@@ -176,16 +192,16 @@ Config = {
 		},
 	},
 	Emergency = {
-		requireDutyCheck = true,	-- if true, when a mechanic is online, the repair button won't show
+		requireDutyCheck = false,	-- if true, when a mechanic is online, the repair button won't show
 									-- if false, the repair option will always be available
 		Jobs = {
 			["police"] = 0, -- Job and Job Grade
 			["ambulance"] = 0,
 			["mechanic"] = 0,
 		},
-		LockEmergency = true,  -- Enable this to lock make only "Emergency" (Class 18) vehicles to be used with the bench
+		LockEmergency = false,  -- Enable this to lock make only "Emergency" (Class 18) vehicles to be used with the bench
 		Locations = {
-			{ coords = vec4(457.374, -975.157, 25.706, 92.876), prop = true, }, -- MRPD UNDERGROUND PARKING
+			{ coords = vec4(451.05, -973.19, 25.7, 180.0), prop = true, }, -- MRPD UNDERGROUND PARKING
 			{ coords = vec4(342.51, -570.98, 28.8, 70.0), prop = true, }, -- PILL BOX GARAGE
 		},
 		CosmeticTable = { 			-- This controls what will appear in the emergency mech bench, "false" to hide it
@@ -230,6 +246,7 @@ Config = {
 			["Plaques"] = true,
 			["Speakers"] = true,
 			["WindowTints"] = true,
+			["Rims"] = true,
 		},
 		PreformaceTable = {
 			["Engine"] = true,
@@ -238,14 +255,16 @@ Config = {
 			["Transmission"] = true,
 			["Armour"] = true,
 			["Turbo"] = true,
+			["Harness"] = true,
 		}
 	},
+
 	ManualRepairs = { -- Player vehicle repair config
 		ManualRepairCost = 5000, 	-- Set this to a high amount to get people to talk to mechanics rather than use automated systems
 		ManualRepairCostBased = false, 	-- Set this to true if you want the cost to ALWAYS be the amount set at "ManualRepairCost"
 									-- Set this to false if you want it to "ManualRepairCost" to be the max and cost is calculated by damage
 
-		ManualRepairBased = true, 	-- Set this to true if you want to set the repair cost to be based on QBCore.Shared.Vehicle costs(overrides the cost setting above)
+		ManualRepairBased = true, 	-- Set this to true if you want to set the repair cost to be based on Core.Shared.Vehicle costs(overrides the cost setting above)
 		ManualRepairPercent = 5,	-- Set this to the percent of the vehicle price (Only works if ManualRepairBased is true)
 									-- Default is 5% because $200,000 would be $10,000 max to repair by this system
 									-- 5% of a $10,000 car would be $500
@@ -253,23 +272,20 @@ Config = {
 		repairEngine = true, 		-- Set this to true if automated repairs also repair engine (not just body)
 		repairExtras = true, 		-- Set this to true for automated repairs to also repair extra damages (if mechanicjob is available and repairEngine is true)
 
-		requireDutyCheck = true, 	-- if set to true, the repair bench will only be usable if there are no mechanics in the server ON DUTY
+		requireDutyCheck = false, 	-- if set to true, the repair bench will only be usable if there are no mechanics in the server ON DUTY
 		dutyMessage = "There is a Mechanic on duty!", -- This is the notification that pops up when a person tries to repair when a mechanic is on duty, choose what you want for it.
 
 		repairAnimate = false,		-- Better than staring at a progress bar, "damaged" parts will be removed and replaced. Making it look more authentic
 		repairSpeed = 1500, 		-- The time between each task while using repairAnimate. 1500 Seems to be a reasonable time for it
 	},
+
 	antiLag = {
-		antiLagExp = false,			-- Disable this if having issues with sound/lag
-
-		-- These antilag options are for the script based audio only
-		scriptAudio = true,			-- Disable this to stop using provided popping sounds
 		antiLagDis = 30.0,			-- Max distance players can hear antiLag explosions
-		maxAudio = 0.8,				-- This is adjusted by distance to enchance the effect, this is the max volume
-
+		maxAudio = 0.4,				-- This is adjusted by distance to enchance the effect, this is the max volume
 	},
+
 	NOS = { -- NOS STUF
-		JobOnly = true,			-- Only allow job roles to change NOS
+		JobOnly = false,			-- Only allow job roles to change NOS
 		NosRefillCharge = 1000, 	-- amount in dollars required to refill a nos can
 
 		NosBoostPower = { 			-- NOS boost acceleration power
@@ -278,7 +294,7 @@ Config = {
 			50.0, -- Level 3
 		},
 
-		NitrousUseRate = 0.4, 		-- How fast the nitrous drains (halved for level1, doubled for level3)
+		NitrousUseRate = 0.3, 		-- How fast the nitrous drains (halved for level1, doubled for level3)
 
 		NitrousCoolDown = 7, 		-- 7 Seconds for nitrous cooldown, set to 0 to disable
 		CooldownConfirm = true, 	-- Will play a confirmation beep when cooldown is done
@@ -293,11 +309,10 @@ Config = {
 		FlameDis = 50.0,			-- How far from the vehicle players can see Boost flames
 
 		EnableTrails = true, 		-- True adds taillight effects while boosting
-		TrailsDis = 50.0,			-- How far from the vehicle players can see Boost Trails
 
 		EnableScreen = true, 		-- True adds screen effects while boosting
 
-		skillcheck = "ps-ui", -- When adding Nos to a vehicle there are three script options available
+		skillcheck = "qb-skillbar", -- When adding Nos to a vehicle there are three script options available
 									-- "qb-skillbar" "qb-lock" "ps-ui" "ox_lib"
 
 		explosiveFail = true, 		-- Better not fail that skill check. (1 in 10 chance of explosion)
@@ -328,5 +343,4 @@ Config = {
 }
 
 -- No touch --
-Loc, Crafting, Stores, VehicleNitrous, VehicleStatus, purgemode, purgeSize, boostLevel = {}, {}, {}, {}, {}, true, 0.4, 1
-QBCore = exports["qb-core"]:GetCoreObject()
+Crafting, Stores, VehicleNitrous, VehicleStatus, purgemode, purgeSize, boostLevel = {}, {}, {}, {}, true, 0.4, 1
