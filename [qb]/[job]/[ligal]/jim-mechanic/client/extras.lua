@@ -237,6 +237,10 @@ local function updateOdo(dist, veh, plate, possMods)
 		"<br>MaxRecordedSpeed: "..math.ceil(maxSpeed * 2.23694)..
 		"<br>EstimatedTopSpeed: "..math.ceil(GetVehicleEstimatedMaxSpeed(veh) * 2.23694)..
 		"<br>TopSpeedModifier: "..GetVehicleTopSpeedModifier(veh)..
+		"<br>RPM: "..string.format("%.2f", GetVehicleCurrentRpm(veh))..
+		"<br>Gear:"..GetVehicleCurrentGear(veh)..
+		"<br>tankHealth:"..GetVehiclePetrolTankHealth(veh)..
+		"<br>oilLevel:"..GetVehicleOilLevel(veh)..
 		"<br>EntityID: "..veh..
 		"<br>netID: "..VehToNet(veh)..
 		"<br>MaxSeats: "..GetVehicleMaxNumberOfPassengers(veh)+1
@@ -463,7 +467,7 @@ RegisterNetEvent("jim-mechanic:Client:EnteredVehicle", function()
 	-- Grab/Save default vehicle stats at time of entering
 	-- This SHOULD be the defaults of the vehicle, not edited
 
-	if VehicleStatus[plate]["carwax"] ~= 0 then
+	if VehicleStatus and VehicleStatus[plate] and VehicleStatus[plate]["carwax"] ~= 0 then
 		CreateThread(function() -- Check server time for if it should remove car wax status
 			VehicleStatus[plate]["carwax"] = triggerCallback('jim-mechanic:checkWax', plate)
 		end)
@@ -573,6 +577,24 @@ RegisterNetEvent("jim-mechanic:Client:EnteredVehicle", function()
 						end
 					end
 				end
+				if Config.vehFailure.damageLimits then -- ported vehfailure damage limits to prevent fires and such
+					local damageLimits = Config.vehFailure.damageLimits
+					if GetVehiclePetrolTankHealth(veh) < (damageLimits.petrolTank or 750.0) then
+						SetVehiclePetrolTankHealth(veh, (damageLimits.petrolTank or 750.0))
+						SetVehicleOilLevel(veh, 5.0)
+						SetVehicleCanLeakPetrol(veh, false)
+						SetVehicleCanLeakOil(veh, false)
+					end
+					if GetVehicleEngineHealth(veh) <= (damageLimits.engine or 50) then
+						SetVehicleEngineHealth(veh, ((damageLimits.engine + 1 ) or 51))
+					end
+					if damageLimits.engineUndriveble then
+						SetVehicleUndriveable(veh, (GetVehicleEngineHealth(veh) <= (damageLimits.engine or 50)))
+					end
+					if GetVehicleBodyHealth(veh) <= (damageLimits.body or 50) then
+						SetVehicleBodyHealth(veh, ((damageLimits.body + 1 ) or 51))
+					end
+				end
 				if Config.vehFailure.PreventRoll then -- vehiclefailure added loops
 					local roll = GetEntityRoll(veh)
 					if (roll > 75.0 or roll < -75.0) and GetEntitySpeed(veh) < 2 then
@@ -594,11 +616,13 @@ RegisterNetEvent("jim-mechanic:Client:EnteredVehicle", function()
 end)
 
 RegisterNetEvent("jim-mechanic:client:AntiLag", function(vehicle, vehPos) -- Separated Antilag because it was lag
-	local veh = NetworkGetEntityFromNetworkId(vehicle)
-	for i = 1, math.random(1, 4) do
-		TriggerEvent('jim-mechanic:client:playWithinDistance', vehPos, tostring(math.random(1, 4)))
-		CreateVehicleExhaustBackfire(veh)
-		Wait(math.random(150,350))
+	local veh = ensureNetToVeh(vehicle)
+	if veh and veh ~= 0 then
+		for i = 1, math.random(1, 4) do
+			TriggerEvent('jim-mechanic:client:playWithinDistance', vehPos, tostring(math.random(1, 4)))
+			CreateVehicleExhaustBackfire(veh)
+			Wait(math.random(150,350))
+		end
 	end
 end)
 

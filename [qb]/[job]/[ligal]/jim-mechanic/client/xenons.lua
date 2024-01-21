@@ -5,7 +5,7 @@ function GetXenonColour()
     local newxenonColour = triggerCallback('jim-mechanic:GetXenonColour')
     for k, v in pairs(newxenonColour) do xenonColour[k] = v end
     for k, v in pairs(xenonColour) do
-		local entity = NetworkDoesEntityExistWithNetworkId(k)
+		local entity = ensureNetToVeh(k)
         if entity then
             if IsEntityAVehicle(k) then
                 if k ~= 0 or DoesEntityExist(k) then
@@ -292,21 +292,20 @@ end)
 RegisterNetEvent('jim-mechanic:client:ChangeXenonColour', function(netId, newColour)
     xenonColour[netId] = newColour
     for k, v in pairs(xenonColour) do
-        if NetworkDoesEntityExistWithNetworkId(k) then
-            if k ~= 0 and DoesEntityExist(NetToVeh(k)) and IsEntityAVehicle(NetToVeh(k)) then
-                SetVehicleXenonLightsCustomColor(NetToVeh(k), v[1], v[2], v[3])
-                if Config.System.Debug then
-					print("^5Debug^7: ^2Recieving new ^3Xenon Colour ^7[^6"..tostring(NetToVeh(k)).."^7] = { ^2RBG ^7= ^6"..v[1].."^7, ^6"..v[2].."^7, ^6"..v[3].." ^7}")
-				end
-            end
-        end
+		local netId = ensureNetToVeh(k)
+		if not netId or netId == 0 then return end
+		SetVehicleXenonLightsCustomColor(netId, v[1], v[2], v[3])
+		if Config.System.Debug then
+			print("^5Debug^7: ^2Recieving new ^3Xenon Colour ^7[^6"..tostring(netId).."^7] = { ^2RBG ^7= ^6"..v[1].."^7, ^6"..v[2].."^7, ^6"..v[3].." ^7}")
+		end
     end
 end)
 
 RegisterNetEvent('jim-mechanic:client:ChangeXenonStock', function(netId)
-	local netVeh = NetToVeh(netId)
-	if not NetworkDoesEntityExistWithNetworkId(netId) then return end
+	local netVeh = ensureNetToVeh(netId)
+	if not netVeh or netVeh == false then return end
 	xenonColour[netId] = nil
+	if not netVeh then return end
 	if DoesEntityExist(netVeh) and IsEntityAVehicle(netVeh) then
 		ClearVehicleXenonLightsCustomColor(netVeh)
 		SetVehicleXenonLightsColor(netVeh, -1)
@@ -318,8 +317,8 @@ end)
 CreateThread(function()
     while true do
         for netId, v in pairs(xenonColour) do
-			local veh = NetworkGetEntityFromNetworkId(netId)
-			if veh ~= 0 and NetworkDoesEntityExistWithNetworkId(netId) then
+			local veh = ensureNetToVeh(netId)
+			if veh and veh ~= 0 then
                 if veh ~= 0 and DoesEntityExist(veh) and IsEntityAVehicle(veh) then
                     if Config.System.Debug then print("^5Debug^7: ^2Ensuring ^3Xenon Colour^7[^6"..tostring(veh).."^7] = { ^2RBG ^7= ^6"..v[1].."^7, ^6"..v[2].."^7, ^6"..v[3].." ^7}") end
                     SetVehicleXenonLightsCustomColor(veh, v[1], v[2], v[3])

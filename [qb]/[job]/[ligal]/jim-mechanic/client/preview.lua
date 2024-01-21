@@ -146,8 +146,7 @@ local function printDifferences(vehicle, properties, newproperties)
 
 	-- FINIALIZE AND MAKE LIST --
 	local hasPhone = false
-	for _, v in pairs(Config.Previews.PhoneItems) do
-		if hasItem(v) then hasPhone = true break end end
+	for _, v in pairs(Config.Previews.PhoneItems) do if Items[v] and hasItem(v) then hasPhone = true break end end
 
     if Config.Previews.PreviewPhone and hasPhone then
 		if vehlist[1] then local newlist = ""
@@ -273,7 +272,6 @@ local function preview(Ped, vehicle)
 			if DoesEntityExist(vehicle) then
 				FreezeEntityPosition(vehicle, false)
 				TriggerServerEvent("jim-mechanic:server:preview", false)
-				print("test")
 				local newproperties = getVehicleProperties(vehicle)
 				setVehicleProperties(vehicle, properties)
 				SetVehicleEngineOn(vehicle, true, false, false)
@@ -282,7 +280,7 @@ local function preview(Ped, vehicle)
 				if not Config.Overrides.disablePreviewPlate then
 					TriggerServerEvent("jim-mechanic:server:changePlate", VehToNet(vehicle), currentPlate)
 					if GetResourceState("cd_garage"):find("start") then
-						TriggerServerEvent('cd_garage:AddPersistentVehicles', exports['cd_garage']:GetPlate(vehicle), NetworkGetNetworkIdFromEntity(vehicle))
+						TriggerServerEvent('cd_garage:AddPersistentVehicles', exports['cd_garage']:GetPlate(vehicle), ensureNetToVeh(vehicle))
 					end
 				end end
 			end
@@ -295,8 +293,10 @@ end
 
 RegisterNetEvent("jim-mechanic:preview:exploitfix", function(vehicle, resetprop)
 	if Config.System.Debug then print("^5Debug^7: ^3Preview: ^2Using client to reset vehicle properties of abandoned vehicle^7") end
-	setVehicleProperties(NetToVeh(vehicle), resetprop)
-	FreezeEntityPosition(NetToVeh(vehicle), false)
+	local netId = ensureNetToVeh(vehicle)
+	if not netId or netId == 0 then return end
+	setVehicleProperties(netId, resetprop)
+	FreezeEntityPosition(netId, false)
 end)
 
 RegisterNetEvent("jim-mechanic:preview:stop", function() stoppreview = true end)

@@ -272,26 +272,25 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Choose', function(data) local va
         local possMods = checkHSWMods(vehicle)
         --Pick which set of mods to look through
         if data.roofLiv then
-            if GetVehicleRoofLivery(vehicle) <= 0 then stockinstall = Loc[Config.Lan]["common"].current stockIcon = "fas fa-check" stockDisabled = true end
+            if GetVehicleRoofLivery(vehicle) <= 0 then stockinstall = Loc[Config.Lan]["common"].current stockDisabled = true end
             for i = 0, GetVehicleRoofLiveryCount(vehicle)-1 do local txt, disabled, icon = "", false, ""
                 if GetVehicleRoofLivery(vehicle) == (i) then txt = Loc[Config.Lan]["common"].current disabled = true icon = "fas fa-check" end
                 if i ~= 0 then validMods[i] = { mod = i, name = "Livery "..i, roofLiv = true, install = txt, disabled = disabled, icon = icon, header = data.header } end
             end
         elseif data.oldLiv then
-            if GetVehicleLivery(vehicle) == 0 then stockinstall = Loc[Config.Lan]["common"].current stockIcon = "fas fa-check" stockDisabled = true end
+            if GetVehicleLivery(vehicle) == 0 then stockinstall = Loc[Config.Lan]["common"].current stockDisabled = true end
             for i = 0, GetVehicleLiveryCount(vehicle)-1 do local txt, disabled, icon = "", false, ""
-                if GetVehicleLivery(vehicle) == (i) then  txt = Loc[Config.Lan]["common"].current disabled = true icon = "fas fa-check" end
-                if i ~= 0 then validMods[i] = { mod = i, name = "Livery "..i, oldLiv = true, install = txt, disabled = disabled, icon = icon, header = data.header } end
+                if GetVehicleLivery(vehicle) == (i) then txt = Loc[Config.Lan]["common"].current disabled = true icon = "fas fa-check" end
+                if i ~= 0 then validMods[i] = { mod = i, name = "Livery "..i..(Config.System.Debug and " oldLiv" or ""), oldLiv = true, install = txt, disabled = disabled, icon = icon, header = data.header } end
             end
-            validMods[0] = { disabled = stockinstall, name = Loc[Config.Lan]["common"].stock, install = stockinstall, mod = -1, header = data.header, oldLiv = true, }
         elseif data.plate then
-            if GetVehicleNumberPlateTextIndex(vehicle) <= 0 then stockinstall = Loc[Config.Lan]["common"].current stockIcon = "fas fa-check" stockDisabled = true end
+            if GetVehicleNumberPlateTextIndex(vehicle) <= 0 then stockinstall = Loc[Config.Lan]["common"].current stockDisabled = true end
             for l, b in pairs(Loc[Config.Lan].vehiclePlateOptions) do local txt, disabled, icon = "", false, ""
                 if GetVehicleNumberPlateTextIndex(vehicle) == b.id then txt = Loc[Config.Lan]["common"].current disabled = true icon = "fas fa-check" end
                 validMods[l] = { mod = b.id, name = b.name, plate = true, install = txt, disabled = disabled, icon = icon, header = data.header }
             end
         elseif data.window then
-            if GetVehicleWindowTint(vehicle) <= 0 then stockinstall = Loc[Config.Lan]["common"].current stockIcon = "fas fa-check" stockDisabled = true end
+            if GetVehicleWindowTint(vehicle) <= 0 then stockinstall = Loc[Config.Lan]["common"].current stockDisabled = true end
             for l, b in pairs(Loc[Config.Lan].vehicleWindowOptions) do local txt, disabled, icon = "", false, ""
                 if GetVehicleWindowTint(vehicle) == b.id then txt = Loc[Config.Lan]["common"].current disabled = true icon = "fas fa-check" end
                 validMods[l] = { mod = b.id, name = b.name, window = true, install = txt, disabled = disabled, icon = icon, header = data.header }
@@ -324,10 +323,9 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Choose', function(data) local va
                 validMods[i] = { mod = (i - 1), id = data.id, name = GetLabelText(GetModTextLabel(vehicle, data.id, (i - 1))), install = txt, disabled = disabled, icon = icon, header = data.header }
             end
         end
-        if not data.horn and not data.extra and not data.oldLiv then
-            if GetVehicleMod(vehicle, data.id) == -1 then stockinstall = Loc[Config.Lan]["common"].current stockDisabled = true end
-            Menu[#Menu+1] = { icon = not stockDisabled and "fa-solid fa-rotate-left" or "",
-                isMenuHeader = stockDisabled, disabled = (Config.System.Menu == "ox" and stockDisabled),
+        if not data.horn and not data.plate and not data.extra then
+            Menu[#Menu+1] = { icon = not stockDisabled and "fa-solid fa-rotate-left" or "fas fa-check",
+                isMenuHeader = stockDisabled,
                 header = "0 - "..Loc[Config.Lan]["common"].stock, txt = stockinstall,
                 onSelect = function()
                     TriggerEvent("jim-mechanic:client:Emergency:Apply", { mod = -1, header = data.header, id = data.id, plate = data.plate, window = data.window, oldLiv = data.oldLiv, roofLiv = data.roofLiv, extra = data.extra, perform = data.perform })
@@ -523,7 +521,7 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Paints', function() local Ped = 
         onSelect = function() TriggerEvent("jim-mechanic:client:Emergency:Paints:Choose", Loc[Config.Lan]["paint"].wheel) end,
     }
     openMenu(PaintMenu, {
-        header = carMeta.name,
+        header = carMeta.search,
         headertxt = Loc[Config.Lan]["paint"].menuheader,
         onBack = function() TriggerEvent("jim-mechanic:client:Emergency:Check", data) end,
     })
@@ -545,7 +543,7 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Paints:Choose', function(data) l
 			onSelect = function() TriggerEvent("jim-mechanic:client:Emergency:Paints:Choose:Colour", { paint = data, finish = Loc[Config.Lan]["paint"].metals }) end, }
 
         openMenu(Menu, {
-            header = carMeta.name,
+            header = carMeta.search,
             headertxt = Loc[Config.Lan]["paint"].menuheader..br..(isOx() and br or "")..data,
             onBack = function() TriggerEvent("jim-mechanic:client:Emergency:Paints", data) end,
         })
@@ -567,14 +565,14 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Paints:Choose:Colour', function(
 	}
 	for k, v in pairs(paintTable[data.finish]) do local current = (colourCheck == v.id)
 		PaintMenu[#PaintMenu+1] = { icon = current and "fas fa-check", isMenuHeader = current,
-			header = k..". "..v.name, txt = current and Loc[Config.Lan]["common"].current,
+			header = k.." - "..v.name, txt = current and Loc[Config.Lan]["common"].current,
             onSelect = function()
                 TriggerEvent("jim-mechanic:client:Emergency:Paints:Apply", { paint = data.paint, id = v.id, name = v.name, finish = data.finish })
             end,
         }
 	end
     openMenu(PaintMenu, {
-        header = carMeta.name,
+        header = carMeta.search,
         headertxt = Loc[Config.Lan]["paint"].menuheader..br..(isOx() and br or "")..data.finish.." "..data.paint,
         onBack = function() TriggerEvent("jim-mechanic:client:Emergency:Paints:Choose", data.paint) end,
     })

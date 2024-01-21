@@ -87,7 +87,7 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 		stashItems = triggerCallback('jim-mechanic:server:GetStashItems', stashName)
 	end
 	emptyHands(Ped)
-	if (Config.Repairs.StashRepair and stashhasItem(stashItems, Config.Repairs.Parts[data.part].part, data.cost ) ) or not Config.Repairs.StashRepair then
+	if (Config.Repairs.StashRepair and stashhasItem(stashItems, data.cost ) ) or not Config.Repairs.StashRepair then
 		if progressBar({label = bartext..data.partname, time =  math.random(8000,10000), cancel = true, dict = repairTable[data.part].dict, anim = repairTable[data.part].anim, flag = repairTable[data.part].flags, task = repairTable[data.part].task, icon = "mechanic_tools", cam = cam }) then
 			repairing = false
 			if data.part == "body" then
@@ -105,13 +105,28 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 				SetVehicleDeformationFixed(vehicle)
 				SetVehicleEngineHealth(vehicle, enhealth)
 				if GetResourceState("qs-advancedgarages"):find("start") then exports["qs-advancedgarages"]:RepairNearestVehicle() end
-				for _, v in pairs({0, 1, 2, 3, 4, 5, 45, 47}) do
-					SetVehicleWheelHealth(vehicle, v, tirehealth[v].health)
-					if tirehealth[v].deflate == 1 then SetVehicleTyreBurst(vehicle, v, 0, tirehealth[v].health)
-					elseif tirehealth[v].rim == 1 then SetVehicleTyreBurst(vehicle, v, 1, 0.0) end
+				if Config.Repairs.RepairWheelsWithBody then
+					for _, v in pairs({0, 1, 2, 3, 4, 5, 45, 47}) do
+						if getoff[v] then SetVehicleWheelXOffset(vehicle, v, getoff[v]) end
+						SetVehicleWheelHealth(vehicle, v, 1000.0)
+						SetVehicleTyreFixed(vehicle, v)
+					end
+				else
+					for _, v in pairs({0, 1, 2, 3, 4, 5, 45, 47}) do
+						SetVehicleWheelHealth(vehicle, v, tirehealth[v].health)
+						if tirehealth[v].deflate == 1 then SetVehicleTyreBurst(vehicle, v, 0, tirehealth[v].health)
+						elseif tirehealth[v].rim == 1 then SetVehicleTyreBurst(vehicle, v, 1, 0.0) end
+					end
 				end
 			elseif data.part == "engine" then
 				SetVehicleEngineHealth(vehicle, 1000.0) SetVehiclePetrolTankHealth(vehicle, 1000.0) SetVehicleOilLevel(vehicle, 1000.0)
+				if Config.Repairs.RepairWheelsWithEngine then
+					for _, v in pairs({0, 1, 2, 3, 4, 5, 45, 47}) do
+						if getoff[v] then SetVehicleWheelXOffset(vehicle, v, getoff[v]) end
+						SetVehicleWheelHealth(vehicle, v, 1000.0)
+						SetVehicleTyreFixed(vehicle, v)
+					end
+				end
 			elseif data.part == "wheels" then
 				for _, v in pairs({0, 1, 2, 3, 4, 5, 45, 47}) do
 					if getoff[v] then SetVehicleWheelXOffset(vehicle, v, getoff[v]) end
@@ -124,9 +139,13 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 			end
 			updateCar(vehicle)
 			if Config.Repairs.StashRepair then
-				TriggerServerEvent("jim-mechanic:server:stashRemoveItem", stashItems, stashName, { [Config.Repairs.Parts[data.part].part] = data.cost })
+				TriggerServerEvent("jim-mechanic:server:stashRemoveItem", stashItems, stashName, data.cost)
 			end
-			if not Config.Repairs.StashRepair and not Config.Repairs.FreeRepair then removeItem(Config.Repairs.Parts[data.part].part, data.cost) end
+			if not Config.Repairs.StashRepair and not Config.Repairs.FreeRepair then
+				for k, v in pairs(data.cost) do
+					removeItem(k, v)
+				end
+			end
 			triggerNotify(nil, data.partname..Loc[Config.Lan]["repair"].repaired, "success")
 			Wait(250)
 			TriggerEvent("jim-mechanic:client:Repair:Check")
@@ -162,27 +181,33 @@ RegisterNetEvent('jim-mechanic:client:Repair:Check', function(skip) local Ped = 
 	local plate = trim(GetVehicleNumberPlateText(vehicle))
 	GetVehicleStatus(VehToNet(vehicle))
 	local damageTable = VehicleStatus[plate]
-		damageTable["wheels"] = 0
-		damageTable["engine"] = (GetVehicleEngineHealth(vehicle) / 10)
-		damageTable["body"] = (GetVehicleBodyHealth(vehicle) / 10)
-		for _, v in pairs({0, 1, 2, 3, 4, 5, 45, 47}) do if IsVehicleTyreBurst(vehicle, v, 0) == 1 or IsVehicleTyreBurst(vehicle, v, 1) == 1 or GetVehicleWheelHealth(vehicle, v) <= 0.0 then damageTable["wheels"] += 1 end end
-	local costTable = { ["engine"] = "", ["body"] = "", ["oil"] = "", ["axle"] = "", ["spark"] = "", ["battery"] = "", ["fuel"] = "",  }
-	local costCalc = {}
+	damageTable["wheels"] = 0
+	damageTable["engine"] = (GetVehicleEngineHealth(vehicle) / 10)
+	damageTable["body"] = (GetVehicleBodyHealth(vehicle) / 10)
+	for _, v in pairs({0, 1, 2, 3, 4, 5, 45, 47}) do if IsVehicleTyreBurst(vehicle, v, 0) == 1 or IsVehicleTyreBurst(vehicle, v, 1) == 1 or GetVehicleWheelHealth(vehicle, v) <= 0.0 then damageTable["wheels"] += 1 end end
+	local costTable = { ["engine"] = { ["cost"] = {}, }, ["body"] = { ["cost"] = {}, }, ["oil"] = { ["cost"] = {}, }, ["axle"] = { ["cost"] = {}, }, ["spark"] = { ["cost"] = {}, }, ["battery"] = { ["cost"] = {}, }, ["fuel"] = { ["cost"] = {}, },  }
 	if type(skip) ~= "boolean" then
 		if not Config.Repairs.FreeRepair then
-			for k, v in pairs(costTable) do
-				costCalc[k] = 0
-				if k == "engine" or k == "body" then
-					costCalc[k] = Config.Repairs.Parts[k].cost - math.floor(Config.Repairs.Parts[k].cost * math.floor(damageTable[k]+0.5) / 100)
-				else
-					if Config.Repairs.ExtraDamages == true then
-						costCalc[k] = (Config.Repairs.Parts[k].cost - math.floor(Config.Repairs.Parts[k].cost * math.floor((damageTable[k]+0.5) or 90) / 100)) or 0
-						costCalc[k] = costCalc[k] or 0
+			for k in pairs(costTable) do
+				if not Config.Repairs.Parts[k][1] then Config.Repairs.Parts[k] = { Config.Repairs.Parts[k] } end
+				local text = ""
+				for i = 1, #Config.Repairs.Parts[k] do
+					local v = Config.Repairs.Parts[k][i]
+					local cost = 0
+					if k == "engine" or k == "body" then
+						cost = v.cost - math.floor(v.cost * math.floor(damageTable[k]+0.5) / 100)
+					else
+						if Config.Repairs.ExtraDamages == true then
+							cost = (v.cost - math.floor(v.cost * math.floor((damageTable[k]+0.5) or 90) / 100)) or 0
+							cost = cost or 0
+						end
 					end
+					if cost > 0 then
+						text = (text == "" and Loc[Config.Lan]["repair"].cost..br or text)..cost.." " ..Items[v.part].label..br
+					end
+					costTable[k]["cost"][v.part] = cost
 				end
-				if costCalc[k] > 0 then
-					costTable[k] = Loc[Config.Lan]["repair"].cost.. costCalc[k].. " " ..Items[Config.Repairs.Parts[k].part].label
-				end
+				costTable[k].txt = text
 			end
 		end
 	end
@@ -193,35 +218,39 @@ RegisterNetEvent('jim-mechanic:client:Repair:Check', function(skip) local Ped = 
 	local headertxt = Loc[Config.Lan]["check"].plate.." ["..trim(GetVehicleNumberPlateText(vehicle)).."]"..br..(isOx() and br or "")..Loc[Config.Lan]["check"].value..searchCar(vehicle).price..br..(isOx() and br or "")..searchDist(vehicle)
 
 	local mechjobTable = {}
-	if (damageTable["wheels"] or 0) >= 1 then mechjobTable[#mechjobTable+1] = { part = "wheels", amount = damageTable["wheels"], header = Loc[Config.Lan]["repair"].tire, icon = "fas fa-compact-disc" } end
-	mechjobTable[#mechjobTable+1] = { part = "engine", amount = costCalc["engine"], cost = costTable["engine"], header = Loc[Config.Lan]["repair"].engine, item = Config.Repairs.Parts["engine"].part, icon = "fas fa-wrench" }
-	mechjobTable[#mechjobTable+1] = { part = "body", amount = costCalc["body"], cost = costTable["body"], header = Loc[Config.Lan]["repair"].body, item = Config.Repairs.Parts["body"].part, icon = "fas fa-car-side" }
+	if not Config.Repairs.RepairWheelsWithEngine and not Config.Repairs.RepairWheelsWithBody and (damageTable["wheels"] or 0) >= 1 then
+		costTable["wheels"] = { ["cost"] = {} }
+		costTable["wheels"]["cost"][Config.Repairs.Parts["wheels"].part] = damageTable["wheels"]
+		mechjobTable[#mechjobTable+1] = { part = "wheels", amount = damageTable["wheels"], header = Loc[Config.Lan]["repair"].tire, icon = "fas fa-compact-disc" }
+	end
+	mechjobTable[#mechjobTable+1] = { part = "engine", header = Loc[Config.Lan]["repair"].engine, icon = "fas fa-wrench" }
+	mechjobTable[#mechjobTable+1] = { part = "body", header = Loc[Config.Lan]["repair"].body, icon = "fas fa-car-side" }
 	if Config.Repairs.ExtraDamages == true and not IsThisModelABicycle(GetEntityModel(vehicle)) then
-		mechjobTable[#mechjobTable+1] = { part = "oil", amount = costCalc["oil"], cost = costTable["oil"], header = Loc[Config.Lan]["repair"].oil, item = Config.Repairs.Parts["oil"].part, icon = "fas fa-oil-can" }
-		mechjobTable[#mechjobTable+1] = { part = "axle", amount = costCalc["axle"], cost = costTable["axle"], header = Loc[Config.Lan]["repair"].driveshaft, item = Config.Repairs.Parts["axle"].part, icon = "fas fa-toolbox" }
-		mechjobTable[#mechjobTable+1] = { part = "spark", amount = costCalc["spark"], cost = costTable["spark"], header = Loc[Config.Lan]["repair"].spark, item = Config.Repairs.Parts["spark"].part , icon = "fas fa-wand-magic-sparkles" }
-		mechjobTable[#mechjobTable+1] = { part = "battery", amount = costCalc["battery"], cost = costTable["battery"], header = Loc[Config.Lan]["repair"].battery, item = Config.Repairs.Parts["battery"].part, icon = "fas fa-car-battery" }
-		mechjobTable[#mechjobTable+1] = { part = "fuel", amount = costCalc["fuel"], cost = costTable["fuel"], header = Loc[Config.Lan]["repair"].tank, item = Config.Repairs.Parts["fuel"].part, icon = "fas fa-gas-pump" }
+		mechjobTable[#mechjobTable+1] = { part = "oil", header = Loc[Config.Lan]["repair"].oil, icon = "fas fa-oil-can" }
+		mechjobTable[#mechjobTable+1] = { part = "axle", header = Loc[Config.Lan]["repair"].driveshaft, icon = "fas fa-toolbox" }
+		mechjobTable[#mechjobTable+1] = { part = "spark", header = Loc[Config.Lan]["repair"].spark, icon = "fas fa-wand-magic-sparkles" }
+		mechjobTable[#mechjobTable+1] = { part = "battery", header = Loc[Config.Lan]["repair"].battery, icon = "fas fa-car-battery" }
+		mechjobTable[#mechjobTable+1] = { part = "fuel", header = Loc[Config.Lan]["repair"].tank, icon = "fas fa-gas-pump" }
 	end
 	for _, v in pairs(mechjobTable) do
 		local headerlock = false
 		if math.floor(damageTable[v.part]+0.5) >= 100 then headerlock = true end
 		if Config.Repairs.StashRepair or Config.Repairs.FreeRepair then
 			if Config.Repairs.StashRepair then
-				headerlock = not stashhasItem(stashItems, Config.Repairs.Parts[v.part].part, v.amount)
-				if math.floor(damageTable[v.part]+0.5) >= 100 then headerlock = true costTable[v.part] = "" end
+				headerlock = not stashhasItem(stashItems, costTable[v.part].cost)
+				if math.floor(damageTable[v.part]+0.5) >= 100 then damageTable[v.part] = 100 headerlock = true costTable[v.part].txt = "" end
 			end
 		else
-			if not hasItem(Config.Repairs.Parts[v.part].part, v.amount) then headerlock = true
-				if Config.System.Menu == "qb" then costTable[v.part] = "<span style='color:red'>"..(costTable[v.part] or damageTable["wheels"]).."</span>" end
+			if not hasItem(costTable[v.part].cost) then headerlock = true
+				if Config.System.Menu == "qb" then costTable[v.part].txt = "<span style='color:red'>"..(costTable[v.part].txt or damageTable["wheels"]).."</span>" end
 			end
 		end
 		RepairMenu[#RepairMenu+1] =	{ arrow = (isOx() and not headerlock),
 			icon = v.icon,
 			isMenuHeader = (headerlock and headerlock or type(skip) == "boolean"),
 			header = v.header.." - "..math.floor((damageTable[v.part]+0.5)).."%",
-			txt = costTable[v.part],
-			onSelect = function() TriggerEvent("jim-mechanic:client:Repair:Sure", { part = v.part, partname = v.header, vehicle = vehicle, cost = v.amount }) end,
+			txt = costTable[v.part].txt,
+			onSelect = function() TriggerEvent("jim-mechanic:client:Repair:Sure", { part = v.part, partname = v.header, vehicle = vehicle, cost = costTable[v.part].cost }) end,
 			progress = damageTable[v.part],
 			colorScheme = (damageTable[v.part] and (damageTable[v.part] > 80)) and "green.5" or ((damageTable[v.part] and (damageTable[v.part] < 30)) and "red.8") or "yellow.8"
 		}
@@ -230,9 +259,9 @@ RegisterNetEvent('jim-mechanic:client:Repair:Check', function(skip) local Ped = 
 			RepairMenu[#RepairMenu].progress = nil
 			RepairMenu[#RepairMenu].header = Loc[Config.Lan]["repair"].replacetire
 			if not Config.Repairs.FreeRepair then
-				RepairMenu[#RepairMenu].text = Loc[Config.Lan]["repair"].cost..damageTable["wheels"].." "..Items["sparetire"].label
+				RepairMenu[#RepairMenu].txt = Loc[Config.Lan]["repair"].cost..damageTable["wheels"].." "..Items["sparetire"].label
 			end
-			RepairMenu[#RepairMenu].title = Loc[Config.Lan]["repair"].replacetire.." - "..Loc[Config.Lan]["repair"].cost..damageTable["wheels"].." "..Items["sparetire"].label
+			--RepairMenu[#RepairMenu].title = Loc[Config.Lan]["repair"].replacetire.." - "..Loc[Config.Lan]["repair"].cost..damageTable["wheels"].." "..Items["sparetire"].label
 		else
 			--RepairMenu[#RepairMenu].text = nosBar(math.floor((damageTable[v.part]+0.5) or 90)) .." "..math.floor((damageTable[v.part]+0.5) or 90).."%<br>"..(costTable[v.part] or damageTable["wheels"])
 		end

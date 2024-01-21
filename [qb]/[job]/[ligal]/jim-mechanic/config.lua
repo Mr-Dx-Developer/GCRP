@@ -3,9 +3,9 @@ Config = {
 	System = {
 		Debug = false, -- Set to true to show green debug boxes to help track any issues
 
-		Menu = "qb",  				-- "qb", "ox", "gta"
+		Menu = "ox",  				-- "qb", "ox", "gta"
 		Notify = "qb",				-- "qb", "ox", "gta", "esx"
-		ProgressBar = "qb", 		-- "qb", "ox", "gta", "esx"
+		ProgressBar = "ox", 		-- "qb", "ox", "gta", "esx"
 
 		distkph = false, 			-- Set to false to read distance travelled in Miles.
 
@@ -78,6 +78,13 @@ Config = {
 		repairKits = false,			-- Takes control of repairkit and advancedrepairkit
 		fixCommand = false,			-- takes control of /fix command
 		PreventRoll = false,			-- takes control of preventing rolling your car back over when upside down
+
+		damageLimits = {
+			petrolTank = 750.0,			-- Prevents tankHealth ever going below
+			engine = 50.0,				-- Prevents engine Damage ever going below 50
+			engineUndriveable = true,	-- If engine is at the above level, make it undriveable
+			body = 50.0,				-- Prevent body damage going below 50.0
+		}
 	},
 
 	CarLifts = {
@@ -126,7 +133,7 @@ Config = {
 
 		--Vehicle Part Repair Costs
 		Parts = {  --- Part repair item and its MAX cost
-			["engine"] = { part = "iron", cost = 8 },
+			["engine"] = { { part = "steel", cost = 8 }, { part = "iron", cost = 8 }, },
 			["body"] = { part = "plastic", cost = 8 },
 			["oil"] = { part = "newoil", cost = 1 },
 			["axle"] = { part = "axleparts", cost = 1 },
@@ -135,14 +142,17 @@ Config = {
 			["fuel"] = { part = "steel", cost = 8 },
 			["wheels"] = { part = "sparetire" }, -- Has no cost, 1 per damaged wheel
 		},
+
+		RepairWheelsWithEngine = false,
+		RepairWheelsWithBody = false,
 	},
 
 	Previews = {
 
 		hardCam = true,				-- Enable this to make preview make hard camera locations for previewing
 
-		PreviewPhone = false, 		-- Enable this is preview menu generates an email, False if you want to give an item
-		PreviewJob = true, 		-- Enable this if you want /preview to require a Job Role
+		PreviewPhone = true, 		-- Enable this is preview menu generates an email, False if you want to give an item
+		PreviewJob = false, 		-- Enable this if you want /preview to require a Job Role
 		PreviewLocation = false, 	-- Enable this if you want to lock /preview to a job location (ignored if LocationRequired is false)
 		PhoneMail = "qb", 			-- If PreviewPhone is true, change this to choose the correct phone system
 									-- "qb" = use qb-phone for emails
@@ -150,16 +160,16 @@ Config = {
 									-- "qs" = use qs-smartphone for emails
 									-- "roadphone" = use roadphone for emails
 		PhoneItems = {				-- list of phones/items that are needed to get emails. IF you don't have any you will get a clipboard with the list on instead
-			"phone",
-			"classic_phone",
-			"black_phone",
-			"blue_phone",
-			"gold_phone",
-			"red_phone",
-			"green_phone",
-			"greenlight_phone",
-			"pink_phone",
-			"white_phone"
+			"phone"
+		--	"classic_phone",
+		--	"black_phone",
+		--	"blue_phone",
+		--	"gold_phone",
+		--	"red_phone",
+		--	"green_phone",
+		--	"greenlight_phone",
+		--	"pink_phone",
+		--	"white_phone"
 		}
 	},
 
@@ -203,6 +213,7 @@ Config = {
 		Locations = {
 			{ coords = vec4(451.05, -973.19, 25.7, 180.0), prop = true, }, -- MRPD UNDERGROUND PARKING
 			{ coords = vec4(342.51, -570.98, 28.8, 70.0), prop = true, }, -- PILL BOX GARAGE
+			{ coords = vec4(-1163.01, -2009.41, 13.18, 117.71), prop = true },
 		},
 		CosmeticTable = { 			-- This controls what will appear in the emergency mech bench, "false" to hide it
 			["Repair" ] = true,

@@ -233,8 +233,8 @@ function makeLocs()
 				if loc.carLift and Config.CarLifts.Enable == true then
 					for l, b in pairs(loc.carLift) do local name = "MechLift: "..k..l
 						local options = {
-							{ action = function() TriggerEvent("jim-mechanic:client:lift", { lift = name, dir = "up", sound = Config.CarLifts.Sound, location = Config.Locations[k].designatedName }) end, icon = "fas fa-gauge-high", label = "UP", },
-							{ action = function() TriggerEvent("jim-mechanic:client:lift", { lift = name, dir = "down", sound = Config.CarLifts.Sound, location = Config.Locations[k].designatedName }) end, icon = "fas fa-gauge-high", label = "DOWN", },
+							[1] = { action = function() TriggerEvent("jim-mechanic:client:lift", { num = 1, lift = name, dir = "up", sound = Config.CarLifts.Sound, location = Config.Locations[k].designatedName }) end, icon = "fas fa-gauge-high", label = "UP", },
+							[2] = { action = function() TriggerEvent("jim-mechanic:client:lift", { num = 2, lift = name, dir = "down", sound = Config.CarLifts.Sound, location = Config.Locations[k].designatedName }) end, icon = "fas fa-gauge-high", label = "DOWN", },
 						}
 						if b.use or b.useMLOLift then
 							local currentPylons, currentLift, targetOffset = 0, 0, nil

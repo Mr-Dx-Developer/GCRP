@@ -68,7 +68,7 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, dutyList = {}, {}, {},
 ---==[[ SAVE EXTRA DAMAGES ]]==---
 	RegisterNetEvent("jim-mechanic:updateVehicle", function(props, plate)
 		if IsVehicleOwned(props.plate) then
-			if Config.System.Debug then print("^5Debug^7: ^3updateVehicle^7: ^2Vehicle Mods^7 - [^6"..plate.."^7]: "..json.encode(props)) end
+			if Config.System.Debug then print("^5Debug^7: ^3updateVehicle^7: [^3"..props.model.."^7] - [^3"..props.plate.."^7]") end
 			if GetResourceState(ESXExport):find("start") then
 				MySQL.Async.execute('UPDATE '..vehDatabase..' SET vehicle = ? WHERE plate = ?', { json.encode(props), props.plate})
 			elseif GetResourceState(OXCoreExport):find("start") then
@@ -79,7 +79,7 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, dutyList = {}, {}, {},
 				}
 				MySQL.Async.execute('UPDATE '..vehDatabase..' SET data = ? WHERE plate = ?', { json.encode(data) , props.plate})
 			elseif GetResourceState(QBExport):find("start") or GetResourceState(QBXExport):find("start") then
-				MySQL.Async.execute('UPDATE '..vehDatabase..' SET mods = ? WHERE plate = ? AND hash = ?', { json.encode(props), plate, props.model})
+				MySQL.Async.execute('UPDATE '..vehDatabase..' SET mods = ? WHERE plate = ? AND hash = ?', { json.encode(props), props.plate, props.model})
 			end
 		end
 	end)
@@ -187,7 +187,9 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, dutyList = {}, {}, {},
 	end)
 
 	createUseableItem("mechboard", function(source, item)
-		if Config.System.Inv == "ox" then item.info = item.metadata["info"]	end
+		if GetResourceState(OXInv):find("start") then
+			item.info = item.metadata["info"]
+		end
 		if item.info["vehlist"] == nil then
 			triggerNotify("MechBoard", "The board is empty, don't spawn this item", "error", source)
 		else
@@ -503,7 +505,7 @@ end
 	end)
 
 	RegisterNetEvent('jim-mechanic:server:updateCar', function(netId, props)
-		TriggerClientEvent("jim-mechanic:forceProperties", -1, netId, props)
+		TriggerClientEvent("jim-mechanic:forceProperties", -1, netId, props, source)
 	end)
 
 	RegisterNetEvent("jim-mechanic:server:changePlate", function(vehicle, plate)

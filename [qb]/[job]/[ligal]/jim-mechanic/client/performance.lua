@@ -118,12 +118,12 @@ RegisterNetEvent('jim-mechanic:client:applySuspension', function(data) local Ped
 		local currentSuspension = GetVehicleMod(vehicle, 15)
 		SetVehicleModKit(vehicle, 0)
 		propHoldCoolDown("screwdriver") Wait(10)
-		if remove == false then
+		if not remove then
 			local item = Items["suspension"..level+1]
-			if (GetNumVehicleMods(vehicle, 15) == 0 and (level+1) > possMods[15]) then triggerNotify(nil, Loc[Config.Lan]["common"].cant, "error") return end
+			if GetNumVehicleMods(vehicle, 15) == 0 or (level+1) > possMods[15] then triggerNotify(nil, Loc[Config.Lan]["common"].cant, "error") return end
 			if currentSuspension == level then triggerNotify(nil, item.label..Loc[Config.Lan]["common"].already, "error") else
 				SetVehicleEngineOn(vehicle, false, false, true)
-				if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, icon = "suspension"..level+1, cam = cam}) then
+				if progressBar({ label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, icon = "suspension"..level+1, cam = cam }) then
 					if (GetVehicleMod(vehicle, 15) ~= currentSuspension) or (not hasItem("suspension"..level+1, 1)) then emptyHands(Ped) TriggerServerEvent("jim-mechanic:server:DupeWarn", "suspension"..(currentSuspension+1)) return end
 					if checkSetVehicleMod(vehicle, 15, level) then
 						qblog("`"..item.label.." - suspension"..(level+1).."` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
@@ -234,7 +234,7 @@ RegisterNetEvent('jim-mechanic:client:applyTurbo', function(data) local Ped = Pl
 		propHoldCoolDown("screwdriver") Wait(10)
 		if remove == false then
 			if not lookAtEngine(vehicle) then return end
-			if GetNumVehicleMods(vehicle,11) == 0 then triggerNotify(nil, Loc[Config.Lan]["common"].noOptions, "error") return end
+			if GetNumVehicleMods(vehicle, 11) == 0 then triggerNotify(nil, Loc[Config.Lan]["common"].noOptions, "error") return end
 			if IsToggleModOn(vehicle, 18) then triggerNotify(nil, item.label..Loc[Config.Lan]["common"].already, "error") else
 				if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, icon = "turbo", cam = cam}) then
 					if (IsToggleModOn(vehicle, 18)) or (not hasItem("turbo", 1)) then emptyHands(Ped) TriggerServerEvent("jim-mechanic:server:DupeWarn", "turbo") return end
@@ -332,7 +332,6 @@ end)
 
 --=== DRIFT TYRES ===--
 RegisterNetEvent('jim-mechanic:client:applyDrift', function(data) local Ped = PlayerPedId() local item = Items["drifttires"]
-	print("tests")
 	local remove = false
 	remove = data.client.remove
 	if GetGameBuildNumber() < 2372 then return end
@@ -496,13 +495,13 @@ RegisterNetEvent('jim-mechanic:client:applyAntiLag', function(data) local Ped = 
 		if not IsToggleModOn(vehicle, 18) then triggerNotify(nil, Loc[Config.Lan]["nos"].notinstalled, "error") return end
 		lookAtEngine(vehicle)
 		if lockedCar(vehicle) then return end
-		if VehicleStatus[plate].antiLag == 1 and not data then triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].already, "error") else
+		if VehicleStatus[plate].antiLag == 1 and not remove then triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].already, "error") else
 			SetVehicleEngineOn(vehicle, false, false, true)
 			propHoldCoolDown("screwdriver") Wait(10)
 			if remove == false then
 				if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then SetVehicleModKit(vehicle, 0)
 					if VehicleStatus[plate].antiLag == 1 then TriggerServerEvent("jim-mechanic:server:DupeWarn", "antilag") return end
-					SetVehicleStatus(vehicle, "antiLag", 1, true)
+					SetVehicleStatus(vehicle, "antiLag", 1)
 					qblog("`antilag - "..item.label.."` changed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
 					updateCar(vehicle)
 					removeItem("antilag", 1)

@@ -14,8 +14,8 @@ if Config.StoreCraft.Crafting then
 		end
 	end
 	-- Check if theres a missing item/mistake in the repair materials
-	if not FreeRepair then
-		if not Items[Config.Repairs.Parts["engine"].part] then print("^5Debug^7: ^3onResourceStart^7: ^2Engine repair requested a item missing from the Shared^7: '"..Config.Repairs.Parts["engine"].part.."^7'") itemcheck = false end
+	--[[if not FreeRepair then
+		--if not Items[Config.Repairs.Parts["engine"].part] then print("^5Debug^7: ^3onResourceStart^7: ^2Engine repair requested a item missing from the Shared^7: '"..Config.Repairs.Parts["engine"].part.."^7'") itemcheck = false end
 		if not Items[Config.Repairs.Parts["body"].part] then print("^5Debug^7: ^3onResourceStart^7: ^2Body repair requested a item missing from the Shared^7: '"..Config.Repairs.Parts["body"].part.."^7'") itemcheck = false end
 		if Config.Repairs.ExtraDamages then
 			if not Items[Config.Repairs.Parts["oil"].part] then print("^5Debug^7: ^3onResourceStart^7: ^2Radiator repair requested a item missing from the Shared^7: '^6"..Config.Repairs.Parts["oil"].part.."^7'") itemcheck = false end
@@ -24,7 +24,7 @@ if Config.StoreCraft.Crafting then
 			if not Items[Config.Repairs.Parts["battery"].part] then print("^5Debug^7: ^3onResourceStart^7: ^2Clutch repair requested a item missing from the Shared^7: '^6"..Config.Repairs.Parts["battery"].part.."^7'") itemcheck = false end
 			if not Items[Config.Repairs.Parts["fuel"].part] then print("^5Debug^7: ^3onResourceStart^7: ^2FuelTank repair requested a item missing from the Shared^7: '^6"..Config.Repairs.Parts["fuel"].part.."^7'") itemcheck = false end
 		end
-	end
+	end]]
 	-- Check for "mechboard" item
 	if not Items["mechboard"] then
 		print("^5Debug^7: ^3onResourceStart^7: ^2Missing Item from ^4Shared^7.^4Items^7: '^6mechboard^7'")

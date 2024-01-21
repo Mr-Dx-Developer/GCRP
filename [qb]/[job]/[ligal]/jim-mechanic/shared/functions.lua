@@ -19,10 +19,14 @@ end
 local updateDelay = {}
 function updateCar(vehicle)
 	if DoesEntityExist(vehicle) and vehicle ~= 0 and vehicle ~= nil then
-		updateDelay[vehicle] = { delay = Config.updateDelay or 2, mods = getVehicleProperties(vehicle) }
-		if Config.System.Debug then print("^5Debug^7: ^2Updating database timer started/reset^7: '^6" ..updateDelay[vehicle].mods.plate.."^7' - ^4"..(updateDelay[vehicle].delay * 10).." ^2Seconds^7.") end
+		updateDelay[vehicle] = { delay = (Config.Overrides.updateServerDelay / 10) or 2, mods = getVehicleProperties(vehicle) }
+		if Config.System.Debug then
+			print("^5Debug^7: ^2Updating database timer started/reset^7: '^6" ..updateDelay[vehicle].mods.plate.."^7' - ^4"..(updateDelay[vehicle].delay * 10).." ^2Seconds^7.")
+		end
 	else
-		if Config.System.Debug then print("^5Debug^7: ^1ERROR^7 - ^2Attempted to add vehicle to update timer but vehicle entity recieved was ^7'^6nil^7'") end
+		if Config.System.Debug then
+			print("^5Debug^7: ^1ERROR^7 - ^2Attempted to add vehicle to update timer but vehicle entity recieved was ^7'^1nil^7'")
+		end
 	end
 end
 
@@ -54,10 +58,12 @@ CreateThread(function()
 	end
 end)
 
-RegisterNetEvent("jim-mechanic:forceProperties", function(vehicle, props) -- This forces updates of the vehicle from the person who updated it
-	if NetToVeh(vehicle) ~= 0 and DoesEntityExist(NetToVeh(vehicle)) then
-		SetVehicleModKit(NetToVeh(vehicle), 0)
-		setVehicleProperties(NetToVeh(vehicle), props)
+RegisterNetEvent("jim-mechanic:forceProperties", function(vehicle, props, src) -- This forces updates of the vehicle from the person who updated it
+	if src ~= GetPlayerServerId(PlayerId()) then
+		local netID = ensureNetToVeh(vehicle)
+		if netID ~= 0 and DoesEntityExist(netID) then
+			setVehicleProperties(netID, props)
+		end
 	end
 end)
 

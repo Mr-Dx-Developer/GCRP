@@ -121,10 +121,10 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Choose', function(data) local val
                 if i ~= 0 then validMods[i] = { mod = i, name = "Livery "..i, part = data.part, roofLiv = true, install = txt, disabled = disabled, icon = icon } end
             end
         elseif data.oldLiv then
-            if GetVehicleLivery(vehicle) == -1 then stockinstall = Loc[Config.Lan]["common"].current stockIcon = "fas fa-check" stockDisabled = true end
+            if GetVehicleLivery(vehicle) == 0 then stockinstall = Loc[Config.Lan]["common"].current stockIcon = "fas fa-check" stockDisabled = true end
             for i = 0, GetVehicleLiveryCount(vehicle)-1 do local txt, disabled, icon = "", false, ""
                 if GetVehicleLivery(vehicle) == (i) then  txt = Loc[Config.Lan]["common"].current disabled = true icon = "fas fa-check" end
-                if i ~= 0 then validMods[i] = { mod = i, name = "Livery "..i, part = data.part, oldLiv = true, install = txt, disabled = disabled, icon = icon } end
+                if i ~= 0 then validMods[i] = { mod = i, name = "Livery "..i..(Config.System.Debug and " oldLiv" or ""), part = data.part, oldLiv = true, install = txt, disabled = disabled, icon = icon } end
             end
         elseif data.plate then
             if GetVehicleNumberPlateTextIndex(vehicle) <= 0 then stockinstall = Loc[Config.Lan]["common"].current stockIcon = "fas fa-check" stockDisabled = true end
@@ -158,8 +158,8 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Choose', function(data) local val
             end
         end
         if not data.horn and not data.plate and not data.extra then
-            Menu[#Menu+1] = {
-                icon = stockIcon, isMenuHeader = stockDisabled, disabled = (Config.System.Menu == "ox" and stockDisabled),
+            Menu[#Menu+1] = { icon = not stockDisabled and "fa-solid fa-rotate-left" or "fas fa-check",
+                isMenuHeader = stockDisabled,
                 header = "0 - "..Loc[Config.Lan]["common"].stock, txt = stockinstall,
                 onSelect = function()
                     TriggerEvent("jim-mechanic:client:Cosmetic:Apply", { mod = -1, id = data.id, part = data.part, plate = data.plate, window = data.window, oldLiv = data.oldLiv, roofLiv = data.roofLiv, extra = data.extra, header = data.header })

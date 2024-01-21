@@ -1,5 +1,35 @@
 # Changelog
 
+## 3.3.3
+
+`RE-REPLACE YOUR OX_PROPERTIES/QB_PROPERTIES TO FIX LEAKING ISSUE`
+    Fix:
+        - Remove debug print from getStatus (sorry was testing things) - `functionserver.lua`
+        - Fix `updateServerDelay` not doing anything - `functions.lua`, `functionserver.lua`
+        - Players can now walk while holding the clipboard - `shared.lua`
+        - Add check for `phone` items after preview before checking if you have them on you - `preview.lua`
+        - Fix mechboard giving errors when using `ox_lib` - `functionserver.lua`
+    New:
+        - Add extra config options to help prevent tankHealth damage setting below 0 - `config.lua`, `extras.lua`
+    Changes:
+        - Added check for forceUpdateCar to only to sync the car with other players, not the one who edited it - `functions.lua`, `functionserver.lua`
+        - Added extra check for carwax incase it finds no values - `extras.lua`
+
+## 3.3.2
+
+    Fix:
+        - Fix header error when selecting paints in emergency repair bench - `emergency.lua`
+        - Old liveries in emergency repair benches refusing to go back to stock - `emergency.lua`
+        - Fix suspension allowing higher levels to be attempted to be added - `performance.lua`
+        - Fix antilag allowing players to install and kick them if already installed - `performance.lua`
+        - Possibly Fixed fivem spam `Warning: [entity] GetNetworkObject:` - `damages.lua`, `extras.lua`, `preview.lua`, `xenons.lua`, `functions.lua`, `jim_bridge`
+
+    New:
+        - Minor Rewrite of reapir.lua to add support multiple items for repairs - `repair.lua`, `config.lua`
+        - Added config options to toggle reparing damaged wheels with engine or body - `repair.lua`, `config.lua`
+            - `Config.Repairs.RepairWheelsWithEngine`
+            - `Config.Repairs.RepairWheelsWithBody`
+
 ## 3.3.1
 
     Fix:

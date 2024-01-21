@@ -6,7 +6,7 @@ end)
 onPlayerLoaded(function() Wait(5000) TriggerServerEvent("jim-mechanic:server:getStatusList", true) end)
 
 function GetVehicleStatus(vehicle)
-    local plate = trim(GetVehicleNumberPlateText(NetworkGetEntityFromNetworkId(vehicle)))
+    local plate = trim(GetVehicleNumberPlateText(ensureNetToVeh(vehicle)))
     if not VehicleStatus[plate] then
         if Config.System.Debug then print("^5Debug^7: ^4GetVehicleStatus^7[^6"..plate.."^7]^2 not found^7,^2 loading^7...") end
         VehicleStatus[plate] = triggerCallback("jim-mechanic:server:GetStatus", vehicle)
@@ -24,7 +24,6 @@ function SetVehicleStatus(vehicle, part, level)
 end
 
 AddStateBagChangeHandler('jim_updateVehiclePart', nil, function(bagName, key, value)
-    print(GetEntityFromStateBagName(bagName), value.plate, value.plate, value.level)
     if VehicleStatus and VehicleStatus[value.plate] then
         local entity = GetEntityFromStateBagName(bagName)
         if entity == 0 then return end
