@@ -478,16 +478,22 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
         for i = 0, 7 do windowStatus[i] = IsVehicleWindowIntact(vehicle, i) == 1 end
         local doorStatus = {}
         for i = 0, 5 do doorStatus[i] = IsVehicleDoorDamaged(vehicle, i) == 1 end
+
+        local neonEnabled = {}
+        for i = 0, 3 do
+            neonEnabled[i + 1] = IsVehicleNeonLightEnabled(vehicle, i)
+        end
+
         return {
             model = GetEntityModel(vehicle),
-            plate = QBCore.Functions.GetPlate(vehicle),
+            plate = GetVehicleNumberPlateText(vehicle),
             plateIndex = GetVehicleNumberPlateTextIndex(vehicle),
-            bodyHealth = QBCore.Shared.Round(GetVehicleBodyHealth(vehicle), 0.1),
-            engineHealth = QBCore.Shared.Round(GetVehicleEngineHealth(vehicle), 0.1),
-            tankHealth = QBCore.Shared.Round(GetVehiclePetrolTankHealth(vehicle), 0.1),
-            fuelLevel = QBCore.Shared.Round(GetVehicleFuelLevel(vehicle), 0.1),
-            dirtLevel = QBCore.Shared.Round(GetVehicleDirtLevel(vehicle), 0.1),
-            oilLevel = QBCore.Shared.Round(GetVehicleOilLevel(vehicle), 0.1),
+            bodyHealth = math.floor(GetVehicleBodyHealth(vehicle) + 0.5),
+            engineHealth = math.floor(GetVehicleEngineHealth(vehicle) + 0.5),
+            tankHealth = math.floor(GetVehiclePetrolTankHealth(vehicle) + 0.5),
+            fuelLevel = math.floor(GetVehicleFuelLevel(vehicle) + 0.5),
+            oilLevel = math.floor(GetVehicleOilLevel(vehicle) + 0.5),
+            dirtLevel = math.floor(GetVehicleDirtLevel(vehicle) + 0.5),
             color1 = colorPrimary,
             color2 = colorSecondary,
             pearlescentColor = pearlescentColor,
@@ -503,12 +509,7 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             windowStatus = windowStatus,
             doorStatus = doorStatus,
             headlightColor = headlightColor,
-            neonEnabled = {
-                IsVehicleNeonLightEnabled(vehicle, 0),
-                IsVehicleNeonLightEnabled(vehicle, 1),
-                IsVehicleNeonLightEnabled(vehicle, 2),
-                IsVehicleNeonLightEnabled(vehicle, 3)
-            },
+            neonEnabled = neonEnabled,
             neonColor = table.pack(GetVehicleNeonLightsColour(vehicle)),
             interiorColor = GetVehicleInteriorColour(vehicle),
             extras = extras,
@@ -574,8 +575,6 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
     end
 end
 
-
-
 function QBCore.Functions.SetVehicleProperties(vehicle, props)
     local gameBuild = GetGameBuildNumber()
     if DoesEntityExist(vehicle) then
@@ -591,10 +590,8 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
         if props.plateIndex then SetVehicleNumberPlateTextIndex(vehicle, props.plateIndex) end
         if props.bodyHealth then SetVehicleBodyHealth(vehicle, props.bodyHealth + 0.0) end
         if props.engineHealth then SetVehicleEngineHealth(vehicle, props.engineHealth + 0.0) end
-        if props.tankHealth then SetVehiclePetrolTankHealth(vehicle, props.tankHealth) end
         if props.fuelLevel then SetVehicleFuelLevel(vehicle, props.fuelLevel + 0.0) end
         if props.dirtLevel then SetVehicleDirtLevel(vehicle, props.dirtLevel + 0.0) end
-        if props.oilLevel then SetVehicleOilLevel(vehicle, props.oilLevel) end
         if props.color1 then
 			if type(props.color1) == "number" then
 				colorPrimary = props.color1
@@ -735,6 +732,8 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
         if props.modKit49 then                          SetVehicleMod(vehicle, 49, props.modKit49, false) end
         if props.liveryRoof then                        SetVehicleRoofLivery(vehicle, props.liveryRoof) end
 		if props.modDrift then                          SetDriftTyresEnabled(vehicle, true) end
+        if props.oilLevel then                          SetVehicleOilLevel(vehicle, props.oilLevel + 0.0) end
+        if props.tankHealth then                        SetVehiclePetrolTankHealth(vehicle, props.tankHealth + 0.0) end
 		SetVehicleTyresCanBurst(vehicle, not props.modBProofTires)
 		TriggerServerEvent('jim-mechanic:server:loadStatus', props, VehToNet(vehicle))
     end
