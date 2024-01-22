@@ -325,7 +325,7 @@ function ToggleEngine(veh)
                 if EngineOn then
                     SetVehicleEngineOn(veh, false, false, true)
                 else
-                    if exports['cdn-fuel']:GetFuel(veh) ~= 0 then
+                    if exports['LegacyFuel']:GetFuel(veh) ~= 0 then
                         SetVehicleEngineOn(veh, true, false, true)
                     else
                         if not NotifyCooldown then
