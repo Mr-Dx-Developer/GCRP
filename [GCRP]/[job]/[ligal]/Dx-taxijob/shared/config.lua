@@ -2,7 +2,7 @@ Config = {}
 Config.Framework = 'newqb' -- esx - oldqb - newqb
 Config.NewESX = true -- true enabled -- false disabled
 Config.Mysql = 'oxmysql' -- mysql-async, ghmattimysql, oxmysql
-Config.Job = false -- true enabled -- false disabled
+Config.Job = true -- true enabled -- false disabled
 Config.JobName = "taxi" -- Job name
 Config.TaxiMeterItem = 'taximeter'
 Config.KmPrice = 3.1
@@ -10,21 +10,21 @@ Config.InteractionHandler = "drawtext" -- bt-target, qb-target -- drawtext -- ox
 Config.ESXLoadedEvent = 'esx:playerLoaded'
 Config.QBCoreLoadedEvent = 'QBCore:Server:OnPlayerLoaded'
 Config.FinishCommand = 'finishtaxijob' -- command for finish job
-Config.Debug = true
+Config.Debug = false
 
 ----------------- DEPOSIT TAXI PRICE ------------------
 
 Config.DepositeVehicle = {
     ['deposite'] = false,   -- true enabled -- false disabled
-    ['depositePrice'] = 1500,
+    ['depositePrice'] = 50,
     ['depositePriceAccount'] = 'cash' -- bank and cash
 }
 
 --------------------- VEHICLE KEY ------------------
 
-Config.Vehiclekey = false
+Config.Vehiclekey = true
 Config.VehicleSystem = "qb-vehiclekeys" -- cd_garage / qs-vehiclekeys / wasabi-carlock / qb-vehiclekeys
-Config.Removekeys = false
+Config.Removekeys = true
 Config.RemoveVehicleSystem = "qb-vehiclekeys" -- cd_garage / qs-vehiclekeys / wasabi-carlock / qb-vehiclekeys
 
 Config.GiveVehicleKey = function(plate , model) -- you can change vehiclekeys export if you use another vehicle key system
@@ -79,7 +79,7 @@ Config.MenuOpenKey = {
     },
     ['CabMenuKey'] = { -- Keys Reference : https://docs.fivem.net/docs/game-references/controls/
         ['key'] = 182, -- L
-        ['label'] = 'L'
+        ['label'] = 'Y'
     },
     ['ResetPrice'] = { -- Keys Reference : https://docs.fivem.net/docs/game-references/controls/
         ['key'] = 303, -- U
