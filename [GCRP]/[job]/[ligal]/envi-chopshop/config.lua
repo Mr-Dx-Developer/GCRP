@@ -54,7 +54,7 @@ Config.ChopShops = { -- Add as many as you need
         -- Ped Settings (Optional)
         
         Ped = { -- Handy to use as a place to add FinishChopLocation if there is no desk
-            Enabled = false,
+            Enabled = true,
             PedHash = 'a_m_m_hillbilly_01',
             PedCoords = vector4(727.5610, -1067.5437, 28.31, 180.0),
             PedHeading = 180.0,
@@ -100,7 +100,7 @@ Config.ChopShops = { -- Add as many as you need
         },
 
         -- Dispatch 
-        Dispatch = true, -- Set to true to enable police alerts when chopping a vehicle
+        Dispatch = false, -- Set to true to enable police alerts when chopping a vehicle
     },
 }
 

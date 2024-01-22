@@ -50,6 +50,48 @@ Citizen.CreateThread(function()
     BeginTextCommandSetBlipName("STRING")
     AddTextComponentString('Cat Cafe UwU')
     EndTextCommandSetBlipName(blip)
+
+
+
+    --chop shop
+    local blip = AddBlipForCoord(732.99, -1088.95, 22.16)
+    
+    SetBlipSprite (blip, 561)
+    SetBlipDisplay(blip, 4)
+    SetBlipScale  (blip, 0.7)
+    SetBlipColour (blip, 2)
+    SetBlipAsShortRange(blip, true)
+
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString('Chop Shop')
+    EndTextCommandSetBlipName(blip)
+
+    local blip = AddBlipForCoord(2052.68, 3176.29, 45.17)
+    
+    SetBlipSprite (blip, 561)
+    SetBlipDisplay(blip, 4)
+    SetBlipScale  (blip, 0.7)
+    SetBlipColour (blip, 2)
+    SetBlipAsShortRange(blip, true)
+
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString('Chop Shop')
+    EndTextCommandSetBlipName(blip)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end)
 
 --------------------
