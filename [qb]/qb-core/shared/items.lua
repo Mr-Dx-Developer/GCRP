@@ -1231,6 +1231,11 @@ QBShared.Items = {
 
 
 
+    
+-- Add to qb-core/shared/items.lua
+	['platechanger'] 		 			 = {['name'] = 'platechanger', 					['label'] = 'Plate Changer', 				['weight'] = 1, 		['type'] = 'item', 		['image'] = '', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = ''},
+    ['namechanger'] 		 			 = {['name'] = 'namechanger', 					['label'] = 'Name Changer', 				['weight'] = 1, 		['type'] = 'item', 		['image'] = '', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = ''},
+
 
 
 
