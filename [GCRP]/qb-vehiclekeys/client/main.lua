@@ -131,6 +131,11 @@ local function robKeyLoop()
     end
 end
 
+RegisterNetEvent('qb-vehiclekeys:client:UpdateLastPicked', function(entity)
+    lastPickedVehicle = entity
+end)
+
+
 function isBlacklistedVehicle(vehicle)
     local isBlacklisted = false
     for _,v in ipairs(Config.NoLockVehicles) do
@@ -199,7 +204,7 @@ RegisterCommand('togglelocks', function()
     end
   end
 end)
- RegisterKeyMapping('engine', Lang:t("info.engine"), 'keyboard', 'G')
+RegisterKeyMapping('engine', Lang:t("info.engine"), 'keyboard', 'G')
 RegisterCommand('engine', function()
     local vehicle = GetVehicle()
     if vehicle and IsPedInVehicle(PlayerPedId(), vehicle) then
@@ -207,16 +212,16 @@ RegisterCommand('engine', function()
     end
 end)
 
+AddEventHandler('qb-vehiclekeys:client:setLastPickedVehicle', function(vehicle)
+    lastPickedVehicle = vehicle
+end)
+
+
 AddEventHandler('onResourceStart', function(resourceName)
     if resourceName == GetCurrentResourceName() and QBCore.Functions.GetPlayerData() ~= {} then
         GetKeys()
     end
 end)
-
-AddEventHandler('qb-vehiclekeys:client:setLastPickedVehicle', function(vehicle)
-    lastPickedVehicle = vehicle
-end)
-
 -- Handles state right when the player selects their character and location.
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     GetKeys()
@@ -310,7 +315,7 @@ function isBlacklistedVehicle(vehicle)
     if Entity(vehicle).state.ignoreLocks or GetVehicleClass(vehicle) == 13 then isBlacklisted = true end
     return isBlacklisted
 end
--- FOR QB-VEHICLEKEYS, FUNCTION ToggleEngine();
+
 local NotifyCooldown = false
 function ToggleEngine(veh)
     if veh then
@@ -320,7 +325,7 @@ function ToggleEngine(veh)
                 if EngineOn then
                     SetVehicleEngineOn(veh, false, false, true)
                 else
-                    if exports['LegacyFuel']:GetFuel(veh) ~= 0 then
+                    if exports['cdn-fuel']:GetFuel(veh) ~= 0 then
                         SetVehicleEngineOn(veh, true, false, true)
                     else
                         if not NotifyCooldown then
@@ -333,7 +338,7 @@ function ToggleEngine(veh)
                             Wait(3500)
                             NotifyCooldown = false
                         end
-                    end                
+                    end
                 end
             end
         end
@@ -579,6 +584,7 @@ function IsBlacklistedWeapon()
     return false
 end
 
+
 function LockpickDoor(isAdvanced)
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
@@ -600,11 +606,9 @@ function LockpickDoor(isAdvanced)
         return
     end
 
-
     usingAdvanced = isAdvanced
     Config.LockPickDoorEvent()
 end
-
 function LockpickFinishCallback(success)
     local vehicle = QBCore.Functions.GetClosestVehicle()
 
@@ -746,7 +750,7 @@ function AttemptPoliceAlert(type)
             chance = Config.PoliceNightAlertChance
         end
         if math.random() <= chance then
-           --TriggerServerEvent('police:server:policeAlert', Lang:t("info.palert") .. type)
+            exports['ps-Dispatch']:VehicleTheft(vehicle)
         end
         AlertSend = true
         SetTimeout(Config.AlertCooldown, function()
@@ -795,7 +799,36 @@ RegisterNUICallback('engine', function()
 	SetNuiFocus(false, false)
 end)
 
+RegisterNetEvent('vehiclekeys:client:PoliceUnlock')
+AddEventHandler('vehiclekeys:client:PoliceUnlock', function()
+    local ped = PlayerPedId()
+    local pedcoord = GetEntityCoords(ped)
+    local vehicle = QBCore.Functions.GetClosestVehicle()
+    local vehiclepos = GetEntityCoords(vehicle)
+    local PlayerJob = QBCore.Functions.GetPlayerData().job
 
-RegisterNetEvent('qb-vehiclekeys:client:UpdateLastPicked', function(entity)
-    lastPickedVehicle = entity
-end) 
+    if #(pedcoord - vehiclepos) < 2.0 then
+        if (GetVehicleDoorLockStatus(vehicle) == 0) then QBCore.Functions.Notify("Vehicle Already Open", "primary") return end
+        if (PlayerJob.name == 'police' or PlayerJob.name == 'bcso' and PlayerJob.onduty) then -- start unlock
+            TriggerEvent('animations:client:EmoteCommandStart', {"picklock"})
+            QBCore.Functions.Progressbar("policeunlock", "Unlocking vehicle !", 6000, false, true, {
+                disableMovement = true,
+                disableCarMovement = false,
+                disableMouse = false,
+                disableCombat = true,
+            }, {}, {}, {}, function( ) -- finish
+                TriggerEvent('animations:client:EmoteCommandStart', {"c"})
+                Wait(600)
+                QBCore.Functions.Notify('Vehicle unlocked.', 'success')
+                TriggerServerEvent('qb-vehiclekeys:server:setVehLockState', NetworkGetNetworkIdFromEntity(vehicle), 1)
+                TriggerEvent('vehiclekeys:client:SetOwner', GetVehicleNumberPlateText(vehicle))
+            end, function() -- cancel
+                QBCore.Functions.Notify("Action cancelled", "error")
+            end)
+        elseif (not PlayerJob.name == 'police' or PlayerJob.name == 'bcso') then
+            QBCore.Functions.Notify("You're not a cop", "error")
+        end
+    else
+        QBCore.Functions.Notify("No vehicle found", "error")
+    end
+end)

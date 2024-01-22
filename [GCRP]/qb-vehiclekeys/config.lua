@@ -18,8 +18,9 @@ Config.LockPickDoorEvent = function() -- This function is called when a player a
             TriggerServerEvent('hud:server:GainStress', math.random(1, 4))
             TriggerEvent("QBCore:Notify", "You failed to lockpick.", "error")
         end
-    end, 2, 7) -- NumberOfCircles, MS
+    end, 4, 8) -- NumberOfCircles, MS
 end
+
 
 -- Carjack Settings
 Config.CarJackEnable = true -- True allows for the ability to car jack peds.
@@ -39,15 +40,15 @@ Config.CarjackChance = {
 }
 
 -- Hotwire Settings
-Config.HotwireChance = 0.5 -- Chance for successful hotwire or not
+Config.HotwireChance = 1 -- Chance for successful hotwire or not
 Config.TimeBetweenHotwires = 5000 -- Time in ms between hotwire attempts
-Config.minHotwireTime = 20000 -- Minimum hotwire time in ms
-Config.maxHotwireTime = 40000 --  Maximum hotwire time in ms
+Config.minHotwireTime = 5000 -- Minimum hotwire time in ms
+Config.maxHotwireTime = 10000 --  Maximum hotwire time in ms
 
 -- Police Alert Settings
 Config.AlertCooldown = 10000 -- 10 seconds
-Config.PoliceAlertChance = 0.50 -- Chance of alerting police during the day
-Config.PoliceNightAlertChance = 0.30 -- Chance of alerting police at night (times:01-06)
+Config.PoliceAlertChance = 0.10 -- Chance of alerting police during the day
+Config.PoliceNightAlertChance = 0.10 -- Chance of alerting police at night (times:01-06)
 
 -- Job Settings
 Config.SharedKeys = { -- Share keys amongst employees. Employees can lock/unlock any job-listed vehicle
@@ -105,4 +106,8 @@ Config.NoCarjackWeapons = {
     "WEAPON_Ball",
     "WEAPON_Snowball",
     "WEAPON_SmokeGrenade",
+    'weapon_katana_r',
+    'weapon_katana_b',
+    'weapon_katana_y',
+    'weapon_katana_g',
 }
