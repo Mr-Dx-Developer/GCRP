@@ -6,7 +6,7 @@ Config.DefaultImage = 'https://cdn.discordapp.com/attachments/983471660684423240
 Config.MenuOpenKey = 38  -- [E] Keys Reference : https://docs.fivem.net/docs/game-references/controls/
 Config.CancelKey = 120 -- [X] Keys Reference : https://docs.fivem.net/docs/game-references/controls/
 Config.UseBotToken = true
-Config.EnableAFKMode = true
+Config.EnableAFKMode = false
 Config.SpamCheck = true 
 Config.SpamCount = 1 
 Config.DatabaseName = "codem_fishing"
@@ -20,57 +20,57 @@ Config.TextUIHandler = {
 
 Config.Fish = {
         -- COMMON CATEGORY
-        {itemname = 'bluegill',              xp = 5, name = 'Bluegill',                  sell = true, category = 'common',   price = 3},
-        {itemname = 'goldentrout',           xp = 5, name = 'Golden Trout',              sell = true, category = 'common',   price = 3},
-        {itemname = 'silverymonnow',         xp = 5, name = 'Silvery Monnow',            sell = true, category = 'common',   price = 3},
-        {itemname = 'strippedbass',          xp = 5, name = 'Stripped Bass',             sell = true, category = 'common',   price = 3},
-        {itemname = 'tench',                 xp = 5, name = 'Tench',                     sell = true, category = 'common',   price = 3},
-        {itemname = 'whitefish',             xp = 5, name = 'White Fish',                sell = true, category = 'common',   price = 3},
-        {itemname = 'crappie',               xp = 5, name = 'Crappie',                   sell = true, category = 'common',   price = 3},
-        {itemname = 'cruciancarp',           xp = 5, name = 'Crucian Carp',              sell = true, category = 'common',   price = 3},
+        {itemname = 'bluegill',              xp = 5, name = 'Bluegill',                  sell = true, category = 'common',   price = 30},
+        {itemname = 'goldentrout',           xp = 5, name = 'Golden Trout',              sell = true, category = 'common',   price = 30},
+        {itemname = 'silverymonnow',         xp = 5, name = 'Silvery Monnow',            sell = true, category = 'common',   price = 30},
+        {itemname = 'strippedbass',          xp = 5, name = 'Stripped Bass',             sell = true, category = 'common',   price = 30},
+        {itemname = 'tench',                 xp = 5, name = 'Tench',                     sell = true, category = 'common',   price = 30},
+        {itemname = 'whitefish',             xp = 5, name = 'White Fish',                sell = true, category = 'common',   price = 30},
+        {itemname = 'crappie',               xp = 5, name = 'Crappie',                   sell = true, category = 'common',   price = 30},
+        {itemname = 'cruciancarp',           xp = 5, name = 'Crucian Carp',              sell = true, category = 'common',   price = 30},
         -- UNCOMMON CATEGORY--------------   ------------------------------        ---------------------
-        {itemname = 'bluebackherring',       xp = 10, name = 'Blueback Herring',         sell = true, category = "uncommon", price = 4},
-        {itemname = 'bulltrout',             xp = 10, name = 'Bull Trout',               sell = true, category = "uncommon", price = 4},
-        {itemname = 'laketrout',             xp = 10, name = 'Lake Trout',               sell = true, category = "uncommon", price = 4},
-        {itemname = 'perch',                 xp = 10, name = 'Perch',                    sell = true, category = "uncommon", price = 4},
-        {itemname = 'chub',                  xp = 10, name = 'Chub',                     sell = true, category = "uncommon", price = 4},
-        {itemname = 'colorodopikeminnow',    xp = 10, name = 'Colorodo Pike Minnow',     sell = true, category = "uncommon", price = 4},
-        {itemname = 'drumfish',              xp = 10, name = 'Drum Fish',                sell = true, category = "uncommon", price = 4},
-        {itemname = 'wallaye',               xp = 10, name = 'Walleye',                  sell = true, category = "uncommon", price = 4},
+        {itemname = 'bluebackherring',       xp = 10, name = 'Blueback Herring',         sell = true, category = "uncommon", price = 40},
+        {itemname = 'bulltrout',             xp = 10, name = 'Bull Trout',               sell = true, category = "uncommon", price = 40},
+        {itemname = 'laketrout',             xp = 10, name = 'Lake Trout',               sell = true, category = "uncommon", price = 40},
+        {itemname = 'perch',                 xp = 10, name = 'Perch',                    sell = true, category = "uncommon", price = 40},
+        {itemname = 'chub',                  xp = 10, name = 'Chub',                     sell = true, category = "uncommon", price = 40},
+        {itemname = 'colorodopikeminnow',    xp = 10, name = 'Colorodo Pike Minnow',     sell = true, category = "uncommon", price = 40},
+        {itemname = 'drumfish',              xp = 10, name = 'Drum Fish',                sell = true, category = "uncommon", price = 40},
+        {itemname = 'wallaye',               xp = 10, name = 'Walleye',                  sell = true, category = "uncommon", price = 40},
         -- RARE CATEGORY------------------   ------------------------------        ----------------------
-        {itemname = 'americanshad',          xp = 20, name = 'American Shad',            sell = true, category = "rare",     price = 5},
-        {itemname = 'palidsturgeon',         xp = 20, name = 'Palid Sturgeon',           sell = true, category = "rare",     price = 5},
-        {itemname = 'pike',                  xp = 20, name = 'Pike',                     sell = true, category = "rare",     price = 5},
-        {itemname = 'blackcrappie',          xp = 20, name = 'Black Crappie',            sell = true, category = "rare",     price = 5},
-        {itemname = 'bream',                 xp = 20, name = 'Bream',                    sell = true, category = "rare",     price = 5},
-        {itemname = 'brooktrout',            xp = 20, name = 'Brook Trout',              sell = true, category = "rare",     price = 5},
-        {itemname = 'shortnosesucker',       xp = 20, name = 'Shortnose Sucker',         sell = true, category = "rare",     price = 5},
-        {itemname = 'smallmouthbass',        xp = 20, name = 'Smallmouth Bass',          sell = true, category = "rare",     price = 5},
+        {itemname = 'americanshad',          xp = 20, name = 'American Shad',            sell = true, category = "rare",     price = 50},
+        {itemname = 'palidsturgeon',         xp = 20, name = 'Palid Sturgeon',           sell = true, category = "rare",     price = 50},
+        {itemname = 'pike',                  xp = 20, name = 'Pike',                     sell = true, category = "rare",     price = 50},
+        {itemname = 'blackcrappie',          xp = 20, name = 'Black Crappie',            sell = true, category = "rare",     price = 50},
+        {itemname = 'bream',                 xp = 20, name = 'Bream',                    sell = true, category = "rare",     price = 50},
+        {itemname = 'brooktrout',            xp = 20, name = 'Brook Trout',              sell = true, category = "rare",     price = 50},
+        {itemname = 'shortnosesucker',       xp = 20, name = 'Shortnose Sucker',         sell = true, category = "rare",     price = 50},
+        {itemname = 'smallmouthbass',        xp = 20, name = 'Smallmouth Bass',          sell = true, category = "rare",     price = 50},
         --LEGENDARY CATEGORY --
-        {itemname = 'arowana',               xp = 25, name = 'Arowana',                  sell = true, category = "legendary",price = 6},
-        {itemname = 'sweetfish',             xp = 25, name = 'Sweetfish',                sell = true, category = "legendary",price = 6},
-        {itemname = 'whitebass',             xp = 25, name = 'White Bass',               sell = true, category = "legendary",price = 6},
-        {itemname = 'alabamasturgeon',       xp = 25, name = 'Alabama Sturgeon',         sell = true, category = "legendary",price = 6},
+        {itemname = 'arowana',               xp = 25, name = 'Arowana',                  sell = true, category = "legendary",price = 60},
+        {itemname = 'sweetfish',             xp = 25, name = 'Sweetfish',                sell = true, category = "legendary",price = 60},
+        {itemname = 'whitebass',             xp = 25, name = 'White Bass',               sell = true, category = "legendary",price = 60},
+        {itemname = 'alabamasturgeon',       xp = 25, name = 'Alabama Sturgeon',         sell = true, category = "legendary",price = 60},
         --EPIC CATEGORY --
-        {itemname = 'lakesturgeon',          xp = 35, name = 'Lake Sturgeon',            sell = true, category = "epic",     price = 8},
-        {itemname = 'koicarpblack',          xp = 35, name = 'Koi Carp Black',           sell = true, category = "epic",     price = 8},
-        {itemname = 'lahontancutthroattrout',xp = 35, name = 'Lahontan Cutthroat Trout', sell = true, category = "epic",     price = 8},
+        {itemname = 'lakesturgeon',          xp = 35, name = 'Lake Sturgeon',            sell = true, category = "epic",     price = 80},
+        {itemname = 'koicarpblack',          xp = 35, name = 'Koi Carp Black',           sell = true, category = "epic",     price = 80},
+        {itemname = 'lahontancutthroattrout',xp = 35, name = 'Lahontan Cutthroat Trout', sell = true, category = "epic",     price = 80},
 
 
         --------------------------- BAITS ------------------------                       sell = false  -- do not change
-        {itemname = 'spoonlurebait',    baitLevel = 1,  fishQualityScale = {'common'},   sell = false, name = 'Spoon Lure Bait',  category = "baits", price = 5, stars = 1, baitsuse = true},
-        {itemname = 'threesidedbait',   baitLevel = 2,  fishQualityScale = {'uncommon'}, sell = false, name = 'Three Sided Bait', category = "baits", price = 5, stars = 2, baitsuse = true},
+        {itemname = 'spoonlurebait',    baitLevel = 1,  fishQualityScale = {'common'},   sell = false, name = 'Spoon Lure Bait',  category = "baits", price = 3, stars = 1, baitsuse = true},
+        {itemname = 'threesidedbait',   baitLevel = 2,  fishQualityScale = {'uncommon'}, sell = false, name = 'Three Sided Bait', category = "baits", price = 4, stars = 2, baitsuse = true},
         {itemname = 'tailfishbait',     baitLevel = 3,  fishQualityScale = {'rare'},     sell = false, name = 'Tail Fish Bait',   category = "baits", price = 5, stars = 3, baitsuse = true},
-        {itemname = 'doublehookbait',   baitLevel = 4,  fishQualityScale = {'legendary'},sell = false, name = 'Double Hook Bait', category = "baits", price = 5, stars = 4, baitsuse = true},
-        {itemname = 'triplehooksbait',  baitLevel = 5,  fishQualityScale = {'epic'},     sell = false, name = 'Triple Hook Bait', category = "baits", price = 5, stars = 5, baitsuse = true},
+        {itemname = 'doublehookbait',   baitLevel = 4,  fishQualityScale = {'legendary'},sell = false, name = 'Double Hook Bait', category = "baits", price = 6, stars = 4, baitsuse = true},
+        {itemname = 'triplehooksbait',  baitLevel = 5,  fishQualityScale = {'epic'},     sell = false, name = 'Triple Hook Bait', category = "baits", price = 8, stars = 5, baitsuse = true},
 
 
         --------------------------- RODS ------------------------                          sell = false  -- do not change
-        {itemname = 'woodenrod',       minigameDiff = 'veryHard',  name = 'Wooden Rod',        sell = false, category = "rods", price = 3, stars = 1, minlevel = 10, use = true},
-        {itemname = 'slimmaterialrod', minigameDiff = 'hard',      name = 'Slim Material Rod', sell = false, category = "rods", price = 4, stars = 2, minlevel = 20, use = true},
-        {itemname = 'danishrod',       minigameDiff = 'medium',    name = 'Danish Rod',        sell = false, category = "rods", price = 8, stars = 3, minlevel = 30, use = true},
-        {itemname = 'koidrod',         minigameDiff = 'easy',      name = 'Koi Rod',           sell = false, category = "rods", price = 15,stars = 4, minlevel = 40, use = true},
-        {itemname = 'finewood',        minigameDiff = 'veryEasy',  name = 'Finewood Rod',      sell = false, category = "rods", price = 25,stars = 5, minlevel = 50, use = true},
+        {itemname = 'woodenrod',       minigameDiff = 'veryHard',  name = 'Wooden Rod',        sell = false, category = "rods", price = 80, stars = 1, minlevel = 10, use = true},
+        {itemname = 'slimmaterialrod', minigameDiff = 'hard',      name = 'Slim Material Rod', sell = false, category = "rods", price = 120, stars = 2, minlevel = 20, use = true},
+        {itemname = 'danishrod',       minigameDiff = 'medium',    name = 'Danish Rod',        sell = false, category = "rods", price = 180, stars = 3, minlevel = 30, use = true},
+        {itemname = 'koidrod',         minigameDiff = 'easy',      name = 'Koi Rod',           sell = false, category = "rods", price = 220,stars = 4, minlevel = 40, use = true},
+        {itemname = 'finewood',        minigameDiff = 'veryEasy',  name = 'Finewood Rod',      sell = false, category = "rods", price = 280,stars = 5, minlevel = 50, use = true},
 }
 
 
