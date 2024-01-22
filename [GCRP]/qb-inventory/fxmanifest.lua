@@ -1,8 +1,6 @@
-
-
 fx_version 'cerulean'
 game 'gta5'
-
+lua54 'yes'
 description 'QB-Inventory'
 version '1.2.4'
 
@@ -36,5 +34,3 @@ files {
 }
 
 dependency 'qb-weapons'
-
-lua54 'yes'
