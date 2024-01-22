@@ -277,3 +277,40 @@ RegisterNUICallback('payBill', function(data, cb)
         end
     end
 end)
+
+
+function TriggerCallback(name, data)
+    local incomingData = false
+    local status = 'UNKOWN'
+    local counter = 0
+    while Core == nil do
+        Wait(0)
+    end
+    if Config.Framework == 'esx' or Config.Framework == 'oldesx' then
+        Core.TriggerServerCallback(name, function(payload)
+            status = 'SUCCESS'
+            incomingData = payload
+        end, data)
+    else
+        Core.Functions.TriggerCallback(name, function(payload)
+            status = 'SUCCESS'
+            incomingData = payload
+        end, data)
+    end
+    CreateThread(function()
+        while incomingData == 'UNKOWN' do
+            Wait(1000)
+            if counter == 4 then
+                status = 'FAILED'
+                incomingData = false
+                break
+            end
+            counter = counter + 1
+        end
+    end)
+
+    while status == 'UNKOWN' do
+        Wait(0)
+    end
+    return incomingData
+end
