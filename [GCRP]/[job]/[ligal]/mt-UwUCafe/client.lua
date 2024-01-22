@@ -27,16 +27,16 @@ end)
 ----- Config Blip to set it on ur map/gps --------------
 
 Citizen.CreateThread(function()
-    local blip = AddBlipForCoord(462.2, -693.88, 26.44)
+    local blip = AddBlipForCoord(-589.35, -1068.63, 22.34)
     
     SetBlipSprite (blip, 59)
-    SetBlipDisplay(blip, 4)
-    SetBlipScale  (blip, 0.7)
+    SetBlipDisplay(blip, 1)
+    SetBlipScale  (blip, 0.1)
     SetBlipColour (blip, 2)
     SetBlipAsShortRange(blip, true)
 
     BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString('Ingredients Seller')
+    AddTextComponentString('Seller')
     EndTextCommandSetBlipName(blip)
 
     local blip = AddBlipForCoord(-582.49, -1062.94, 22.35)
@@ -48,7 +48,7 @@ Citizen.CreateThread(function()
     SetBlipAsShortRange(blip, true)
 
     BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString('Ingredients Seller')
+    AddTextComponentString('Cat Cafe UwU')
     EndTextCommandSetBlipName(blip)
 end)
 

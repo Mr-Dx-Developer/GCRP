@@ -1,8 +1,8 @@
 Config = {}
 
 Config.UsarPed = true -- set to false everything that involves the ped will be automatically disabled (target, ped spawn, menu for purchase and location on the map)
-Config.Ped = {462.2, -693.88, 26.44,"Sr Manel",91.22,0x94562DD7,"a_m_m_farmer_01"} -- order: coords - name (label) - heading - hash - ped spawn name
-Config.PedTargetLoc = vector3(462.2, -693.88, 27.44) -- Ped target location (must be the same as the ped)
+Config.Ped = {-589.35, -1068.63, 21.34,"Sr Manel",13.08,0x94562DD7,"a_m_m_farmer_01"} -- order: coords - name (label) - heading - hash - ped spawn name
+Config.PedTargetLoc = vector3(-589.35, -1068.63, 21.34) -- Ped target location (must be the same as the ped)
 
 Config.Gatos = { -- Coords to spawn cats in uwu, set sitting to false in order the cat will not sit but move, or set true the cat will sit, add as many cats u want but remove , from } last one
     ['cat1'] = {['coords'] = vector4(-573.9, -1056.29, 22.43, 115.15),['sitting'] = true},
