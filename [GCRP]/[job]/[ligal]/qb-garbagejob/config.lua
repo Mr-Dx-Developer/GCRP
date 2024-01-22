@@ -1,12 +1,12 @@
 Config = {}
 
-Config.UseTarget = GetConvar('UseTarget', 'false') == 'true'
+Config.UseTarget = GetConvar('UseTarget', 'false') == 'false'
 Config.Jobname = 'garbage'
 -- Price taken and given back when delivered a truck
 Config.TruckPrice = 250
 
 -- Want to give out a cryptostick per stop?
-Config.GiveCryptoStick = true
+Config.GiveCryptoStick = false
 
 -- Has to roll this number or higher to receive a cryptostick
 Config.CryptoStickChance = 75
