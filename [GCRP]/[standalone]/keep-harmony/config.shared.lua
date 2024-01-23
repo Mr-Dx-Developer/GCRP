@@ -23,7 +23,7 @@ Config.language = 'en'
 Config.framework = 'qb' -- [qb / esx]
 -- If you're using ps-inventory, set it below to qb-inventory,
 -- and then set Config.resource_names.inventory to ps-inventory!
-Config.inventory = 'qs-inventory' -- [qb-inventory / ox_inventory]
+Config.inventory = 'qb-inventory' -- [qb-inventory / ox_inventory]
 Config.target = 'qb-target'       -- [qb-target / ox_target]
 Config.menu = 'built-in'          -- [built-in / qb-menu / keep-menu / ox_lib]
 Config.input = 'built-in'         -- [built-in / qb-input /keep-input / ox_lib]
@@ -39,7 +39,7 @@ Config.resource_names = {
     -- I saw people who are using esx set this as esx which is wrong!
     -- It should be es_extended instead!
     framework = 'qb-core',
-    inventory = 'qs-inventory',
+    inventory = 'qb-inventory',
     target = 'qb-target',
     menu = '', -- leave it empty when using built-in
     input = '' -- leave it empty when using built-in
