@@ -31,11 +31,11 @@ Config.marker_style = 1							-- (Only if target is disabled) [1|2] There are 2 
 
 Config.spawned_vehicles = {						-- Config for the vehicles that are spawned in each script
 	['lc_truck_logistics'] = {					-- The script affected by the config (dont change)
-		['is_static'] = false,					-- false: The plate will be dynamically generated based on the prefix (ex. "TRUCK123"), filling up to 8 characters after the prefix | true: The plate will be exactly as you set in the plate prefix, with no extra numbers added (ex. "TRUCK")
+		['is_static'] = true,					-- false: The plate will be dynamically generated based on the prefix (ex. "TRUCK123"), filling up to 8 characters after the prefix | true: The plate will be exactly as you set in the plate prefix, with no extra numbers added (ex. "TRUCK")
 		['plate_prefix'] = "TR"					-- Customize the prefix for the plate text here (a vehicle plate can hold a max of 8 characters)
 	},
 	['lc_stores'] = {
-		['is_static'] = false,
+		['is_static'] = true,
 		['plate_prefix'] = "ST"
 	},
 	['lc_gas_stations'] = {

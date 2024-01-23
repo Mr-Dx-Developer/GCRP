@@ -29,11 +29,11 @@ Config.ReviveLogs = false         -- Enable admin revive logs via Discord webhoo
 Config.LogIPs = false             -- If Config.DeathLogs/Config.ReviveLogs enabled, do you want to logs IP addresses as well?
 Config.BagProp = `xm_prop_x17_bag_med_01a`
 Config.StretcherProp = 'prop_ld_binbag_01'
-Config.UseRadialMenu = false             -- Enable use of radial menu built in to ox_lib? (REQUIRES OX_LIB 3.0 OR HIGHER - Editable in client/radial.lua)
+Config.UseRadialMenu = true             -- Enable use of radial menu built in to ox_lib? (REQUIRES OX_LIB 3.0 OR HIGHER - Editable in client/radial.lua)
 Config.StretcherKey = 38                 -- Key to place the stretcher on the ground
-Config.EnableAnimReset = false           -- If your death animation does not run correctly, then enable this
+Config.EnableAnimReset = true           -- If your death animation does not run correctly, then enable this
 Config.MobileMenu = {                    -- Enabling this will use ox_lib menu rather than ox_lib context menu!
-    enabled = false,                     -- Use a mobile menu from ox_lib rather than context? (Use arrow keys to navigate menu rather than mouse)
+    enabled = true,                     -- Use a mobile menu from ox_lib rather than context? (Use arrow keys to navigate menu rather than mouse)
     position =
     'bottom-right'                       -- Choose where menu is positioned. Options : 'top-left' or 'top-right' or 'bottom-left' or 'bottom-right'
 }
