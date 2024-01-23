@@ -1,6 +1,6 @@
 # Progressbar
 
-Dependency for creating progressbars in QB-Core.
+Dependency for creating progressbars in qs-inventory.
 
 # Usage
 
