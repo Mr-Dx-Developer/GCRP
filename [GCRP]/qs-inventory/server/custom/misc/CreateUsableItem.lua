@@ -137,6 +137,7 @@ CreateUsableItem('pistol_luxuryfinish', function(source, item)
     TriggerClientEvent('weapons:client:EquipAttachment', source, item, 'luxuryfinish')
 end)
 
+
 CreateUsableItem('combatpistol_defaultclip', function(source, item)
     TriggerClientEvent('weapons:client:EquipAttachment', source, item, 'defaultclip')
 end)
@@ -558,3 +559,12 @@ end)
         end
     end)
 ]]
+
+
+exports['qs-inventory']:CreateUsableItem('at_clip_drum_pistol', function(source, item)
+    TriggerClientEvent('weapons:client:EquipAttachment', source, item, 'drum')
+end)
+
+exports['qs-inventory']:CreateUsableItem('at_clip_100_pistol', function(source, item)
+    TriggerClientEvent('weapons:client:EquipAttachment', source, item, '100roundmag')
+end)

@@ -33,6 +33,37 @@ Config.Throwables = {
 
 -- Durability multiplier, the more the quantity is, the faster it is broken
 Config.DurabilityMultiplier = {
+    -- KYROS WEAPON PACK V4
+    ['weapon_glock19x']              = 0.10,
+    ['weapon_glock19']               = 0.10,
+    ['weapon_glock40']               = 0.10,
+    ['weapon_glock40s']              = 0.10,
+    ['weapon_ddm4v5']                = 0.10,
+    ['weapon_mpx']                   = 0.10,
+    ['weapon_pd509']                 = 0.10,
+    ['weapon_aps']                   = 0.10,
+    ['weapon_ppk']                   = 0.10,
+    ['weapon_pitviper']              = 0.10,
+    ['weapon_barp']                  = 0.10,
+    ['weapon_rdp']                   = 0.10,
+    ['weapon_lok']                   = 0.10,
+    ['weapon_plr']                   = 0.10,
+    ['weapon_xds9']                  = 0.10,
+    ['weapon_pps']                   = 0.10,
+    ['weapon_xdme']                  = 0.10,
+    ['weapon_sp']                    = 0.10,
+    ['weapon_glock17s']              = 0.10,
+    ['weapon_glock18c']              = 0.10,
+    ['weapon_glock19s']              = 0.10,
+    ['weapon_arpistol']              = 0.10,
+    ['weapon_glock26s']              = 0.10,
+    ['weapon_grenades']              = 0.10,
+    ['weapon_m32s']                  = 0.10,
+    ['weapon_microdraco']            = 0.10,
+    ['weapon_ruger57']               = 0.10,
+    ['weapon_mk18']                  = 0.10,
+    ['weapon_680']                   = 0.10,
+    ['weapon_ziptie']                = 0.10,
     -- Melee
     ['weapon_dagger']                = 0.10,
     ['weapon_bat']                   = 0.10,
@@ -296,6 +327,324 @@ Config.Tints = {
 }
 
 Config.WeaponAttachments = {
+    -- KYROS WEAPON PACK V4
+    ['WEAPON_GLOCK19'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_PISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_PISTOL_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+		['drum'] = {
+            component = 'COMPONENT_GLOCK19_CLIP_03',
+            item = 'at_clip_drum_pistol',
+            type = 'clip',
+        },	
+    },
+    ['WEAPON_GLOCK40'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_PISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_PISTOL_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+		['drum'] = {
+            component = 'COMPONENT_GLOCK40_CLIP_03',
+            item = 'at_clip_drum_pistol',
+            type = 'clip',
+        },	
+		['100roundmag'] = {
+            component = 'COMPONENT_GLOCK40_CLIP_04',
+            item = 'at_clip_100_pistol',
+            type = 'clip',
+        },	
+    },
+    ['WEAPON_GLOCK19X'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_PISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_PISTOL_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+		['drum'] = {
+            component = 'COMPONENT_GLOCK19X_CLIP_03',
+            item = 'at_clip_drum_pistol',
+            type = 'clip',
+        },	
+		['100roundmag'] = {
+            component = 'COMPONENT_GLOCK19X_CLIP_04',
+            item = 'at_clip_100_pistol',
+            type = 'clip',
+        },	
+    },
+	['WEAPON_GLOCK40S'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_COMBATPISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_COMBATPISTOL_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+		['drum'] = {
+            component = 'COMPONENT_COMBATPISTOL_CLIP_03',
+            item = 'at_clip_drum_pistol',
+            type = 'clip',
+        },	
+		['100roundmag'] = {
+            component = 'COMPONENT_COMBATPISTOL_CLIP_04',
+            item = 'at_clip_100_pistol',
+            type = 'clip',
+        },	
+    },
+	['WEAPON_DDM4V5'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_DDM4V5_CLIP_01',
+            item = 'assaultrifle_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_MPX'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_MPX_CLIP_01',
+            item = 'assaultrifle_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_PD509'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_COMBATPISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_APS'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_APPISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_APPISTOL_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_PPK'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_SNSPISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_PITVIPER'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_PITVIPER_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_BARP'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_BARP_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_BARP_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+		['flashlight'] = {
+            component = 'COMPONENT_AT_AR_BARPFLSH',
+            item = 'pistol_flashlight',
+        },
+    },
+	['WEAPON_RDP'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_PISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+        ['scope'] = {
+            component = 'COMPONENT_AT_PI_RAIL',
+            item = 'smg_scope',
+        },
+    },
+	['WEAPON_LOK'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_LOK_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+        ['grip'] = {
+            component = 'COMPONENT_AT_AR_LOKAFGRIP',
+            item = 'rifle_grip',
+        },
+    },
+	['WEAPON_PLR'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_PLR_CLIP_01',
+            item = 'assaultrifle_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_PLR_CLIP_02',
+            item = 'assaultrifle_extendedclip',
+            type = 'clip',
+        },
+        ['grip'] = {
+            component = 'COMPONENT_AT_AR_PLRAFGRIP',
+            item = 'rifle_grip',
+        },
+    },
+	['WEAPON_XDS9'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_SNSPISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_SNSPISTOL_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_PPS'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_SNSPISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_XDME'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_COMBATPISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_SP'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_SP_CLIP_01',
+            item = 'assaultrifle_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_GLOCK17S'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_GLOCK17_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_GLOCK17_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_GLOCK18C'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_GLOCK18C_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_GLOCK18C_CLIP_02',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+		['drum'] = {
+            component = 'COMPONENT_GLOCK18C_CLIP_03',
+            item = 'at_clip_drum_pistol',
+            type = 'clip',
+        },
+    },
+	['WEAPON_GLOCK19S'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_GLOCK19S_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_ARPISTOL'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_ARPISTOL_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_ARPISTOL_BOXMAG',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+		['scope'] = {
+            component = 'COMPONENT_AT_ARPISTOLSCOPE_MEDIUM',
+            item = 'rifle_scope',
+        },
+    },
+	['WEAPON_GLOCK26S'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_GLOCK26S_CLIP_01',
+            item = 'pistol_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_MICRODRACO'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_MICRODRACO_CLIP_01',
+            item = 'assaultrifle_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_RUGER57'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_RUGER57_CLIP_01',
+            item = 'pistol_extendedclip',
+            type = 'clip',
+        },
+		['flashlight'] = {
+            component = 'COMPONENT_AT_PI_RUGER57FLSH',
+            item = 'pistol_flashlight',
+        },
+    },
+	['WEAPON_MK18'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_MK18_CLIP_01',
+            item = 'assaultrifle_defaultclip',
+            type = 'clip',
+        },
+    },
+	['WEAPON_ZIPTIE'] = {
+        ['defaultclip'] = {
+            component = 'COMPONENT_ZIPTIE_CLIP_01',
+            item = 'assaultrifle_defaultclip',
+            type = 'clip',
+        },
+		['extendedclip'] = {
+            component = 'COMPONENT_CARBINERIFLE_BOXMAG',
+            item = 'assaultrifle_extendedclip',
+            type = 'clip',
+        },
+	    ['suppressor'] = {
+            component = 'COMPONENT_AT_AR_SUPP',
+            item = 'rifle_suppressor',
+        },
+    },
     -- PISTOLS
     ['WEAPON_PISTOL'] = {
         ['defaultclip'] = {

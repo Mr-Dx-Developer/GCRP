@@ -7,6 +7,216 @@
 ]]
 
 WeaponList = {
+    [`weapon_glock19x`] =  {
+        ['name'] =  'weapon_glock19x',
+        ['label'] =  'G19X XL',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_glock19`] =  {
+        ['name'] =  'weapon_glock19',
+        ['label'] =  'GLOCK 19',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_glock40`] =  {
+        ['name'] =  'weapon_glock40',
+        ['label'] =  'GLOCK 40',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_glock40s`] =  {
+        ['name'] =  'weapon_glock40s',
+        ['label'] =  'GLOCK 40 SWITCH',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_ddm4v5`] =  {
+        ['name'] =  'weapon_ddm4v5',
+        ['label'] =  'DDM4V5',
+        ['weapontype'] =  'Assault Rifle',
+        ['ammotype'] =  'AMMO_RIFLE',
+        ['damagereason'] =  'Ended / Rifled / Shot down / Floored'
+    },
+    [`weapon_mpx`] =  {
+        ['name'] =  'weapon_mpx',
+        ['label'] =  'MPX',
+        ['weapontype'] =  'Assault Rifle',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Ended / Rifled / Shot down / Floored'
+    },
+    [`weapon_pd509`] =  {
+        ['name'] =  'weapon_pd509',
+        ['label'] =  'PD 509',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_aps`] =  {
+        ['name'] =  'weapon_aps',
+        ['label'] =  'STECHKIN APS',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_ppk`] =  {
+        ['name'] =  'weapon_ppk',
+        ['label'] =  'WALTHER PPK',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_pitviper`] =  {
+        ['name'] =  'weapon_pitviper',
+        ['label'] =  'JW4 PIT VIPER',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_barp`] =  {
+        ['name'] =  'weapon_barp',
+        ['label'] =  'BANSHEE ARP-9',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_rdp`] =  {
+        ['name'] =  'weapon_rdp',
+        ['label'] =  'HELLCAT RDP',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_lok`] =  {
+        ['name'] =  'weapon_lok',
+        ['label'] =  'M-LOK AR 15',
+        ['weapontype'] =  'Assault Rifle',
+        ['ammotype'] =  'AMMO_RIFLE',
+        ['damagereason'] =  'Ended / Rifled / Shot down / Floored'
+    },
+    [`weapon_plr`] =  {
+        ['name'] =  'weapon_plr',
+        ['label'] =  'PLR-16',
+        ['weapontype'] =  'Assault Rifle',
+        ['ammotype'] =  'AMMO_RIFLE',
+        ['damagereason'] =  'Ended / Rifled / Shot down / Floored'
+    },
+    [`weapon_xds9`] =  {
+        ['name'] =  'weapon_xds9',
+        ['label'] =  'XDS9',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_pps`] =  {
+        ['name'] =  'weapon_pps',
+        ['label'] =  'WALTHER PPS',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_xdme`] =  {
+        ['name'] =  'weapon_xdme',
+        ['label'] =  'XDM ELITE',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_sp`] =  {
+        ['name'] =  'weapon_sp',
+        ['label'] =  'FN-15 PISTOL',
+        ['weapontype'] =  'Assault Rifle',
+        ['ammotype'] =  'AMMO_RIFLE',
+        ['damagereason'] =  'Ended / Rifled / Shot down / Floored'
+    },
+    [`weapon_glock17s`] =  {
+        ['name'] =  'weapon_glock17s',
+        ['label'] =  'GLOCK 17 SWITCH',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_glock18c`] =  {
+        ['name'] =  'weapon_glock18c',
+        ['label'] =  'GLOCK 18C',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_glock19s`] =  {
+        ['name'] =  'weapon_glock19s',
+        ['label'] =  'GLOCK 19 SWITCH',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_arpistol`] =  {
+        ['name'] =  'weapon_arpistol',
+        ['label'] =  'TATIC ARP 9MM',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_glock26s`] =  {
+        ['name'] =  'weapon_glock26s',
+        ['label'] =  'GLOCK 26 SWITCH',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_grenades`] =  {
+        ['name'] =  'weapon_grenades',
+        ['label'] =  'GRENADE SNIPER',
+        ['weapontype'] =  'Heavy Weapons',
+        ['ammotype'] =  'AMMO_GRENADELAUNCHER',
+        ['damagereason'] =  'Killed / Exploded / Obliterated / Destroyed / Erased / Annihilated'
+    },
+    [`weapon_m32s`] =  {
+        ['name'] =  'weapon_m32s',
+        ['label'] =  'M32 SMOKE GL',
+        ['weapontype'] =  'Heavy Weapons',
+        ['ammotype'] =  'AMMO_GRENADELAUNCHER',
+        ['damagereason'] =  'Killed / Exploded / Obliterated / Destroyed / Erased / Annihilated'
+    },
+    [`weapon_microdraco`] =  {
+        ['name'] =  'weapon_microdraco',
+        ['label'] =  'MICRO DRACO',
+        ['weapontype'] =  'Assault Rifle',
+        ['ammotype'] =  'AMMO_RIFLE',
+        ['damagereason'] =  'Ended / Rifled / Shot down / Floored'
+    },
+    [`weapon_ruger57`] =  {
+        ['name'] =  'weapon_ruger57',
+        ['label'] =  'RUGER 57',
+        ['weapontype'] =  'Pistol',
+        ['ammotype'] =  'AMMO_PISTOL',
+        ['damagereason'] =  'Pistoled / Blasted / Plugged / Bust a cap in'
+    },
+    [`weapon_mk18`] =  {
+        ['name'] =  'weapon_mk18',
+        ['label'] =  'MK18 MOD 1',
+        ['weapontype'] =  'Assault Rifle',
+        ['ammotype'] =  'AMMO_RIFLE',
+        ['damagereason'] =  'Ended / Rifled / Shot down / Floored'
+    },
+    [`weapon_680`] =  {
+        ['name'] =  'weapon_680',
+        ['label'] =  'MODEL 680',
+        ['weapontype'] =  'Shotgun',
+        ['ammotype'] =  'AMMO_SHOTGUN',
+        ['damagereason'] =  'Devastated / Pulverized / Shotgunned'
+    },
+    [`weapon_ziptie`] =  {
+        ['name'] =  'weapon_ziptie',
+        ['label'] =  'ZIP TIE M4A1',
+        ['weapontype'] =  'Assault Rifle',
+        ['ammotype'] =  'AMMO_RIFLE',
+        ['damagereason'] =  'Ended / Rifled / Shot down / Floored'
+    },
     -- Melee
     [`weapon_unarmed`]               = {
         ['name'] = 'weapon_unarmed',
