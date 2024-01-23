@@ -2,7 +2,7 @@ Config = {}
 Config.Debug = false -- Set to true to enable debug mode
 
 --[[ FRAMEWORK OPTIONS ]] --
-Config.Framework = "qb-core"
+Config.Framework = "auto"
 --[[
     Supported frameworks:
         * auto: auto-detect framework (ONLY WORKS WITH THE ONES LISTED BELOW)
@@ -19,7 +19,7 @@ Config.Item.Require = true -- require a phone item to use the phone
 Config.Item.Name = "phone" -- name of the phone item
 
 Config.Item.Unique = false -- should each phone be unique? https://docs.lbphone.com/phone/configuration#unique-phones
-Config.Item.Inventory = "qs-inventory" --[[
+Config.Item.Inventory = "auto" --[[
     The inventory you use, IGNORE IF YOU HAVE Config.Item.Unique DISABLED.
     Supported:
         * auto: auto-detect inventory (ONLY WORKS WITH THE ONE LISTED BELOW)
