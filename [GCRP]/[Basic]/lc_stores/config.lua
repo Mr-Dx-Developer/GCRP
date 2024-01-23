@@ -657,7 +657,7 @@ Config.market_types = {
 			"melee_weapons", "pistol_weapons", "ammo_weapons", "others_weapons"
 		},
 		['default_categories'] = {
-			"melee_weapons", "pistol_weapons", "ammo_weapons"
+			"melee_weapons", "pistol_weapons", "ammo_weapons", "others_weapons"
 		},
 		['blips'] = {
 			['id'] = 110,
@@ -1037,34 +1037,48 @@ Config.market_categories = {
 		['category_buy_price'] = 25000,
 		['category_sell_price'] = 12500,
 		['items'] = {
-			['weapon_fnx45'] = {
-				['name'] = "FNX 45",
-				['price_to_customer'] = 15000,
-				['price_to_customer_min'] = 12000,
-				['price_to_customer_max'] = 18000,
-				['price_to_export'] = 12000,
-				['price_to_owner'] = 10000,
+			['weapon_ruger57'] = {
+				['name'] = "RUGER 57",
+				['price_to_customer'] = 3000,
+				['price_to_customer_min'] = 2000,
+				['price_to_customer_max'] = 5000,
+				['price_to_export'] = 2000,
+				['price_to_owner'] = 2000,
 				['amount_to_owner'] = 5,
 				['amount_to_delivery'] = 5,
 				['is_weapon'] = true,
-				['requires_license'] = true,
+				['requires_license'] = false,
 				['max_amount_to_purchase'] = 1,
-				['img'] = 'weapon_combat-pistol.png',
+				['img'] = 'weapon_ruger57.png',
 			},
-			['weapon_glock22'] = {
-				['name'] = "Glock 22",
-				['price_to_customer'] = 15000,
-				['price_to_customer_min'] = 12000,
-				['price_to_customer_max'] = 18000,
-				['price_to_export'] = 12000,
-				['price_to_owner'] = 10000,
+			['weapon_pitviper'] = {
+				['name'] = "JW4 PIT VIPER",
+				['price_to_customer'] = 7000,
+				['price_to_customer_min'] = 5000,
+				['price_to_customer_max'] = 7000,
+				['price_to_export'] = 5000,
+				['price_to_owner'] = 7000,
 				['amount_to_owner'] = 5,
 				['amount_to_delivery'] = 5,
 				['is_weapon'] = true,
-				['requires_license'] = true,
+				['requires_license'] = false,
 				['max_amount_to_purchase'] = 1,
-				['img'] = 'glock22.png',
-			},			
+				['img'] = 'weapon_pitviper.png',
+			},		
+			['weapon_glock19x'] = {
+				['name'] = "G19X XL",
+				['price_to_customer'] = 5000,
+				['price_to_customer_min'] = 4000,
+				['price_to_customer_max'] = 7000,
+				['price_to_export'] = 4000,
+				['price_to_owner'] = 7000,
+				['amount_to_owner'] = 5,
+				['amount_to_delivery'] = 5,
+				['is_weapon'] = true,
+				['requires_license'] = false,
+				['max_amount_to_purchase'] = 1,
+				['img'] = 'WEAPON_GLOCK19X.png',
+			},	
 		}
 	},
 
@@ -1220,19 +1234,19 @@ Config.market_categories = {
 		['items'] = {
 			['pistol_ammo'] = {
 				['name'] = "Pistol Ammo",
-				['price_to_customer'] = 800,
+				['price_to_customer'] = 125,
 				['price_to_customer_min'] = 125,
 				['price_to_customer_max'] = 500,
 				['price_to_export'] = 200,
 				['price_to_owner'] = 150,
 				['amount_to_owner'] = 800,
 				['amount_to_delivery'] = 100,
-				['requires_license'] = true,
+				['requires_license'] = false,
 				['img'] = 'pistol_ammo.png',
 			},
 			['rifle_ammo'] = {
 				['name'] = "Rifle Ammo",
-				['price_to_customer'] = 7000,
+				['price_to_customer'] = 700,
 				['price_to_customer_min'] = 175,
 				['price_to_customer_max'] = 700,
 				['price_to_export'] = 300,
@@ -1244,7 +1258,7 @@ Config.market_categories = {
 			},
 			['smg_ammo'] = {
 				['name'] = "SMG Ammo",
-				['price_to_customer'] = 4500,
+				['price_to_customer'] = 450,
 				['price_to_customer_min'] = 150,
 				['price_to_customer_max'] = 600,
 				['price_to_export'] = 250,
@@ -1256,7 +1270,7 @@ Config.market_categories = {
 			},
 			['shotgun_ammo'] = {
 				['name'] = "Shotgun Ammo",
-				['price_to_customer'] = 5000,
+				['price_to_customer'] = 500,
 				['price_to_customer_min'] = 150,
 				['price_to_customer_max'] = 600,
 				['price_to_export'] = 250,
@@ -1293,7 +1307,7 @@ Config.market_categories = {
 			},
 			['parachute'] = {
 				['name'] = "Parachute",
-				['price_to_customer'] = 2500,
+				['price_to_customer'] = 800,
 				['price_to_customer_min'] = 1250,
 				['price_to_customer_max'] = 5000,
 				['price_to_export'] = 2500,
@@ -1304,7 +1318,7 @@ Config.market_categories = {
 			},
 			['armor'] = {
 				['name'] = "Body Armor",
-				['price_to_customer'] = 800,
+				['price_to_customer'] = 1200,
 				['price_to_customer_min'] = 650,
 				['price_to_customer_max'] = 900,
 				['price_to_export'] = 100,

@@ -178,15 +178,18 @@ Config.Language = 'en'
 local esxHas = GetResourceState('es_extended') == 'started'
 local qbHas = GetResourceState('qb-core') == 'started'
 
-Config.Framework = esxHas and 'esx' or qbHas and 'qb' or 'none' -- You can change to 'qb' or 'esx'
+--[[ Config.Framework = esxHas and 'esx' or qbHas and 'qb' or 'none' -- You can change to 'qb' or 'esx'
+ ]]
+
+Config.Framework = 'qb' -- You can change to 'qb' or 'esx'
 
 
 Config.MenuType = 'ox_lib'
-Config.Inventory = 'esx_inventory'
-Config.Wardrobe = 'esx_skin'
-Config.Garage = nil -- or some option above
+Config.Inventory = 'qs-inventory'
+Config.Wardrobe = 'illenium-appearance'
+Config.Garage = 'qs-advancedgarages' -- or some option above
 Config.Logout = 'drop'
-Config.Weather = 'vSync'
+Config.Weather = 'qb-weathersync'
 Config.HelpNotification = 'DrawText3D'
 
 --[[
@@ -325,7 +328,7 @@ Config.Taxes = { AgencyFee = 7, BankFee = 10, TaxesFee = 20 }
 ]]
 
 Config.Decimals = false
-Config.EnableCredit = true    -- Enable or disable mortgages
+Config.EnableCredit = false    -- Enable or disable mortgages
 Config.OnlyInGame = false     -- Counts the time the player is on the server = "true" always count time = "false"
 Config.NumberOfPayments = 240 -- Percentage to pay
 Config.CreditTime = 5         -- Time between payments, number of minutes, 24h exemple (60*24) Can't be Lower than 5 mins

@@ -2,7 +2,7 @@ Config = {}
 Config.Debug = false -- Set to true to enable debug mode
 
 --[[ FRAMEWORK OPTIONS ]] --
-Config.Framework = "auto"
+Config.Framework = "qb-core"
 --[[
     Supported frameworks:
         * auto: auto-detect framework (ONLY WORKS WITH THE ONES LISTED BELOW)
@@ -19,7 +19,7 @@ Config.Item.Require = true -- require a phone item to use the phone
 Config.Item.Name = "phone" -- name of the phone item
 
 Config.Item.Unique = false -- should each phone be unique? https://docs.lbphone.com/phone/configuration#unique-phones
-Config.Item.Inventory = "auto" --[[
+Config.Item.Inventory = "qs-inventory" --[[
     The inventory you use, IGNORE IF YOU HAVE Config.Item.Unique DISABLED.
     Supported:
         * auto: auto-detect inventory (ONLY WORKS WITH THE ONE LISTED BELOW)
@@ -148,7 +148,7 @@ Config.Valet.Price = 100 -- price to get your vehicle
 Config.Valet.Model = `S_M_Y_XMech_01`
 Config.Valet.Drive = true -- should a ped bring the car, or should it just spawn in front of the player?
 
-Config.HouseScript = "auto" --[[
+Config.HouseScript = "qs-housing" --[[
     The housing script you use on your server
     Supported:
         * loaf_housing - https://store.loaf-scripts.com/package/4310850

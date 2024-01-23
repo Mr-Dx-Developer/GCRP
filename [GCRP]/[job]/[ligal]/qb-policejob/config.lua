@@ -146,12 +146,13 @@ Config.Items = {
     -- Grade 0 and higher
     [0] = {
         {
-            name = 'weapon_pistol',
+            name = 'weapon_glock17s',
             price = 0,
             amount = 50,
             info = {
                 attachments = {
-                    { component = 'COMPONENT_AT_PI_FLSH', label = 'Flashlight' },
+                    { component = 'COMPONENT_GLOCK17_CLIP_02', label = 'pistol_extendedclip' },
+                    
                 }
             }
         },
@@ -197,6 +198,39 @@ Config.Items = {
                 }
             }
         },
+        {
+            name = 'weapon_ddm4v5',
+            price = 0,
+            amount = 50,
+            info = {
+                attachments = {
+                    { component = 'COMPONENT_DDM4V5_CLIP_01', label = 'Clip' },                   
+                }
+            }
+        },
+        {
+            name = 'weapon_lok',
+            price = 0,
+            amount = 50,
+            info = {
+                attachments = {
+                    { component = 'COMPONENT_LOK_CLIP_01', label = 'Clip' },
+                    { component = 'COMPONENT_AT_AR_LOKAFGRIP', label = 'Grip' },                   
+                }
+            }
+        },
+        {
+            name = 'WEAPON_ZIPTIE',
+            price = 0,
+            amount = 50,
+            info = {
+                attachments = {
+                    { component = 'COMPONENT_CARBINERIFLE_BOXMAG', label = 'Extend Clip' },
+                    { component = 'COMPONENT_AT_AR_SUPP', label = 'Suppressor' },                   
+                }
+            }
+        },
+        { name = 'weapon_m32s',        price = 0, amount = 50 },
         { name = 'weapon_nightstick',  price = 0, amount = 50 },
         { name = 'weapon_flashlight',  price = 0, amount = 50 },
         { name = 'pistol_ammo',        price = 0, amount = 50 },
