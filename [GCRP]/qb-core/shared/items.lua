@@ -1285,6 +1285,17 @@ QBShared.Items = {
     ['namechanger'] 		 			 = {['name'] = 'namechanger', 					['label'] = 'Name Changer', 				['weight'] = 1, 		['type'] = 'item', 		['image'] = '', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = ''},
 
 
+-- Quasar Clothing
+tshirt                       = { name = 'tshirt', label = 'T-shirt', weight = 0, type = 'item', image = 'tshirt.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Tshirt' },
+torso                        = { name = 'torso', label = 'Torso', weight = 0, type = 'item', image = 'torso.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Torso' },
+arms                         = { name = 'arms', label = 'Arms', weight = 0, type = 'item', image = 'arms.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Arms' },
+jeans                        = { name = 'jeans', label = 'Jeans', weight = 0, type = 'item', image = 'jeans.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Jeans' },
+shoes                        = { name = 'shoes', label = 'Shoes', weight = 0, type = 'item', image = 'shoes.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Shoes' },
+mask                         = { name = 'mask', label = 'Mask', weight = 0, type = 'item', image = 'mask.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Mask' },
+ears                         = { name = 'ears', label = 'Ears', weight = 0, type = 'item', image = 'ears.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Ears' },
+glasses                      = { name = 'glasses', label = 'Glasses', weight = 0, type = 'item', image = 'glasses.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Glasses' },
+helmet                       = { name = 'helmet', label = 'Helmet', weight = 0, type = 'item', image = 'helmet.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Helmet' },
+bag                          = { name = 'bag', label = 'Bag', weight = 0, type = 'item', image = 'bag.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = 'Bag' },
 
 
 
