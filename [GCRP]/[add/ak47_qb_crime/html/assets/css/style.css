@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+#blindfold {
+  position: absolute;
+  display: none;
+  height: 100%;
+  width: 100%;
+  background: url(../images/blindfold.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#blindfoldtxt {
+    position: relative;
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    top: 255px;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0px;
+    text-shadow: 1px 1px 4px #ffffffd4;
+}
