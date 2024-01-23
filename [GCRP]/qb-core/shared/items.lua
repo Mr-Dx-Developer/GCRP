@@ -439,7 +439,7 @@ QBShared.Items = {
    
 
     boxvehicle                   = { name = 'boxvehicle', label = 'Gift Vehicle', weight = 10, type = 'item', image = 'boxvehicle.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = "Welcome Golden City Roleplay" },
-
+    cash                  = { name = 'cash', label = 'Cash', weight = 0, type = 'item', image = 'cash.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = 'Golden City Bank Cash' },
 
 
 

@@ -85,7 +85,7 @@ Config.notStoredItems = {
 -- QB: https://docs.quasar-store.com/qbcore/inventory/installations/step-7
 Config.Clothing = true                         -- Disable clothing system, this will disable the button too
 Config.EnableScreenPed = false                 -- Disable the zoom pad and put it on your screen
-Config.TakePreviousClothes = true              -- Set whether you want previous clothes to go to your inventory or be removed
+Config.TakePreviousClothes = false              -- Set whether you want previous clothes to go to your inventory or be removed
 
 Config.ItemDropObject = `prop_paper_bag_small` -- or false
 Config.DropRefreshTime = 15 * 60
