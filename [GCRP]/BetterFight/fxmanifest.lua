@@ -1,7 +1,10 @@
-fx_version 'cerulean'
+fx_version 'bodacious'
 game 'gta5'
-version '1.0.0'
-lua54 'yes' -- Add in case you want to use lua 5.4 (https://www.lua.org/manual/5.4/manual.html)
+
+name "BetterFight"
+description "A better fight system for FiveM."
+author "SpecialStos"
+version "1.1.9"
 
 client_scripts {
     'config.lua',
@@ -20,6 +23,7 @@ client_scripts {
 
 server_scripts {
     'config.lua',
+    'versionCheck/versionCheck.lua',
 }
 
 

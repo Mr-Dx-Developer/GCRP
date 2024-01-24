@@ -1,61 +1,66 @@
 
 
-CreateThread(function()
+Citizen.CreateThread(function()
+
     while Config.UseCustomCrosshair do
-            local crosshair = false
-            local toggled = false
-            local aiming = true
-            Wait(100)
-            if globalIsPedArmed then
-                local carcam = vehicleViewCam
-                local cam = viewCam
-                    if (globalIsPlayerFreeAiming)  then
+                local crosshair = false
+                local toggled = false
+                local aiming = true
 
-                        aiming = true
-                        crosshair = true
-                        toggled = false
+                Citizen.Wait(100)
+                if globalIsPedArmed then
+                    local carcam = vehicleViewCam
+                    local cam = viewCam
+                        if (globalIsPlayerFreeAiming)  then
 
-                        Wait(100)
-                        if(Config.RemoveCrosshairOnFirstPerson)then
-                            if(not viewcamforcer)then
+                            aiming = true
+                            crosshair = true
+                            toggled = false
+
+                            Citizen.Wait(100)
+                            if(Config.RemoveCrosshairOnFirstPerson)then
+                                if(not viewcamforcer)then
+                                    SendNUIMessage({
+                                        display = "crosshairShow",
+                                    })
+                                end
+                            else
                                 SendNUIMessage({
                                     display = "crosshairShow",
                                 })
                             end
+
+                            if(globalIsPedInAnyVehicle)then
+                                SendNUIMessage({
+                                    display = "crosshairShow",
+                                })
+                            end
+
                         else
                             SendNUIMessage({
-                                display = "crosshairShow",
+                                display = "crosshairHide",
                             })
+
+                            crosshair = false
+                            aiming = false
+                            toggled = false
+                            Citizen.Wait(500)
                         end
-
-                        if(globalIsPedInAnyVehicle)then
-                            SendNUIMessage({
-                                display = "crosshairShow",
-                            })
-                        end
-
-                    else
-                        SendNUIMessage({
-                            display = "crosshairHide",
-                        })
-
-                        crosshair = false
-                        aiming = false
-                        toggled = false
-                        Wait(500)
-                    end
-            end
-        if not globalIsPedArmed then
-            SendNUIMessage({
-                display = "crosshairHide",
-            })
-            Wait(1000)
-        end
+                end
+                if not globalIsPedArmed then
+                    SendNUIMessage({
+                        display = "crosshairHide",
+                    })
+                    Citizen.Wait(1000)
+                end
     end
-    Wait(1000)
+
+    Citizen.Wait(1000)
     SendNUIMessage({
         display = "crosshairHide",
     })
+
+
 end)
 
 
@@ -69,39 +74,42 @@ local scopedWeapons =
 local hide = false
 
 function HashInTable(hash)
-    for _, v in pairs( scopedWeapons ) do 
+    for k, v in pairs( scopedWeapons ) do 
         if ( hash == v ) then 
             return true 
         end 
     end 
+
     return false 
 end 
 
-CreateThread(function()
+Citizen.CreateThread(function()
     while Config.UseCustomCrosshair do 
-        local ped = globalPed
-        if (DoesEntityExist(ped) and not IsEntityDead(ped)) then
-            if(globalIsPedArmed)then
-                local hash = globalGetCurrentWeapon
         
-                if (globalIsPlayerFreeAiming and not HashInTable(hash)) then 
-                    hide = true
-                else
-                    hide = false 
+            local ped = globalPed
+
+            if (DoesEntityExist(ped) and not IsEntityDead(ped)) then
+                if(globalIsPedArmed)then
+                    local hash = globalGetCurrentWeapon
+            
+                    if (globalIsPlayerFreeAiming and not HashInTable(hash)) then 
+                        hide = true
+                    else
+                        hide = false 
+                    end
                 end
+            else
+                Citizen.Wait(1000)
             end
-        else
-            Wait(1000)
-        end
-        Wait(200)
+            Citizen.Wait(200)
     end 
 end)
 
-CreateThread(function()
+Citizen.CreateThread(function()
     while Config.UseCustomCrosshair do 
-        if hide then
-            HideHudComponentThisFrame(14)
-        end
-        Wait(4)
+            if hide then
+                HideHudComponentThisFrame(14)
+            end
+            Citizen.Wait(4)
     end 
-end)
+end )
