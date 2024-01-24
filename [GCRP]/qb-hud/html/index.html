@@ -226,7 +226,7 @@
                         <div v-if="showVoice" style="position: relative; margin-left: 4px;">
                             <div class="ldBar" data-value="0" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill-dir="btt" data-fill-background="var(--talk-bar-color)" data-fill-background-extrude="1" style="width:59px;height:59px;top: 10px;left: -30px; position:absolute; opacity:58%;"></div>
                             <div id="Voices" class="ldBar" data-value :value="voice" data-type="fill" data-path="M10 30 L45 10 L80 30 L80.5 70 L45 90 L10 70 Z" data-fill="var(--talk-bar-color)" data-fill-dir="btt" data-fill-background="#84898f5f"  data-fill-background-extrude="0" style="width:48px;height:48px;top: 15px; left: -25px;"></div>
-                            <q-icon id="Icons" style="top: -18px; left: -4px; font-size: 17px;" :name="voiceIcon" color="white"/>
+                            <img src="speaking-head.svg" id="Icons" style="position: absolute; top: 27px; left: -8%; width: 21px;height: 21px;" fill="white"/>
                         </div>
                     </transition>    
                     <transition name="fade">
@@ -326,16 +326,16 @@
             <div id="veh-container">
                 <div v-show="show">                    
                     <div class="responsive" id="speedometer">
-                        <div id="rpmBar" class="container" style="width: 100%; left: -20%;top: 20%;"></div>
-                        <div id="Speed" style="transform: scale(2.7) rotate(0deg); left: 40%; top: -150%;" v-html="speedDisplay"></div>
-                        <div id="gearBox" style="top: -182%;left: -16%;">
+                        <div id="rpmBar" class="container" style="width: 100%; left: -13%;top: 20%;"></div>
+                        <div id="Speed" style="transform: scale(2.7) rotate(0deg); left: 46%; top: -150%;" v-html="speedDisplay"></div>
+                        <div id="gearBox" style="top: -182%;left: -9%;">
                         <div id="gear" style="text-align: center; position: absolute; left: -85%; bottom: -92%; width: 100px; height: 100px;">0</div>
                         <q-icon id="Icons" style="top: 2.6vh; left: 0.9vh; font-size: 17px;" name="fas fa-cogs" color="black"/>
                         <!-- This is the html file for the number hud -->
                         </div>
                     </div>
                     <div class="responsive" id="fuelgauge">
-                        <div id="progressBar" style="left: 800%; top: 100%;">
+                        <div id="progressBar" style="left: 870%; top: 90%;">
                             <div class="progress" style="height: 0;">
                         </div>
                         <q-icon id="FuelGaugeIcon" name="fas fa-gas-pump" style="font-size: 15px;left: -0.10vw; top: -2.5vh;" color="white"/>

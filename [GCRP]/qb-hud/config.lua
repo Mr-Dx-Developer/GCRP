@@ -3,7 +3,7 @@ Config.OpenMenu = 'I'             -- https://docs.fivem.net/docs/game-references
 Config.StressChance = 0.1         -- Default: 10% -- Percentage Stress Chance When Shooting (0-1)
 Config.UseMPH = true              -- If true speed math will be done as MPH, if false KPH will be used (YOU HAVE TO CHANGE CONTENT IN STYLES.CSS TO DISPLAY THE CORRECT TEXT)
 Config.MinimumStress = 100         -- Minimum Stress Level For Screen Shaking
-Config.MinimumSpeedUnbuckled = 80 -- Going Over This Speed Unbuckled Will Cause Stress
+Config.MinimumSpeedUnbuckled = 100 -- Going Over This Speed Unbuckled Will Cause Stress
 Config.MinimumSpeed = 100         -- Going Over This Speed While Buckled Will Cause Stress
 Config.DisableStress = false      -- If true will disable stress completely for all players
 
