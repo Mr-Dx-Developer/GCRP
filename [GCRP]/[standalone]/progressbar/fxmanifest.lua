@@ -1,15 +1,27 @@
 fx_version 'cerulean'
-
-lua54 'yes'
-
 game 'gta5'
 
-ui_page 'html/index.html'
+description 'progressbar'
+version '1.0.0'
 
-client_script 'client.lua'
+ui_page('html/index.html') 
+
+client_scripts {
+    'client/main.lua',
+}
 
 files {
     'html/index.html',
-    'html/style.css',
-    'html/script.js'
+    'html/css/style.css',
+    'html/js/script.js',
+
+    'html/css/bootstrap.min.css',
+    'html/js/jquery.min.js',
+}
+
+exports {
+    'Progress',
+    'ProgressWithStartEvent',
+    'ProgressWithTickEvent',
+    'ProgressWithStartAndTick'
 }
