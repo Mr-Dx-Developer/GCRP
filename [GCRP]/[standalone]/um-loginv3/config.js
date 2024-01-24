@@ -7,7 +7,7 @@ UM.MainSettings = {
     logo: "assets/images/logo.png",
     logowidth: 9,
     extra: {
-        autoRGB: false,
+        autoRGB: true,
         autoSnow: false,
     },
 }
@@ -16,14 +16,14 @@ UM.BackgroundSettings = {
 
     musicBackground: {
         enabled: true,
-        link: "assets/audio/audio.mp3",
-        volume: 0.3
+        link: "https://discord.com/channels/@me/1195024098741452922/1199695246225842196",
+        volume: 0.4
     },
 
     videoBackground: {
         defaultVID: {
-            enabled: false,                 
-            link: "assets/video/video.mp4", // ? if you want the video in the showcase download it here and put it in the assets > video folder
+            enabled: true,                 
+            link: "https://cdn.discordapp.com/attachments/1114458557883093022/1160822490562576394/GTA_5_-_Cinematic_Film.mp4?ex=65360f30&is=65239a30&hm=ae534a486c3f94445dc55ae943c3d357adfae8702f8b6b6584e7c13de5063673&", // ? if you want the video in the showcase download it here and put it in the assets > video folder
                                             // ? https://cdn.discordapp.com/attachments/627254815252152331/1077573043771166810/video.mp4
         },                                  // ? youtubeVID is recommended instead because the file size is high (100MB)
         youtubeVID: {
@@ -46,35 +46,35 @@ UM.BackgroundSettings = {
 // ? Cards
 UM.Store = {
     title: 'STORE',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    description: 'Our Store is Avaiable NOW!',
     button: 'VIEW STORE',
     character_image: 'assets/images/characters/char-girl.png',
-    url: "https://uyuyorumstore.com",
+    url: "https://goldencityrp.tebex.io/",
 }
 
 UM.AboutUs = {
     enabled: false, // ? If you want to cancel the store, set it to true.
     title: 'ABOUT US',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    description: '',
     button: 'VIEW ABOUT',
     character_image: 'assets/images/characters/char-girl.png',
-    content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    content: 'Mr_Dx does all the development work on the server.',
 }
 
 UM.ChangeLog = {
     title: 'CHANGELOG',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    description: '',
     button: 'VIEW CHANGELOG',
     character_image: 'assets/images/characters/char-man.png',
     page: {
-        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        
         // ? If you want the content part as multiple lines, you need to enable it in the lines section.
-        // content: [
-        //     "[ 🍕 ] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        //     "[ 🍕 ] Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-        //     "[ 🍕 ] Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-        //     "[ 🍕 ] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        // ],
+     content: [
+            "[ 🍕 ] New Phone.",
+            "[ 🍕 ] Charecture Create",
+            "[ 🍕 ] Custom Cars",
+            "[ 🍕 ] Custom Sound.",
+    ],
     },
     // ? if you want to use github, you need to enable it in the github section 
     // ! Attention: Make sure you enter the information you created in your github account correctly
@@ -112,14 +112,14 @@ UM.Settings = {
 UM.RandomInfo = {
     time: 3000,
     text: [
-        "🎉[1] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "🥳[2] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "🥳[3] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "🎉[4] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "🎉[1] Welcome Golden City Roleplay",
+        "🥳[2] It's not just a game, it's your reality.",
+        "🥳[3] A new adventure every time.",
+        /* "🎉[4] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         "🥳[5] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         "🎉[6] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         "🥳[7] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         "🎉[8] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        "🥳[9] Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+        "🥳[9] Lorem Ipsum is simply dummy text of the printing and typesetting industry.", */
     ]
 }
