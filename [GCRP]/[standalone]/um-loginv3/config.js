@@ -4,10 +4,10 @@ UM = {}
 UM.MainSettings = {
     color: '#bb55da', // Todo: https://www.color-hex.com/
     opacity: 1, // 0 close background opacity, | 0.7 low background opacity,
-    logo: "assets/images/logo.png",
-    logowidth: 9,
+    logo: "assets/images/baner.png",
+    logowidth: 50,
     extra: {
-        autoRGB: true,
+        autoRGB: false,
         autoSnow: false,
     },
 }
@@ -16,19 +16,19 @@ UM.BackgroundSettings = {
 
     musicBackground: {
         enabled: true,
-        link: "https://discord.com/channels/@me/1195024098741452922/1199695246225842196",
+        link: "assets/audio/audio.mp3",
         volume: 0.4
     },
 
     videoBackground: {
         defaultVID: {
-            enabled: true,                 
+            enabled: false,                 
             link: "https://cdn.discordapp.com/attachments/1114458557883093022/1160822490562576394/GTA_5_-_Cinematic_Film.mp4?ex=65360f30&is=65239a30&hm=ae534a486c3f94445dc55ae943c3d357adfae8702f8b6b6584e7c13de5063673&", // ? if you want the video in the showcase download it here and put it in the assets > video folder
                                             // ? https://cdn.discordapp.com/attachments/627254815252152331/1077573043771166810/video.mp4
         },                                  // ? youtubeVID is recommended instead because the file size is high (100MB)
         youtubeVID: {
-            enabled: false,
-            link: "https://www.youtube.com/watch?v=NK5WxKd6kC4",
+            enabled: true,
+            link: "https://www.youtube.com/watch?v=Awgpquzwwz0",
         },
     },
 
