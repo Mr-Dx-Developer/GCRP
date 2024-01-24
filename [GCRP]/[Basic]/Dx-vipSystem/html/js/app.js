@@ -215,7 +215,7 @@ $(document).on("click", "#customizeBuy", function () {
             if (infoParse.IType == "customPlate") {
                 if (inputValue.length >= minCharPlate && inputValue.length <= maxCharPlate) {
                     $.post(
-                        "https://ak4y-vipSystem/getCustomPlate",
+                        "https://Dx-vipSystem/getCustomPlate",
                         JSON.stringify({
                             itemInfo: infoParse,
                             input: inputValue,
@@ -252,7 +252,7 @@ $(document).on("click", "#customizeBuy", function () {
                 } else {
                     if (inputValue.length >= minCharPhone && inputValue.length <= maxCharPhone) {
                         $.post(
-                            "https://ak4y-vipSystem/getPrivNumber",
+                            "https://Dx-vipSystem/getPrivNumber",
                             JSON.stringify({
                                 itemInfo: infoParse,
                                 input: inputValue,
@@ -314,7 +314,7 @@ $(document).on("click", "#popUpBuy", function () {
             if (customPlate !== "undefined") {
                 if (customPlate.length >= minCharPlate && customPlate.length <= maxCharPlate) {
                     $.post(
-                        "https://ak4y-vipSystem/getVehicle",
+                        "https://Dx-vipSystem/getVehicle",
                         JSON.stringify({
                             itemInfo: infoParse,
                             extra: customPlate,
@@ -346,7 +346,7 @@ $(document).on("click", "#popUpBuy", function () {
                 }
             } else {
                 $.post(
-                    "https://ak4y-vipSystem/getVehicle",
+                    "https://Dx-vipSystem/getVehicle",
                     JSON.stringify({
                         itemInfo: infoParse,
                         extra: customPlate,
@@ -372,7 +372,7 @@ $(document).on("click", "#popUpBuy", function () {
             }
         } else if (selectedItemType == "weapon") {
             $.post(
-                "https://ak4y-vipSystem/getWeapon",
+                "https://Dx-vipSystem/getWeapon",
                 JSON.stringify({
                     itemInfo: infoParse,
                 }),
@@ -393,7 +393,7 @@ $(document).on("click", "#popUpBuy", function () {
             );
         } else if (selectedItemType == "items") {
             $.post(
-                "https://ak4y-vipSystem/getItem",
+                "https://Dx-vipSystem/getItem",
                 JSON.stringify({
                     itemInfo: infoParse,
                 }),
@@ -414,7 +414,7 @@ $(document).on("click", "#popUpBuy", function () {
             );
         } else if (selectedItemType == "money") {
             $.post(
-                "https://ak4y-vipSystem/getMoney",
+                "https://Dx-vipSystem/getMoney",
                 JSON.stringify({
                     itemInfo: infoParse,
                 }),
@@ -447,7 +447,7 @@ $(document).on("click", ".approveButton", function () {
     var codeInputValue = $("#redeemCodeInput").val();
     if (codeInputValue != "Write the code.." && codeInputValue.length > 0) {
         $.post(
-            "https://ak4y-vipSystem/sendInput",
+            "https://Dx-vipSystem/sendInput",
             JSON.stringify({
                 input: codeInputValue,
             }),
@@ -510,7 +510,7 @@ $(document).on("click", ".testCarButton", function () {
     var myJsonCarData = $(selectedDiv).attr("data-selectedCar");
     var jsonCarData = JSON.parse(myJsonCarData);
     $.post(
-        "https://ak4y-vipSystem/startTestDrive",
+        "https://Dx-vipSystem/startTestDrive",
         JSON.stringify({
             spawnName: jsonCarData.spawnName,
         }),
@@ -652,7 +652,7 @@ window.addEventListener("message", (event) => {
 $(document).on("keydown", function () {
     switch (event.keyCode) {
         case 27: // ESC
-            $.post("https://ak4y-vipSystem/closeMenu", JSON.stringify());
+            $.post("https://Dx-vipSystem/closeMenu", JSON.stringify());
             $(".youWantBuySection").hide();
             $(".customizationSection").hide();
             $(".succesfullyArea").hide();
