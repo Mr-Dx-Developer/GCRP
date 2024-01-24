@@ -1,0 +1,600 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("../font/Montserrat-Bold.ttf") format("truetype");
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    user-select: none;
+    user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    /* overflow: auto; */
+    /* scroll-behavior: smooth; */
+}
+
+html,
+body {
+    font-size: 15px;
+    /* overflow: auto; */
+    width: 100%;
+    height: 100%;
+    font-family: 'Montserrat';
+    transition: .1s all;
+
+    /* background: url("./img/case/caseBG.png");
+    background-attachment: fixed;
+    background-size: cover; */
+}
+
+.case-screen-wrapper {
+    display: none;
+    position: absolute;
+    /* position: absolute; */
+    /* z-index: ; */
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background: url("./img/case/caseBG.png");
+    background-attachment: fixed;
+    background-size: cover;
+    overflow-y: scroll;
+}
+
+.case-screen-header {
+    width: 100%;
+    height: 13%;
+    background: rgb(34, 35, 44);
+    box-shadow: 12px 0px 43px 13px #1a1a1a;
+}
+
+
+.case-screen-header-server-logo {
+    width: 14%;
+    height: 78%;
+    background-image: url(https://cdn.discordapp.com/attachments/801119508973748265/1097539277027553290/serverLogo.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    top: 17%;
+    position: relative;
+}
+
+
+.case-screen-header-playerPrisma {
+    width: 3%;
+    height: 2%;
+    /* background: red; */
+    position: absolute;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    margin-left: 83%;
+    margin-top: -1%;
+}
+
+.case-screen-header-prisma-icon {
+    background-image: url(./img/mv2p.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 43%;
+    height: 100%;
+}
+
+.case-screen-header-playerCoin {
+    width: 3%;
+    height: 2%;
+    /* background: #1b4636; */
+    position: absolute;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    margin-left: 86%;
+    margin-top: -1.07%;
+}
+
+.case-screen-header-coin-icon {
+    background-image: url(./img/mv2p.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 43%;
+    height: 100%;
+}
+
+.case-screen-header-playername {
+    width: 6%;
+    height: 3%;
+    border-bottom: 1px solid white;
+    border-radius: 5px;
+    /* background: #08ffa4; */
+    position: absolute;
+    align-items: center;
+    margin-left: 83%;
+    margin-top: -3%;
+    text-align: center;
+}
+
+.case-screen-header-tringledown {
+    font-size: 2vh;
+    text-align: center;
+    position: absolute;
+    margin-left: 90%;
+    margin-top: -3%;
+}
+
+.case-screen-ad-part {
+    width: 65%;
+    height: 35%;
+    background: rgb(22, 14, 14);
+    backdrop-filter: blur(3px);
+    margin: 2% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.case-cases-wrapper {
+    width: 100%;
+    height: 100%;
+    /* background: #1e1e1e; */
+}
+
+.case-part-wrapper {
+    width: 100%;
+    height: 50%;
+    /* background: #2c2c2c; */
+    overflow: hidden;
+}
+
+.cases-caseheader {
+    width: 100%;
+    height: auto;
+    /* background: gray; */
+    text-align: center;
+    font-size: 3vh;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.case-caseheader-bottom {
+    background-image: url(./img/case/caseHeaderBottom.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 68%;
+    height: 5%;
+    margin: 0 auto;
+}
+
+.case-side-cases-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+.cases-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.case {
+    background: linear-gradient(357deg, rgba(22, 21, 21, 1) 2%, rgba(255, 50, 50, 0) 56%), url(https://cdn.discordapp.com/attachments/1106256169296724059/1106314999728709683/GOLD_DIGGER.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 10%;
+    height: 61%;
+    text-align: center;
+    transition: .3s all;
+    margin: 1%;
+    border-radius: 24px;
+
+
+}
+
+.case:hover {
+    scale: 1.3;
+    box-shadow: 4px 2px 7px 3px #1e1e1e;
+
+}
+
+.caseNewStatus {
+    background: #ff4444;
+    width: 25%;
+    padding: 2px;
+    border-radius: 7px;
+    margin-left: -7%;
+    margin-top: 11%;
+    box-shadow: 4px 2px 7px 3px #ff3a3a;
+}
+
+.casePrice {
+    width: 25%;
+    height: 9%;
+    color: #ffa93f;
+    background: #080808;
+    padding: 5px 13px;
+    border-radius: 7px;
+    margin-left: 77%;
+    margin-top: -14%;
+    display: flex;
+}
+
+
+.caseCoinIMG {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.caseLabel {
+    font-weight: 600;
+    background: #201f1f;
+    padding: 6px 25px;
+    width: max-content;
+    text-align: center;
+    margin: 0px auto;
+    margin-top: 100%;
+    border-radius: 11px;
+    box-shadow: 2px 5px 8px -1px black;
+}
+
+
+/* OPENING SIDE */
+
+.case-opening-side {
+    display: none;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    background-color: #1e1e1ee1;
+    top: 0%;
+    position: absolute;
+}
+
+
+.case-opening-side-header-wrapper {
+    width: 46%;
+    height: 24%;
+    margin: 17vh 50vh;
+    position: absolute;
+}
+
+.case-opening-side-header-caseimg {
+    background-image: url(https://cdn.discordapp.com/attachments/1106256169296724059/1106314999728709683/GOLD_DIGGER.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 19%;
+    height: 88%;
+    border-radius: 45px;
+    margin: 0 auto;
+}
+
+.case-opening-side-header-casename {
+    width: fit-content;
+    padding: 11px;
+    background: #181717ad;
+    border-radius: 8px;
+    border: 1px solid #ffffff4d;
+    margin: 0 auto;
+}
+
+
+.case-opencase {
+    width: 50%;
+    height: 53%;
+    background: #341515;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 2vh;
+    padding: 6px;
+    transition: .1s all;
+    margin-left: 2%;
+}
+
+.case-opencase:hover {
+    font-weight: 900;
+    box-shadow: 3px 6px 22px rgb(255, 82, 82);
+    background-color: rgb(255, 68, 68);
+    color: black;
+}
+
+.case-opening-side-buttons {
+    width: 26%;
+    height: 7%;
+    display: flex;
+    margin: 33% 38%;
+    position: absolute;
+}
+
+
+.case-opening-side-caseitems {
+    position: relative;
+    margin: 39% auto;
+    border-top: 2px solid #12162c;
+    height: 25%;
+    width: 51%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+
+.case-opening-side-box {
+    width: 13%;
+    height: 47%;
+    text-align: center;
+    transition: .1s all;
+    margin: 0.4%;
+}
+
+.case-opening-side-box:hover {
+    scale: 1.1;
+}
+
+.case-opening-side-box-item-img {
+    background-image: url(./img/case/items/advancedlockpick.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    background: #11162852;
+    height: 75%;
+}
+
+.case-opening-side-box-item-label {
+    width: 72%;
+    font-size: 1.2vh;
+    height: 30%;
+    border-bottom: 5px solid red;
+    border-radius: 6px;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.raffle-roller {
+    height: 100px;
+    position: relative;
+    margin: 60px auto 30px auto;
+    width: 900px;
+}
+
+.raffle-roller-holder {
+    overflow: hidden;
+    border-radius: 2px;
+    /* border: 1px solid #3c3759; */
+}
+
+.raffle-roller-holder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 152px;
+    width: 1034px;
+    margin: auto;
+}
+
+.raffle-roller-container {
+    width: 9999999999999999999px;
+    max-width: 999999999999999999px;
+    height: 100px;
+    /* background: #191726; */
+    margin-left: 0;
+    transition: all 8s cubic-bezier(.08, .6, 0, 1);
+}
+
+.raffle-roller-holder-line {
+    content: "";
+    position: absolute;
+    border: none;
+    z-index: 12222225;
+    width: 30px;
+    height: 100%;
+    left: 50%;
+    background-image: url(https://cdn.discordapp.com/attachments/1106256169296724059/1113209019608350742/caseline.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.boxitem {
+    display: inline-block;
+    float: left;
+    margin: 4px 0px 0.5px 5px;
+    width: 129px;
+    height: 144px;
+    border: 1px solid #70677c;
+    background: #11162852;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: .1s all;
+}
+
+.class_red_item {
+    border-bottom: 4px solid #00F9B9;
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+.winning-item {
+    border: 2px solid #66b233;
+    position: relative;
+    top: -1px;
+    border-bottom: 4px solid #66b233;
+}
+
+.inventory {
+    margin: 0 auto;
+    width: 960px;
+    max-width: 953px;
+    padding: 10px 15px 6px;
+    height: auto;
+    border: 2px solid #1c3344;
+    background: #0e1a23;
+}
+
+.inventory>.item {
+    float: none;
+    cursor: pointer;
+    margin: 4px 2px 0.5px 2px;
+}
+
+.inventory>.item:hover {
+    background-size: 90%;
+    background-color: #182a38;
+}
+
+.inventory>.item:active {
+    height: 83px;
+    width: 80px;
+    position: relative;
+    top: -2px;
+    border: 2px solid #356d27;
+    border-bottom: 4px solid #356d27;
+}
+
+
+.cardText {
+    border-bottom: 5px solid red;
+    border-radius: 6px;
+    width: 73%;
+    margin: 91% auto;
+    font-size: 1.2vh;
+    text-align: center;
+    height: 21%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* OPENING SIDE CONG SİDE */
+
+.case-opening-side-cong-side {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* background: linear-gradient(1deg, orange 2%, #00000077 68%); */
+    z-index: 1222212222246246;
+    align-items: center;
+    text-align: center;
+    display: none;
+}
+
+.case-opening-side-cong-side-header {
+    font-size: 5vh;
+    font-weight: 100;
+    font-style: normal;
+    margin-top: 13%;
+}
+
+.case-opening-side-cong-side-itemType {
+    width: 7%;
+    height: 2%;
+    margin: 0 auto;
+    background: orange;
+    border-radius: 15px;
+}
+
+
+.case-opening-side-cong-side-itemIMG {
+    background: url(./img/case/items/asterope.png);
+    width: 14%;
+    height: 24%;
+    background-position: center;
+    /* background-size: contain; */
+    background-repeat: no-repeat;
+    /* object-fit: cover; */
+    margin: 0 auto;
+}
+
+
+.case-opening-side-cong-side-buttons-wrapper {
+    width: 29%;
+    height: 10%;
+    margin: 0 auto;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.case-opening-side-cong-side-buttons {
+    width: 41%;
+    height: 42%;
+    background: #000000;
+    margin: 2%;
+    padding: 12px;
+    border-radius: 12px;
+    transition: .1s all;
+}
+
+.case-opening-side-return {
+    width: 2%;
+    height: 3%;
+    font-size: 2.5vh;
+    transition: .1s all;
+    position: absolute;
+    margin: 8%;
+}
+
+.case-opening-side-return:hover {
+    scale: 1.2;
+}
+
+.take {
+    background: #0fb353;
+}
+
+.take:hover {
+    scale: 1.1;
+    font-weight: 600;
+    box-shadow: 3px 6px 22px #16fb75;
+
+}
+
+.sell {
+    display: flex;
+    background: #ff5252;
+    padding: 13px 51px;
+}
+
+.sell:hover {
+    scale: 1.1;
+    font-weight: 600;
+    box-shadow: 3px 6px 22px #ff3030;
+
+}
+
+
+.coinIconIMG {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 11%;
+    height: 100%;
+}

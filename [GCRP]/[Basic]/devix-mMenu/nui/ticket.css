@@ -1,0 +1,493 @@
+.contact-screen-wrapper {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.788);
+    display: none;
+}
+
+
+.contact-screen-leftbar-player-wrapper {
+    /* background: #0000004d; */
+    width: 25%;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+}
+
+.contact-screen-leftbar-box {
+    display: flex;
+    width: 73%;
+    height: 8%;
+    font-size: 1.87vh;
+    padding: 29px;
+    text-align: center;
+    margin: 2% auto;
+    position: relative; 
+    border-radius: 4px;
+    background: rgb(74,73,73);
+    background: linear-gradient(90deg, rgba(74,73,73,1) 2%, rgba(255,50,50,0) 65%);
+    transition: 1s all;
+}
+
+.contact-screen-leftbar-box:hover {
+    background: rgb(22,21,21);
+    background: linear-gradient(90deg, rgba(22,21,21,1) 2%, rgba(255,50,50,0) 65%);
+}
+
+
+.contact-screen-leftbar-header {
+    margin-left: 11%;
+    font-weight: 100;
+}
+
+.contact-screen-rightsection {
+    /* background: #00000070; */
+    width: 54%;
+    height: 100%;
+    margin-left: 25%;
+    position: absolute;
+}
+
+.contact-screen-create-ticket {
+    background: #dbcece;
+    height: 5%;
+    text-align: center;
+    border-radius: 12px;
+    padding: 18px;
+    width: 22%;
+    margin-top: 51%;
+    margin-left: 38%;
+    color: black;
+    box-shadow: 10px 5px 31px black;
+    transition: .2s all;
+}
+
+.contact-screen-create-ticket:hover {
+    color: white;
+    font-weight: 800;
+    background-color: black;
+    scale: 1.2;
+}
+
+.contact-screen-ticket-wrapper{
+    width: 100%;
+    height: 85%;
+    margin-top: 9%;
+    /* background: #1a1919f2;   */
+    display: none;
+}
+
+.contact-screen-ticket-header {
+    width: 100%;
+    height: 6%;
+    font-weight: 600;
+    text-align: center;
+    font-size: 3vh;
+}
+
+.contact-screen-ticket-chat-wrapper {
+    width: 100%;
+    height: 86%;
+    /* background: gray; */
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.contact-screen-ticket-player-box {
+    text-align: left;
+    background: #10121ae8;
+    border: 0.1px solid #ffffff08;
+    max-width: 61%;
+    width: 49%;
+    min-width: 11%;
+    margin-left: 47%;
+    margin-top: 1%;
+    position: relative;
+     height: auto;
+    padding: 7px;
+    border-radius: 5px;
+    min-height: auto;
+    word-wrap: break-word;
+    transition: .1s all;
+}
+
+.contact-screen-ticket-player-box:hover {
+    opacity: 0.7;
+}
+
+.contact-screen-ticket-player-playerimage {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    width: 6%;
+    height: 55%;
+    float: left;
+}
+
+.contact-screen-ticket-player-playergrade {
+    float: left;
+    margin-right: 1%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fbe101;
+    font-weight: 800;
+    margin-top: 1%;
+    position: relative;
+}
+
+.contact-screen-ticket-player-playername {
+    width: 36%;
+    float: left;
+    margin-right: 27%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 300;
+     margin-top: 1%;
+}
+
+.contact-screen-ticket-player-text {
+    margin-top: 4%;
+}
+
+/* OTHER */
+
+.contact-screen-ticket-other-box {
+    text-align: left;
+    background: #0a0b0ee8;
+    border: 0.1px solid #ffffff08;
+    max-width: 61%;
+    width: 49%;
+    min-width: 11%;
+    margin-left: 2%;
+    margin-top: 1%;
+    position: relative;
+    height: auto;
+    padding: 7px;
+    border-radius: 5px;
+    min-height: auto;
+    height: auto;
+    word-wrap: break-word;
+    transition: .1s all;
+}
+
+.contact-screen-ticket-other-box:hover {
+    opacity: 0.7;
+}
+
+
+.contact-screen-ticket-other-playerimage {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    width: 6%;
+    height: 55%;
+    float: left;
+}
+
+.contact-screen-ticket-other-playergrade {
+    float: left;
+    margin-right: 1%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fbe101;
+    font-weight: 800;
+    margin-top: 1%;
+    position: relative;
+}
+
+.contact-screen-ticket-other-playername {
+    width: 36%;
+    float: left;
+    margin-right: 27%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 300;
+    margin-top: 1%;
+}
+
+.contact-screen-ticket-other-text {
+    margin-top: 4%;
+}
+
+
+.contact-screen-ticket-input {
+        /* position: absolute; */
+    /* background: black; */
+    width: 20%;
+    margin: 0 auto;
+    width: 51%;
+    margin-top: 1%;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    height: 7%;
+}
+
+.contact-screen-ticket-input input {
+    background-color: white;
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-family: 'Poppins';
+    border-radius: 11px;
+    width: 74%;
+    margin-left: 4%;
+    margin-right: 9%;
+}
+
+
+.contact-screen-ticket-send {
+    margin-right: 2%;
+}
+
+.contact-screen-ticket-send{
+    transition: .1s all;
+}
+
+.contact-screen-ticket-send:hover {
+    scale: 1.2;
+}
+
+.contact-screen-ticket-sendimage{
+    transition: .1s all;
+}
+
+.contact-screen-ticket-sendimage:hover {
+    scale: 1.2;
+}
+
+
+
+.contact-screen-ticket-history-wrapper {
+    display: block;
+    width: 100%;
+    height: 94%;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+
+.contact-screen-ticket-history-wrapper:first-child {
+    margin-top: 4%;
+}
+
+.contact-screen-ticket-history-box {
+    width: 40%;
+    height: 9%;
+    background: #00000070;
+    margin: 1% auto;
+    border: 1px solid #ffffffa6;
+    border-radius: 4px;
+    padding: 33px;
+    display: flex;
+    text-align: left;
+    transition: .1s all;
+    font-weight: 200;
+
+}
+
+.contact-screen-ticket-history-box-icon {
+    margin-left: 25%;
+    margin-right: 5%;
+    font-size: 2vh;
+}
+
+.contact-screen-ticket-history-box-name {
+    font-size: 1.6vh;
+    width: 57%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contact-screen-ticket-history-box:hover {
+    scale: 1.2;
+    background: white;
+    color: black;
+    font-weight: 900;
+}
+
+
+/* ! ADMIN SECTION */
+
+
+.contact-screen-admin-section-wrapper {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.contact-screen-found-ticket{
+    width: 50%;
+    margin: 0 auto;
+    outline: none;
+    border: none;
+    color: white;
+    margin-left: 24%;
+    height: 4%;
+    border-radius: 15px;
+    background: black;
+    font-family: 'Poppins';
+    font-size: 1.5vh;
+    margin-top: 7%;
+    padding: 13px;
+}
+
+
+.contact-screen-admin-section-left {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    overflow-x: scroll;
+    /* background: gray; */
+    float: left;
+}
+
+.contact-screen-admin-ticket-header{
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5vh;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+
+
+.contact-screen-admin-ticket-wrapper {
+    width: 100%;
+    height: 100%;
+    /* background: #2e2424; */
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+/* OWN TICKETS  */
+
+
+.contact-screen-admin-section-right {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    overflow-x: scroll;
+    /* background: gray; */
+}
+
+.contact-screen-admin-ownticket-header {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5vh;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+
+.contact-screen-admin-ownticket-wrapper {
+    width: 100%;
+    height: 100%;
+    /* background: #2e2424; */
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+.contact-screen-admin-ticket-box {
+    width: 100%;
+    height: 20%;
+    margin-top: 1%;
+    background-color: rgb(9 10 18);
+    height: 8%;
+    color: white;
+    transition: .1s all;
+}
+
+.contact-screen-admin-ticket-box:hover {
+    background-color: rgb(19, 23, 44);
+
+}
+
+.contact-screen-admin-ticket-playerimage {
+    width: 20%;
+    height: 61%;
+    border-radius: 50%;
+    background-image: url(https://cdn.discordapp.com/attachments/1080339362211963002/1088883016832667688/User-avatar.svg.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    float: left;
+    margin-top: 2.3%;
+}
+
+.contact-screen-admin-ticket-playername {
+    width: 31%;
+    margin-left: 20%;
+    text-align: left;
+    top: 36%;
+    position: relative;
+    font-weight: 100;
+}
+
+.contact-screen-admin-ticket-status {
+    display: flex;
+    margin-left: 68%;
+    top: 13%;
+    position: relative;
+    font-weight: 600;
+}
+.contact-screen-admin-ticket-status p  {
+    color: greenyellow;
+    font-weight: 200;
+    margin-left: 7%;
+}
+
+
+/* right admin sections */
+
+.contact-screen-admin-section {
+        width: 20%;
+    height: 58%;
+    /* background: rebeccapurple; */
+    text-align: center;
+    margin-left: 78.2%;
+    margin-top: 16%;
+    
+    display: none;
+}
+
+.admin-selection-ticket-box {
+    text-align: center;
+    width: 100%;
+    height: 10%;
+    background: rgb(74,73,73);
+    background: linear-gradient(267deg, rgb(22 22 22) 2%, rgba(255,50,50,0) 65%);
+    border-radius: 5px;
+    color: white;
+    margin-top: 2%;
+    padding: 21px;
+    /* border: 1px solid white; */
+    transition: .2s all;
+}
+
+.admin-selection-ticket-box:hover {
+    scale: 1.1;
+    background: white;
+    font-weight: 800;
+    color: black;
+}
+
+    /* background: rgb(74,73,73);
+    background: linear-gradient(90deg, rgba(74,73,73,1) 2%, rgba(255,50,50,0) 65%);
+    transition: 1s all;
+}
+
+.contact-screen-leftbar-box:hover {
+    background: rgb(22,21,21);
+    background: linear-gradient(90deg, rgba(22,21,21,1) 2%, rgba(255,50,50,0) 65%);
+} */
