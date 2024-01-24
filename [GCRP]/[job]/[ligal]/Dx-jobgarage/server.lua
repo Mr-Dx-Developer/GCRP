@@ -21,7 +21,7 @@ end)
 
 RegisterNetEvent("jim-jobgarage:server:syncLocations", function() TriggerClientEvent('jim-jobgarage:client:syncLocations', -1, Locations) end)
 
-RegisterNetEvent("jim-jobgarage:server:addTrunkItems", function(plate, items) exports["qb-inventory"]:addTrunkItems(plate, items) end)
+RegisterNetEvent("jim-jobgarage:server:addTrunkItems", function(plate, items) exports["qs-inventory"]:addTrunkItems(plate, items) end)
 
 local function CheckVersion()
 	PerformHttpRequest('https://raw.githubusercontent.com/jimathy/jim-jobgarage/master/version.txt', function(err, newestVersion, headers)
