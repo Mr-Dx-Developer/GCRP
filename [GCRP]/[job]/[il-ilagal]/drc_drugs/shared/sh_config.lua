@@ -15,7 +15,7 @@ Config.Clothing = "qb-clothing" -- fivem-appearance, esx_skin, qb-clothing, cust
 Config.TextUI = "ox_lib" -- TextUIs | types: esx, ox_lib, luke
 Config.Input = "ox_lib" -- Input | types: ox_lib, qb-input
 Config.Context = "ox_lib" -- Context | types: ox_lib, qbcore
-Config.SellingMoneyType = "money" -- Selling Money Type | ESX types: bank, money, black_money or own types | QBCORE types: cash, bank, crypto or own types
+Config.SellingMoneyType = "cash" -- Selling Money Type | ESX types: bank, money, black_money or own types | QBCORE types: cash, bank, crypto or own types
 --PLAYER CONTROL
 Config.Logs = { enabled = true, type = "webhook" } -- use webhook or ox_lib (datadog) Can be changed in server > sv_utils.lua
 Config.DropPlayer = true -- Drop (Kick) Player if tries to cheat!
