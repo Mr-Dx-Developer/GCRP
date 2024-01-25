@@ -1324,4 +1324,7 @@ backpack1                    = { name = "backpack1", label = "Backpack", weight 
     briefcaselockpicker          = { name = "briefcaselockpicker", label = "Briefcase Lockpicker", weight = 500, type = "item", image = "lockpick.png", unique = false, useable = true, shouldClose = true, combinable = nil, description = "Briefcase Lockpicker" },
 
 
+['waterpass'] = {['name'] = 'waterpass', ['label'] = 'Water Pass', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'waterpass.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Water Pass'},
+['waterpassunlimited'] = {['name'] = 'waterpassunlimited', ['label'] = 'Water Pass Unlimited', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'waterpassunlimited.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Water Pass Unlimited'},
+
 }

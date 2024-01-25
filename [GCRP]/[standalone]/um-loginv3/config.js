@@ -3,9 +3,9 @@ UM = {}
 // ? Main Settings
 UM.MainSettings = {
     color: '#bb55da', // Todo: https://www.color-hex.com/
-    opacity: 1, // 0 close background opacity, | 0.7 low background opacity,
-    logo: "assets/images/baner.png",
-    logowidth: 50,
+    opacity: 0.7, // 0 close background opacity, | 0.7 low background opacity,
+    logo: "assets/images/watermark.png",
+    logowidth: 35,
     extra: {
         autoRGB: false,
         autoSnow: false,
@@ -17,7 +17,7 @@ UM.BackgroundSettings = {
     musicBackground: {
         enabled: true,
         link: "assets/audio/audio.mp3",
-        volume: 0.4
+        volume: 0.3
     },
 
     videoBackground: {
@@ -63,7 +63,7 @@ UM.AboutUs = {
 
 UM.ChangeLog = {
     title: 'CHANGELOG',
-    description: '',
+    description: 'Mr_Dx does all the development work on the server.',
     button: 'VIEW CHANGELOG',
     character_image: 'assets/images/characters/char-man.png',
     page: {
@@ -80,15 +80,15 @@ UM.ChangeLog = {
     // ! Attention: Make sure you enter the information you created in your github account correctly
     // Todo: https://streamable.com/nsv7dx
     github: {
-        enabled: false,
+        enabled: true,
         username: 'alp1x',
-        repository: 'um-loadingscreen',
+        repository: 'Dx-loadingscreen',
         branch: 'main',
         path: 'newupdates',
     },
     url: {
-        enabled: false,
-        link: "https://uyuyorumstore.com",
+        enabled: true,
+        link: "https://discord.gg/RgbBztr5XJ",
     }
 }
 
