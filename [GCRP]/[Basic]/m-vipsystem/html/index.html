@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <script src="./js/vue.global.js"></script>
+    <script src="./js/vuex.global.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>        
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js" type="text/javascript"></script>
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    
+    <title>Vip system hsn</title>
+</head>
+
+<body>
+    <div id="app" style="display: none;" >
+        <div class="w-screen h-screen  bg-center bg-cover bg-no-repeat" style="background-image: url(./template/background.png); background-size: 100% 100%;" v-if="Vehicles.HotData && HotDealData.text"> 
+            <!-- <div class="w-screen h-screen  bg-center bg-cover bg-no-repeat bg-black"  > -->
+                <div class="header w-full h-[8.5vh] flex" >
+                    <div class="w-[35%] h-full flex items-center" >
+                        <img src="./template/servericon.png" class="ml-[4.5vh]">
+                    </div>
+                    <div class="w-[50%] h-full flex justify-center items-center gap-[5%] headerscontainer" >
+                        <div class="w-[20%] h-[47.5%] flex justify-center items-center menuheadertext cursor-pointer"  @click="ChangePage('main')" :class="{'borderheader' : this.page == 'main' || this.page == 'details' || this.page == 'passes'}">
+                            {{this.Translate["vipmenu"]}}
+                        </div>
+                        <div class="w-[20%] h-[47.5%] flex justify-center items-center menuheadertext cursor-pointer" @click="ChangePage('vehicles')" :class="{'borderheader' : this.page == 'vehicles' || selectedData.type == 'vehicles'}">
+                            {{this.Translate["vehicles"]}}
+                        </div>
+                        <div class="w-[20%] h-[47.5%] flex justify-center items-center menuheadertext cursor-pointer" @click="ChangePage('weapons')" :class="{'borderheader' : this.page == 'weapons' || selectedData.type == 'weapons'}">
+                            {{this.Translate["weapons"]}}
+                        </div>
+                        <div class="w-[20%] h-[47.5%] flex justify-center items-center menuheadertext cursor-pointer" @click="ChangePage('other')" :class="{'borderheader' : this.page == 'other' || selectedData.type == 'other'}">
+                            {{this.Translate["other"]}}
+                        </div>
+                    </div>
+                    <div class="w-[15%] h-full flex justify-end items-center text-white  " >
+                        <div class="w-[80%] h-[90%]  mr-[4.5vh] flex justify-end items-center gap-[1vh]">
+                            <div class="w-[8vw] h-[6vh]   playerimage overflow-hidden flex flex-col justify-center items-end text-white" >
+                                <div class="w-full h-[3vh]  flex justify-end items-center playername">
+                                    {{this.PlayerData.name}}
+                                </div>
+                                <div class="w-full h-[3vh]  flex justify-end items-center gap-2">
+                                    <p id="coinamount">{{this.PlayerData.coin}}</p>
+                                    <img src="./template/coinicon.png">
+                                </div>
+                            </div>
+                            <div class="w-[3.25vw] h-[6vh] rounded-full cursor-pointer flex justify-center items-end  playerimage overflow-hidden" @click="popup = !popup" style="border: 1px solid #FFCD4D;" :style="{ 'background-image': `url(${ this.PlayerData.image })` }">
+                                    <img src="./template/profilepopup.png" class="absolute" style="padding-top: 4vh;">
+                            </div>
+
+                        </div>
+                    </div>
+            </div>
+            <div class="absolute w-[12%] h-[7%] right-[4.5vh] flex absolute mt-1  z-[150] flex-col" v-if="popup" style="background-image: url(./template/backgroundpopup.png); background-repeat: no-repeat; background-size: 100% 100%; ">
+                <div class="w-full h-1/2 borderpopou flex cursor-pointer" @click="ChangePage('purchasehistory')">
+                    <div class="w-[80%] h-full flex items-center prchasehistory"><p class="ml-5">{{this.Translate["history"]}}</p></div>
+                    <div class="w-[20%] h-full flex items-center justify-center">
+                        <img src="./template/bag.png">
+                    </div>
+                </div>
+                <div class="w-full h-1/2 flex cursor-pointer" @click="ChangePage('mypasses')">
+                    <div class="w-[80%] h-full flex items-center prchasehistory" ><p class="ml-5">{{this.Translate["viewpass"]}}</p></div>
+                    <div class="w-[20%] h-full flex items-center justify-center">
+                        <img src="./template/mvip.png">
+                    </div>
+                </div>
+            </div>
+            <div class="footer w-[62.75vw] h-[89.75vh]  right-[4.5vh] flex absolute mt-5 flex-col   gap-[3vh]" id="viphome" v-if="page == 'main'">
+                <div class="w-[30%] h-[98%] self-end flex-col secretdiv  absolute z-[99]   opacity-[0] flex" style="display:none; background-image: url(./template/paymentbg.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat; ">
+                    <div class="w-full h-1/2 flex justify-evenly">
+                        <p class="mt-[2.5vh] ml-[8vh] buycoinheader">{{this.Translate["needvcoin"]}}</p>
+                        <img src="./template/goback.png"  class="w-[1vw] h-[1vw] mt-[2.5vh] ml-[1vh]" @click="ClearAnimation()">
+                    </div>
+                    <div class="w-full h-1/2  flex items-center flex-col">
+                        <p class="buycoinfooterhead">{{this.Translate["visitstore"]}}</p>
+                        <p class="mt-[8vh] flex justify-center items-center tebex">{{this.Translate["tebexid"]}}</p>
+                        <p class="mt-[8vh] flex justify-center items-center tebexinfo">{{this.Translate["info"]}}</p>
+                        <div class="mt-[5vh] flex  justify-center w-[95%] h-[15%]   flex-col justify-evenly">
+                            <p class="paymentidheader">{{this.Translate["paymentid"]}}</p>
+
+                            <input type="text" class="paymentidinput  h-[55%] rounded-md " v-model ="tbxid"  style="border: none; outline: none; font-family: SF Pro Rounded; padding-left: 1vh; font-size: 1.2vh; color: rgba(190, 189, 189, 0.822);" placeholder="Your payment id...">
+                        </div>
+                        <div class="w-[95%] h-[10%] checktbxbutn mt-[1vh] flex justify-center items-center cursor-pointer" @click="CheckTebex()">{{this.Translate["getvcoin"]}}</div>
+                    </div>
+                </div>
+                <div class="w-full h-[50%]  rounded-md flex-col overflow-hidden flex headercontent  z-[99]"  style="background-image: url(./template/vipbg.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">
+                    <div class="w-full h-[19.5vh]  flex items-center">
+                        <p class="hotdealtitle ml-[3vh]" id="hotdealtitle">{{GetNonBreaking(HotDealData.text)}}</p> 
+                    </div>
+                    <div class="w-full h-[26vh]  flex justify-evenly ">
+                        <div class="w-[35%] h-[100%] ">
+                            <div class="swiper" >
+                                <div class="swiper-wrapper">
+                                  <div v-for="(item, index) in HotDealData.SwiperData" class="swiper-slide  flex justify-center items-center " :style="activeindexs == index ? 'opacity : 1':'opacity : 0.5'">
+                                        <div class="w-[70%] h-[95%] imageborder rounded-md flex items-end " style="background-position: center; background-repeat: no-repeat; background-size: 100% 100%; " :style="{ 'background-image': `url(./template/${ item.image })` }">
+                                            <p class="m-[1vh] swiper-item-info">{{item.text}}</p>>
+                                        </div>
+                                  </div>
+
+
+                                </div>
+                                <div class="swiper-pagination"></div>
+                              
+                                <div class="swiper-scrollbar"></div>
+                            </div>
+                        </div>
+                        <div class="w-[30%] h-[90%]  flex justify-center items-end clicktopreview ">
+                            <p class="mb-[1vh] cursor-pointer" @click="ChangePage('details')">{{this.Translate["clickpreview"]}}</p>
+                        </div>
+                        <div class="w-[35%] h-[90%]  flex justify-end items-end ">
+                            <div class="w-[37.5%] h-[18.5%] buybuttonhotdeal mr-[5vh] flex justify-center items-center gap-2 cursor-pointer" @click="BuyHotDealMain()" style="background-image: url(./template/hotdealbuybutton.png); background-position: center; background-size: 100% 100%;">
+                                <p class="price">{{HotDealData.price}}</p>
+                                <img src="./template/buycoinicon.png">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="w-full h-[45%]  flex gap-[3vh]  z-[1] footerdeatils">
+                    <div class="w-[35%] h-full  flex flex-col rounded-[1vh] bg-[url(./template/hotdealbg.png)] bg-no-repeat bg-center" style="background-size: 100% 100%;">
+                        <div class="w-full h-[7vh]  flex items-center">
+                            <div class="w-1/2 h-full flex items-center gap-[1vh] ml-[2vh]">
+                                <img src="./template/hotdealicon.png">
+                                <p class="headerhtdeals">{{this.Translate["hotdeals"]}}</p>
+                            </div>
+                            <div class="w-1/2 h-full mr-[2vh] remainingtime flex items-center justify-end ">
+                                {{GetInterval('vehicle', Vehicles.HotData.expiredtime)}}
+                            </div>
+                        </div>
+                        <div class="w-full h-[3vh]  flex items-center ml-[2vh] mt-[0.3vh]">
+                            <p class="carname">{{Vehicles.HotData.title}}</p>
+                        </div>
+                        <div class="w-full h-[3vh] relative flex items-center ml-[2vh] mt-[0.7vh]">
+                            <p class="carmodel">{{Vehicles.HotData.name}}</p>
+                            <p class="carmodel absolute">{{Vehicles.HotData.name}}</p>
+                        </div>
+                        <div class="w-full h-[3vh]  flex items-center gap-[0.3vh] ml-[2vh] mt-[0.3vh]">
+                            <p class="hotdealprice">{{Vehicles.HotData.price}}</p>
+                            <img src="./template/coinblack.png">
+                        </div>
+                        <div class="w-full h-[23vh]  flex items-end justify-center">
+                            <div class="w-[90%] h-[3.2vh]  rounded-md flex justify-center items-center mb-[2vh] gethotdeal cursor-pointer"   @click="BuyHotDeal('vehicle', Vehicles.HotData)">
+                                {{this.Translate["getdeal"]}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-[30%] h-full  rounded-md flex flex-col" style="background-image: url(./template/getpassesbg.png); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
+                        <div class="w-full h-[9vh] flex ml-[7vh]  items-center vippasses">{{this.Translate["vippasses"]}}</div>
+                        <div class="w-full h-[40vh] flex items-end justify-center" >
+                            <div class="w-[90%] h-[3.2vh]  rounded-md flex justify-center items-center mb-[2vh] gethotdeal cursor-pointer" @click="ChangePage('passes')">
+                                {{this.Translate["checkpasses"]}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-[30%] h-full  rounded-md flex flex-col vcoincontainer  opacity-100" style="background-image: url(./template/needcoinbg.png); background-size: 100% 100%; background-repeat: no-repeat; background-position: center;">
+                        <div class="w-full h-[9vh] flex ml-[7vh]  items-center vcoin">{{this.Translate["needvcoin"]}}</div>
+                        <div class="w-full h-[40vh] flex items-end justify-center" >
+                            <div class="w-[90%] h-[3.2vh]  rounded-md flex justify-center items-center mb-[2vh] gethotdeal cursor-pointer"  @click="SetAnimationtoGetVCoin()">
+                                {{this.Translate["getvcoin"]}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer w-[62.75vw] h-[87.75vh]  right-[4.5vh] flex absolute mt-5 flex-col   gap-[3vh]" style="background-image: url(./template/passesbg.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-if="page == 'passes'">
+                <div class="w-full h-[9.75vh]  flex justify-between items-center">
+                    <div class="w-[20vw] h-full flex flex-col justify-center " >
+                        <p class="ml-[7vh] passes-screen-title">{{this.Translate["vippasses"]}}</p>
+                        <p class="ml-[7vh] mt-[1vh] passes-screen-title-desc">{{this.Translate["timeforpass"]}}</p>
+                    </div>
+                    <div class="w-[7.8vw] h-full flex items-center cursor-pointer gap-[0.5vh] justify-center" @click="ChangePage('main')">
+                        <img src="./template/goback.png">
+                        <p class="gobck">{{this.Translate["gobck"]}}</p>
+                        
+                    </div>
+                </div>
+                <div class="w-full h-[80vh] flex justify-center items-center gap-[4vh]" >
+                    <div class="w-[26%] h-[90%]  flex flex-col" style="background-image: url(./template/platinumpass.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">
+                        <div class="w-full h-[10vh] flex justify-center items-center platinumtitle">
+                            {{Passes.platinum.title}}
+                        </div>
+                        <div class="w-full h-[15vh] flex justify-center items-end pass relative">
+                            <p>{{this.Translate["pass"]}}</p>
+                            <p class="absolute">{{this.Translate["pass"]}}</p>
+                        </div>
+                        <div class="w-full h-[10vh] flex flex-col gap-2 justify-end items-center ">
+                            <img src="./template/platinumprice.png" style="">
+                            <p class="priceplat">{{Passes.platinum.price}}</p>
+                        </div>
+                        <div class="w-full h-[25vh] mt-[1.5vh] flex items-end overflow-scroll gap-2 flex-col rewardscontainer" >
+                            <div class="w-[90%] h-[3vh]  flex items-center " v-for="(item, index) in Passes.platinum.rewards">
+                                <img src="./template/vector.png">
+                                <p class="ml-[1vh] itemname">{{item.name}}</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-[6vh]  flex justify-center items-center">
+                            <div class="w-[80%] h-[60%]  rounded-md cursor-pointer getpass flex justify-center items-center " @click="BuyPass('platinum')" style="background-image: url(./template/bg-plat.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">{{this.Translate["getthepass"]}}</div>
+                        </div>
+                    </div>
+                    <div class="w-[26%] h-[90%] flex flex-col" style="background-image: url(./template/diamondpass.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">
+                        <div class="w-full h-[10vh] flex justify-center items-center diamondtitle">
+                            {{Passes.diamond.title}}
+                        </div>
+                        <div class="w-full h-[15vh] flex justify-center items-end passdia relative">
+                            <p>{{this.Translate["pass"]}}</p>
+                            <p class="absolute">{{this.Translate["pass"]}}</p>
+                        </div>
+                        <div class="w-full h-[10vh] flex flex-col gap-2 justify-end items-center ">
+                            <img src="./template/vectordia.png" style="">
+                            <p class="pricedia">{{Passes.diamond.price}}</p>
+                        </div>
+                        <div class="w-full h-[25vh] mt-[1.5vh] flex items-end overflow-scroll gap-2 flex-col rewardscontainer" >
+                            <div class="w-[90%] h-[3vh]  flex items-center " v-for="(item, index) in Passes.diamond.rewards">
+                                <img src="./template/vector.png">
+                                <p class="ml-[1vh] itemnamedia">{{item.name}}</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-[6vh]  flex justify-center items-center">
+                            <div class="w-[80%] h-[60%]  rounded-md cursor-pointer getpass flex justify-center items-center" @click="BuyPass('diamond')" style="background-image: url(./template/gettpassdia.png); color: #FABDFF; background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">{{this.Translate["getthepass"]}}</div>
+                        </div>
+                    </div>
+                    <div class="w-[26%] h-[90%] flex flex-col" style="background-image: url(./template/goldenpass.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">
+                        <div class="w-full h-[10vh] flex justify-center items-center goldentitle">
+                            {{Passes.golden.title}}
+                        </div>
+                        <div class="w-full h-[15vh] flex justify-center items-end passgolden relative">
+                            <p>{{this.Translate["pass"]}}</p>
+                            <p class="absolute">{{this.Translate["pass"]}}</p>
+                        </div>
+                        <div class="w-full h-[10vh] flex flex-col gap-2 justify-end items-center ">
+                            <img src="./template/vectorgolden.png" style="">
+                            <p class="pricegolden">{{Passes.golden.price}}</p>
+                        </div>
+                        <div class="w-full h-[25vh] mt-[1.5vh] flex items-end overflow-scroll gap-2 flex-col rewardscontainer" >
+                            <div class="w-[90%] h-[3vh]  flex items-center " v-for="(item, index) in Passes.golden.rewards">
+                                <img src="./template/vector.png">
+                                <p class="ml-[1vh] itemnamegolden">{{item.name}}</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-[6vh]  flex justify-center items-center">
+                            <div class="w-[80%] h-[60%]  rounded-md cursor-pointer getpass flex justify-center items-center" @click="BuyPass('golden')" style="background-image: url(./template/getpassgolden.png); background-position: center;color: #ECC561;  background-size: 100% 100%; background-repeat: no-repeat;">{{this.Translate["getthepass"]}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer w-[62.75vw] h-[87.75vh]  right-[4.5vh] flex absolute mt-5 flex-col   " style="background-image: url(./template/deatilsbg.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-if="page == 'details'">
+                <div class="w-full h-[19.5vh]  flex items-center ">
+                    <p class="hotdealtitle ml-[3vh]" id="hotdealtitle">{{GetNonBreaking(HotDealData.text)}}</p> 
+                </div>
+                <div class="w-full h-[70.5vh]  flex gap-[4vh] items-end">
+                    <div class="w-[17.5vw] h-full  ">
+                        <div class="swiper " >
+                            <div class="swiper-wrapper ">
+                              <div v-for="(item, index) in HotDealData.SwiperData" class="swiper-slide  flex justify-end items-center w-full h-[20%] " :style="activeindexs == index ? 'opacity : 1':'opacity : 0.5'">
+                                    <div class="w-[85.5%] h-[95%] imageborder rounded-md flex items-end " style="background-position: center; background-repeat: no-repeat; background-size: 100% 100%; " :style="{ 'background-image': `url(./template/${ item.image })` }">
+                                        <p class="m-[1vh] swiper-item-info">{{item.text}}</p>
+                                    </div>
+                              </div>
+
+
+                            </div>
+                            <div class="swiper-pagination"></div>
+                          
+                            <div class="swiper-scrollbar"></div>
+                        </div>
+                    </div>
+                    <div class="w-full h-[30vh]  flex items-center">
+                        <div class="h-[95%] w-[90%]  flex flex-col gap-[2vh]">
+                            <p class="hotdealtitle " id="hotdealtitle" style="font-size: 0.8vw;">{{(HotDealData.text)}}</p> 
+                            <div class="w-full h-[90%]  flex flex-wrap flex-col gap-[0]">
+                                <div class="w-[19.5%] h-[12.5%]  flex items-center gap-[1vh]" v-for="(item, index) in HotDealData.rewards">
+                                    <img src="./template/vectordetails.png">
+                                    <p class="detailsindex">{{item.name}}</p>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="h-[40%] w-[20%]  self-end flex justify-end items-center flex-col mb-[1vh] gap-[1vh]">
+                            <p class="lessdetail cursor-pointer" @click="ChangePage('main')">{{this.Translate["lessdetail"]}}</p>
+                            <div class="w-[80%] h-[30%] flex justify-center items-center gap-[1vh] cursor-pointer" @click="BuyHotDealMain()" style="background-image: url(./template/detailsbutbg.png); background-repeat: no-repeat; background-size: 100% 100%;">
+                                <p class="price" style="font-size: 1.7vh;">{{HotDealData.price}}</p>
+                                <img src="./template/buycoinicon.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer w-[62.75vw] h-[90.75vh]   right-[4.5vh] flex flex-wrap absolute mt-5    " style="background-position: center;  background-size: 100% 100%; background-repeat: no-repeat;" v-if="page == 'vehicles'">
+                <div class="w-[47.5%] h-[55%] ">
+                    <div class="w-full h-full  flex flex-col rounded-[1vh] bg-[url(./template/hotdealbg.png)] bg-no-repeat bg-center" style="background-size: 100% 100%;">
+                        <div class="w-full h-[7vh]  flex items-center">
+                            <div class="w-1/2 h-full flex items-center gap-[1vh] ml-[2vh]">
+                                <img src="./template/hotdealicon.png">
+                                <p class="headerhtdeals">{{this.Translate["hotdeals"]}}</p>
+                            </div>
+                            <div class="w-1/2 h-full mr-[2vh] remainingtime flex items-center justify-end ">
+                                {{GetInterval('vehicle', Vehicles.HotData.expiredtime)}}
+                            </div>
+                        </div>
+                        <div class="w-full h-[3vh]  flex items-center ml-[2vh] mt-[0.3vh]">
+                            <p class="carname">{{Vehicles.HotData.title}}</p>
+                        </div>
+                        <div class="w-full h-[3vh] relative flex items-center ml-[2vh] mt-[0.7vh]">
+                            <p class="carmodel">{{Vehicles.HotData.name}}</p>
+                            <p class="carmodel absolute">{{Vehicles.HotData.name}}</p>
+                        </div>
+                        <div class="w-full h-[3vh]  flex items-center gap-[0.3vh] ml-[2vh] mt-[0.3vh]">
+                            <p class="hotdealprice">{{Vehicles.HotData.price}}</p>
+                            <img src="./template/coinblack.png">
+                        </div>
+                        <div class="w-full h-[31vh]  flex items-end justify-center">
+                            <div class="w-[90%] h-[3.2vh]  rounded-md flex justify-center items-center  gethotdeal cursor-pointer" @click="BuyHotDeal('vehicle', Vehicles.HotData)">
+                                {{this.Translate["getdealnow"]}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-[50%] h-[55%]  flex items-center flex-wrap flex-col justify-between" style="margin-left: 1.5vh;">
+                    <div class="w-[14.2vw] h-[23.90vh]  flex flex-col justify-center items-center cursor-pointer" @click="ClickToBuy('vehicles', Vehicles.items[item+1])" style="background-image: url(./template/item-background.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-for="(item) in 4" >
+                        <div class="w-full h-[15%] flex items-center" v-if="Vehicles.items[item+1] != undefined">
+                            <p class="ml-[1.5vh] mt-[1.5vh] vehicle">{{Vehicles.items[item+1].brand}}</p>
+                        </div>
+                        <div class="w-full h-[15%] flex items-center relative" v-if="Vehicles.items[item+1] != undefined">
+                            <p class="ml-[1.5vh] vehiclemodel">{{Vehicles.items[item+1].model}}</p>
+                            <p class="ml-[1.5vh] vehiclemodel23 absolute">{{Vehicles.items[item+1].model}}</p>
+                        </div>
+                        <div class="w-full h-[50%] flex items-center justify-center" v-if="Vehicles.items[item+1] != undefined">
+                            <img :src="GetPhoto(Vehicles.items[item+1].image)" :alt=Vehicles.items[item+1].image>
+                        </div>
+                        <div class="w-full h-[20%] flex items-center justify-center gap-[1vh] priceitem" v-if="Vehicles.items[item+1] != undefined">
+                            {{Vehicles.items[item+1].price}}
+                            <img src="./template/coinblack.png">
+                        </div>
+                    </div>
+ 
+                </div>
+                <div class="w-full h-[50%]  flex gap-[2.59vh] flex-wrap containervehiclesbottom  justify-start mt-[1.5vh] overflow-scroll" >
+                    <div class="w-[14.2vw] h-[23.90vh]  "  v-for="(key) in 40" >
+                        <div class="w-full h-full flex flex-col justify-center items-center cursor-pointer" @click="ClickToBuy('vehicles', Vehicles.items[key+5])" v-if="Vehicles.items[key+5]" style="background-image: url(./template/item-background.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">
+                            <div class="w-full h-[15%] flex items-center" v-if="Vehicles.items[key+5]">
+                                <p class="ml-[1.5vh] mt-[1.5vh] vehicle">{{Vehicles.items[key+5].brand}}</p>
+                            </div>
+                            <div class="w-full h-[15%] flex items-center relative" v-if="Vehicles.items[key+5]">
+                                <p class="ml-[1.5vh] vehiclemodel">{{Vehicles.items[key+5].model}}</p>
+                                <p class="ml-[1.5vh] vehiclemodel23 absolute">{{Vehicles.items[key+5].model}}</p>
+                            </div>
+                            <div class="w-full h-[50%] flex items-center justify-center" v-if="Vehicles.items[key+5]">
+                                <img :src="GetPhoto(Vehicles.items[key+5].image)" :alt=Vehicles.items[key+5].image>
+                            </div>
+                            <div class="w-full h-[20%] flex items-center justify-center gap-[1vh] priceitem" v-if="Vehicles.items[key+5] != undefined">
+                                {{Vehicles.items[key+5].price}}
+                                <img src="./template/coinblack.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer w-[62.75vw] h-[90.75vh]   right-[4.5vh] flex flex-wrap absolute mt-5    " style="background-position: center;  background-size: 100% 100%; background-repeat: no-repeat;" v-if="page == 'weapons'">
+                <div class="w-[47.5%] h-[55%] ">
+                    <div class="w-full h-full  flex flex-col rounded-[1vh] bg-[url(./template/weaponscontent.png)] bg-no-repeat bg-center" style="background-size: 100% 100%;">
+                        <div class="w-full h-[7vh]  flex items-center">
+                            <div class="w-1/2 h-full flex items-center gap-[1vh] ml-[2vh]">
+                                <img src="./template/hotdealicon.png">
+                                <p class="headerhtdeals">{{this.Translate["hotdeals"]}}</p>
+                            </div>
+                            <div class="w-1/2 h-full mr-[2vh] remainingtime flex items-center justify-end ">
+                                {{GetInterval('weapon', Weapons.HotData.expiredtime)}}
+                            </div>
+                        </div>
+                        <div class="w-full h-[3vh]  flex items-center ml-[2vh] mt-[0.3vh]">
+                            <p class="carname">{{Weapons.HotData.title}}</p>
+                        </div>
+                        <div class="w-full h-[3vh] relative flex items-center ml-[2vh] mt-[0.7vh]">
+                            <p class="carmodel">{{Weapons.HotData.name}}</p>
+                            <p class="carmodel absolute">{{Weapons.HotData.name}}</p>
+                        </div>
+                        <div class="w-full h-[3vh]  flex items-center gap-[0.3vh] ml-[2vh] mt-[0.3vh]">
+                            <p class="hotdealprice">{{Weapons.HotData.price}}</p>
+                            <img src="./template/coinblack.png">
+                        </div>
+                        <div class="w-full h-[25vh]  flex flex-col gap-[0.5vh]">
+                            <div class="w-[97.5%] h-[3vh]  flex items-center ml-[3.5%] gap-3 descriptions relative overflow-scroll" v-for="(value, key) in Weapons.HotData.description">
+                                <img src="./template/vectorweapons.png">
+                                <div class="flex relative">
+                                    <p class="weaponsdesc">{{value.label}}</p>
+                                    <p class="weaponsdesc absolute">{{value.label}}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="w-full h-[10vh]  flex items-center justify-center">
+                            <div class="w-[90%] h-[3.2vh]  rounded-md flex justify-center items-center  gethotdeal cursor-pointer" @click="BuyHotDeal('weapon', Weapons.HotData)">
+                                {{this.Translate["getdealnow"]}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-[50%] h-[55%]  flex items-center flex-wrap flex-col justify-between" style="margin-left: 1.5vh;">
+                    <div class="w-[14.2vw] h-[23.90vh]  flex flex-col justify-center items-center cursor-pointer" @click="ClickToBuy('weapons', Weapons.items[item+1])" style="background-image: url(./template/item-background.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-for="(item) in 4" >
+                        <div class="w-full h-[15%] flex items-center" v-if="Weapons.items[item+1] != undefined">
+                            <p class="ml-[1.5vh] mt-[1.5vh] vehicle">{{Weapons.items[item+1].brand}}</p>
+                        </div>
+                        <div class="w-full h-[15%] flex items-center" v-if="Weapons.items[item+1] != undefined">
+                            <p class="ml-[1.5vh] vehiclemodel">{{Weapons.items[item+1].model}}</p>
+                            <p class="ml-[1.5vh] vehiclemodel23 absolute">{{Weapons.items[item+1].model}}</p>
+                        </div>
+                        <div class="w-full h-[50%] flex items-center justify-center" v-if="Weapons.items[item+1] != undefined">
+                            <img :src="GetPhoto(Weapons.items[item+1].image)" :alt=Weapons.items[item+1].image>
+                        </div>
+                        <div class="w-full h-[20%] flex items-center justify-center gap-[1vh] priceitem" v-if="Weapons.items[item+1] != undefined">
+                            {{Weapons.items[item+1].price}}
+                            <img src="./template/coinblack.png">
+                        </div>
+                    </div>
+ 
+                </div>
+                <div class="w-full h-[50%]  flex gap-[2.59vh] flex-wrap containervehiclesbottom  justify-start mt-[1.5vh] overflow-scroll" >
+                    <div class="w-[14.2vw] h-[23.90vh]  "  v-for="(key) in 40" >
+                        <div class="w-full h-full flex flex-col justify-center items-center cursor-pointer" @click="ClickToBuy('weapons', Weapons.items[key+5])" v-if="Weapons.items[key+5]" style="background-image: url(./template/item-background.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">
+                            <div class="w-full h-[15%] flex items-center" v-if="Weapons.items[key+5]">
+                                <p class="ml-[1.5vh] mt-[1.5vh] vehicle">{{Weapons.items[key+5].brand}}</p>
+                            </div>
+                            <div class="w-full h-[15%] flex items-center relative" v-if="Weapons.items[key+5]">
+                                <p class="ml-[1.5vh] vehiclemodel">{{Weapons.items[key+5].model}}</p>
+                                <p class="ml-[1.5vh] vehiclemodel23 absolute">{{Weapons.items[key+5].model}}</p>
+                            </div>
+                            <div class="w-full h-[50%] flex items-center justify-center" v-if="Weapons.items[key+5]">
+                                <img :src="GetPhoto(Weapons.items[key+5].image)" :alt=Weapons.items[key+5].image>
+                            </div>
+                            <div class="w-full h-[20%] flex items-center justify-center gap-[1vh] priceitem" v-if="Weapons.items[key+5] != undefined">
+                                {{Weapons.items[key+5].price}}
+                                <img src="./template/coinblack.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer w-[62.75vw] h-[90.75vh]   right-[4.5vh] flex flex-wrap absolute mt-5    " style="background-position: center;  background-size: 100% 100%; background-repeat: no-repeat;" v-if="page == 'other'">
+                <div class="w-[47.5%] h-[55%] ">
+                    <div class="w-full h-full  flex flex-col rounded-[1vh] bg-[url(./template/othercontent.png)] bg-no-repeat bg-center" style="background-size: 100% 100%;">
+                        <div class="w-full h-[7vh]  flex items-center">
+                            <div class="w-1/2 h-full flex items-center gap-[1vh] ml-[2vh]">
+                                <img src="./template/hotdealicon.png">
+                                <p class="headerhtdeals">{{this.Translate["hotdeals"]}}</p>
+                            </div>
+                            <div class="w-1/2 h-full mr-[2vh] remainingtime flex items-center justify-end ">
+                                {{GetInterval('other', Other.HotData.expiredtime)}}
+                            </div>
+                        </div>
+                        <div class="w-full h-[3vh]  flex items-center ml-[2vh] mt-[0.3vh]">
+                            <p class="carname">{{Other.HotData.title}}</p>
+                        </div>
+                        <div class="w-full h-[3vh] relative flex items-center ml-[2vh] mt-[0.7vh]">
+                            <p class="carmodel">{{Other.HotData.name}}</p>
+                            <p class="carmodel absolute">{{Other.HotData.name}}</p>
+                        </div>
+                        <div class="w-full h-[3vh]  flex items-center gap-[0.3vh] ml-[2vh] mt-[0.3vh]">
+                            <p class="hotdealprice">{{Other.HotData.price}}</p>
+                            <img src="./template/coinblack.png">
+                        </div>
+                        <div class="w-full h-[25vh]  flex flex-col gap-[0.5vh]">
+                            <div class="w-[97.5%] h-[3vh]  flex items-center ml-[3.5%] gap-3 descriptions relative overflow-scroll" v-for="(value, key) in Other.HotData.description">
+                                <img src="./template/vectorweapons.png">
+                                <div class="flex relative">
+                                    <p class="weaponsdesc">{{value.label}}</p>
+                                    <p class="weaponsdesc absolute">{{value.label}}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="w-full h-[10vh]  flex items-center justify-center">
+                            <div class="w-[90%] h-[3.2vh]  rounded-md flex justify-center items-center  gethotdeal cursor-pointer" @click="BuyHotDeal('other', Other.HotData)">
+                                {{this.Translate["getdealnow"]}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-[50%] h-[55%]  flex items-center flex-wrap flex-col justify-between" style="margin-left: 1.5vh;">
+                    <div class="w-[14.2vw] h-[23.90vh]  flex flex-col justify-center items-center cursor-pointer" @click="ClickToBuy('other', Other.items[item+1])" style="background-image: url(./template/item-background.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-for="(item) in 4" >
+                        <div class="w-full h-[15%] flex items-center" v-if="Other.items[item+1] != undefined">
+                            <p class="ml-[1.5vh] mt-[1.5vh] vehicle">{{Other.items[item+1].brand}}</p>
+                        </div>
+                        <div class="w-full h-[15%] flex items-center" v-if="Other.items[item+1] != undefined">
+                            <p class="ml-[1.5vh] vehiclemodel">{{Other.items[item+1].model}}</p>
+                            <p class="ml-[1.5vh] vehiclemodel23 absolute">{{Other.items[item+1].model}}</p>
+                        </div>
+                        <div class="w-full h-[50%] flex items-center justify-center" v-if="Other.items[item+1] != undefined">
+                            <img :src="GetPhoto(Other.items[item+1].image)" :alt=Other.items[item+1].image>
+                        </div>
+                        <div class="w-full h-[20%] flex items-center justify-center gap-[1vh] priceitem" v-if="Other.items[item+1] != undefined">
+                            {{Other.items[item+1].price}}
+                            <img src="./template/coinblack.png">
+                        </div>
+                    </div>
+ 
+                </div>
+                <div class="w-full h-[50%]  flex gap-[2.59vh] flex-wrap containervehiclesbottom  justify-start mt-[1.5vh] overflow-scroll" >
+                    <div class="w-[14.2vw] h-[23.90vh]  "  v-for="(key) in 40" >
+                        <div class="w-full h-full flex flex-col justify-center items-center cursor-pointer" @click="ClickToBuy('other', Other.items[key+5])" v-if="Other.items[key+5]" style="background-image: url(./template/item-background.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">
+                            <div class="w-full h-[15%] flex items-center" v-if="Other.items[key+5]">
+                                <p class="ml-[1.5vh] mt-[1.5vh] vehicle">{{Other.items[key+5].brand}}</p>
+                            </div>
+                            <div class="w-full h-[15%] flex items-center relative" v-if="Other.items[key+5]">
+                                <p class="ml-[1.5vh] vehiclemodel">{{Other.items[key+5].model}}</p>
+                                <p class="ml-[1.5vh] vehiclemodel23 absolute">{{Other.items[key+5].model}}</p>
+                            </div>
+                            <div class="w-full h-[50%] flex items-center justify-center" v-if="Other.items[key+5]">
+                                <img :src="GetPhoto(Other.items[key+5].image)" :alt=Other.items[key+5].image>
+                            </div>
+                            <div class="w-full h-[20%] flex items-center justify-center gap-[1vh] priceitem" v-if="Other.items[key+5] != undefined">
+                                {{Other.items[key+5].price}}
+                                <img src="./template/coinblack.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer w-[62.75vw] h-[90.75vh]  gap-[0.5vh]  right-[4.5vh] flex justify-start items-start flex-col absolute mt-5    " style="background-position: center;  background-size: 100% 100%; background-repeat: no-repeat;" v-if="page == 'purchasehistory'">
+                <p class="purchasetitle">{{this.Translate["history"]}} </p>
+                <div class="w-full h-full  flex flex-wrap justify-between mt-5">
+                    <div class="w-[24%] h-[30%]  flex flex-col items-end" v-for="(value, key) in PlayerData.purchasehistory" style="background-image: url(./template/historybg.png); background-repeat: no-repeat; background-position: center; background-size: 100% 100%; ">
+                        <div class="w-[95%] h-[10%] vehicle mt-5 flex items-center">{{value.brand}}</div>
+                        <div class="w-[95%] h-[10%]   flex items-center">
+                            <p class="vehiclemodel">{{value.model}}</p>
+                            <p class="absolute vehiclemodel23">{{value.model}}</p>
+                        </div>
+                        <div class="w-[95%] h-[10%] flex items-center  gap-[1vh] priceitem">
+                            {{value.price}}
+                            <img src="./template/coinblack.png">
+                        </div>
+                        <div class="w-[95%] h-[10%] flex items-center date  gap-[1vh] ">
+                            <img src="./template/calendar.png">
+                            {{value.date}}
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="footer w-[62.75vw] h-[87.75vh]  right-[4.5vh] flex absolute mt-5 flex-col   gap-[3vh]" style="background-image: url(./template/passesbg.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-if="page == 'mypasses' && PlayerData.activepass == 'false' ">
+                <div class="w-full h-[9.75vh]  flex justify-between items-center">
+                    <div class="w-[20vw] h-full flex flex-col justify-center " >
+                        <p class="ml-[7vh] passes-screen-title">{{this.Translate["vippasses"]}}</p>
+                        <p class="ml-[7vh] mt-[1vh] passes-screen-title-desc">{{this.Translate["timeforpass"]}}</p>
+                    </div>
+
+                </div>
+                <div class="w-full h-[80vh] flex justify-center items-center gap-[4vh] " >
+                    <div class="w-full h-full flex justify-center items-center flex-col" >
+                        <img src="./template/passpng.png">
+                        <p class="activepassdesc">{{this.Translate["donthavepass"]}}</p>
+                        <div class="w-[30%] h-[5.5%]  flex justify-center items-center getvpass cursor-pointer" @click="ChangePage('passes')" style="background-image: url(./template/getvpasbg.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat; margin-top: 15vh;">Get VPass Now!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer w-[62.75vw] h-[87.75vh]  right-[4.5vh] flex absolute mt-5 flex-col   gap-[3vh]" style="background-image: url(./template/passtrue.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-if="page == 'mypasses' && PlayerData.activepass != 'false'">
+                <div class="w-full h-[9.75vh]  flex justify-between items-center">
+                    <div class="w-[20vw] h-full flex flex-col justify-center " >
+                        <p class="ml-[7vh] passes-screen-title">{{this.Translate["vippasses"]}}</p>
+                        <p class="ml-[7vh] mt-[1vh] passes-screen-title-desc">{{this.Translate["timeforpass"]}}</p>
+                    </div>
+
+                </div>
+                <div class="w-full h-[80vh] flex justify-center items-center gap-[4vh] " >
+                    <div class="w-[26%] h-[90%]  flex flex-col" style="background-image: url(./template/platinumpass.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-if="PlayerData.activepass == 'platinum'">
+                        <div class="w-full h-[10vh] flex justify-center items-center platinumtitle">
+                            {{Passes.platinum.title}}
+                        </div>
+                        <div class="w-full h-[15vh] flex justify-center items-end pass relative">
+                            <p>{{this.Translate["pass"]}}</p>
+                            <p class="absolute">{{this.Translate["pass"]}}</p>
+                        </div>
+                        <div class="w-full h-[10vh] flex flex-col gap-2 justify-end items-center ">
+                            <img src="./template/timezone.png" style="">
+                            <p class="priceplat">{{PlayerData.remainingpasstime}} days left</p>
+                        </div>
+                        <div class="w-full h-[25vh] mt-[1.5vh] flex items-end overflow-scroll gap-2 flex-col rewardscontainer" >
+                            <div class="w-[90%] h-[3vh]  flex items-center " v-for="(item, index) in Passes.platinum.rewards">
+                                <img src="./template/vector.png">
+                                <p class="ml-[1vh] itemname">{{item.name}}</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-[6vh]  flex justify-center items-center">
+                            <div class="w-[80%] h-[60%]  rounded-md cursor-pointer getpass flex justify-center items-center" >{{this.Translate["currentpass"]}}</div>
+                        </div>
+                    </div>
+                    <div class="w-[26%] h-[90%] flex flex-col" style="background-image: url(./template/diamondpass.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-if="PlayerData.activepass == 'diamond'">
+                        <div class="w-full h-[10vh] flex justify-center items-center diamondtitle">
+                            {{Passes.diamond.title}}
+                        </div>
+                        <div class="w-full h-[15vh] flex justify-center items-end passdia relative">
+                            <p>{{this.Translate["pass"]}}</p>
+                            <p class="absolute">{{this.Translate["pass"]}}</p>
+                        </div>
+                        <div class="w-full h-[10vh] flex flex-col gap-2 justify-end items-center ">
+                            <img src="./template/timezone.png" style="">
+                            <p class="pricedia">{{PlayerData.remainingpasstime}} days left</p>
+                        </div>
+                        <div class="w-full h-[25vh] mt-[1.5vh] flex items-end overflow-scroll gap-2 flex-col rewardscontainer" >
+                            <div class="w-[90%] h-[3vh]  flex items-center " v-for="(item, index) in Passes.diamond.rewards">
+                                <img src="./template/vector.png">
+                                <p class="ml-[1vh] itemnamedia">{{item.name}}</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-[6vh]  flex justify-center items-center">
+                            <div class="w-[80%] h-[60%]  rounded-md cursor-pointer getpass flex justify-center items-center" >{{this.Translate["currentpass"]}}</div>
+                        </div>
+                    </div>
+                    <div class="w-[26%] h-[90%] flex flex-col" style="background-image: url(./template/goldenpass.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;" v-if="PlayerData.activepass == 'golden'">
+                        <div class="w-full h-[10vh] flex justify-center items-center goldentitle">
+                            {{Passes.golden.title}}
+                        </div>
+                        <div class="w-full h-[15vh] flex justify-center items-end passgolden relative">
+                            <p>{{this.Translate["pass"]}}</p>
+                            <p class="absolute">{{this.Translate["pass"]}}</p>
+                        </div>
+                        <div class="w-full h-[10vh] flex flex-col gap-2 justify-end items-center ">
+                            <img src="./template/timezone.png" style="">
+                            <p class="pricegolden">{{PlayerData.remainingpasstime}} days left</p>
+                        </div>
+                        <div class="w-full h-[25vh] mt-[1.5vh] flex items-end overflow-scroll gap-2 flex-col rewardscontainer" >
+                            <div class="w-[90%] h-[3vh]  flex items-center " v-for="(item, index) in Passes.golden.rewards">
+                                <img src="./template/vector.png">
+                                <p class="ml-[1vh] itemnamegolden">{{item.name}}</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-[6vh]  flex justify-center items-center">
+                            <div class="w-[80%] h-[60%]  rounded-md cursor-pointer getpass flex justify-center items-center" >{{this.Translate["currentpass"]}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[62.75vw] h-[87.75vh]  right-[4.5vh] flex absolute mt-5 flex-col gap-[3vh] justify-center items-center  "  v-if="page == 'buyitem'">
+                <div class="w-[50%] h-[60%] " style="background-image: url(./template/itembuybg.png); background-position: center; background-size: 100% 100%; background-repeat: no-repeat;">
+                    <div class="w-full h-[10%] flex items-center" v-if="selectedData.data != undefined">
+                        <p class="ml-[2vh] mt-[1.5vh] vehicle" style="font-size: 2.5vh;">{{selectedData.data.brand}}</p>
+                    </div>
+                    <div class="w-full h-[10%] flex items-center" v-if="selectedData.data != undefined">
+                        <p class="ml-[2vh] vehiclemodel2">{{selectedData.data.model}}</p>
+                        <p class="ml-[2vh] vehiclemodel21 absolute">{{selectedData.data.model}}</p>
+                    </div>
+                    <div class="w-full h-[50%] flex items-center justify-center" v-if="selectedData.data != undefined">
+                        <img :src="GetPhoto(selectedData.data.image)" :alt=selectedData.data.image >
+                    </div>
+                    <div class="w-full h-[30%] flex items-center justify-center gap-[1vh] priceitem" style="font-size: 3vh;" v-if="selectedData.data != undefined">
+                        {{selectedData.data.price}}
+                        <img src="./template/coinblack.png">
+                    </div>
+                </div>
+                <div class="w-[50%] h-[5.5vh] buyitem cursor-pointer flex justify-center items-center" @click="BuyItem()" style="background-image: url(./template/buyitem.png); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;">{{this.Translate["getitem"]}}</div>
+                <div class="w-[50%] h-[5.5vh] cancel cursor-pointer flex justify-center items-center" @click="Cancel()" style="background-image: url(./template/cancel.png); background-position: center; background-repeat: no-repeat; background-size: 100% 100%;">{{this.Translate["cancel"]}}</div>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <script src="./js/app.js" type="module"></script>
+</body>
+
+</html>

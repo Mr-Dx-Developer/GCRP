@@ -1,0 +1,827 @@
+@font-face {
+    src: url("../fonts/GilroyBold.ttf");
+    font-family: "Gilroy-Bold";
+}
+
+@font-face {
+  src: url("../fonts/gilroy-bold-italic.ttf");
+  font-family: "Gilroy-BoldItalic";
+}
+
+
+@font-face {
+  src: url("../fonts/Gilroy-Semibold.ttf");
+  font-family: "Gilroy-SemiBold";
+}
+
+@font-face {
+  src: url("../fonts/Gilroy-Heavy.ttf");
+  font-family: "Gilroy-Heavy";
+}
+
+@font-face {
+  src: url("../fonts/SF-Pro-Rounded.otf");
+  font-family: "SF Pro Rounded";
+}
+
+.borderred {
+  border: 1px solid red;
+}
+
+body {
+    overflow: hidden;
+    user-select: none;
+    
+}
+
+
+.menuheadertext {
+  /* color: linear-gradient(90deg, #FFDDA6 2.72%, #887B6B 100%);
+  color: linear-gradient(90deg, color(display-p3 1 0.8717 0.6792) 2.72%, color(display-p3 0.525 0.4856 0.4266) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+  /* color: black;
+  font-family: "Gilroy-Bold";
+  font-weight: 400;
+  font-size: 1vw; */
+  background: linear-gradient(90deg, #FFDDA6 2.72%, #887B6B 100%);
+  background: linear-gradient(90deg, color(display-p3 1 0.8717 0.6792) 2.72%, color(display-p3 0.525 0.4856 0.4266) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: Gilroy-Bold;
+  font-weight: 400;
+  font-size: 1.05vw;
+}
+
+.menuheadertext:hover {
+  border-radius: 4px;
+  border: 0.15vw solid #968162;
+}
+
+.headerscontainer {
+  border-bottom: 3px solid rgba(77, 77, 77, 0.26);
+}
+
+.playerimage{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+
+}
+
+.playername {
+  color: #7E7E7E;
+text-align: right;
+font-family: Gilroy-Bold;
+font-size: 0.9vw;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 20.728px */
+}
+
+#coinamount {
+  color: #ECC561;
+text-align: right;
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Bold;
+font-size: 0.9vw;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 20.728px */
+}
+
+.hotdealtitle {
+  background: linear-gradient(90deg, #FFDEAD 2.72%, #FFF 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+font-family: Gilroy-Bold;
+font-size: 3vw;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 95.52px */
+word-wrap:break-word;
+white-space: pre-line
+}
+
+.clicktopreview {
+color: #FFF;
+font-family: Gilroy-SemiBold;
+font-size: 16px;
+
+font-weight: 500;
+transition: all 0.2s ease-in-out;
+}
+
+/* .clicktopreview:hover {
+  color: #FFCD4D;
+} */
+
+
+.price {
+  color: #ECC561;
+font-family:Gilroy-SemiBold;
+font-size: 1.1vw;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 21.857px */
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.swiper-navigation-color {
+  color: red;
+}
+
+
+.swiper-pagination-bullet-active {
+  background-color: #FFF !important;
+  height: 50px !important;
+  /* transition: 0.3s all; */
+}
+
+.imageborder{
+  border: 2px solid #FFF;
+
+
+}
+
+
+
+.swiper-pagination-bullets {
+  margin-bottom: 40vh;
+}
+
+* {
+  --swiper-pagination-bullet-vertical-gap : 4px;
+  --swiper-pagination-right : none;
+  --swiper-pagination-left : 20px;
+  --swiper-pagination-top : 0px;
+  --swiper-pagination-bullet-inactive-color: #ffffff;
+  /* --swiper-pagination-bullet-height : 3px;
+  --swiper-pagination-bullet-size : 1px; */
+  --swiper-pagination-bullet-border-radius: 0.5vw
+}
+
+.swiper-item-info {
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Gilroy-Bold;
+  font-size: 1.8vh;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 99.5%; /* 19.9px */
+  background: linear-gradient(90deg, #FFDEAD 2.72%, #FFF 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.headerhtdeals {
+  color: #000;
+font-family: Gilroy-Heavy;
+font-size: 1.4vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 21.87px */
+}
+
+.remainingtime {
+  color: rgba(0, 0, 0, 0.40);
+text-align: right;
+font-family: Gilroy-Bold;
+font-size: 1.5vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 21.87px */
+}
+
+.carname {
+  color: #000;
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 2.5vh;
+font-style: normal;
+font-weight: 400;
+
+line-height: 99.5%; /* 31.84px */
+}
+
+.carmodel {
+  color: #000;
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Gilroy-Heavy;
+  font-size: 2.5vh;
+  font-style: normal;
+  mix-blend-mode: overlay;
+  font-weight: 400;
+  line-height: 99.5%; /* 31.84px */
+}
+
+.hotdealprice {
+  color: #000;
+text-align: right;
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 1.5vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 21.857px */
+}
+
+.gethotdeal {
+  border-radius: 8.888px;
+border: 2.222px solid #FDE7AE;
+background: rgba(255, 255, 255, 0.881);
+
+color: #ECC561;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.2vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 13.889px */
+}
+
+.vippasses {
+  leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 1.8vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 21.806px */
+background: linear-gradient(90deg, #FFDEAD 2.72%, #FFF 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.vcoin {
+  background: linear-gradient(90deg, #FFD771 2.72%, #CBC1A9 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 1.8vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 21.87px */
+}
+
+.buycoinheader {
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Gilroy-Heavy;
+  font-size: 1vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 99.5%; /* 21.87px */
+  background: linear-gradient(90deg, #FFD771 2.72%, #CBC1A9 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.buycoinfooterhead {
+  color: rgba(0, 0, 0, 0.40);
+  text-align: center;
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Gilroy-Bold;
+  font-size: 0.7vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 99.5%; /* 19.9px */
+}
+
+.tebex {
+  color: #ECC561;
+text-align: center;
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Bold;
+font-size: 1.2vw;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 23.88px */
+}
+
+.tebexinfo {
+  color: rgba(0, 0, 0, 0.40);
+text-align: center;
+
+font-family: SF Pro Rounded;
+font-size: 0.8vw;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 13.93px */
+}
+
+.paymentidheader {
+  color: #ECC561;
+
+
+font-family: SF Pro Rounded;
+font-size: 0.68vw;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 13.93px */
+}
+
+
+
+.paymentidinput{
+  border-radius: 8.914px;
+border: 1.2px solid rgba(0, 0, 0, 0.07);
+background: rgba(0, 0, 0, 0.06);
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+.checktbxbutn{
+  border-radius: 8.914px;
+border: 2.229px solid #FDE7AE;
+background: rgba(249, 228, 173, 0.33);
+backdrop-filter: blur(17.828571319580078px);
+color: #ECC561;
+text-align: right;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 0.8vw;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 13.93px */
+}
+
+.passes-screen-title {
+  leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 1.8vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 21.806px */
+background: linear-gradient(90deg, #FFDEAD 2.72%, #FFF 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.passes-screen-title-desc {
+  color: rgba(0, 0, 0, 0.40);
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 13.93px */
+}
+
+.gobck {
+  leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 1.8vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 21.806px */
+background: linear-gradient(90deg, #a98550 2.72%, #988f8f 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.platinumtitle {
+  leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 2.4vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 25.77px */
+background: linear-gradient(90deg, #BDFFEB 2.72%, #3894B1 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.diamondtitle {
+  leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 2.4vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 25.77px */
+background: linear-gradient(90deg, #D3BDFF 2.72%, #3869B1 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.goldentitle {
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Gilroy-Heavy;
+  font-size: 2.4vh;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 99.5%; /* 25.77px */
+  background: linear-gradient(90deg, #FFF1BD 2.72%, #B19738 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pass {
+font-family: Gilroy-Heavy;
+font-size: 25.9px;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 25.77px */
+background: linear-gradient(90deg, #BDFFEB 2.72%, #3894B1 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.passdia {
+  font-family: Gilroy-Heavy;
+  font-size: 25.9px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 99.5%; /* 25.77px */
+  background: linear-gradient(90deg, #D3BDFF 2.72%, #3869B1 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+  .passgolden {
+    font-family: Gilroy-Heavy;
+    font-size: 25.9px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 99.5%; /* 25.77px */
+    background: linear-gradient(90deg, #FFF1BD 2.72%, #B19738 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
+
+.priceplat {
+  text-align: right;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.6vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 21.857px */
+background: linear-gradient(90deg, #6ea896 2.72%, #3894B1 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.pricedia {
+  text-align: right;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.6vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 21.857px */
+background: linear-gradient(240deg, #7b64aa 2.72%, #3869B1 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.pricegolden {
+  text-align: right;
+  leading-trim: both;
+  text-edge: cap;
+  font-family: SF Pro Rounded;
+  font-size: 1.6vh;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 99.5%; /* 21.857px */
+  background: linear-gradient(90deg, #ecd585 2.72%, #B19738 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.itemname {
+  leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.4vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 14.925px */
+background: linear-gradient(90deg, #689e8e 2.72%, #3894B1 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.itemnamedia {
+  leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.4vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 14.925px */
+background: linear-gradient(90deg, #9c85cb 2.72%, #3869B1 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+
+.itemnamegolden {
+  leading-trim: both;
+  text-edge: cap;
+  font-family: SF Pro Rounded;
+  font-size: 1.4vh;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 99.5%; /* 14.925px */
+  background: linear-gradient(90deg, #afa272 2.72%, #B19738 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.rewardscontainer::-webkit-scrollbar{
+  display: none;
+}
+
+.getpass{
+  color: #84d7be;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.5vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 13.889px */
+}
+
+.detailsindex {
+  color: #d2d0d0;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.3vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 14.925px */
+}
+
+.lessdetail {
+  leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.1vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 14.925px */
+text-decoration: underline;
+-webkit-text-decoration-line: underline;
+-moz-text-decoration-line: underline;
+background: linear-gradient(90deg, #FFDEAD 2.72%, #FFF 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+}
+
+.borderheader {
+  border-radius: 4px;
+  border: 0.15vw solid #968162;
+}
+
+.polygon {
+  clip-path: polygon(49% 1%, 100% 0, 100% 100%, 0 100%, 0 52%, 49% 52%);
+
+}
+
+.vehicle {
+  color: #000;
+font-family: Gilroy-Heavy;
+font-size: 1.6vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 15.92px */
+}
+
+.vehiclemodel {
+  color: rgb(0, 0, 0);
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 1.7vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 15.92px */
+mix-blend-mode: overlay;
+
+}
+
+.vehiclemodel23 {
+  color: rgb(0, 0, 0);
+  font-family: Gilroy-Heavy;
+  font-size: 1.7vh;
+  font-style: normal;
+  opacity: 56%;
+  font-weight: 400;
+  line-height: 99.5%; /* 15.92px */
+  mix-blend-mode: color-burn;
+}
+
+
+
+.priceitem {
+  color: #000;
+text-align: right;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.65vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 15.799px */
+}
+
+.containervehiclesbottom::-webkit-scrollbar{
+  display: none;
+}
+
+.descriptions::-webkit-scrollbar{
+  display: none;
+}
+
+.vehiclemodel2 {
+  color: #000;
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 40.036px;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 39.836px */
+mix-blend-mode: overlay;
+}
+
+.vehiclemodel21 {
+  color: #000;
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 40.036px;
+font-style: normal;
+font-weight: 400;
+opacity: 56%;
+line-height: 99.5%; /* 39.836px */
+mix-blend-mode: color-burn;
+}
+
+
+
+.buyitem {
+  color: #ECC561;
+text-align: center;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.8vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 24.693px */
+}
+
+.cancel {
+  color: #EC6161;
+text-align: center;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.8vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 24.693px */
+}
+
+.weaponsdesc {
+  color: #000;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.5vh;
+font-style: normal;
+font-weight: 600;
+mix-blend-mode: overlay;
+line-height: 99.5%; /* 14.925px */
+}
+
+.borderpopou{
+  border: 1px solid #ffffff6c;
+}
+
+.prchasehistory {
+  color: #ffffffbe;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.3vh;
+font-style: normal;
+font-weight: 600;
+line-height: 143.836%; /* 18.699px */
+transition: color 0.2s ease-in-out;
+}
+
+.prchasehistory:hover {
+  color: #ffffff;
+}
+
+.purchasetitle {
+  text-align: right;
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Bold;
+font-size: 1.8vh;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 19.9px */
+background: linear-gradient(90deg, #FFDEAD 2.72%, #867C6D 100%);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.nopurchase {
+  text-align: right;
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Gilroy-Bold;
+  font-size: 1.2vh;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 99.5%; /* 19.9px */
+  color: rgb(147, 61, 61);
+}
+
+.date {
+  color: #000;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.6vh;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.activepassdesc{
+  text-align: center;
+leading-trim: both;
+text-edge: cap;
+font-family: Gilroy-Heavy;
+font-size: 21.915px;
+font-style: normal;
+font-weight: 400;
+line-height: 99.5%; /* 21.806px */
+color: #FFDEAD;
+
+}
+
+.getvpass {
+  color: #ECC561;
+leading-trim: both;
+text-edge: cap;
+font-family: SF Pro Rounded;
+font-size: 1.4vh;
+font-style: normal;
+font-weight: 600;
+line-height: 99.5%; /* 13.889px */
+}
