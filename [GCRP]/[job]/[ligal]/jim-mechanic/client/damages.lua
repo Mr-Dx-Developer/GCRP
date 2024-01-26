@@ -69,7 +69,9 @@ end)
 
 --=== ADD/REMOVE UPGRADE PARTS ===--
 RegisterNetEvent('jim-mechanic:client:applyExtraPart', function(data) local Ped = PlayerPedId() emptyHands(Ped)
+    if data.client.remove == nil then print("You need to update your ox_inv items") return end
     local data = data.client and data.client or data
+    local item = Items[data.mod..(data.level ~= nil and data.level or "")] and Items[data.mod..(data.level ~= nil and data.level or "")].label or ""
     if not enforceRestriction("perform") then return end
     if not Checks() then return end
     local vehicle = vehChecks() local above = isVehicleLift(vehicle)
@@ -92,8 +94,8 @@ RegisterNetEvent('jim-mechanic:client:applyExtraPart', function(data) local Ped 
         SetVehicleEngineOn(vehicle, false, false, true)
         if Config.Overrides.DoorAnimations then SetVehicleDoorOpen(vehicle, 4, false, false) end
         if data.remove ~= true then
-            if currentLevel == data.level then triggerNotify(nil, "LVL: "..data.level..Loc[Config.Lan]["common"].already, "error") else
-                if progressBar({label = Loc[Config.Lan]["common"].installing.." LVL: "..data.level, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then
+            if currentLevel == data.level then triggerNotify(nil, item.." "..Loc[Config.Lan]["common"].already, "error") else
+                if progressBar({label = Loc[Config.Lan]["common"].installing..item, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then
                     if (VehicleStatus[plate][extrapart] ~= currentLevel) or (not hasItem(data.mod..data.level, 1)) then TriggerServerEvent("jim-mechanic:server:DupeWarn", data.mod..data.level) emptyHands(Ped) return end
                     qblog("`"..Items[data.mod..data.level].label.." - "..data.mod..data.level.."` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
                     SetVehicleStatus(vehicle, extrapart, data.level)
@@ -106,7 +108,7 @@ RegisterNetEvent('jim-mechanic:client:applyExtraPart', function(data) local Ped 
                 end
             end
         else
-            if progressBar({label = Loc[Config.Lan]["common"].removing, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then
+            if progressBar({label = Loc[Config.Lan]["common"].removing..Items[data.mod..VehicleStatus[plate][extrapart]].label, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then
                 if VehicleStatus[plate][extrapart] ~= currentLevel then emptyHands(Ped) TriggerServerEvent("jim-mechanic:server:DupeWarn", data.mod..currentLevel) return end
                 SetVehicleStatus(vehicle, extrapart, 0)
                     qblog("`"..Items[data.mod..currentLevel].label.." - "..data.mod..currentLevel.."` removed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")

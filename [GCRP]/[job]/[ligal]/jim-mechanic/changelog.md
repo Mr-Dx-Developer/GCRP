@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.3.4
+
+    Changes:
+        - Support for ox_lib's registerMenu to create a menu that can be controlled with arrows - `preview.lua`
+            - This is now default for PREVIEWS
+        - `Config.Previews.hardCam` is now retired, players can now enable or disable it through their preview menus - `preview.lua`
+        - `mechboard` item now shows a slightly different menu - `preview.lua`
+        - Made spray painting animations last a bit longer - `paint.lua`
+
+    Fix:
+        - Separated removal events for items with the `toolbox` item as it was getting confused - `check_tunes.lua`
+        - Fixed typo stopping preivews from setting rims back to stock - `preview.lua`
+        - Very minor fixes to menu for starting crafting - `locfunctons.lua`
+        - People being able to see boss related targets when they shouldn't `locfunctions.lua`
+
+    New:
+        - Added check for if ox based items have been updated from ox_items.txt - `performance.lua`
+        - Made the performance items adding/removing events a bit smarter - `performance.lua`
+        - Added progressbar item text for Extra damage components when adding/removing them - `damages.lua`
+
 ## 3.3.3
 
 `RE-REPLACE YOUR OX_PROPERTIES/QB_PROPERTIES TO FIX LEAKING ISSUE`

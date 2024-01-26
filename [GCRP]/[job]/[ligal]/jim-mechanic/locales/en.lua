@@ -377,7 +377,7 @@ Loc["en"] = {
 		seat = "Move to another seat [-1 to 10]",
 	},
 	previews = {
-		changes = "Amount of changes: ",
+		changes = "Changes: ",
 		previewing = "Can't do this while previewing",
 	},
 	stancer = {
@@ -414,6 +414,13 @@ Loc["en"] = {
 		{ name = "Yellow on Blue", id = 2 },
 		{ name = "Yellow on Black", id = 1 },
 		{ name = "North Yankton", id = 5 },
+        --[[(GetGameBuildNumber() >= 3095 and { name = "eCola", id = 6 } or nil),
+        (GetGameBuildNumber() >= 3095 and { name = "Las Venturas", id = 7 } or nil),
+        (GetGameBuildNumber() >= 3095 and { name = "Liberty City", id = 8 } or nil),
+        (GetGameBuildNumber() >= 3095 and { name = "LS Car Meet", id = 9 } or nil),
+        (GetGameBuildNumber() >= 3095 and { name = "Panic", id = 10 } or nil),
+        (GetGameBuildNumber() >= 3095 and { name = "Pounders", id = 11 } or nil),
+        (GetGameBuildNumber() >= 3095 and { name = "Sprunk", id = 12 } or nil),]]
 	},
 	vehicleNeonOptions = {
 		{ name = "White", R = 255, G = 255, B = 255 },

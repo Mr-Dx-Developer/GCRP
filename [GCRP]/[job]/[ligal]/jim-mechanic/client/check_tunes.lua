@@ -164,7 +164,7 @@ RegisterNetEvent('jim-mechanic:client:Menu', function(editable)
 		}
 	end
 	propHoldCoolDown("toolbox")
-	openMenu(CheckMenu, { header = searchCar(vehicle).name, headertxt = headertxt, canClose = true, onExit = function() removePropHoldCoolDown() end, })
+	openMenu(CheckMenu, { header = searchCar(vehicle).name, headertxt = headertxt, canClose = true, onExit = function() removePropHoldCoolDown() end })
 end)
 
 RegisterNetEvent('jim-mechanic:client:Menu:List', function() local Ped = PlayerPedId()
@@ -241,41 +241,101 @@ end)
 
 RegisterNetEvent('jim-mechanic:client:Menu:Remove', function(data) local plate = trim(GetVehicleNumberPlateText(vehicle))
 	local orgTable = {
-		["brakes"] = { icon = invImg((GetVehicleMod(data.vehicle, 12)+1) > 0 and "brakes"..(GetVehicleMod(data.vehicle, 12)+1) or ""),
-			head = ((GetVehicleMod(data.vehicle, 12)+1) > 0 and Items["brakes"..(GetVehicleMod(data.vehicle, 12)+1)].label or ""), event = "applyBrakes", },
-		["engine"] = { icon = invImg((GetVehicleMod(data.vehicle, 11)+1) > 0 and "engine"..(GetVehicleMod(data.vehicle, 11)+1) or ""),
-			head = ((GetVehicleMod(data.vehicle, 11)+1) > 0 and Items["engine"..(GetVehicleMod(data.vehicle, 11)+1)].label or ""), event = "applyEngine" },
-		["suspension"] = { icon = invImg((GetVehicleMod(data.vehicle, 15)+1) > 0 and "suspension"..(GetVehicleMod(data.vehicle, 15)+1) or ""),
-			head = ((GetVehicleMod(data.vehicle, 15)+1) > 0 and Items["suspension"..(GetVehicleMod(data.vehicle, 15)+1)].label or ""), event = "applySuspension" },
-		["transmission"] = { icon = invImg((GetVehicleMod(data.vehicle, 13)+1) > 0 and "transmission"..(GetVehicleMod(data.vehicle, 13)+1) or ""),
-			head = ((GetVehicleMod(data.vehicle, 13)+1) > 0 and Items["transmission"..(GetVehicleMod(data.vehicle, 13)+1)].label or ""), event = "applyTransmission" },
-		["car_armor"] = { icon = invImg("car_armor"), head = Items["car_armor"].label, event = "applyArmour" },
-		["turbo"] = { icon = invImg("turbo"), head = Items["turbo"].label, event = "applyTurbo" },
-		["headlights"] = {icon = invImg("headlights"), head = Items["headlights"].label, event = "giveXenon" },
-		["drifttires"] = { icon = invImg("drifttires"), head = Items["drifttires"].label, event = "applyDrift" },
-		["bprooftires"] = { icon = invImg("bprooftires"), head = Items["bprooftires"].label, event = "applyBulletProof" },
-		["nos"] = { icon = invImg("noscan"), head = Items["noscan"].label, event = "giveNOS" },
-		["oilp"] = { icon = invImg(VehicleStatus[plate].oillevel > 0 and "oilp"..VehicleStatus[plate].oillevel or ""),
-			head = (VehicleStatus[plate].oillevel > 0 and Items["oilp"..VehicleStatus[plate].oillevel].label or ""), event = "applyExtraPart" },
-		["drives"] = { icon = invImg(VehicleStatus[plate].shaftlevel > 0 and "drives"..VehicleStatus[plate].shaftlevel or ""),
-			head = (VehicleStatus[plate].shaftlevel > 0 and Items["drives"..VehicleStatus[plate].shaftlevel].label or ""), event = "applyExtraPart" },
-		["cylind"] = { icon = invImg(VehicleStatus[plate].cylinderlevel > 0 and "cylind"..VehicleStatus[plate].cylinderlevel or ""),
-			head = (VehicleStatus[plate].cylinderlevel > 0 and Items["cylind"..VehicleStatus[plate].cylinderlevel].label or ""), event = "applyExtraPart" },
-		["cables"] = { icon = invImg(VehicleStatus[plate].cablelevel > 0 and "cables"..VehicleStatus[plate].cablelevel or ""),
-			head = (VehicleStatus[plate].cablelevel > 0 and Items["cables"..VehicleStatus[plate].cablelevel].label or ""), event = "applyExtraPart" },
+		["brakes"] = {
+			icon = invImg((GetVehicleMod(data.vehicle, 12)+1) > 0 and "brakes"..(GetVehicleMod(data.vehicle, 12)+1) or ""),
+			head = ((GetVehicleMod(data.vehicle, 12)+1) > 0 and Items["brakes"..(GetVehicleMod(data.vehicle, 12)+1)].label or ""),
+			event = function() TriggerEvent("jim-mechanic:client:applyBrakes", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["engine"] = {
+			icon = invImg((GetVehicleMod(data.vehicle, 11)+1) > 0 and "engine"..(GetVehicleMod(data.vehicle, 11)+1) or ""),
+			head = ((GetVehicleMod(data.vehicle, 11)+1) > 0 and Items["engine"..(GetVehicleMod(data.vehicle, 11)+1)].label or ""),
+			event = function() TriggerEvent("jim-mechanic:client:applyEngine", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["suspension"] = {
+			icon = invImg((GetVehicleMod(data.vehicle, 15)+1) > 0 and "suspension"..(GetVehicleMod(data.vehicle, 15)+1) or ""),
+			head = ((GetVehicleMod(data.vehicle, 15)+1) > 0 and Items["suspension"..(GetVehicleMod(data.vehicle, 15)+1)].label or ""),
+			event = function() TriggerEvent("jim-mechanic:client:applySuspension", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["transmission"] = {
+			icon = invImg((GetVehicleMod(data.vehicle, 13)+1) > 0 and "transmission"..(GetVehicleMod(data.vehicle, 13)+1) or ""),
+			head = ((GetVehicleMod(data.vehicle, 13)+1) > 0 and Items["transmission"..(GetVehicleMod(data.vehicle, 13)+1)].label or ""),
+			event = function() TriggerEvent("jim-mechanic:client:applyTransmission", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["car_armor"] = {
+			icon = invImg("car_armor"),
+			head = Items["car_armor"].label,
+			event = function() TriggerEvent("jim-mechanic:client:applyArmour", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["turbo"] = {
+			icon = invImg("turbo"),
+			head = Items["turbo"].label,
+			event = function() TriggerEvent("jim-mechanic:client:applyTurbo", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["headlights"] = {
+			icon = invImg("headlights"),
+			head = Items["headlights"].label,
+			event = function() TriggerEvent("jim-mechanic:client:giveXenon", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["drifttires"] = {
+			icon = invImg("drifttires"),
+			head = Items["drifttires"].label,
+			event = function() TriggerEvent("jim-mechanic:client:applyDrift", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["bprooftires"] = {
+			icon = invImg("bprooftires"),
+			head = Items["bprooftires"].label,
+			event = function() TriggerEvent("jim-mechanic:client:applyBulletProof", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["nos"] = {
+			icon = invImg("noscan"),
+			head = Items["noscan"].label,
+			event = function() TriggerEvent("jim-mechanic:client:giveNOS") end,
+		},
+		["oilp"] = {
+			icon = invImg(VehicleStatus[plate].oillevel > 0 and "oilp"..VehicleStatus[plate].oillevel or ""),
+			head = (VehicleStatus[plate].oillevel > 0 and Items["oilp"..VehicleStatus[plate].oillevel].label or ""),
+			event = function() TriggerEvent("jim-mechanic:client:applyExtraPart", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["drives"] = {
+			icon = invImg(VehicleStatus[plate].shaftlevel > 0 and "drives"..VehicleStatus[plate].shaftlevel or ""),
+			head = (VehicleStatus[plate].shaftlevel > 0 and Items["drives"..VehicleStatus[plate].shaftlevel].label or ""),
+			event = function() TriggerEvent("jim-mechanic:client:applyExtraPart", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["cylind"] = {
+			icon = invImg(VehicleStatus[plate].cylinderlevel > 0 and "cylind"..VehicleStatus[plate].cylinderlevel or ""),
+			head = (VehicleStatus[plate].cylinderlevel > 0 and Items["cylind"..VehicleStatus[plate].cylinderlevel].label or ""),
+			event = function() TriggerEvent("jim-mechanic:client:applyExtraPart", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["cables"] = {
+			icon = invImg(VehicleStatus[plate].cablelevel > 0 and "cables"..VehicleStatus[plate].cablelevel or ""),
+			head = (VehicleStatus[plate].cablelevel > 0 and Items["cables"..VehicleStatus[plate].cablelevel].label or ""),
+			event = function() TriggerEvent("jim-mechanic:client:applyExtraPart", { client = { mod = data.mod, remove = true}}) end,
+		},
 		["fueltank"] = { icon = invImg(VehicleStatus[plate].fuellevel > 0 and "fueltank"..VehicleStatus[plate].fuellevel or ""),
-			head = (VehicleStatus[plate].fuellevel > 0 and Items["fueltank"..VehicleStatus[plate].fuellevel].label or ""), event = "applyExtraPart" },
-		["harness"] = { icon = invImg("harness"), head = Items["harness"].label, event = "applyHarness" },
-		["antilag"] = { icon = invImg("antilag"), head = Items["antilag"].label, event = "applyAntiLag" },
+			head = (VehicleStatus[plate].fuellevel > 0 and Items["fueltank"..VehicleStatus[plate].fuellevel].label or ""),
+			event = function() TriggerEvent("jim-mechanic:client:applyExtraPart", { client = { mod = data.mod, remove = true}}) end,
+		},
+		["harness"] = {
+			icon = invImg("harness"),
+			head = Items["harness"].label,
+			event = function() TriggerEvent("jim-mechanic:client:applyHarness", { client = { remove = true } }) end,
+		},
+		["antilag"] = {
+			icon = invImg("antilag"),
+			head = Items["antilag"].label,
+			event = function() TriggerEvent("jim-mechanic:client:applyAntiLag", { client = { remove = true } }) end,
+		},
 	}
 	local CheckMenu = { }
-	CheckMenu[#CheckMenu+1] = { icon = orgTable[data.mod].icon,
+	CheckMenu[#CheckMenu+1] = {
+		icon = orgTable[data.mod].icon,
 		isMenuHeader = true,
 		header = Loc[Config.Lan]["check"].label49..orgTable[data.mod].head.."?",
 	}
-	CheckMenu[#CheckMenu+1] = { icon = "fas fa-circle-check",
+	CheckMenu[#CheckMenu+1] = {
+		icon = "fas fa-circle-check",
 		txt = Loc[Config.Lan]["check"].label47,
-		onSelect = function() TriggerEvent("jim-mechanic:client:"..orgTable[data.mod].event, not data.extra and { client = { level = 0,  remove = true } } or { mod = data.mod, remove = true}) end,
+		onSelect = function() orgTable[data.mod].event() end,
 	}
 	CheckMenu[#CheckMenu+1] = { icon = "fas fa-circle-xmark",
 		txt = Loc[Config.Lan]["check"].label48,

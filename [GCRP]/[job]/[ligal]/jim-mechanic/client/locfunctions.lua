@@ -129,6 +129,7 @@ function makeLocs()
 				if loc.payments then
 					for l, b in pairs(loc.payments) do local name = "MechReceipt: "..k..l
 						if l ~= "img" then
+							local bossroles = makeBossRoles(loc.job or loc.gang)
 							local options = {
 								{ action = function() TriggerEvent("jim-payments:client:Charge", { job = loc.job, img = loc.payments.img }) end, icon = "fas fa-credit-card", label = Loc[Config.Lan]["payments"].charge, job = loc.job, },
 								(Config.General.showClockInTill and { action = function() toggleDuty() end, job = loc.job, gang = loc.gang, icon = "fas fa-user-check", label = "Duty Toggle", } or nil),
@@ -150,7 +151,7 @@ function makeLocs()
 					for l, b in pairs(loc.stash) do local name = "MechSafe: "..k..l
 						local options = {
 							{ action = function()
-								openStash({ job = loc.job, stash = repairStashName }) end,
+								openStash({ job = loc.job, stash = repairStashName, stashOptions = { slots = 50, maxweight = 400000 }} ) end,
 								icon = "fas fa-cogs",
 								label = Loc[Config.Lan]["repair"].browse,
 								job = loc.job
@@ -173,15 +174,7 @@ function makeLocs()
 							local bossrole = {}
 							if loc.job then
 								if Jobs and not Jobs[loc.job] then print("^5Debug^7: ^1Can't find the job ^7'^6"..loc.job.."^7' ^1in the core shared files^7") else
-									for grade in pairs(Jobs[loc.job].grades) do
-										if Jobs[loc.job].grades[grade].isboss == true then
-											if bossrole[loc.job] then
-												if bossrole[loc.job] > tonumber(grade) then
-													bossrole[loc.job] = tonumber(grade)
-												end
-											else bossrole[loc.job] = tonumber(grade) end
-										end
-									end
+									bossrole = makeBossRoles(loc.job)
 									local options = {
 										{ action = function() toggleDuty() end, icon = "fas fa-clipboard", label = "Duty Toggle", job = loc.job },
 										{ action = function() TriggerEvent("qb-bossmenu:client:OpenMenu") end, icon = "fas fa-list", label = "Open Bossmenu", job = bossrole, },
@@ -397,31 +390,31 @@ RegisterNetEvent('jim-mechanic:client:Crafting:Menu', function(data)
 	local restrictionTable = {}
 	if data.restrict then for i = 1, #data.restrict do restrictionTable[data.restrict[i]] = true end end
 	if data.restrict and not restrictionTable["tools"] then else
-		Menu[#Menu + 1] = { icon = "fas fa-angle-right", header = Loc[Config.Lan]["crafting"].toolheader, txt = #Crafting.Tools.Recipes..Loc[Config.Lan]["crafting"].numitems,
+		Menu[#Menu + 1] = { arrow = true, header = Loc[Config.Lan]["crafting"].toolheader, txt = #Crafting.Tools.Recipes..Loc[Config.Lan]["crafting"].numitems,
 			onSelect = function()
 				craftingMenu({ job = data.job, craftable = Crafting.Tools, coords = data.coords.xyz, stashName = data.stashName, onBack = function() TriggerEvent("jim-mechanic:client:Crafting:Menu", data) end, })
 			end,
 		} end
 	if data.restrict and not restrictionTable["repairs"] then else
-		Menu[#Menu + 1] = { icon = "fas fa-angle-right", header = Loc[Config.Lan]["crafting"].repairheader, txt = #Crafting.Repairs.Recipes..Loc[Config.Lan]["crafting"].numitems,
+		Menu[#Menu + 1] = { arrow = true, header = Loc[Config.Lan]["crafting"].repairheader, txt = #Crafting.Repairs.Recipes..Loc[Config.Lan]["crafting"].numitems,
 			onSelect = function()
 				craftingMenu({ job = data.job, craftable = Crafting.Repairs, coords = data.coords.xyz, stashName = data.stashName, onBack = function() TriggerEvent("jim-mechanic:client:Crafting:Menu", data) end, })
 			end,
 		} end
 	if data.restrict and not restrictionTable["perform"] then else
-		Menu[#Menu + 1] = { icon = "fas fa-angle-right", header = Loc[Config.Lan]["crafting"].performheader, txt = #Crafting.Perform.Recipes..Loc[Config.Lan]["crafting"].numitems,
+		Menu[#Menu + 1] = { arrow = true, header = Loc[Config.Lan]["crafting"].performheader, txt = #Crafting.Perform.Recipes..Loc[Config.Lan]["crafting"].numitems,
 			onSelect = function()
 				craftingMenu({ job = data.job, craftable = Crafting.Perform, coords = data.coords.xyz, stashName = data.stashName, onBack = function() TriggerEvent("jim-mechanic:client:Crafting:Menu", data) end, })
 			end,
 		} end
 	if data.restrict and not restrictionTable["cosmetics"] then else
-		Menu[#Menu + 1] = { icon = "fas fa-angle-right", header = Loc[Config.Lan]["crafting"].cosmetheader, txt = #Crafting.Cosmetic.Recipes..Loc[Config.Lan]["crafting"].numitems,
+		Menu[#Menu + 1] = { arrow = true, header = Loc[Config.Lan]["crafting"].cosmetheader, txt = #Crafting.Cosmetic.Recipes..Loc[Config.Lan]["crafting"].numitems,
 			onSelect = function()
 				craftingMenu({ job = data.job, craftable = Crafting.Cosmetic, coords = data.coords.xyz, stashName = data.stashName, onBack = function() TriggerEvent("jim-mechanic:client:Crafting:Menu", data) end, })
 			end,
 		} end
 	if data.restrict and not restrictionTable["nos"] and not Config.Overrides.disableNos then else
-		Menu[#Menu + 1] = { icon = "fas fa-angle-right", header = Loc[Config.Lan]["crafting"].nosheader, txt = #Crafting.Nos.Recipes..Loc[Config.Lan]["crafting"].numitems,
+		Menu[#Menu + 1] = { arrow = true, header = Loc[Config.Lan]["crafting"].nosheader, txt = #Crafting.Nos.Recipes..Loc[Config.Lan]["crafting"].numitems,
 			onSelect = function()
 				craftingMenu({ job = data.job, craftable = Crafting.Nos, coords = data.coords.xyz, stashName = data.stashName, onBack = function() TriggerEvent("jim-mechanic:client:Crafting:Menu", data) end, })
 			end,

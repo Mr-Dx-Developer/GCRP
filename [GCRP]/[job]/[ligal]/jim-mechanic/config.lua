@@ -4,7 +4,7 @@ Config = {
 		Debug = false, -- Set to true to show green debug boxes to help track any issues
 
 		Menu = "ox",  				-- "qb", "ox", "gta"
-		Notify = "qb",				-- "qb", "ox", "gta", "esx"
+		Notify = "ox",				-- "qb", "ox", "gta", "esx"
 		ProgressBar = "ox", 		-- "qb", "ox", "gta", "esx"
 
 		distkph = false, 			-- Set to false to read distance travelled in Miles.
@@ -149,9 +149,7 @@ Config = {
 
 	Previews = {
 
-		hardCam = true,				-- Enable this to make preview make hard camera locations for previewing
-
-		PreviewPhone = true, 		-- Enable this is preview menu generates an email, False if you want to give an item
+		PreviewPhone = false, 		-- Enable this is preview menu generates an email, False if you want to give an item
 		PreviewJob = false, 		-- Enable this if you want /preview to require a Job Role
 		PreviewLocation = false, 	-- Enable this if you want to lock /preview to a job location (ignored if LocationRequired is false)
 		PhoneMail = "qb", 			-- If PreviewPhone is true, change this to choose the correct phone system
@@ -160,16 +158,16 @@ Config = {
 									-- "qs" = use qs-smartphone for emails
 									-- "roadphone" = use roadphone for emails
 		PhoneItems = {				-- list of phones/items that are needed to get emails. IF you don't have any you will get a clipboard with the list on instead
-			"phone"
-		--	"classic_phone",
-		--	"black_phone",
-		--	"blue_phone",
-		--	"gold_phone",
-		--	"red_phone",
-		--	"green_phone",
-		--	"greenlight_phone",
-		--	"pink_phone",
-		--	"white_phone"
+			"phone",
+			--"classic_phone",
+			--"black_phone",
+			--"blue_phone",
+			--"gold_phone",
+			--"red_phone",
+			--"green_phone",
+			--"greenlight_phone",
+			--"pink_phone",
+			--"white_phone"
 		}
 	},
 

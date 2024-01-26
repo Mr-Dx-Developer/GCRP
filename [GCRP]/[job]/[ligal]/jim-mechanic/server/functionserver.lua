@@ -179,7 +179,7 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, dutyList = {}, {}, {},
 		local src = source
 		local metadata = { description = string.format('Model: %s\nPlate: %s\n\nChanges: %s', info.veh, info.vehplate, #info.vehlist), info = info }
 		if GetResourceState(OXInv):find("start") then
-			exports.ox_inventory:AddItem(src, "mechboard", 1, metadata)
+			exports[OXInv]:AddItem(src, "mechboard", 1, metadata)
 		else
 			Core.Functions.GetPlayer(src).Functions.AddItem("mechboard", 1, nil, info)
 			if Config.Crafting.showItemBox then TriggerClientEvent('inventory:client:ItemBox', src, Items["mechboard"], "add", 1) end

@@ -147,7 +147,6 @@ local function printDifferences(vehicle, properties, newproperties)
 	-- FINIALIZE AND MAKE LIST --
 	local hasPhone = false
 	for _, v in pairs(Config.Previews.PhoneItems) do if Items[v] and hasItem(v) then hasPhone = true break end end
-
     if Config.Previews.PreviewPhone and hasPhone then
 		if vehlist[1] then local newlist = ""
 			local eventTable = {
@@ -198,12 +197,21 @@ end
 RegisterNetEvent("jim-mechanic:client:giveList", function(item)
 	local list = {}
 	local newlist = ""
-	for i = 1, #item.info["vehlist"] do newlist = newlist..item.info["vehlist"][i]..br end
-	list[#list+1] = { isMenuHeader = true, header = "Mods:", txt = newlist, }
+	for i = 1, #item.info["vehlist"] do
+		local lines = {}
+		item.info["vehlist"][i]:gsub("[^\n]+", function(line) table.insert(lines, line)	end)
+		for _, line in ipairs(lines) do
+			local key, value = line:match("^(.-) - %[ (.-) %]$")
+			if key and value then
+				list[#list+1] = { isMenuHeader = true, header = key:gsub("%-", ""), txt = value }
+			end
+		end
+	end
 	openMenu(list, {
 		header = item.info["veh"],
-		headertxt = Loc[Config.Lan]["police"].plates..": "..item.info["vehplate"]..br..Loc[Config.Lan]["previews"].changes..(#item.info["vehlist"]),
-		onExit = function() end,
+		headertxt = item.info["vehplate"]..br..Loc[Config.Lan]["previews"].changes..(#item.info["vehlist"]),
+		canClose = true,
+		onSelected = true,
 	})
 end)
 
@@ -244,7 +252,7 @@ local function preview(Ped, vehicle)
 		qblog("Used `/preview` in: [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
 		TriggerServerEvent("jim-mechanic:server:preview", true, VehToNet(vehicle), trim(GetVehicleNumberPlateText(vehicle)))
 		FreezeEntityPosition(vehicle, true)
-		if Config.Previews.hardCam then startPreviewCamera(vehicle) end
+		if Config.System.Menu ~= "ox" then startPreviewCamera(vehicle) end
 	else return end
 	properties = getVehicleProperties(vehicle)
 	currentPlate = trim(GetVehicleNumberPlateText(vehicle))
@@ -257,7 +265,7 @@ local function preview(Ped, vehicle)
 	while previewing do
 		if GetSeatPedIsIn(vehicle) ~= -1 then previewing = false end
 		if not previewing or stoppreview == true then
-			if Config.Previews.hardCam then
+			if IsCamActive(camTable[currentCam]) then
 				for i = 1, #camTable do
 					SetCamActive(camTable[i], true)
 					DestroyCam(camTable[i], true)
@@ -302,7 +310,7 @@ end)
 RegisterNetEvent("jim-mechanic:preview:stop", function() stoppreview = true end)
 
 function changeCamAngle()
-	if Config.Previews.hardCam then
+	if IsCamActive(camTable[currentCam]) then
 		local prevCam = currentCam
 		currentCam += 1
 		currentCam = currentCam < 1 and countTable(camTable) or currentCam
@@ -319,10 +327,25 @@ RegisterNetEvent('jim-mechanic:client:Preview:Menu', function() local validMods,
 		vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle)
 		if GetPedInVehicleSeat(vehicle, -1) ~= Ped then return end
 		carMeta = { ["search"] = searchCar(vehicle).name, ["class"] = searchCar(vehicle).class, ["plate"] = trim(GetVehicleNumberPlateText(vehicle)), ["price"] = searchCar(vehicle).price, ["dist"] = searchDist(vehicle), }
-
-		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Menu") end,
+		if IsCamActive(camTable[currentCam]) then
+			Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+				txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+				onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Menu") end,
+			}
+		end
+		Menu[#Menu+1] = {
+			icon = IsCamActive(camTable[currentCam]) and "fas fa-unlock" or "fas fa-lock",
+			header = IsCamActive(camTable[currentCam]) and "Unlock Cam" or "Lock Cam",
+			onSelect = function()
+				if not IsCamActive(camTable[currentCam]) then startPreviewCamera(vehicle)
+				else
+					for i = 1, #camTable do SetCamActive(camTable[i], true) DestroyCam(camTable[i], true) end
+					camTable = {}
+					RenderScriptCams(false, true, 2000, true, true)
+					Wait(100)
+				end
+				TriggerEvent("jim-mechanic:client:Preview:Menu")
+			end,
 		}
 		Menu[#Menu+1] = { icon = "fas fa-ban", header = "", txt = "Stop Previewing",
 			onSelect = function() TriggerEvent("jim-mechanic:preview:stop", { event = "jim-mechanic:client:Preview:Menu" }) end,
@@ -362,7 +385,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Menu', function() local validMods,
 		for i = 1, #list do
 			if GetNumVehicleMods(vehicle, list[i].id) ~= 0 then
 				Menu[#Menu+1] = {
-					arrow = true,	header = "", txt = list[i].name..Loc[Config.Lan]["common"].amountoption..(GetNumVehicleMods(vehicle, list[i].id)+1).." ]",
+					arrow = true, header = "", txt = list[i].name..Loc[Config.Lan]["common"].amountoption..(GetNumVehicleMods(vehicle, list[i].id)+1).." ]",
 					onSelect = function() TriggerEvent("jim-mechanic:client:Preview:Multi", list[i]) end,
 				}
 			end
@@ -371,7 +394,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Menu', function() local validMods,
 		if not IsThisModelABike(GetEntityModel(vehicle)) then
 			Menu[#Menu+1] = { arrow = true, header = "", txt = Loc[Config.Lan]["windows"].menuheader, onSelect = function() TriggerEvent("jim-mechanic:client:Preview:Windows:Check") end, }
 		end
-		openMenu(Menu, { header = carMeta["search"], })
+		openMenu(Menu, { header = carMeta["search"], onSelected = true, })
 		preview(Ped, vehicle)
 	end
 end)
@@ -386,14 +409,19 @@ RegisterNetEvent("jim-mechanic:client:Preview:Multi", function(data) local valid
 	if GetVehicleMod(vehicle, data.id) == -1 then
 		stockinstall = Loc[Config.Lan]["common"].current icon = "fas fa-check" disabled = true else stockinstall = ""	end
 
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Multi", data) end,
-	}
+	if IsCamActive(camTable[currentCam]) then
+				Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Multi", data) end,
+		}
+	end
 
 	Menu[#Menu+1] = { icon = icon, isMenuHeader = disabled, disabled = (Config.System.Menu == "ox" and disabled),
-		header = "0. "..Loc[Config.Lan]["common"].stock, txt = stockinstall, params = { event = "jim-mechanic:client:Preview:Multi:Apply", args = { id = -1, mod = data.id, name = data.name }, },
-		title = "0 - "..Loc[Config.Lan]["common"].stock, description = stockinstall, event = "jim-mechanic:client:Preview:Multi:Apply", args = { id = -1, mod = data.id, name = data.name },
+		header = "0 - "..Loc[Config.Lan]["common"].stock, txt = stockinstall,
+		onSelect = function()
+			TriggerEvent("jim-mechanic:client:Preview:Multi:Apply", { id = -1, mod = data.id, name = data.name })
+		end,
+		refresh = true,
 	}
 
 	for k, v in pairs(validMods) do
@@ -401,12 +429,15 @@ RegisterNetEvent("jim-mechanic:client:Preview:Multi", function(data) local valid
 		if GetVehicleMod(vehicle, data.id) == v.id then icon = "fas fa-check" disabled = true end
 		Menu[#Menu + 1] = { icon = icon, isMenuHeader = disabled, header = k.." - "..v.name, txt = v.install,
 			onSelect = function() TriggerEvent("jim-mechanic:client:Preview:Multi:Apply", { id = tostring(v.id), mod = data.id, name = data.name }) end,
+			refresh = true,
+
 		}
 	end
 	openMenu(Menu, {
 		header = carMeta["search"],
 		headertxt = data.name.." "..Loc[Config.Lan]["common"].amountoption..(#validMods+1).." ]",
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Menu") end,
+		onSelected = true,
 	})
 end)
 
@@ -420,7 +451,7 @@ end)
 
 RegisterNetEvent('jim-mechanic:client:Preview:Livery', function(data) local stockinstall, Menu, validMods, amountMods, vehicle, Ped = "", {}, {}, 0, nil, PlayerPedId()
 	if not data then data = {} end
-	if IsPedInAnyVehicle(Ped, false) then	vehicle = GetVehiclePedIsIn(Ped, false)
+	if IsPedInAnyVehicle(Ped, false) then vehicle = GetVehiclePedIsIn(Ped, false)
         if GetNumVehicleMods(vehicle, 48) == 0 and GetVehicleLiveryCount(vehicle) ~= 0 then
 			oldlivery = true
 			for i = 0, GetVehicleLiveryCount(vehicle)-1 do
@@ -440,10 +471,12 @@ RegisterNetEvent('jim-mechanic:client:Preview:Livery', function(data) local stoc
 			end
 		end
 	end
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Livery", data) end,
-	}
+	if IsCamActive(camTable[currentCam]) then
+		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Livery", data) end,
+		}
+	end
 	if oldlivery then
 		Menu[#Menu + 1] = { isMenuHeader = GetVehicleLivery(vehicle) == 0, icon = GetVehicleLivery(vehicle) == 0 and "fas fa-check" or "fa-solid fa-rotate-left",
 			header = "0 - "..Loc[Config.Lan]["common"].stock, txt = GetVehicleLivery(vehicle) == 0 and Loc[Config.Lan]["common"].current or "",
@@ -477,6 +510,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Livery', function(data) local stoc
 		header = carMeta["search"],
 		headertxt = Loc[Config.Lan]["police"].livery.." - [ "..Loc[Config.Lan]["common"].amountoption..amountMods.." ]",
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Menu") end,
+		onSelected = true,
 	})
 end)
 
@@ -518,21 +552,25 @@ end)
 RegisterNetEvent('jim-mechanic:client:Preview:Plates', function() local PlateMenu, vehicle, Ped = {}, nil, PlayerPedId()
 	if IsPedInAnyVehicle(Ped, false) then vehicle = GetVehiclePedIsIn(Ped, false)
 		if DoesEntityExist(vehicle) then
-			PlateMenu[#PlateMenu+1] = { icon = "fas fa-camera", header = "",
-				txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-				onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Plates") end,
-			}
+			if IsCamActive(camTable[currentCam]) then
+				PlateMenu[#PlateMenu+1] = { icon = "fas fa-camera", header = "",
+					txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+					onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Plates") end,
+				}
+			end
 			for k, v in pairs(Loc[Config.Lan].vehiclePlateOptions) do
 				PlateMenu[#PlateMenu + 1] = {
 					icon = GetVehicleNumberPlateTextIndex(vehicle) == v.id and "fas fa-check" or "",
 					isMenuHeader = GetVehicleNumberPlateTextIndex(vehicle) == v.id,
 					header = k.." - "..v.name, txt = GetVehicleNumberPlateTextIndex(vehicle) == v.id and Loc[Config.Lan]["common"].current or "",
 					onSelect = function() TriggerEvent("jim-mechanic:client:Preview:Plates:Apply", v.id) end,
+					refresh = true,
 				}
 			end
 			openMenu(PlateMenu, {
 				header = carMeta["search"],
 				onBack = function() TriggerEvent("jim-mechanic:client:Preview:Menu") end,
+				onSelected = true,
 			})
 		end
 	end
@@ -571,10 +609,12 @@ RegisterNetEvent('jim-mechanic:client:Preview:Paint', function() local vehicle, 
 	for id, paint in pairs(setTable) do
 		if type(paint) == "number" then setTable[id] = Loc[Config.Lan]["common"].stock end
 	end
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Paint") end,
-	}
+	if IsCamActive(camTable[currentCam]) then
+		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Paint") end,
+		}
+	end
 	Menu[#Menu+1] = { arrow = true, header = Loc[Config.Lan]["paint"].primary, txt = Loc[Config.Lan]["common"].current..": "..setTable["Prim"],
 		onSelect = function() TriggerEvent("jim-mechanic:client:Preview:Paints:Choose", Loc[Config.Lan]["paint"].primary) end,
 	}
@@ -599,15 +639,18 @@ RegisterNetEvent('jim-mechanic:client:Preview:Paint', function() local vehicle, 
 		header = carMeta["search"],
 		headertxt = Loc[Config.Lan]["paint"].menuheader,
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Menu") end,
+		onSelected = true,
 	})
 end)
 
 RegisterNetEvent('jim-mechanic:client:Preview:Paints:Choose', function(data) local vehicle, Menu, validMods, Ped = nil, {}, {}, PlayerPedId()
 	if IsPedInAnyVehicle(Ped, false) then vehicle = GetVehiclePedIsIn(Ped, false) end
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Paints:Choose", data) end,
-	}
+	if IsCamActive(camTable[currentCam]) then
+		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Paints:Choose", data) end,
+		}
+	end
 	Menu[#Menu+1] = { arrow = true, header = Loc[Config.Lan]["paint"].classic,
 		onSelect = function() TriggerEvent("jim-mechanic:client:Preview:Paints:Choose:Colour", { paint = data, finish = Loc[Config.Lan]["paint"].classic }) end,
 	}
@@ -630,6 +673,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Paints:Choose', function(data) loc
 		header = carMeta["search"],
 		headertxt = Loc[Config.Lan]["paint"].menuheader..br..(isOx() and br or "")..data,
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Paint") end,
+		onSelected = true,
 	})
 end)
 
@@ -646,10 +690,12 @@ RegisterNetEvent('jim-mechanic:client:Preview:Paints:Choose:Colour', function(da
 	}
 	local colourCheck = setTable[data.paint]
 
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Paints:Choose:Colour", data) end,
-	}
+	if IsCamActive(camTable[currentCam]) then
+		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Paints:Choose:Colour", data) end,
+		}
+	end
 	local colourTable = {
 		[Loc[Config.Lan]["paint"].classic] = Loc[Config.Lan].vehicleResprayOptionsClassic,
 		[Loc[Config.Lan]["paint"].metallic] = Loc[Config.Lan].vehicleResprayOptionsClassic,
@@ -670,6 +716,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Paints:Choose:Colour', function(da
 		header = carMeta["search"],
 		headertxt = Loc[Config.Lan]["paint"].menuheader..br..(isOx() and br or "")..data.finish.." "..data.paint,
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Paints:Choose", data.paint) end,
+		onSelected = true,
 	})
 end)
 
@@ -705,18 +752,19 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Check', function() local Menu
 	if IsPedInAnyVehicle(Ped, false) then	vehicle = GetVehiclePedIsIn(Ped, false) end
 	if IsThisModelABike(GetEntityModel(vehicle)) then cycle = true else cycle = false end
 
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Rims:Check", data) end,
-	}
-
+	if IsCamActive(camTable[currentCam]) then
+		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Rims:Check", data) end,
+		}
+	end
 	if not cycle then
 		Menu[#Menu + 1] = {
-			icon = GetVehicleMod(vehicle, 23) ~= -1 and "fa-solid fa-rotate-left" or nil,
+			icon = GetVehicleMod(vehicle, 23) ~= -1 and "fa-solid fa-rotate-left" or "fas fa-check",
 			isMenuHeader = (GetVehicleMod(vehicle, 23) == -1),
 			header = Loc[Config.Lan]["common"].stock,
 			txt = (GetVehicleMod(vehicle, 23) == -1) and Loc[Config.Lan]["common"].current or "",
-			onSelect = function() TriggerEvent("jim-mechanic:client:Previews:Rims:Apply", { mod = -1 , wheeltype = 0 }) end,
+			onSelect = function() TriggerEvent("jim-mechanic:client:Preview:Rims:Apply", { mod = -1 , wheeltype = 0 }) end,
 		}
 		for k, v in pairs(wheelType) do
 			Menu[#Menu+1] = { arrow = true, header = v,
@@ -739,6 +787,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Check', function() local Menu
 		header = carMeta["search"],
 		headertxt = headertxt,
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Menu") end,
+		onSelected = true,
 	})
 end)
 
@@ -765,14 +814,16 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Choose', function(data) local
 
 	if validMods["NULL"] then validMods[Loc[Config.Lan]["rims"].labelcustom] = validMods["NULL"] validMods["NULL"] = nil end
 
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Rims:Choose", data) end,
-	}
+	if IsCamActive(camTable[currentCam]) then
+		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Rims:Choose", data) end,
+		}
+	end
 
 	if data.wheeltype == 6 then
 		Menu[#Menu + 1] = {
-			icon = GetVehicleMod(vehicle, (data.bike == true and 24 or 23)) ~= -1 and "fa-solid fa-rotate-left" or "",
+			icon = GetVehicleMod(vehicle, (data.bike == true and 24 or 23)) ~= -1 and "fa-solid fa-rotate-left" or "fas fa-check",
 			isMenuHeader = (GetVehicleMod(vehicle, (data.bike == true and 24 or 23)) == -1),
 			header = Loc[Config.Lan]["common"].stock,
 			txt = (GetVehicleMod(vehicle, (data.bike == true and 24 or 23)) == -1) and Loc[Config.Lan]["common"].current,
@@ -798,17 +849,19 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Choose', function(data) local
 		header = carMeta["search"],
 		headertxt = headertxt,
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Rims:Check") end,
+		onSelected = true,
 	})
 end)
 
 RegisterNetEvent('jim-mechanic:client:Preview:Rims:SubMenu', function(data)	local Menu, Ped = {}, PlayerPedId()
 	if not IsPedInAnyVehicle(Ped, false) then vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) end
 
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Rims:SubMenu", data) end,
-	}
-
+	if IsCamActive(camTable[currentCam]) then
+		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Rims:SubMenu", data) end,
+		}
+	end
 	for i=1, #data.wheeltable do
 		Menu[#Menu + 1] = {
 			icon =((GetVehicleMod(vehicle, (data.bike and 24 or 23)) == data.wheeltable[i].id) and (GetVehicleWheelType(vehicle) == data.wheeltype)) and "fas fa-check",
@@ -830,6 +883,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:SubMenu', function(data)	loca
 		header = carMeta["search"],
 		headertxt = headertxt,
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Rims:Choose", { wheeltype = data.wheeltype, bike = data.bike } ) end,
+		onSelected = true,
 	})
 end)
 
@@ -844,10 +898,12 @@ end)
 RegisterNetEvent('jim-mechanic:client:Preview:Windows:Check', function(data) local Menu, validMods, getTint, Ped = {}, {}, 0, PlayerPedId()
 	if IsPedInAnyVehicle(Ped, false) then vehicle = GetVehiclePedIsIn(Ped, false) end
 	getTint = GetVehicleWindowTint(vehicle)
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Windows:Check", data) end,
-	}
+	if IsCamActive(camTable[currentCam]) then
+		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Windows:Check", data) end,
+		}
+	end
 	if GetVehicleWindowTint(vehicle) <= 0 then stockinstall = Loc[Config.Lan]["common"].current stockIcon = "fas fa-check" stockDisabled = true end
 	for l, b in pairs(Loc[Config.Lan].vehicleWindowOptions) do local txt, disabled, icon = "", false, ""
 		if GetVehicleWindowTint(vehicle) == b.id then txt = Loc[Config.Lan]["common"].current disabled = true icon = "fas fa-check" end
@@ -870,6 +926,7 @@ RegisterNetEvent('jim-mechanic:client:Preview:Windows:Check', function(data) loc
 		header = carMeta["search"],
 		headertxt = Loc[Config.Lan]["windows"].menuheader,
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Menu") end,
+		onSelected = true,
 	})
 end)
 
@@ -894,10 +951,12 @@ end)
 RegisterNetEvent('jim-mechanic:client:Preview:Extras:Check', function(data) local Menu, validMods, getTint, Ped = {}, {}, 0, PlayerPedId()
 	if IsPedInAnyVehicle(Ped, false) then vehicle = GetVehiclePedIsIn(Ped, false) end
 
-	Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
-		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Extras:Check", data) end,
-	}
+	if IsCamActive(camTable[currentCam]) then
+		Menu[#Menu+1] = { icon = "fas fa-camera", header = "",
+			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			onSelect = function() changeCamAngle() TriggerEvent("jim-mechanic:client:Preview:Extras:Check", data) end,
+		}
+	end
 	for i = 0, 14 do
 		if DoesExtraExist(vehicle, i) then hadMod = true
 		if IsVehicleExtraTurnedOn(vehicle, i) then icon = "fas fa-check" else icon = "" end
@@ -908,10 +967,12 @@ RegisterNetEvent('jim-mechanic:client:Preview:Extras:Check', function(data) loca
 			icon = b.icon,
 			header = l..". "..b.name, txt = b.install,
 			onSelect = function() TriggerEvent("jim-mechanic:client:Preview:Extras:Apply", b) end,
+			refresh = true,
 		}
 	end
 	openMenu(Menu, {
 		header = carMeta["search"],
 		onBack = function() TriggerEvent("jim-mechanic:client:Preview:Menu") end,
+		onSelected = true,
 	})
 end)

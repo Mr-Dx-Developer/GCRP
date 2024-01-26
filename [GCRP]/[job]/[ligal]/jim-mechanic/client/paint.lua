@@ -24,11 +24,12 @@ RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 		if data.paint ~= Loc[Config.Lan]["paint"].dashboard and data.paint ~= Loc[Config.Lan]["paint"].interior then startTempCam(cam) end
 		spraycan = makeProp({ prop = "ng_proc_spraycan01b", coords = vec4(0.0, 0.0, 0.0, 0.0)}, 0, 1)
 		AttachEntityToEntity(spraycan, Ped, GetPedBoneIndex(Ped, 57005), 0.11, 0.05, -0.06, 28.0, 30.0, 0.0, true, true, false, true, 1, true)
-		playAnim("switch@franklin@lamar_tagging_wall", "lamar_tagging_wall_loop_lamar", 2000, 8)
-		Wait(2000)
-		local time = math.random(3000,4000)
+		playAnim("switch@franklin@lamar_tagging_wall", "lamar_tagging_wall_loop_lamar", nil, 1)
+		local time = math.random(10000, 13000)
+
+		Wait(6000)
+		stopAnim("switch@franklin@lamar_tagging_wall", "lamar_tagging_wall_loop_lamar")
 		CreateThread(function()
-			Wait(900)
 			loadPtfxDict("core")
 			local color = {255, 255, 255}
 			UseParticleFxAssetNextCall("core")
@@ -40,9 +41,7 @@ RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 			SetParticleFxLoopedAlpha(spray, 255.0)
 			SetParticleFxLoopedColour(spray, color[1] / 255, color[2] / 255, color[3] / 255)
 		end)
-		stopAnim("switch@franklin@lamar_tagging_wall", "lamar_tagging_wall_loop_lamar")
-
-		playAnim(isVehicleLift(vehicle) and "amb@prop_human_movie_bulb@idle_a" or "switch@franklin@lamar_tagging_wall", isVehicleLift(vehicle) and "idle_b" or "lamar_tagging_exit_loop_lamar", time, 8)
+		playAnim(isVehicleLift(vehicle) and "amb@prop_human_movie_bulb@idle_a" or "switch@franklin@lamar_tagging_wall", isVehicleLift(vehicle) and "idle_b" or "lamar_tagging_exit_loop_lamar", nil, 1)
 
 		if progressBar({label = Loc[Config.Lan]["common"].installing..data.paint.." "..data.finish.." "..data.name, time = time, cancel = true }) then SetVehicleModKit(vehicle, 0)
 			qblog("`paintcan - "..Items["paintcan"].label.." - "..data.paint.." "..data.finish.." "..data.name.."` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
@@ -53,7 +52,7 @@ RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 			elseif data.paint == Loc[Config.Lan]["paint"].dashboard then SetVehicleDashboardColour(vehicle, data.id)
 			elseif data.paint == Loc[Config.Lan]["paint"].interior then SetVehicleInteriorColour(vehicle, data.id) end
 			updateCar(vehicle)
-			triggerNotify(nil, Loc[Config.Lan]["common"].installed, "success")
+			triggerNotify(nil, data.paint.." "..data.finish.." "..data.name.." "..Loc[Config.Lan]["common"].installed, "success")
 			if Config.Overrides.CosmeticItemRemoval then removeItem("paintcan", 1)
 			else TriggerEvent('jim-mechanic:client:Paints:Choose:Paint', data) end
 			emptyHands(Ped)

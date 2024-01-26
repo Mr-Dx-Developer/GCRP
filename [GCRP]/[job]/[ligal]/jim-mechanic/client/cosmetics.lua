@@ -80,8 +80,12 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Check', function(data) local vali
                 if v.roofLiv then txt = "["..(GetVehicleRoofLiveryCount(vehicle)-1)..Loc[Config.Lan]["common"].menuinstalled..GetVehicleRoofLivery(vehicle) end
                 if v.oldLiv then txt = "["..(GetVehicleLiveryCount(vehicle)-1)..Loc[Config.Lan]["common"].menuinstalled..GetVehicleLivery(vehicle) end
                 if v.plate then for _, b in pairs(Loc[Config.Lan].vehiclePlateOptions) do
-                    if GetVehicleNumberPlateTextIndex(vehicle) == b.id then txt = "["..GetNumberOfVehicleNumberPlates(vehicle)..Loc[Config.Lan]["common"].menuinstalled..b.name break
-                    else txt = "["..GetNumberOfVehicleNumberPlates(vehicle)..Loc[Config.Lan]["common"].menuinstalled..Loc[Config.Lan]["common"].stock end end
+                    if GetVehicleNumberPlateTextIndex(vehicle) == b.id then
+                        txt = "["..GetNumberOfVehicleNumberPlates(vehicle)..Loc[Config.Lan]["common"].menuinstalled..b.name break
+                    else
+                        txt = "["..GetNumberOfVehicleNumberPlates(vehicle)..Loc[Config.Lan]["common"].menuinstalled..Loc[Config.Lan]["common"].stock
+                    end
+                end
                 end
                 if v.horn then for _, b in pairs(Loc[Config.Lan].vehicleHorns) do
                     if GetVehicleMod(vehicle, 14) == b.id then txt = "["..(#Loc[Config.Lan].vehicleHorns)..Loc[Config.Lan]["common"].menuinstalled..b.name break
@@ -203,6 +207,7 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Apply', function(data) local Ped 
     local cam = createTempCam(Ped, GetEntityCoords(vehicle))
     local modName = GetLabelText(GetModTextLabel(vehicle, tonumber(data.id), tonumber(data.mod)))
 	if modName == "NULL" or (data.plate or data.oldLiv or data.roof or data.window) then modName = Loc[Config.Lan]["exterior"].stockMod end
+    if (data.plate or data.oldLiv or data.roof or data.window) then modName = data.name end
 	if data.id and GetVehicleMod(vehicle, tonumber(data.id)) == tonumber(data.mod) then
         triggerNotify(nil, modName..Loc[Config.Lan]["common"].already, "error") TriggerEvent('jim-mechanic:client:Cosmetic:Check', data.part)
 	else
@@ -216,7 +221,9 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Apply', function(data) local Ped 
 			local success = Loc[Config.Lan]["common"].installed:gsub("!","")
             if data.roofLiv then if data.mod == -1 then data.mod = 0 end SetVehicleRoofLivery(vehicle, data.mod)
             elseif data.oldLiv then SetVehicleLivery(vehicle, data.mod) SetVehicleMod(vehicle, 48, -1, false)
-            elseif data.plate then if data.mod == -1 then data.mod = 0 end SetVehicleNumberPlateTextIndex(vehicle, data.mod)
+            elseif data.plate then
+                if data.mod == -1 then data.mod = 0 end
+                SetVehicleNumberPlateTextIndex(vehicle, data.mod)
             elseif data.window then if data.mod == -1 then data.mod = 0 end SetVehicleWindowTint(vehicle, tonumber(data.mod)) success = Loc[Config.Lan]["common"].installed
             elseif data.extra then
                 local veh = getDamages(vehicle)

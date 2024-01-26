@@ -1,13 +1,13 @@
 --=== AMROUR ===--
 RegisterNetEvent('jim-mechanic:client:applyArmour', function(data) local Ped = PlayerPedId() local item = Items["car_armor"]
 	local remove = false
-	remove = data.client.remove
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if not enforceRestriction("perform") then return end
 	if not Checks() then return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
-	if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
+		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
 		local emote = { anim = above and "idle_b" or "fixing_a_ped", dict = above and "amb@prop_human_movie_bulb@idle_a" or "mini@repair", flag = above and 1 or 16 }
 		lookEnt(vehicle)
 		SetVehicleModKit(vehicle, 0)
@@ -53,13 +53,13 @@ end)
 RegisterNetEvent('jim-mechanic:client:applyBrakes', function(data) local Ped = PlayerPedId()
 	local level, remove = 1, false
 	level = data.client.level
-	remove = data.client.remove
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if not enforceRestriction("perform") then return end
 	if not Checks() then return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
-	if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
+		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
 		if not above and not lookAtWheel(vehicle) then return end
 		local possMods = checkHSWMods(vehicle)
 		local emote = { anim = above and "idle_b" or "machinic_loop_mechandplayer", dict = above and "amb@prop_human_movie_bulb@idle_a" or "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", flag = above and 1 or 8 }
@@ -105,13 +105,13 @@ end)
 RegisterNetEvent('jim-mechanic:client:applySuspension', function(data) local Ped = PlayerPedId() emptyHands(Ped)
 	local level, remove = 1, false
 	level = data.client.level
-	remove = data.client.remove
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if not enforceRestriction("perform") then return end
 	if not Checks() then return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
-	if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
+		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
 		if not above and not lookAtWheel(vehicle) then return end
 		local possMods = checkHSWMods(vehicle)
 		local emote = { anim = above and "idle_b" or "machinic_loop_mechandplayer", dict = above and "amb@prop_human_movie_bulb@idle_a" or "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", flag = above and 1 or 8 }
@@ -162,13 +162,13 @@ end)
 RegisterNetEvent('jim-mechanic:client:applyTransmission', function(data) local Ped = PlayerPedId() emptyHands(Ped)
 	local level, remove = 1, false
 	level = data.client.level
-	remove = data.client.remove
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if not enforceRestriction("perform") then return end
 	if not Checks() then return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
-	if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
+		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
 		local possMods = checkHSWMods(vehicle)
 		local emote = { anim = above and "idle_b" or "fixing_a_ped", dict = above and "amb@prop_human_movie_bulb@idle_a" or "mini@repair", flag = above and 1 or 16 }
 		if not lookAtEngine(vehicle) then return end
@@ -220,13 +220,13 @@ end)
 --=== TURBO ===--
 RegisterNetEvent('jim-mechanic:client:applyTurbo', function(data) local Ped = PlayerPedId() local item = Items["turbo"]
 	local remove = false
-	remove = data.client.remove
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if not enforceRestriction("perform") then return end
 	if not Checks() then return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
-	if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
+		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
 		local emote = { anim = above and "idle_b" or "fixing_a_ped", dict = above and "amb@prop_human_movie_bulb@idle_a" or "mini@repair", flag = above and 1 or 16 }
 		SetVehicleModKit(vehicle, 0)
 		SetVehicleEngineOn(vehicle, false, false, true)
@@ -274,13 +274,13 @@ end)
 RegisterNetEvent('jim-mechanic:client:applyEngine', function(data) local Ped = PlayerPedId() emptyHands(Ped)
 	local level, remove = 1, false
 	level = data.client.level
-	remove = data.client.remove
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if not enforceRestriction("perform") then return end
 	if not Checks() then return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
-    if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
+		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
 		propHoldCoolDown("screwdriver") Wait(100)
 		local possMods = checkHSWMods(vehicle)
 		local emote = { anim = above and "idle_b" or "fixing_a_ped", dict = above and "amb@prop_human_movie_bulb@idle_a" or "mini@repair", flag = above and 1 or 16 }
@@ -333,13 +333,13 @@ end)
 --=== DRIFT TYRES ===--
 RegisterNetEvent('jim-mechanic:client:applyDrift', function(data) local Ped = PlayerPedId() local item = Items["drifttires"]
 	local remove = false
-	remove = data.client.remove
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if GetGameBuildNumber() < 2372 then return end
 	if not enforceRestriction("perform") then return end
 	if not Checks() then return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-	if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
 		if lockedCar(vehicle) then return end
 		if Config.Main.isVehicleOwned and not IsVehicleOwned(trim(GetVehicleNumberPlateText(vehicle))) then triggerNotify(nil, Loc[Config.Lan]["common"].owned, "error") return end
 		if not above and not lookAtWheel(vehicle) then return end
@@ -388,13 +388,14 @@ end)
 --=== BULLET PROOF TYRES ===--
 RegisterNetEvent('jim-mechanic:client:applyBulletProof', function(data) local Ped = PlayerPedId() local item = Items["bprooftires"]
 	local remove = false
-	remove = data.client.remove
+	print(json.encode(data, {indent = true}))
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if not enforceRestriction("perform") then return end
 	if not Checks() then return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
-	if not enforceClassRestriction(searchCar(vehicle).class) then return end
 	if DoesEntityExist(vehicle) then
+		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
 		if not above and not lookAtWheel(vehicle) then return end
 		local emote = { anim = above and "idle_b" or "machinic_loop_mechandplayer", dict = above and "amb@prop_human_movie_bulb@idle_a" or "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", flag = above and 1 or 8 }
 		if lockedCar(vehicle) then return end
@@ -440,40 +441,43 @@ end)
 --=== HARNESS ===--
 RegisterNetEvent('jim-mechanic:client:applyHarness', function(data) local canEffect = true local Ped = PlayerPedId() local item = Items["harness"]
 	local remove = false
-	remove = data.client.remove
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if not enforceRestriction("perform") then return end
 	if Config.Harness.JobOnly then if not Checks() then return end end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
-	local emote = { anim = above and "idle_b" or "fixing_a_ped", dict = above and "amb@prop_human_movie_bulb@idle_a" or "mini@repair", flag = above and 1 or 16 }
-    if not enforceClassRestriction(searchCar(vehicle).class) then return end
-	local plate = trim(GetVehicleNumberPlateText(vehicle))
-	GetVehicleStatus(VehToNet(vehicle))
-	if not data or VehicleStatus[plate]["harness"] == 1 then return end
-	for _, class in pairs({"Vans", "Cycles", "Boats", "Helicopters", "Commercial", "Trains"}) do
-        if searchCar(vehicle).class == class then canEffect = false end
-    end
-    if not canEffect then return end
-	if lockedCar(vehicle) then return end
-	lookEnt(vehicle)
-	propHoldCoolDown("screwdriver") Wait(10)
-	if remove == false then
-		if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(5000,7000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, icon = "harness", cam = cam }) then
-			if VehicleStatus[plate]["harness"] == 1 then TriggerServerEvent("jim-mechanic:server:DupeWarn", "harness") return end
-			SetVehicleStatus(vehicle, "harness", 1, true)
-			qblog("`"..item.label.." - harness` removed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
-			updateCar(vehicle)
-			removeItem("harness", 1)
-			triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].installed, "success")
+	if DoesEntityExist(vehicle) then
+		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
+		local emote = { anim = above and "idle_b" or "fixing_a_ped", dict = above and "amb@prop_human_movie_bulb@idle_a" or "mini@repair", flag = above and 1 or 16 }
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
+		local plate = trim(GetVehicleNumberPlateText(vehicle))
+		GetVehicleStatus(VehToNet(vehicle))
+		if remove and  VehicleStatus[plate]["harness"] ~= 1 then return end
+		if not remove and VehicleStatus[plate]["harness"] == 1 then triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].already, "error") return end
+		for _, class in pairs({"Vans", "Cycles", "Boats", "Helicopters", "Commercial", "Trains"}) do
+			if searchCar(vehicle).class == class then canEffect = false end
 		end
-	else
-		if progressBar({label = Loc[Config.Lan]["common"].removing..item.label, time = math.random(5000, 7000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, icon = "harness", cam = cam }) then
-			if VehicleStatus[plate].harness == 0 then emptyHands(Ped) TriggerServerEvent("jim-mechanic:server:DupeWarn", "harness") return end
-			SetVehicleStatus(vehicle, "harness", 0, true)
-			qblog("`"..item.label.." - harness` removed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
-			updateCar(vehicle)
-			addItem("harness", 1)
-			triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].removed, "success")
+		if not canEffect then return end
+		if lockedCar(vehicle) then return end
+		lookEnt(vehicle)
+		propHoldCoolDown("screwdriver") Wait(10)
+		if remove == false then
+			if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(5000,7000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, icon = "harness", cam = cam }) then
+				if VehicleStatus[plate]["harness"] == 1 then TriggerServerEvent("jim-mechanic:server:DupeWarn", "harness") return end
+				SetVehicleStatus(vehicle, "harness", 1, true)
+				qblog("`"..item.label.." - harness` removed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
+				updateCar(vehicle)
+				removeItem("harness", 1)
+				triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].installed, "success")
+			end
+		else
+			if progressBar({label = Loc[Config.Lan]["common"].removing..item.label, time = math.random(5000, 7000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, icon = "harness", cam = cam }) then
+				if VehicleStatus[plate].harness == 0 then TriggerServerEvent("jim-mechanic:server:DupeWarn", "harness") return end
+				SetVehicleStatus(vehicle, "harness", 0, true)
+				qblog("`"..item.label.." - harness` removed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
+				updateCar(vehicle)
+				addItem("harness", 1)
+				triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].removed, "success")
+			end
 		end
 	end
 	emptyHands(Ped)
@@ -482,46 +486,47 @@ end)
 --=== ANTILAG ===---
 RegisterNetEvent('jim-mechanic:client:applyAntiLag', function(data) local Ped = PlayerPedId() local item = Items["antilag"]
 	local remove = false
-	remove = data.client.remove
+	if data.client.remove == nil then print("You need to update your ox_inv items") return else remove = data.client.remove end
 	if not enforceRestriction("perform") then return end
 	if not Checks() then return end
 	local vehicle = vehChecks() local above = isVehicleLift(vehicle)
-    local cam = createTempCam(Ped, GetEntityCoords(vehicle))
-	if not enforceClassRestriction(searchCar(vehicle).class) then return end
-	local plate = trim(GetVehicleNumberPlateText(vehicle))
-	GetVehicleStatus(VehToNet(vehicle))
 	if DoesEntityExist(vehicle) then
+		local cam = createTempCam(Ped, GetEntityCoords(vehicle))
 		local emote = { anim = above and "idle_b" or "machinic_loop_mechandplayer", dict = above and "amb@prop_human_movie_bulb@idle_a" or "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", flag = above and 1 or 8 }
+		if not enforceClassRestriction(searchCar(vehicle).class) then return end
+		local plate = trim(GetVehicleNumberPlateText(vehicle))
+		GetVehicleStatus(VehToNet(vehicle))
+		if remove and VehicleStatus[plate]["antilag"] ~= 1 then return end
+		if not remove and VehicleStatus[plate]["antilag"] == 1 then triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].already, "error") return end
+		if lockedCar(vehicle) then return end
 		if not IsToggleModOn(vehicle, 18) then triggerNotify(nil, Loc[Config.Lan]["nos"].notinstalled, "error") return end
 		lookAtEngine(vehicle)
 		if lockedCar(vehicle) then return end
-		if VehicleStatus[plate].antiLag == 1 and not remove then triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].already, "error") else
-			SetVehicleEngineOn(vehicle, false, false, true)
-			propHoldCoolDown("screwdriver") Wait(10)
-			if remove == false then
-				if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then SetVehicleModKit(vehicle, 0)
-					if VehicleStatus[plate].antiLag == 1 then TriggerServerEvent("jim-mechanic:server:DupeWarn", "antilag") return end
-					SetVehicleStatus(vehicle, "antiLag", 1)
-					qblog("`antilag - "..item.label.."` changed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
-					updateCar(vehicle)
-					removeItem("antilag", 1)
-					triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].installed, "success")
-				else
-					triggerNotify(nil, item.label..Loc[Config.Lan]["common"].remfail, "error")
-				end
+		SetVehicleEngineOn(vehicle, false, false, true)
+		propHoldCoolDown("screwdriver") Wait(10)
+		if remove == false then
+			if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then SetVehicleModKit(vehicle, 0)
+				if VehicleStatus[plate].antiLag == 1 then TriggerServerEvent("jim-mechanic:server:DupeWarn", "antilag") return end
+				SetVehicleStatus(vehicle, "antiLag", 1)
+				qblog("`antilag - "..item.label.."` changed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
+				updateCar(vehicle)
+				removeItem("antilag", 1)
+				triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].installed, "success")
 			else
-				if progressBar({label = Loc[Config.Lan]["common"].removing..item.label, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then SetVehicleModKit(vehicle, 0)
-					if VehicleStatus[plate].antiLag ~= 1 then TriggerServerEvent("jim-mechanic:server:DupeWarn", "antlLag") return end
-					SetVehicleStatus(vehicle, "antiLag", 0, true)
-					qblog("`antilag - "..item.label.."` changed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
-					updateCar(vehicle)
-					addItem("antilag", 1)
-					triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].removed, "success")
-				else
-					triggerNotify(nil, item.label..Loc[Config.Lan]["common"].remfail, "error")
-				end
+				triggerNotify(nil, item.label..Loc[Config.Lan]["common"].remfail, "error")
 			end
-			emptyHands(Ped)
+		else
+			if progressBar({label = Loc[Config.Lan]["common"].removing..item.label, time = math.random(7000,10000), cancel = true, anim = emote.anim, dict = emote.dict, flag = emote.flag, cam = cam }) then SetVehicleModKit(vehicle, 0)
+				if VehicleStatus[plate].antiLag ~= 1 then TriggerServerEvent("jim-mechanic:server:DupeWarn", "antlLag") return end
+				SetVehicleStatus(vehicle, "antiLag", 0, true)
+				qblog("`antilag - "..item.label.."` changed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
+				updateCar(vehicle)
+				addItem("antilag", 1)
+				triggerNotify(nil, item.label.." "..Loc[Config.Lan]["common"].removed, "success")
+			else
+				triggerNotify(nil, item.label..Loc[Config.Lan]["common"].remfail, "error")
+			end
 		end
+		emptyHands(Ped)
 	end
 end)
