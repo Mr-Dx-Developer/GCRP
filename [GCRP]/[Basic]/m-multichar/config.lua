@@ -1,6 +1,6 @@
 Config = {}
 Config.QBCoreVersion = "newqb" -- newqb or oldqb || only working qbcore
-Config.Clothes = "illenium-appearance" -- default - illenium-appearance 
+Config.Clothes = "default" -- default - illenium-appearance 
 Config.MySQL = "oxmysql" -- oxmysql , mysql-async , ghmattimysql
 Config.UseQBApartments = false -- if you use qb-apartments you can change it true
 Config.DefaultSpawn = vector3(-1035.71, -2731.87, 12.86) -- Default spawn coords if you have start apartments disabled
@@ -8,7 +8,7 @@ Config.HiddenCoords = vector4(-812.23, 182.54, 76.74, 156.5) -- 156.5 == heading
 Config.EnableCamShake = true
 Config.DefaultBucket = 0 -- (please don't change it if you don't know)
 Config.ServerLogo = "mrp.png"
-Config.EnableDeleteButton  = true
+Config.EnableDeleteButton  = false
 Config.UseMSpawnSelector = true -- if you use m-spawnselector you can change it true
 Config.DateFormat = "en-US" -- http://www.lingoes.net/en/translator/langcode.htm
 Config.CodemInventory = false -- if you use codem-inventory you can change it true
@@ -16,8 +16,8 @@ Config.DefaultLogo = "https://www.gitbook.com/cdn-cgi/image/width=40,dpr=2,heigh
 Config.Slots = {
     [1] = {tebex = false, id = 1},
     [2] = {tebex = false, id = 2},
-    [3] = {tebex = false, id = 3},
-    [4] = {tebex = false, id = 4},
+    [3] = {tebex = true, id = 3},
+    [4] = {tebex = true, id = 4},
     [5] = {tebex = true, id = 5},
     -- [6] = {tebex = false, id = 6},
     -- [7] = {tebex = true, id = 7},

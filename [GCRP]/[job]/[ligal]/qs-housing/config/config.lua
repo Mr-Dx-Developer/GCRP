@@ -186,7 +186,7 @@ Config.Framework = 'qb' -- You can change to 'qb' or 'esx'
 
 Config.MenuType = 'ox_lib'
 Config.Inventory = 'qs-inventory'
-Config.Wardrobe = 'illenium-appearance'
+Config.Wardrobe = 'qb-clothing'
 Config.Garage = 'qs-advancedgarages' -- or some option above
 Config.Logout = 'drop'
 Config.Weather = 'qb-weathersync'

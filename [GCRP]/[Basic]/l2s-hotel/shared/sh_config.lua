@@ -22,7 +22,7 @@ Shared.Events = {
     inventory2 = 'inventory:client:SetCurrentStash', -- your inventory event  (client event)
     inventory3 = 'inventory:client:ItemBox', -- your inventory event (client event)
     phone = 'qb-phone:server:sendNewMail', -- your phone event (server event) file open source if you want make it export server/mail.lua
-    outfits = "illenium-appearance:server:openOutfitMenu", -- your outfits event (server event)
+    outfits = "qb-clothing:server:openOutfitMenu", -- your outfits event (server event)
     doorlock = "qb-doorlock:server:ToggleHotel" -- if you uses your v4 files dont touch
 }
 
