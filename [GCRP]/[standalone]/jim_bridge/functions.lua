@@ -193,22 +193,12 @@ end
 function ensureNetToVeh(vehNetID)
 	if Config.System.Debug then print("^6Bridge^7: ^3ensureNetToVeh^7: ^2Requesting NetworkDoesNetworkIdExist^7(^6"..vehNetID.."^7)") end
 	local timeout = 100
-	while not NetworkDoesNetworkIdExist(vehNetID) and timeout > 0 do
-		timeout -= 1
-		Wait(10)
-	end
-	if not NetworkDoesNetworkIdExist(vehNetID) then
-		return 0
-	end
+	while not NetworkDoesNetworkIdExist(vehNetID) and timeout > 0 do timeout -= 1 Wait(10) end
+	if not NetworkDoesNetworkIdExist(vehNetID) then return 0 end
 	timeout = 100
 	local vehicle = NetToVeh(vehNetID)
-	while not DoesEntityExist(vehicle) and vehicle ~= 0 and timeout > 0 do
-		timeout -= 1
-		Wait(10)
-	end
-	if not DoesEntityExist(vehicle) then
-		return 0
-	end
+	while not DoesEntityExist(vehicle) and vehicle ~= 0 and timeout > 0 do timeout -= 1 Wait(10) end
+	if not DoesEntityExist(vehicle) then return 0 end
 	return vehicle
 end
 
@@ -513,7 +503,7 @@ function setThirst(src, thirst)
 	if GetResourceState(ESXExport):find("start") then
 		TriggerClientEvent('esx_status:add', src, 'thirst', thirst)
 	elseif GetResourceState(QBExport):find("start") or GetResourceState(QBXExport):find("start") then
-		local Player = QBCore.Functions.GetPlayer(src)
+		local Player = Core.Functions.GetPlayer(src)
 		Player.Functions.SetMetaData('thirst', thirst)
 		TriggerClientEvent("hud:client:UpdateNeeds", src, thirst, Player.PlayerData.metadata.thirst)
 	end
@@ -523,7 +513,7 @@ function setHunger(src, hunger)
 	if GetResourceState(ESXExport):find("start") then
 		TriggerClientEvent('esx_status:add', src, 'hunger', hunger)
 	elseif GetResourceState(QBExport):find("start") or GetResourceState(QBXExport):find("start") then
-		local Player = QBCore.Functions.GetPlayer(src)
+		local Player = Core.Functions.GetPlayer(src)
 		Player.Functions.SetMetaData('hunger', hunger)
 		TriggerClientEvent("hud:client:UpdateNeeds", src, hunger, Player.PlayerData.metadata.hunger)
 	end
@@ -586,21 +576,35 @@ RegisterNetEvent(GetCurrentResourceName()..":server:toggleItem", function(give, 
 				if Config.System.Debug then
 					print("^6Bridge^7: ^3"..addremove.."^7[^6"..OXInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
 				end
+
             elseif GetResourceState(QSInv):find("start") then
                 local success = exports[QSInv]:RemoveItem(src, item, amount)
 				if Config.System.Debug then
 					print("^6Bridge^7: ^3"..addremove.."^7[^6"..QSInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
 				end
-            elseif GetResourceState(CoreInv):find("start") then
-                local success = exports[CoreInv]:removeItemExact('primary-'..src, item, amount)
+
+			elseif GetResourceState(CoreInv):find("start") then
+				if GetResourceState(QBExport):find("start") then
+					Core.Functions.GetPlayer(src).Functions.RemoveItem(item, amount, nil)
+				elseif GetResourceState(ESXExport):find("start") then
+					ESX.GetPlayerFromId(src).removeInventoryItem(item, count)
+				end
 				if Config.System.Debug then
 					print("^6Bridge^7: ^3"..addremove.."^7[^6"..CoreInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
 				end
-            elseif GetResourceState(CodeMInv):find("start") then
+
+            elseif GetResourceState(OrigenInv):find("start") then
+                local success = exports[OrigenInv]:RemoveItem(src, item, amount)
+				if Config.System.Debug then
+					print("^6Bridge^7: ^3"..addremove.."^7[^6"..OrigenInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
+				end
+
+			elseif GetResourceState(CodeMInv):find("start") then
                 local success = exports[CodeMInv]:RemoveItem(src, item, amount)
 				if Config.System.Debug then
 					print("^6Bridge^7: ^3"..addremove.."^7[^6"..CodeMInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
 				end
+
             elseif GetResourceState(QBInv):find("start") then
 				while remamount > 0 do
                     if Core.Functions.GetPlayer(src).Functions.RemoveItem(item, 1) then end
@@ -625,21 +629,35 @@ RegisterNetEvent(GetCurrentResourceName()..":server:toggleItem", function(give, 
 			if Config.System.Debug then
 				print("^6Bridge^7: ^3"..addremove.."^7[^6"..OXInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
             end
+
 		elseif GetResourceState(QSInv):find("start") then
             local success = exports[QSInv]:AddItem(src, item, amount)
             if Config.System.Debug then
 				print("^6Bridge^7: ^3"..addremove.."^7[^6"..QSInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
             end
+
 		elseif GetResourceState(CoreInv):find("start") then
-            local success = exports[CoreInv]:addItem('primary-'..src, item, amount)
-            if Config.System.Debug then
+			if GetResourceState(QBExport):find("start") or GetResourceState(QBXExport):find("start") then
+				Core.Functions.GetPlayer(src).Functions.AddItem(item, amount, nil, nil)
+			elseif GetResourceState(ESXExport):find("start") then
+				ESX.GetPlayerFromId(src).addInventoryItem(item, amount)
+			end
+			if Config.System.Debug then
 				print("^6Bridge^7: ^3"..addremove.."^7[^6"..CoreInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
             end
+
         elseif GetResourceState(CodeMInv):find("start") then
             local success = exports[CodeMInv]:AddItem(src, item, amount)
 			if Config.System.Debug then
 				print("^6Bridge^7: ^3"..addremove.."^7[^6"..CodeMInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
             end
+
+		elseif GetResourceState(OrigenInv):find("start") then
+			local success = exports[OrigenInv]:AddItem(src, item, amount)
+			if Config.System.Debug then
+				print("^6Bridge^7: ^3"..addremove.."^7[^6"..OrigenInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
+			end
+
 		elseif GetResourceState(QBInv):find("start") then
 			if Core.Functions.GetPlayer(src).Functions.AddItem(item, amount or 1) then
 				--if Config.Crafting.showItemBox then
@@ -649,6 +667,7 @@ RegisterNetEvent(GetCurrentResourceName()..":server:toggleItem", function(give, 
 			if Config.System.Debug then
 				print("^6Bridge^7: ^3"..addremove.."^7[^6"..QBInv.."^7] ^2Player^7("..src..") ^6"..Items[item].label.."^7("..item..") x^5"..(amount and amount or "1").."^7")
             end
+
 		else
 			print("^4ERROR^7: ^2No Inventory detected ^7- ^2Check ^3exports^1.^2lua^7")
 		end
@@ -685,12 +704,12 @@ local function CheckVersion()
 				PerformHttpRequest('https://raw.githubusercontent.com/jimathy/'..GetCurrentResourceName()..'/master/version.txt', function(err, freeVersion, headers)
 					if not freeVersion then print("^1Currently unable to run a version check for ^7'^3"..GetCurrentResourceName().."^7' ("..currentVersion.."^7)") return end
 					local currentVersion = "^3"..GetResourceMetadata(GetCurrentResourceName(), 'version'):gsub("%.", "^7.^3").."^7"
-					freeVersion = "^3"..freeVersion:sub(1, -2):gsub("%.", "^7.^3").."^7"
+					freeVersion = "^3"..freeVersion:sub(1, -2):gsub("%.", "^7.^3"):gsub("%\r", "").."^7"
 					print("^6Version Check^7: ^2Running^7: "..currentVersion.." ^2Latest^7: "..freeVersion)
 					print(freeVersion == currentVersion and "^7'^3"..GetCurrentResourceName().."^7' - ^6You are running the latest version.^7 ("..currentVersion..")" or "^7'^3"..GetCurrentResourceName().."^7' - ^1You are currently running an outdated version^7, ^1please update^7!")
 				end)
 			else
-				newestVersion = "^3"..newestVersion:sub(1, -2):gsub("%.", "^7.^3").."^7"
+				newestVersion = "^3"..newestVersion:sub(1, -2):gsub("%.", "^7.^3"):gsub("%\r", "").."^7"
 				print("^6Version Check^7: ^2Running^7: "..currentVersion.." ^2Latest^7: "..newestVersion)
 				print(newestVersion == currentVersion and '^6You are running the latest version.^7 ('..currentVersion..')' or "^1You are currently running an outdated version^7, ^1please update^7!")
 			end
