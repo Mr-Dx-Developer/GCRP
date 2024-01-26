@@ -1329,10 +1329,11 @@ backpack1                    = { name = "backpack1", label = "Backpack", weight 
 
 
 ['rgbc']                	 = {['name'] = 'rgbc',               	['label'] = 'RGB Controller',             ['weight'] = 100,       ['type'] = 'item',      ['image'] = 'rgbc.png',        	['unique'] = false,     ['useable'] = true,     ['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'A rgb controller for use in vehicles!'},
-    ['rgbkit']                	 = {['name'] = 'rgbkit',               	['label'] = 'RGB Kit',             ['weight'] = 100,       ['type'] = 'item',      ['image'] = 'rgbkit.png',        	['unique'] = false,     ['useable'] = false,     ['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'Fit a rgb lighting kit to your vehicle!'},
+['rgbkit']                	 = {['name'] = 'rgbkit',               	['label'] = 'RGB Kit',             ['weight'] = 100,       ['type'] = 'item',      ['image'] = 'rgbkit.png',        	['unique'] = false,     ['useable'] = false,     ['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'Fit a rgb lighting kit to your vehicle!'},
 
 
 
+["payticket"] 					 = {["name"] = "payticket", 				["label"] = "Receipt", 	     			["weight"] = 150, 		["type"] = "item", 		["image"] = "ticket.png", 				["unique"] = false,   	["useable"] = false,    ["shouldClose"] = false,    ["combinable"] = nil,   ["description"] = "Cash these in at the bank!"},
 
     
 }
