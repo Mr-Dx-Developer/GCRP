@@ -1327,4 +1327,12 @@ backpack1                    = { name = "backpack1", label = "Backpack", weight 
 ['waterpass'] = {['name'] = 'waterpass', ['label'] = 'Water Pass', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'waterpass.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Water Pass'},
 ['waterpassunlimited'] = {['name'] = 'waterpassunlimited', ['label'] = 'Water Pass Unlimited', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'waterpassunlimited.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Water Pass Unlimited'},
 
+
+['rgbc']                	 = {['name'] = 'rgbc',               	['label'] = 'RGB Controller',             ['weight'] = 100,       ['type'] = 'item',      ['image'] = 'rgbc.png',        	['unique'] = false,     ['useable'] = true,     ['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'A rgb controller for use in vehicles!'},
+    ['rgbkit']                	 = {['name'] = 'rgbkit',               	['label'] = 'RGB Kit',             ['weight'] = 100,       ['type'] = 'item',      ['image'] = 'rgbkit.png',        	['unique'] = false,     ['useable'] = false,     ['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'Fit a rgb lighting kit to your vehicle!'},
+
+
+
+
+    
 }
