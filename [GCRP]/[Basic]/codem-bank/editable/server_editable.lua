@@ -1,6 +1,6 @@
-bot_Token = ""
+bot_Token = "MTIwMDI2OTg4NTM3NzM1MTcyMQ.GybD2L.okSpqFw4N6RVdiUyjKoLQ4Fez9Wc6htzLDs8bk"
 bot_logo = "https://cdn.discordapp.com/attachments/1025789416456867961/1106324039808594011/512x512_Logo.png"
-bot_name = "Codem Store"
+bot_name = "Codem Bank"
 
 discord_webhook = {
     ['bitcoin']         = "",
