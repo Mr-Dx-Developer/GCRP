@@ -181,7 +181,7 @@ Config.MenuSounds = true -- The menu includes sound effects, choose whether to u
 ]]
 
 Config.AllowedJobs = {
-   -- 'mechanic',
+  --  'mechanic',
     'realestate',
     -- 'realestatejob'
 }
