@@ -14,7 +14,7 @@ Config.Commands = {
 }
 
 Config.EnableOpenKey = true
-Config.OpenKey = 167 --  default F10 https://docs.fivem.net/docs/game-references/controls/
+Config.OpenKey = 57 --  default F10 https://docs.fivem.net/docs/game-references/controls/
 
 
 Config.SendMessage = function(message, isError, part, source)
