@@ -208,7 +208,7 @@ Config.DoorList = {
 	},
 	------------------------------------------Always add new doors below this line for your bank robberies to work!!!---------------------------------
 				------------------------------------------End Fixed Doors!!!---------------------------------
-	{
+	--[[ {
 		textCoords = vec3(434.81, -981.93, 30.89),
 		authorizedJobs = { 'police' },
 		locked = false,
@@ -391,10 +391,10 @@ Config.DoorList = {
 		locked = true,
 		pickable = false,
 		distance = 14
-	},
+	}, ]]
 	-- Mission Row Extension
 	-- Briefing room
-	{
+	--[[ {
 		textCoords = vec3(455.86, -981.31, 26.86),
 		authorizedJobs = { 'police' },
 		locked = false,
@@ -523,7 +523,7 @@ Config.DoorList = {
 		locked = true,
 		pickable = false,
 		distance = 1.0,
-	},
+	}, ]]
 	-- Bureau Paleto Bay
 	{
 		textCoords = vec3(-435.57, 6008.76, 27.98),

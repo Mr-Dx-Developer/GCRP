@@ -10,10 +10,10 @@ local Translations = {
         lockpick_success = "Success"
     },
     general = {
-        locked = "Locked",
-        unlocked = "Unlocked",
-        locked_button = "[E] - Locked",
-        unlocked_button = "[E] - Unlocked",
+        locked = "🔒",
+        unlocked = "🔓",
+        locked_button = "[E] - 🔒",
+        unlocked_button = "[E] - 🔓",
         keymapping_description = "Interact with door locks",
         keymapping_remotetriggerdoor = "Remote trigger a door",
         locked_menu = "Locked",
