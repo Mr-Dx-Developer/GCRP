@@ -75,8 +75,8 @@ Config = {
 	vehFailure = { 				-- Enabling these will make allow you to no longer need qb-vehiclefailure
 									-- ONLY ENABLE IF NOT USING VEHICLEFAILURE OR ANOTHER SCRIPT TO REPLACE IT
 		damages = true,				-- Makes jim-mechanic automatically handle extra damages instead of needing an edit to vehfailure
-		repairKits = false,			-- Takes control of repairkit and advancedrepairkit
-		fixCommand = false,			-- takes control of /fix command
+		repairKits = true,			-- Takes control of repairkit and advancedrepairkit
+		fixCommand = true,			-- takes control of /fix command
 		PreventRoll = false,			-- takes control of preventing rolling your car back over when upside down
 
 		damageLimits = {
