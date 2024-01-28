@@ -48,6 +48,20 @@ QBShared.Jobs = {
 			['9'] = { name = 'Chief of EMS', isboss = true, payment = 150 },
 		},
 	},
+	
+
+	cookies = {
+		label = 'Cookies',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = {
+			['0'] = { name = 'Farmer', payment = 250 },
+			['1'] = { name = 'Shopkeeper', payment = 450 },
+			['2'] = { name = 'Shopkeeper', payment = 600 },
+			['3'] = { name = 'Manager', payment = 700 },
+			['4'] = { name = 'Owner', isboss = true, payment = 1000 },
+		},
+	},
 	realestate = {
 		label = 'Real Estate',
 		defaultDuty = true,
