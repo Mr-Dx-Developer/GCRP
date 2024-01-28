@@ -105,6 +105,21 @@ Config.Companies.Services = {
         }
     },
     {
+        job = "realestate",
+        name = "Real Estate",
+        icon = "https://cdn-icons-png.flaticon.com/512/4896/4896425.png",
+        canCall = true, -- if true, players can call the company
+        canMessage = true, -- if true, players can message the company
+        bossRanks = {"boss", "worker"}, -- ranks that can manage the company
+        location = {
+            name = "Real Estate",
+            coords = {
+                x = 0.0,
+                y = 0.0
+            }
+        }
+    },
+    {
         job = "taxi",
         name = "Taxi",
         icon = "https://cdn-icons-png.flaticon.com/128/433/433449.png",
