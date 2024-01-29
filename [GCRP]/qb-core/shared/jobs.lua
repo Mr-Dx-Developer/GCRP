@@ -49,7 +49,18 @@ QBShared.Jobs = {
 		},
 	},
 	
-
+	senator = {
+		label = 'Government',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = {
+			['0'] = { name = 'Executive', payment = 250 },
+			['1'] = { name = 'Senior Executive', payment = 450 },
+			['2'] = { name = 'Public Administrator', payment = 600 },
+			['3'] = { name = 'Deputy Senator', payment = 700 },
+			['4'] = { name = 'Senator', isboss = true, payment = 1000 },
+		},
+	},
 	cookies = {
 		label = 'Cookies',
 		defaultDuty = true,
