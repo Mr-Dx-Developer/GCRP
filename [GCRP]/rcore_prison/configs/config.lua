@@ -192,7 +192,7 @@ Prison = {
     -- You can change outline for community service (entities)
 
     CS = {
-        ModuleState = true, -- You want to be community service enabled or disabled?
+        ModuleState = false, -- You want to be community service enabled or disabled?
         DisableGameControls = false, -- When doing community service task, disabled any interaction (handy for abuser with clearing anims and so on)
 
         Place = vec3(236.464233, -409.489075, 47.924313), -- Place of NPC where CS user is reporting him self and taking tasks.
