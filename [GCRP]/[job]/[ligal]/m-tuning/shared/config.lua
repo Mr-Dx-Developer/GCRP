@@ -10,7 +10,7 @@ Config.CheckerItemName = "tunerchecker" -- Tuner Checker Tablet Item Name
 Config.OpenCommand = "tablet" -- Tuner Tablet Command
 Config.TunerChecker = "tunercheck" -- Tuner Checker Tablet Command
 
-Config.DriftModeLimit = false
+Config.DriftModeLimit = true
 Config.MPH = true -- true = MPH , false = KMH
 Config.MaxDriftSpeed = 50 -- If it is higher than the number you enter here, it cannot drift
 
