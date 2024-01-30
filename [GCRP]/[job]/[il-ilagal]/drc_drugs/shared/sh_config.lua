@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Debug = false
+Config.Debug = true
 --SERVER SETTINGS
 Config.Framework = "qbcore" -- Set your framework! qbcore, ESX, standalone
 Config.NewESX = true -- if you use esx 1.1 version set this to false
