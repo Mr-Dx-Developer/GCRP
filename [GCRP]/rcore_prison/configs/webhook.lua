@@ -1,4 +1,0 @@
-Logs = {
-    Type = 'discord',
-    Hook = ''
-}
