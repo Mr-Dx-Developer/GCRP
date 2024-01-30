@@ -88,4 +88,4 @@ CREATE TABLE IF NOT EXISTS `dealership_employees` (
   PRIMARY KEY (`id`),
   KEY `fk_employees_dealership` (`dealership`),
   CONSTRAINT `fk_employees_dealership` FOREIGN KEY (`dealership`) REFERENCES `dealership_data` (`name`)
-);ggcrpusacrpusagcrpusagcrpusagcrpusagcrpusagcrpusa
+);

@@ -300,27 +300,31 @@ local Vehicles = {
     { model = 'formula',       name = 'PR4',                           brand = 'Progen',          price = 100000,  category = 'openwheel',      type = 'automobile', shop = 'none' },
 
     --- Custompdm
-    { model = 'ikx3rebel22',         name = 'ikx3rebel22',             brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'audirs8',             name = 'audirs8',                 brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'xc90',                name = 'xc90',                    brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'RoyalCustome39m5_wb', name = 'RoyalCustome39m5_wb',     brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'q8hycade',            name = 'q8hycade',                brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = '18rs7',               name = '18rs7',                   brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'w140',                name = 'w140',                    brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'skyline',             name = 'skyline',                 brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'rr21shelbystreet',    name = 'rr21shelbystreet',        brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'civic2020',           name = 'civic2020',               brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'passat',              name = 'passat',                  brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'mteche39',            name = 'mteche39',                brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = '2f2fgts',             name = '2f2fgts',                 brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = '350z',                name = '350z',                    brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'rapger19',            name = 'rapger19',                brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
-    { model = 'polo2018',            name = 'polo2018',                brand = 'Dinka',           price = 5500000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'ikx3rebel22',         name = 'Cupra UrbanRebel',        brand = 'GCRP',           price = 75000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'audirs8',             name = 'Audi RS8',                 brand = 'GCRP',          price = 121000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'xc90',                name = 'Volvo xc90',                    brand = 'GCRP',           price = 85000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'RoyalCustome39m5_wb', name = 'BMW M5',     brand = 'GCRP',           price = 118000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'q8hycade',            name = 'Audi RS6',                brand = 'GCRP',           price = 120000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = '18rs7',               name = 'Audi RS7',                   brand = 'GCRP',           price = 160000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'w140',                name = 'Mercedes W140',                    brand = 'GCRP',           price = 99000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'skyline',             name = 'Skyline R34',                 brand = 'GCRP',           price = 124000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'rr21shelbystreet',    name = 'Shelby F150 crew cab',        brand = 'GCRP',           price = 100000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'civic2020',           name = 'Civic2020 Type R',               brand = 'GCRP',           price = 80000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'passat',              name = 'Volkswagon Passat',                  brand = 'GCRP',           price = 120000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'mteche39',            name = 'BMW 328i',                brand = 'GCRP',           price = 138000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = '2f2fgts',             name = 'Mitsubishi Eclipse Sypder',                 brand = 'GCRP',           price = 100000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = '350z',                name = 'Nissan 350z',                    brand = 'GCRP',           price = 122000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'rapger19',            name = 'Ford Raptor',                brand = 'GCRP',           price = 145000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'polo2018',            name = 'Volkswagon Polo',                brand = 'GCRP',           price = 110000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'c8p1',            name = 'Chevrolet Corvette C8',                brand = 'GCRP',           price = 70000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'rmodcharger',            name = 'Dodge Charger',                brand = 'GCRP',           price = 60000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
+    { model = 'KillerHwak',            name = 'Jeep Grand Cherokee Widebody Trackhawk',                brand = 'GCRP',           price = 300000,   category = 'custompdm',    type = 'custompdm',       shop = 'pdm' },
     
 
 
-
-
+    { model = 'evo9',            name = 'EVO',                brand = 'GCRP',           price = 110000,   category = 'welcome',    type = 'welcome',       shop = 'pdm' },
+    
+    
 
 
 
