@@ -259,8 +259,8 @@ Config.Teleports = {
             allowVeh = false,
             label = false
         }
-    },
-    [2] = { --Coke Processing Enter/Exit
+    }
+    --[[ [2] = { --Coke Processing Enter/Exit
         [1] = {
             poly = { coords = vector3(909.49, -1589.22, 30.51), heading = 92.24, length = 2, width = 2 },
             allowVeh = false,
@@ -271,7 +271,7 @@ Config.Teleports = {
             allowVeh = false,
             label = '[E] Leave'
         }
-    }
+    } ]]
 }
 
 Config.CarWash = {
