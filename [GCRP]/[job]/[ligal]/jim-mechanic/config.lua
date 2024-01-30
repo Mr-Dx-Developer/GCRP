@@ -3,9 +3,9 @@ Config = {
 	System = {
 		Debug = false, -- Set to true to show green debug boxes to help track any issues
 
-		Menu = "ox",  				-- "qb", "ox", "gta"
-		Notify = "ox",				-- "qb", "ox", "gta", "esx"
-		ProgressBar = "ox", 		-- "qb", "ox", "gta", "esx"
+		Menu = "qb",  				-- "qb", "ox", "gta"
+		Notify = "qb",				-- "qb", "ox", "gta", "esx"
+		ProgressBar = "qb", 		-- "qb", "ox", "gta", "esx"
 
 		distkph = false, 			-- Set to false to read distance travelled in Miles.
 
