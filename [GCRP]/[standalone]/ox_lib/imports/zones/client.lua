@@ -15,8 +15,7 @@ local glm = require 'glm'
 ---@field [string] any
 
 ---@type table<number, CZone>
-local Zones = {}
-_ENV.Zones = Zones
+Zones = {}
 
 local function nextFreePoint(points, b, len)
     for i = 1, len do

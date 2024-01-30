@@ -1,8 +1,7 @@
 local glm = require 'glm'
 
 ---@type table<number, CZone>
-local Zones = {}
-_ENV.Zones = Zones
+Zones = {}
 
 local function removeZone(self)
     Zones[self.id] = nil

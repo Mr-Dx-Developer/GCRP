@@ -1,6 +1,6 @@
 ---Load an animation clipset. When called from a thread, it will yield until it has loaded.
 ---@param animSet string
----@param timeout number? Approximate milliseconds to wait for the clipset to load. Default is 1000.
+---@param timeout number? Number of ticks to wait for the clipset to load. Default is 500.
 ---@return string? animSet
 function lib.requestAnimSet(animSet, timeout)
     if HasAnimSetLoaded(animSet) then return animSet end
@@ -15,7 +15,7 @@ function lib.requestAnimSet(animSet, timeout)
 
     return lib.waitFor(function()
         if HasAnimSetLoaded(animSet) then return animSet end
-    end, ("failed to load animSet '%s'"):format(animSet), timeout)
+    end, ("failed to load animSet '%s'"):format(animSet), timeout or 500)
 end
 
 return lib.requestAnimSet

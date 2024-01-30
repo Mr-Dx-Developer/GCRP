@@ -131,7 +131,6 @@ if service == 'loki' then
     local lokiUser = GetConvar('loki:user', '')
     local lokiPassword = GetConvar('loki:password', GetConvar('loki:key', ''))
     local lokiEndpoint = GetConvar('loki:endpoint', '')
-    local lokiTenant = GetConvar('loki:tenant', '')
     local startingPattern = '^http[s]?://'
     local headers = {
         ['Content-Type'] = 'application/json'
@@ -139,10 +138,6 @@ if service == 'loki' then
 
     if lokiUser ~= '' then
         headers['Authorization'] = getAuthorizationHeader(lokiUser, lokiPassword)
-    end
-
-    if lokiTenant ~= '' then
-        headers['X-Scope-OrgID'] = lokiTenant
     end
 
     if not lokiEndpoint:find(startingPattern) then
