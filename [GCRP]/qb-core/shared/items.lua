@@ -937,6 +937,91 @@ QBShared.Items = {
         ['description'] = 'Description'
     },
 
+    -- Other / Parachute
+    ['parachute_rainbow'] = {
+        ['name'] = 'parachute_rainbow',
+        ['label'] = 'Rainbow Parachute',
+        ['weight'] = 0,
+        ['type'] = 'item',
+        ['image'] = 'parachute_rainbow.png',
+        ['unique'] = true,
+        ['useable'] = true,
+        ['shouldClose'] = true,
+        ['combinable'] = nil,
+        ['description'] = 'A very nice parachute'
+    },
+    ['parachute_darkred'] = {
+        ['name'] = 'parachute_darkred',
+        ['label'] = 'Darkred Parachute',
+        ['weight'] = 4000,
+        ['type'] = 'item',
+        ['image'] = 'parachute_darkred.png',
+        ['unique'] = true,
+        ['useable'] = true,
+        ['shouldClose'] = true,
+        ['combinable'] = nil,
+        ['description'] = 'A very nice parachute'
+    },
+    ['parachute_yellow'] = {
+        ['name'] = 'parachute_yellow',
+        ['label'] = 'Yellow Parachute',
+        ['weight'] = 4000,
+        ['type'] = 'item',
+        ['image'] = 'parachute_yellow.png',
+        ['unique'] = true,
+        ['useable'] = true,
+        ['shouldClose'] = true,
+        ['combinable'] = nil,
+        ['description'] = 'A very nice parachute'
+    },
+    ['parachute_red'] = {
+        ['name'] = 'parachute_red',
+        ['label'] = 'Red Parachute',
+        ['weight'] = 4000,
+        ['type'] = 'item',
+        ['image'] = 'parachute_red.png',
+        ['unique'] = true,
+        ['useable'] = true,
+        ['shouldClose'] = true,
+        ['combinable'] = nil,
+        ['description'] = 'A very nice parachute'
+    },
+    ['parachute_white'] = {
+        ['name'] = 'parachute_white',
+        ['label'] = 'White Parachute',
+        ['weight'] = 4000,
+        ['type'] = 'item',
+        ['image'] = 'parachute_white.png',
+        ['unique'] = true,
+        ['useable'] = true,
+        ['shouldClose'] = true,
+        ['combinable'] = nil,
+        ['description'] = 'A very nice parachute'
+    },
+    ['parachute_blue'] = {
+        ['name'] = 'parachute_blue',
+        ['label'] = 'Blue Parachute',
+        ['weight'] = 4000,
+        ['type'] = 'item',
+        ['image'] = 'parachute_blue.png',
+        ['unique'] = true,
+        ['useable'] = true,
+        ['shouldClose'] = true,
+        ['combinable'] = nil,
+        ['description'] = 'A very nice parachute'
+    },
+    ['parachute_black'] = {
+        ['name'] = 'parachute_black',
+        ['label'] = 'Black Parachute',
+        ['weight'] = 4000,
+        ['type'] = 'item',
+        ['image'] = 'parachute_black.png',
+        ['unique'] = true,
+        ['useable'] = true,
+        ['shouldClose'] = true,
+        ['combinable'] = nil,
+        ['description'] = 'A very nice parachute'
+    },
 
     --Kyros Weapon Pack V4
     weapon_ddm4v5                = { name = 'weapon_ddm4v5',    label = 'DDM4V5',           weight = 6000, type = 'weapon', ammotype = 'AMMO_RIFLE', image = 'WEAPON_DDM4V5.png', unique = true, useable = false, description = 'DDM4V5' },
@@ -1261,7 +1346,10 @@ sparetire                   = { name = "sparetire", label = "Spare Tire", weight
 
 
 
-
+    ['backpack'] =  { ['name'] =  'backpack', ['label'] =  'backpack', ['weight'] =  0, ['type'] =  'item', ['image'] =  'backpack.png', ['unique'] =  true, ['useable'] =  true, ['shouldClose'] =  true, ['combinable'] =  nil, ['description'] =  'No have' },
+    ['backpack2'] =  { ['name'] =  'backpack2', ['label'] =  'backpack2', ['weight'] =  0, ['type'] =  'item', ['image'] =  'backpack2.png', ['unique'] =  true, ['useable'] =  true, ['shouldClose'] =  true, ['combinable'] =  nil, ['description'] =  'No have' },
+    ['briefcase'] =  { ['name'] =  'briefcase', ['label'] =  'briefcase', ['weight'] =  0, ['type'] =  'item', ['image'] =  'briefcase.png', ['unique'] =  true, ['useable'] =  true, ['shouldClose'] =  true, ['combinable'] =  nil, ['description'] =  'No have' },
+    ['paramedicbag'] =  { ['name'] =  'paramedicbag', ['label'] =  'paramedicbag', ['weight'] =  0, ['type'] =  'item', ['image'] =  'paramedicbag.png', ['unique'] =  true, ['useable'] =  true, ['shouldClose'] =  true, ['combinable'] =  nil, ['description'] =  'No have' },
 
     ['mdtcitation'] 				 = {['name'] = 'mdtcitation', 			  	  	['label'] = 'Citation', 			['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'citation.png', 			['unique'] = true, 		['useable'] = false, ['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Citation from a police officer!'},
 
@@ -1347,14 +1435,6 @@ bag                          = { name = 'bag', label = 'Bag', weight = 0, type =
 
 
 
-backpack1                    = { name = "backpack1", label = "Backpack", weight = 7500, type = "item", image = "backpack1.png", unique = true, useable = true, shouldClose = true, combinable = nil, description = "A stylish backpack" },
-    backpack2                    = { name = "backpack2", label = "Backpack", weight = 15000, type = "item", image = "backpack2.png", unique = true, useable = true, shouldClose = true, combinable = nil, description = "A stylish backpack" },
-    duffle1                      = { name = "duffle1", label = "Duffle bag", weight = 15000, type = "item", image = "duffle1.png", unique = true, useable = true, shouldClose = true, combinable = nil, description = "A stylish duffle bag" },
-    briefcase                    = { name = "briefcase", label = "Briefcase", weight = 10000, type = "item", image = "briefcase.png", unique = true, useable = true, shouldClose = true, combinable = nil, description = "A portable rectangular case used for carrying important documents, files, or other personal belongings." },
-    paramedicbag                 = { name = "paramedicbag", label = "Paramedic bag", weight = 5000, type = "item", image = "paramedicbag.png", unique = true, useable = true, shouldClose = true, combinable = nil, description = "A medical bag used by paramedics, containing essential supplies for emergency care." },
-    policepouches                = { name = "policepouches", label = "Police Pouch", weight = 5000, type = "item", image = "policepouches.png", unique = true, useable = true, shouldClose = true, combinable = nil, description = "A pouch used by police officers to store and carry essential supplies such as handcuffs, pepper spray, and other tactical equipment." },
-    policepouches1               = { name = "policepouches1", label = "Police Pouch", weight = 5000, type = "item", image = "policepouches1.png", unique = true, useable = true, shouldClose = true, combinable = nil, description = "A larger version of the police pouch used to store additional tactical gear and equipment." },
-    briefcaselockpicker          = { name = "briefcaselockpicker", label = "Briefcase Lockpicker", weight = 500, type = "item", image = "lockpick.png", unique = false, useable = true, shouldClose = true, combinable = nil, description = "Briefcase Lockpicker" },
 
 
 ['waterpass'] = {['name'] = 'waterpass', ['label'] = 'Water Pass', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'waterpass.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Water Pass'},

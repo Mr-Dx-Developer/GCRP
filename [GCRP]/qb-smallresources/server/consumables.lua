@@ -361,7 +361,7 @@ end)
 RegisterNetEvent('consumables:server:useHeavyArmor', function()
     local Player = QBCore.Functions.GetPlayer(source)
     if not Player then return end
-    local item = exports['qb-inventory']:GetItemByName(source, 'heavyarmor')
+    local item = exports['qs-inventory']:GetItemByName(source, 'heavyarmor')
     if not item then
         exports['qb-core']:ExploitBan(source, "Body Armor Exploting")
         return 
@@ -373,7 +373,7 @@ end)
 RegisterNetEvent('consumables:server:useArmor', function()
     local Player = QBCore.Functions.GetPlayer(source)
     if not Player then return end
-    local item = exports['qb-inventory']:GetItemByName(source, 'armor')
+    local item = exports['qs-inventory']:GetItemByName(source, 'armor')
     if not item then
         exports['qb-core']:ExploitBan(source, "Body Armor Exploting")
         return 
