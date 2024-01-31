@@ -53,7 +53,8 @@ Config.Categories = {
   suvs = "SUVs",
   commercial = "Commercial",
   cycles = "Cycles",
-  industrial = "Industrial"
+  industrial = "Industrial",
+  custompdm = "Custom PDM Car"
 }
 
 Config.DealershipLocations = {
