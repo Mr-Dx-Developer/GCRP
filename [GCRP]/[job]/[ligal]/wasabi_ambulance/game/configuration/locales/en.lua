@@ -13,6 +13,7 @@ Strings = {
     stretcher_in_vehicle = 'Deposit Stretcher',
     put_in_vehicle_desc = 'Put the stretcher in a vehicle',
     place_on_stretcher = 'Place Patient',
+    place_on_stretcher_desc = 'Place a patient on the stretcher',
     remove_from_stretcher = 'Remove Patient',
     remove_from_stretcher_desc = 'Remove a patient from the stretcher',
     not_found = 'Not Found',

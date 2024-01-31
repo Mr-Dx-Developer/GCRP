@@ -75,7 +75,7 @@ AddEventHandler('qb-communityservice:inCommunityService', function(actions_remai
 	while actionsRemaining > 0 and not communityServiceFinished do
 		local playerPed = PlayerPedId()
 		local mesafe = #(GetEntityCoords(playerPed) - Config.ServiceLocation)
-		if mesafe > 200 then
+		if mesafe > 45 then
 			if IsPedInAnyVehicle(playerPed, false) then
 				ClearPedTasksImmediately(playerPed)
 			end
@@ -242,7 +242,7 @@ function draw2dText(text, pos)
 end
 
 
-RegisterCommand("communityser", function()
+RegisterCommand("comserv", function()
 	if PlayerJob.name == "senator" then
 
 	local qbinput1 = exports['qb-input']:ShowInput({
@@ -268,21 +268,21 @@ RegisterCommand("communityser", function()
 	})
 
 
-	result = {
-		id = 1,
-		kamu = 1
-	  }
-	
-	  if qbinput1.id == nil and qbinput1.kamu then
-	  else
-		result.id =  qbinput1.id
-		result.kamu = qbinput1.kamu
-	 
-	   print(json.encode(result))
-	 
-		 TriggerServerEvent('sendserverdatass', result)
-	  end
-	end
+ result = {
+	id = 1,
+	kamu = 1
+  }
+
+  if qbinput1.id == nil and qbinput1.kamu then
+  else
+	result.id =  qbinput1.id
+	result.kamu = qbinput1.kamu
+ 
+   print(json.encode(result))
+ 
+	 TriggerServerEvent('sendserverdatass', result)
+  end
+end
 end)
 
 
