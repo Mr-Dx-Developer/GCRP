@@ -138,7 +138,7 @@ Prison = {
         }
     },
 
-    CheckJailCommandDist = true, -- For ./jail command, citizens needs to be closer to jailing user.
+    CheckJailCommandDist = false, -- For ./jail command, citizens needs to be closer to jailing user.
     CheckDistTimeout = 10 * 1000, -- Timeout when user is jailed, to start CheckDist for clients if #Prisoners <= 0 | Dont touch this!!
     CheckEscapeDist = 300.0, -- Escape check dist
     CheckDist = true, -- Prisoners only (escape when far away)
