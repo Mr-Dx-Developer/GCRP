@@ -27,10 +27,6 @@ Config.GodRoles = {
 
 Config.Permissions = {
     ["license:a045ed84bc7b147ab67442c4be4c70a4bb7d0ad5"] = "god", -- dx
-    ["license:371ff173f6d081756cbcb725ed34a84b306fce75"] = "god", -- nasim
-    ["license:4c8cda4dfab1ff626e7dc566cf47473afb7b3983"] = "god", -- unknown
-    ["license:07240b4d441fd5c68afffc2e22bb79e35fb29e4a"] = "god", -- safrun
-
 
     ["license:e1f883117badb6b9dc87908e94ed1a648f0e78f2"] = "god", -- rich
 

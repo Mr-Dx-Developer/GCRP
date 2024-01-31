@@ -344,7 +344,7 @@ Config.AllowExternal = { -- allow people to upload external images? (note: this 
 Config.AutoBackup = true -- should the phone automatically create a backup when you get a new phone?
 
 Config.Post = {} -- What apps should send posts to discord? You can set your webhooks in server/webhooks.lua
-Config.Post.Twitter = false -- New tweets
+Config.Post.Twitter = true -- New tweets
 Config.Post.Instagram = false -- New posts
 Config.Post.Accounts = {
     Birdy = {
