@@ -516,8 +516,8 @@ Config.market_locations = {
 		['truck_parking_location'] = {0,0,0,0},
 		['map_blip_coord'] = {90.56, 285.77, 110.22},
 		['sell_blip_coords'] = {
-			{164.15994262695,6641.15625,31.710638046265},
-			{167.01026916504,6637.4892578125,31.710649490356},
+			{89.84, 290.93, 110.21},
+			{89.48, 290.06, 110.21},
 		},
 		['deliveryman_coord'] = {0,0,0},
 		['type'] = 'mcdonalds',
@@ -878,7 +878,7 @@ Config.market_categories = {
 		['items'] = {
 			['bigmac'] = {
 				['name'] = "BigMac Burger",
-				['price_to_customer'] = 60,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 5,
 				['price_to_customer_max'] = 20,
 				['price_to_export'] = 8,
@@ -889,7 +889,7 @@ Config.market_categories = {
 			},
 			['mcchicken'] = {
 				['name'] = "McChicken Burger",
-				['price_to_customer'] = 35,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -900,7 +900,7 @@ Config.market_categories = {
 			},
 			['quarterpounder'] = {
 				['name'] = "Quarter Pounder Burger",
-				['price_to_customer'] = 55,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -911,7 +911,7 @@ Config.market_categories = {
 			},
 			['dquarterpounder'] = {
 				['name'] = "Double Quarter Pounder Burger",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -922,7 +922,7 @@ Config.market_categories = {
 			},
 			['filet-o-fish'] = {
 				['name'] = "Fillet-O-Fish Burger",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -933,7 +933,7 @@ Config.market_categories = {
 			},
 			['bigmac_meal'] = {
 				['name'] = "BigMac Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -944,7 +944,7 @@ Config.market_categories = {
 			},
 			['mcchicken_meal'] = {
 				['name'] = "McChicken Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -955,7 +955,7 @@ Config.market_categories = {
 			},
 			['quarterpounder_meal'] = {
 				['name'] = "Quarter Pounder Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -966,7 +966,7 @@ Config.market_categories = {
 			},
 			['filet-o-fish_meal'] = {
 				['name'] = "Fillet-O-Fish Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -977,7 +977,7 @@ Config.market_categories = {
 			},
 			['cheeseburger'] = {
 				['name'] = "Cheese Burger",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -988,7 +988,7 @@ Config.market_categories = {
 			},
 			['dcheeseburger'] = {
 				['name'] = "Cola",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -999,7 +999,7 @@ Config.market_categories = {
 			},
 			['tcheeseburger'] = {
 				['name'] = "Triple Cheese Burger",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1010,7 +1010,7 @@ Config.market_categories = {
 			},
 			['sfries'] = {
 				['name'] = "Small Fries",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1022,7 +1022,7 @@ Config.market_categories = {
 			
 			['cheeseburger_meal'] = {
 				['name'] = "Cheeseburger Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1033,7 +1033,7 @@ Config.market_categories = {
 			},
 			['dcheeseburger_meal'] = {
 				['name'] = "Double Cheeseburger Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1044,7 +1044,7 @@ Config.market_categories = {
 			},
 			['tcheeseburger_meal'] = {
 				['name'] = "Tripple Cheeseburger Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1055,7 +1055,7 @@ Config.market_categories = {
 			},
 			['lfries'] = {
 				['name'] = "Large Fries",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1066,18 +1066,18 @@ Config.market_categories = {
 			},
 			['cocacola'] = {
 				['name'] = "McDonalds Coca-Cola",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
 				['price_to_owner'] = 3,
 				['amount_to_owner'] = 35,
 				['amount_to_delivery'] = 35,
-				['img'] = 'cocacola.png',
+				['img'] = 'cola.png',
 			},
 			['6pnuggets'] = {
 				['name'] = "6 Chicken Nuggets",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1088,7 +1088,7 @@ Config.market_categories = {
 			},
 			['10pnuggets'] = {
 				['name'] = "10 Chicken Nuggets",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1099,7 +1099,7 @@ Config.market_categories = {
 			},
 			['20pnuggets'] = {
 				['name'] = "20 Chicken Nuggets",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1110,7 +1110,7 @@ Config.market_categories = {
 			},
 			['sscone'] = {
 				['name'] = "Soft Serve Cone",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1121,7 +1121,7 @@ Config.market_categories = {
 			},
 			['ssconef'] = {
 				['name'] = "Soft Serve Cone with a Flake",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1132,7 +1132,7 @@ Config.market_categories = {
 			},
 			['6pnuggets_meal'] = {
 				['name'] = "6 Chicken Nugget Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1143,7 +1143,7 @@ Config.market_categories = {
 			},
 			['10pnuggets_meal'] = {
 				['name'] = "10 Chicken Nugget Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1154,7 +1154,7 @@ Config.market_categories = {
 			},
 			['20pnuggets_meal'] = {
 				['name'] = "20 Chicken Nugget Meal",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 350,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1165,7 +1165,7 @@ Config.market_categories = {
 			},
 			['mflurryo'] = {
 				['name'] = "Oreo McFlurry",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -1176,18 +1176,18 @@ Config.market_categories = {
 			},
 			['mflurrym'] = {
 				['name'] = "M&M McFlurry",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
 				['price_to_owner'] = 3,
 				['amount_to_owner'] = 35,
 				['amount_to_delivery'] = 35,
-				['img'] = 'cola.png',
+				['img'] = 'mflurrym.png',
 			},
 			['hotapplepie'] = {
 				['name'] = "Hot Apple Pie",
-				['price_to_customer'] = 45,
+				['price_to_customer'] = 250,
 				['price_to_customer_min'] = 2,
 				['price_to_customer_max'] = 8,
 				['price_to_export'] = 3,
@@ -2140,6 +2140,7 @@ Config.NPCs = {
 			{-1486.59, -377.68, 40.16, 139.51},
 			{-2966.39, 391.42, 15.04, 87.48},
 			{1165.17, 2710.88, 38.16, 179.43},
+			{89.84, 290.93, 110.21, 155.13},   ---mecdonal
 			{1134.2, -982.91, 46.42, 277.24}
 		}
 	},
