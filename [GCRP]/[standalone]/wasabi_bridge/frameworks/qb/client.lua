@@ -32,19 +32,19 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function(job)
 end)
 
 AddEventHandler('gameEventTriggered', function(event, data)
-	if event ~= 'CEventNetworkEntityDamage' then return end
+    if event ~= 'CEventNetworkEntityDamage' then return end
     local playerPed = cache.ped
-	local victim, victimDied = data[1], data[4]
-	if not IsPedAPlayer(victim) then return end
-	local player = PlayerId()
-	if victimDied and NetworkGetPlayerIndexFromPed(victim) == player and (IsPedDeadOrDying(victim, true) or IsPedFatallyInjured(victim))  then
+    local victim, victimDied = data[1], data[4]
+    if not IsPedAPlayer(victim) then return end
+    local player = PlayerId()
+    if victimDied and NetworkGetPlayerIndexFromPed(victim) == player and (IsPedDeadOrDying(victim, true) or IsPedFatallyInjured(victim)) then
         local deathCause = GetPedCauseOfDeath(playerPed)
         local data = {
             deathCause = deathCause,
             victimCoords = GetEntityCoords(victim)
         }
         TriggerEvent('wasabi_bridge:onPlayerDeath', data)
-	end
+    end
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
@@ -64,11 +64,7 @@ function WSB.showNotification(msg, type)
 end
 
 function WSB.serverCallback(name, cb, ...)
-    QBCore.Functions.TriggerCallback(name, cb,  ...)
-end
-
-function WSB.getClosestPlayer()
-    return QBCore.Functions.GetClosestPlayer()
+    QBCore.Functions.TriggerCallback(name, cb, ...)
 end
 
 function WSB.hasGroup(filter)

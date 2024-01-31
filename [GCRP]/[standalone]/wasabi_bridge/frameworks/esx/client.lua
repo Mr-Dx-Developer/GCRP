@@ -59,11 +59,7 @@ function WSB.showNotification(msg, _type)
 end
 
 function WSB.serverCallback(name, cb, ...)
-    ESX.TriggerServerCallback(name, cb,  ...)
-end
-
-function WSB.getClosestPlayer()
-    return ESX.Game.GetClosestVehicle()
+    ESX.TriggerServerCallback(name, cb, ...)
 end
 
 function WSB.hasGroup(filter)
@@ -110,7 +106,7 @@ function WSB.openBossMenu()
     if not WSB.playerData or not WSB.playerData.job then return end
     TriggerEvent('esx_society:openBossMenu', WSB.playerData.job.name, function(menu)
         --ESX.CloseContext()
-    end, {wash = false})
+    end, { wash = false })
 end
 
 function WSB.getGender()

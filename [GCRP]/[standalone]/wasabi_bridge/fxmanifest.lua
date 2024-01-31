@@ -7,10 +7,10 @@ lua54 'yes'
 
 description 'A library of functions used to ease the bridge between Wasabi Scripts'
 author 'wasabirobby'
-version '1.1.3'
+version '1.1.4'
 
 shared_scripts { '@ox_lib/init.lua', 'config.lua' }
-client_scripts { 'frameworks/**/client.lua', 'target/client.lua', 'customize/cl_customize.lua' }
+client_scripts { 'frameworks/**/client.lua', 'target/*.lua', 'customize/cl_customize.lua' }
 server_scripts { '@oxmysql/lib/MySQL.lua', 'frameworks/**/server.lua', 'server/*.lua' }
 
 files {'import.lua' }

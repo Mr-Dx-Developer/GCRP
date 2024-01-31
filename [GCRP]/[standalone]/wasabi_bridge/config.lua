@@ -15,3 +15,10 @@ Config.CheckForUpdates = true
 ------------------------------------------------------------------
 Config.NotificationLocation = 'top-right'
 
+---------------------------------------------------------
+--     Specify the target system being used here.      --    
+-- Options are 'qb-target', 'qtarget', and 'ox_target' --
+-- Set to false if not using any of the above systems. --
+--           OR add your own target system!            --
+---------------------------------------------------------
+Config.TargetSystem = 'qb-target'
