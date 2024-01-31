@@ -5,8 +5,8 @@
     of bullets, and even the attachments they will use.
 ]]
 
-Config.LimitAmmo = false                    -- If you enable this feature, it will only allow one full magazine per weapon
-Config.ReloadProgressbar = true
+Config.LimitAmmo = true                    -- If you enable this feature, it will only allow one full magazine per weapon
+Config.ReloadProgressbar = false
 Config.ReloadTime = math.random(4000, 6000) -- Reload progressbar
 
 -- This will make the durability of weapons down
@@ -1397,6 +1397,7 @@ Config.WeaponAttachments = {
         },
     },
 
+    
     -- Custom Weapons NoobySloth (it is possible that some weapon is broken)
     -- ref: https://github.com/NoobySloth/Custom-Weapons
     ['WEAPON_M9'] = {

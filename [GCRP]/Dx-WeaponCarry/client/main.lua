@@ -39,6 +39,7 @@ local PlayerSlots = {
 
 -- Add your items here --
 local props = {
+	
 	---- ** Drugs ** ----
 	-- Weed
 	["marijuana_crop_low"] = { model = "bkr_prop_weed_drying_02a", hash = joaat("bkr_prop_weed_drying_02a"), tier = 1, yr = 90.0 }, -- This is more of an item that deserves a
