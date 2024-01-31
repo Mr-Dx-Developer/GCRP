@@ -5,33 +5,33 @@ if not wsb then return print((Strings.no_wsb):format(GetCurrentResourceName())) 
 if not Config.UseRadialMenu then return end
 
 function AddRadialItems()
-    if wsb.hasGroup(Config.ambulanceJob) then
-        if wsb.framework == 'qb' then
-            if wsb.playerData.job.onduty then
-                lib.addRadialItem({
-                    {
-                        id = 'ems_general',
-                        label = 'EMS',
-                        icon = 'ambulance',
-                        menu = 'ems_menu'
-                    },
-                })
-            else
-                lib.removeRadialItem('ems_general')
-            end
-        else
-            lib.addRadialItem({
-                {
-                    id = 'ems_general',
-                    label = 'EMS',
-                    icon = 'ambulance',
-                    menu = 'ems_menu'
-                },
-            })
-        end
-    else
-        lib.removeRadialItem('ems_general')
-    end
+	if wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob) then
+		if wsb.framework == 'qb' then
+			if wsb.playerData.job.onduty then
+				lib.addRadialItem({
+					{
+						id = 'ems_general',
+						label = 'EMS',
+						icon = 'ambulance',
+						menu = 'ems_menu'
+					},
+				})
+			else
+				lib.removeRadialItem('ems_general')
+			end
+		else
+			lib.addRadialItem({
+				{
+					id = 'ems_general',
+					label = 'EMS',
+					icon = 'ambulance',
+					menu = 'ems_menu'
+				},
+			})
+		end
+	else
+		lib.removeRadialItem('ems_general')
+	end
 end
 
 lib.registerRadial({ -- EMS menu

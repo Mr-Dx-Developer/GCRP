@@ -62,22 +62,45 @@ SendDistressSignal = function() -- Edit distress signal to implement custom disp
 				GPS, '["ambulance"]', false)
 		end)
 	elseif Config.phoneDistress == 'qs' then
+		local jobs = Config.ambulanceJobs or Config.ambulanceJob
+		if jobs and type(jobs) == 'table' then
+			for i = 1, #jobs do
+				TriggerServerEvent('qs-smartphone:server:sendJobAlert', {
+					message = 'Injured person',
+					location = vector3(myPos.x, myPos.y, myPos.z)
+				}, jobs[i])
+			end
+			goto continue
+		end
 		TriggerServerEvent('qs-smartphone:server:sendJobAlert', {
 			message = 'Injured person',
 			location = vector3(myPos.x, myPos.y, myPos.z)
-		}, Config.ambulanceJob)
-
+		}, jobs)
+		::continue::
 		TriggerServerEvent('qs-smartphone:server:AddNotifies', {
 			head = "Injured person",
 			msg = 'Injured person',
 			app = 'business'
 		})
 	elseif Config.phoneDistress == 'd-p' then
-		TriggerEvent('d-phone:client:message:senddispatch', 'Unconscious person', Config.ambulanceJob)
+		local jobs = Config.ambulanceJobs or Config.ambulanceJob
+		if jobs and type(jobs) == 'table' then
+			for i = 1, #jobs do
+				TriggerEvent('d-phone:client:message:senddispatch', 'Unconscious person', jobs[i])
+			end
+			goto continue
+		end
+		TriggerEvent('d-phone:client:message:senddispatch', 'Unconscious person', jobs)
+		::continue::
 		TriggerEvent('d-notification', 'Service Message sended', 5000, 'success')
 	elseif Config.phoneDistress == 'lb' then
-		exports["lb-phone"]:SendCompanyMessage(Config.ambulanceJob, 'Unconscious person')
-		exports["lb-phone"]:SendCompanyCoords(Config.ambulanceJob)
+		local jobs = Config.ambulanceJobs or Config.ambulanceJob
+		if jobs and type(jobs) == 'table' then
+			for i = 1, #jobs do
+				exports["lb-phone"]:SendCompanyMessage(jobs[i], 'Unconscious person')
+				exports["lb-phone"]:SendCompanyCoords(jobs[i])
+			end
+		end
 	else
 		TriggerServerEvent('wasabi_ambulance:onPlayerDistress') -- To add your own dispatch, comment this line out and add into here
 	end
@@ -88,11 +111,13 @@ AddEventHandler('wasabi_ambulance:changeClothes', function(data)
 	if not gender or gender == 0 or gender == 'm' then gender = 'male' end
 	if gender == 'f' or gender == 1 then gender = 'female' end
 	if data == 'civ_wear' then
+		RemoveClothingProps()
 		RequestCivilianOutfit()
 		return
 	end
 	if type(data) ~= 'table' then return end
 	SaveCivilianOutfit()
+	RemoveClothingProps()
 	if data[gender] and data[gender].clothing and next(data[gender].clothing) then
 		for _, clothing in pairs(data[gender].clothing) do
 			SetPedComponentVariation(cache.ped, clothing.component, clothing.drawable, clothing.texture, 0)
@@ -259,7 +284,7 @@ end
 
 -- Job menu edits?
 function OpenJobMenu()
-	if not wsb.hasGroup(Config.ambulanceJob) then return end
+	if not wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob) then return end
 	if isPlayerDead() then return end
 	if not wsb.isOnDuty() then return end
 	Options = {
@@ -305,7 +330,7 @@ function OpenJobMenu()
 		}
 	}
 	if Config.EnviPrescriptions.enabled then
-		local _job, grade = wsb.hasGroup(Config.ambulanceJob)
+		local _job, grade = wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob)
 		if grade and grade >= Config.EnviPrescriptions.minRank then
 			Options[#Options + 1] = {
 				title = Strings.prescription_menu,

@@ -4,7 +4,7 @@
 if not wsb then return print((Strings.no_wsb):format(GetCurrentResourceName())) end
 ESX, QBCore = nil, nil
 if wsb.framework == 'esx' then ESX = exports['es_extended']:getSharedObject() end -- Custom ESX Export?
-if wsb.framework == 'qb' then QBCore = exports['qb-core']:GetCoreObject() end -- Custom QBCore Export?
+if wsb.framework == 'qb' then QBCore = exports['qb-core']:GetCoreObject() end     -- Custom QBCore Export?
 
 
 
@@ -15,7 +15,17 @@ function MuteDeadPlayer(src, isDead)
 end
 
 if wsb.framework == 'esx' then
-    TriggerEvent('esx_society:registerSociety', Config.ambulanceJob, Config.ambulanceJob, 'society_'..Config.ambulanceJob, 'society_'..Config.ambulanceJob, 'society_'..Config.ambulanceJob, {type = 'public'})
+    if not Config.ambulanceJob and type(Config.ambulanceJobs) == 'table' then
+        for i = 1, #Config.ambulanceJobs do
+            local ambulanceJob = Config.ambulanceJobs[i]
+            TriggerEvent('esx_society:registerSociety', ambulanceJob, ambulanceJob, 'society_' .. ambulanceJob,
+                'society_' .. ambulanceJob, 'society_' .. ambulanceJob, { type = 'public' })
+        end
+        goto continue
+    end
+    TriggerEvent('esx_society:registerSociety', Config.ambulanceJob, Config.ambulanceJob, 'society_' ..
+    Config.ambulanceJob, 'society_' .. Config.ambulanceJob, 'society_' .. Config.ambulanceJob, { type = 'public' })
+    ::continue::
     ESX.RegisterServerCallback('esx_ambulancejob:getDeathStatus', function(source, cb)
         if deadPlayers[source] then
             cb(true)
@@ -28,7 +38,7 @@ if wsb.framework == 'esx' then
         local ems = 0
         for i = 1, #players, 1 do
             local player = tonumber(players[i])
-            if wsb.hasGroup(player, Config.ambulanceJob) then
+            if wsb.hasGroup(player, Config.ambulanceJobs or Config.ambulanceJob) then
                 ems = ems + 1
             end
         end
@@ -59,7 +69,8 @@ RegisterNetEvent('wasabi_ambulance:removeItemsOnDeath', function()
     if not player then return end
     if wsb.framework == 'qb' then
         player.Functions.ClearInventory()
-        MySQL.Async.execute('UPDATE players SET inventory = ? WHERE citizenid = ?', { json.encode({}), player.PlayerData.citizenid })
+        MySQL.Async.execute('UPDATE players SET inventory = ? WHERE citizenid = ?',
+            { json.encode({}), player.PlayerData.citizenid })
         return
     elseif wsb.framework == 'esx' then
         player.setAccountMoney('money', 0)
@@ -95,17 +106,20 @@ end)
 RegisterNetEvent('wasabi_ambulance:resetThirstHunger', function()
     local src = source
     if wsb.framework ~= 'qb' then return end
-	local player = wsb.getPlayer(src)
+    local player = wsb.getPlayer(src)
 
-	player.Functions.SetMetaData('hunger', 100)
-	player.Functions.SetMetaData('thirst', 100)
+    player.Functions.SetMetaData('hunger', 100)
+    player.Functions.SetMetaData('thirst', 100)
 
-	TriggerClientEvent('hud:client:UpdateNeeds', src, 100, 100)
+    TriggerClientEvent('hud:client:UpdateNeeds', src, 100, 100)
 end)
 
 RegisterNetEvent('wasabi_ambulance:punishPlayer', function(reason)
     local src = source
-    wsb.kickPlayer(src, string.format('You got kicked!\n\nAuthor: %s\nReason: %s\n\nYou think this punishment was not fair?\nContact our support at discord.gg/', GetCurrentResourceName(), reason))
+    wsb.kickPlayer(src,
+        string.format(
+        'You got kicked!\n\nAuthor: %s\nReason: %s\n\nYou think this punishment was not fair?\nContact our support at discord.gg/',
+            GetCurrentResourceName(), reason))
 
     --[[
         EASYADMIN EXAMPLE
@@ -120,7 +134,7 @@ if Config.CompleteDeath.enabled and wsb.framework == 'esx' then
             ['@identifier'] = xPlayer.identifier,
             ['@deaths'] = 0,
             ['@disabled'] = 0
-            }, function(result)
+        }, function(result)
         end)
     end
 
@@ -130,7 +144,8 @@ if Config.CompleteDeath.enabled and wsb.framework == 'esx' then
         }, function(result)
             local deathCount = result[1].deaths
 
-            TriggerClientEvent('wasabi_bridge:notify', xPlayer.source, 'DEATHCOUNT', string.format('Your current deathcount: %s', deathCount), 'inform', 'ban')
+            TriggerClientEvent('wasabi_bridge:notify', xPlayer.source, 'DEATHCOUNT',
+                string.format('Your current deathcount: %s', deathCount), 'inform', 'ban')
         end)
     end
 
@@ -157,23 +172,29 @@ if Config.CompleteDeath.enabled and wsb.framework == 'esx' then
                 ['@identifier'] = xPlayer.identifier,
                 ['@deaths'] = deathCount,
                 ['@disabled'] = disable
-                }, function(result)
-                    if disable == 1 then
-                        xPlayer.kick(string.format('You got kicked!\n\nAuthor: %s\nReason: You reached the max deathcount\nDeathcount: %s/%s\n\nYour character is now disabled.', GetCurrentResourceName(), deathCount, Config.CompleteDeath.maxDeaths))
-                    end
+            }, function(result)
+                if disable == 1 then
+                    xPlayer.kick(string.format(
+                    'You got kicked!\n\nAuthor: %s\nReason: You reached the max deathcount\nDeathcount: %s/%s\n\nYour character is now disabled.',
+                        GetCurrentResourceName(), deathCount, Config.CompleteDeath.maxDeaths))
+                end
             end)
         end)
     end)
 
     ESX.RegisterCommand('viewdeathcount', 'user', function(xPlayer, args, showError)
         viewDeathCount(xPlayer)
-    end, false, {help = Strings.viewdeathcount_command_help})
+    end, false, { help = Strings.viewdeathcount_command_help })
 
     ESX.RegisterCommand('resetdeathcount', 'admin', function(xPlayer, args, showError)
         resetDeathCount(args.playerId)
-    end, true, {help = Strings.resetdeathcount_command_help, validate = true, arguments = {
-        {name = 'playerId', help = Strings.resetdeathcount_command_arg, type = 'player'}
-    }})
+    end, true, {
+        help = Strings.resetdeathcount_command_help,
+        validate = true,
+        arguments = {
+            { name = 'playerId', help = Strings.resetdeathcount_command_arg, type = 'player' }
+        }
+    })
 end
 
 if wsb.framework == 'esx' then
@@ -185,16 +206,20 @@ if wsb.framework == 'esx' then
                     TriggerClientEvent('wasabi_ambulance:revive', xPlayer.source)
                 end
             end
-        end, true, {help = Strings.reviveall_command_help})
+        end, true, { help = Strings.reviveall_command_help })
 
         ESX.RegisterCommand('revive', 'admin', function(xPlayer, args, showError)
             args.playerId.triggerEvent('wasabi_ambulance:revive')
             if xPlayer?.source and Config.ReviveLogs then
                 TriggerEvent('wasabi_ambulance:logRevive', xPlayer.source, args.playerId.source)
             end
-        end, true, {help = Strings.revive_command_help, validate = true, arguments = {
-            {name = 'playerId', help = Strings.revive_command_arg, type = 'player'}
-        }})
+        end, true, {
+            help = Strings.revive_command_help,
+            validate = true,
+            arguments = {
+                { name = 'playerId', help = Strings.revive_command_arg, type = 'player' }
+            }
+        })
         local ver = GetResourceMetadata('es_extended', 'version', 0)
         ver = ver:gsub('%.', '')
         if tonumber(ver) >= 175 then
@@ -211,9 +236,13 @@ if wsb.framework == 'esx' then
                         end
                     end
                 end
-            end, false, {help = Strings.revivearea_command_help, validate = false, arguments = {
-                {name = 'area', help = Strings.revivearea_command_arg, type = 'number'}
-            }})
+            end, false, {
+                help = Strings.revivearea_command_help,
+                validate = false,
+                arguments = {
+                    { name = 'area', help = Strings.revivearea_command_arg, type = 'number' }
+                }
+            })
         end
     else
         -- ESX 1.1
@@ -235,26 +264,27 @@ if wsb.framework == 'esx' then
                 end
             end
         end, function(source, args, user)
-            TriggerClientEvent('chatMessage', source, 'SYSTEM', {255, 0, 0}, 'Insufficient Permissions.')
-        end, {help = 'Revive a nearby player', params = {{name = 'id'}}})
+            TriggerClientEvent('chatMessage', source, 'SYSTEM', { 255, 0, 0 }, 'Insufficient Permissions.')
+        end, { help = 'Revive a nearby player', params = { { name = 'id' } } })
     end
 elseif wsb.framework == 'qb' then
-    QBCore.Commands.Add('revive', 'Revive a player', {{name = 'id', help = 'Player ID'}}, false, function(source, args)
-        local src = source
-        if args[1] then
-            local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
-            if Player then
-                TriggerClientEvent('wasabi_ambulance:revive', Player.PlayerData.source)
-                if source and source ~= 0 and Config.ReviveLogs then
-                    TriggerEvent('wasabi_ambulance:logRevive', source, Player.PlayerData.source)
+    QBCore.Commands.Add('revive', 'Revive a player', { { name = 'id', help = 'Player ID' } }, false,
+        function(source, args)
+            local src = source
+            if args[1] then
+                local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
+                if Player then
+                    TriggerClientEvent('wasabi_ambulance:revive', Player.PlayerData.source)
+                    if source and source ~= 0 and Config.ReviveLogs then
+                        TriggerEvent('wasabi_ambulance:logRevive', source, Player.PlayerData.source)
+                    end
                 end
+            else
+                TriggerClientEvent('wasabi_ambulance:revive', src)
             end
-        else
-            TriggerClientEvent('wasabi_ambulance:revive', src)
-        end
-    end, 'admin')
+        end, 'admin')
 
-    QBCore.Commands.Add('kill', 'Kill a player', {{name = 'id', help = 'Player ID'}}, false, function(source, args)
+    QBCore.Commands.Add('kill', 'Kill a player', { { name = 'id', help = 'Player ID' } }, false, function(source, args)
         local src = source
         if args[1] then
             local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))

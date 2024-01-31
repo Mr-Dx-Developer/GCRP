@@ -2,24 +2,24 @@
 --------------- https://discord.gg/wasabiscripts  -------------
 ---------------------------------------------------------------
 if not wsb then return print((Strings.no_wsb):format(GetCurrentResourceName())) end
-isDead, disableKeys, inMenu, stretcher, stretcherMoving, medbagCoords, isBusy, Authorized, placedOnStretcher, OnPainKillers, GameShake, InjuryRunning, IsCheckedIn =
-    nil, nil, nil, nil, nil, nil, nil, nil, nil, false, false, false, false
+isDead, disableKeys, inMenu, medbagCoords, isBusy, Authorized, OnPainKillers, GameShake, InjuryRunning, IsCheckedIn =
+    nil, nil, nil, nil, nil, nil, false, false, false, false
 local deathInjury, previousHealth, previousArmour
 plyRequests = {}
 currentDrugEffect, nodOutRunning = false, false
 
 CreateThread(function()
-    while not wsb?.playerData?.job do Wait(500) end
+    while not wsb.playerLoaded do Wait(1000) end
     CreateThread(function()
         Wait(2500)
         SendReactMessage('initialize', json.encode({
-            language = Config.UILanguage,
+            language = Config.Language,
             color = Config.UIColor,
             deathEffectsEnabled = Config.DeathScreenEffects
         }))
     end)
 
-    if Config?.policeCanTreat?.enabled and wsb.hasGroup(Config.policeCanTreat.jobs) then
+    if Config.policeCanTreat and Config.policeCanTreat.enabled and wsb.hasGroup(Config.policeCanTreat.jobs) then
         Authorized = true
     end
     if Config.UseRadialMenu then
@@ -60,52 +60,74 @@ CreateThread(function()
                     event = 'wasabi_ambulance:diagnosePatient',
                     icon = 'fas fa-stethoscope',
                     label = Strings.diagnose_patient,
-                    job = Config.ambulanceJob,
-                    groups = Config.ambulanceJob
+                    job = Config.ambulanceJob or JobArrayToTarget(),
+                    groups = Config.ambulanceJob or JobArrayToTarget()
                 },
                 {
                     event = 'wasabi_ambulance:reviveTarget',
                     icon = 'fas fa-medkit',
                     label = Strings.revive_patient,
-                    job = Config.ambulanceJob,
-                    groups = Config.ambulanceJob
+                    job = Config.ambulanceJob or JobArrayToTarget(),
+                    groups = Config.ambulanceJob or JobArrayToTarget()
                 },
                 {
                     event = 'wasabi_ambulance:healTarget',
                     icon = 'fas fa-bandage',
                     label = Strings.heal_patient,
-                    job = Config.ambulanceJob,
-                    groups = Config.ambulanceJob
+                    job = Config.ambulanceJob or JobArrayToTarget(),
+                    groups = Config.ambulanceJob or JobArrayToTarget()
                 },
                 {
                     event = 'wasabi_ambulance:useSedative',
                     icon = 'fas fa-syringe',
                     label = Strings.sedate_patient,
-                    job = Config.ambulanceJob,
-                    groups = Config.ambulanceJob
+                    job = Config.ambulanceJob or JobArrayToTarget(),
+                    groups = Config.ambulanceJob or JobArrayToTarget()
                 }
             },
             distance = 1.5
         })
+
         wsb.target.vehicle({
             options = {
-                {
+                --[[                {
                     event = 'wasabi_ambulance:enterBackVehicle',
                     icon = 'fas fa-car',
                     label = Strings.enter_vehicle_back,
                     canInteract = function(entity)
-                        local canInteract = false
-                        local model = GetEntityModel(entity)
-                        for k, _ in pairs(Config.AmbulanceOffsets) do
-                            if model == GetHashKey(k) then
-                                canInteract = true
-                                break
-                            end
-                        end
-                        return canInteract
+                        if not IsVehicleAmbulance(entity) or not IsNearTrunk(entity) or MovingStretcher then return false end
+                        return true
                     end,
                     job = Config.ambulanceJob,
                     groups = Config.ambulanceJob
+                },]] -- Lame
+                {
+                    event = 'wasabi_ambulance:toggleStretcher',
+                    icon = 'fas fa-car',
+                    label = Strings.toggle_stretcher,
+                    canInteract = function(entity)
+                        if not IsVehicleAmbulance(entity) or not IsNearTrunk(entity) or MovingStretcher then return false end
+                        local alreadyDeployed = HasAmbulanceSpawnedStretcher(VehToNet(entity))
+                        local stretcherInside = GetStretcherInVehicle(entity)
+                        return not alreadyDeployed or stretcherInside
+                    end,
+                    job = Config.ambulanceJob or JobArrayToTarget(),
+                    groups = Config.ambulanceJob or JobArrayToTarget()
+                },
+                {
+                    event = 'wasabi_ambulance:stretcherInVehicle',
+                    icon = 'fas fa-car',
+                    label = Strings.stretcher_in_vehicle,
+                    canInteract = function(entity)
+                        if not IsVehicleAmbulance(entity) or not IsNearTrunk(entity) then return false end
+                        local stretcherInside = GetStretcherInVehicle(entity)
+                        if stretcherInside then return false end
+                        if MovingStretcher then return true end
+                        if not GetClosestStretcher(3.0) then return false end
+                        return true
+                    end,
+                    job = Config.ambulanceJob or JobArrayToTarget(),
+                    groups = Config.ambulanceJob or JobArrayToTarget()
                 },
                 {
                     event = 'wasabi_ambulance:removeDeadFromVehicle',
@@ -125,20 +147,24 @@ CreateThread(function()
                         return deadPlayerID
                     end
                 },
-                {
+--[[                {
                     event = 'wasabi_ambulance:placeInVehicle',
                     icon = 'fas fa-car',
                     label = Strings.place_patient,
-                    job = Config.ambulanceJob,
-                    groups = Config.ambulanceJob
-                },
-                {
-                    event = 'wasabi_ambulance:toggleStretcher',
-                    icon = 'fas fa-car',
-                    label = Strings.toggle_stretcher,
-                    job = Config.ambulanceJob,
-                    groups = Config.ambulanceJob
-                },
+                    canInteract = function(entity)
+                        local model = GetEntityModel(entity)
+                        local found = false
+                        for k, _ in pairs(Config.AmbulanceOffsets) do
+                            if model == GetHashKey(k) then
+                                found = true
+                                break
+                            end
+                        end
+                        return found
+                    end,
+                    job = Config.ambulanceJob or JobArrayToTarget(),
+                    groups = Config.ambulanceJob or JobArrayToTarget()
+                },]]
             },
             distance = 1.5
         })
@@ -146,7 +172,7 @@ CreateThread(function()
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
-    if GetCurrentResourceName() ~= resourceName or not wsb?.playerLoaded or not Config.UseRadialMenu then return end
+    if GetCurrentResourceName() ~= resourceName or not wsb or not wsb.playerLoaded or not Config.UseRadialMenu then return end
     AddRadialItems()
 end)
 
@@ -205,7 +231,7 @@ RegisterNetEvent('wasabi_bridge:playerLoaded', function()
             wsb.playerData.metadata["inlaststand"] = false
         end
     end
-    if wsb.hasGroup(Config.ambulanceJob) then
+    if wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob) then
         TriggerServerEvent('wasabi_ambulance:requestSync')
     end
 end)
@@ -217,7 +243,7 @@ RegisterNetEvent('wasabi_ambulance:setJob', function(job)
             Authorized = true
         end
     end
-    if wsb.hasGroup(Config.ambulanceJob) then
+    if wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob) then
         TriggerServerEvent('wasabi_ambulance:requestSync')
     end
     if Config.UseRadialMenu then
@@ -243,6 +269,7 @@ if Config.lowHealthAlert.enabled then
 end
 
 CreateThread(function()
+    local setDeadFace = false
     while true do
         local sleep = 1500
         if isDead == 'dead' or disableKeys or (isDead == 'laststand' and Config.DisableLastStandCrawl) then
@@ -251,6 +278,14 @@ CreateThread(function()
             for k, data in pairs(Config.EnabledKeys.dead) do
                 EnableControlAction(0, data, true)
             end
+        end
+        if isDead == 'dead' and not setDeadFace then
+            setDeadFace = true
+            SetFacialIdleAnimOverride(PlayerPedId(), 'dead_2', 0)
+        end
+        if not isDead and setDeadFace then
+            setDeadFace = false
+            ClearFacialIdleAnimOverride(PlayerPedId())
         end
         Wait(sleep)
     end
@@ -357,49 +392,6 @@ CreateThread(function()
     end
 end)
 
-CreateThread(function()
-    while true do
-        Wait(0)
-        if placedOnStretcher then
-            --[[            if LocalPlayer.state.dead then
-                TriggerEvent('wasabi_ambulance:placeOnStretcher')
-            end
-            if not LocalPlayer.state.onStretcher then
-                TriggerEvent('wasabi_ambulance:placeOnStretcher')
-            end]]
-            --
-            if not IsEntityPlayingAnim(cache.ped, 'anim@gangops@morgue@table@', 'body_search', 33) then
-                ClearPedTasks(cache.ped)
-                TaskPlayAnim(cache.ped, 'anim@gangops@morgue@table@', 'body_search', 8.0, 8.0, -1, 33, 0, false, false,
-                    false)
-            end
-            DisablePlayerFiring(PlayerId(), true)
-            DisableAllControlActions(0)
-            for _, data in ipairs(Config.EnabledKeys.stretcher) do
-                EnableControlAction(0, data, true)
-            end
-        elseif stretcherMoving then
-            DisableAllControlActions(0)
-            DisablePlayerFiring(PlayerId(), true)
-            for o = 0, 6 do
-                EnableControlAction(0, o, true)
-            end
-            for i = 30, 35 do
-                EnableControlAction(0, i, true)
-            end
-            EnableControlAction(0, 21, true)
-            EnableControlAction(0, 38, true)
-            if IsEntityPlayingAnim(cache.ped, 'anim@heists@box_carry@', 'idle', 3) ~= true then
-                ClearPedTasks(cache.ped)
-                TaskPlayAnim(cache.ped, 'anim@heists@box_carry@', 'idle', 8.0, 8.0, -1, 50, 0, false, false, false)
-                Wait(1200)
-            end
-        else
-            Wait(2000)
-        end
-    end
-end)
-
 -- Spawn event
 local firstSpawn = true
 AddEventHandler('wasabi_bridge:onPlayerSpawn', function(noAnim)
@@ -422,14 +414,27 @@ end)
 -- Death Event
 local originalDeath
 AddEventHandler('wasabi_bridge:onPlayerDeath', function(data)
+    if OccupyingStretcher then
+        local occupyingStretcher = OccupyingStretcher
+        OccupyingStretcher = nil
+
+
+        CreateThread(function()
+            local stretcherID = GetActiveStretcherIDFromEntity(occupyingStretcher)
+            local serverID = GetPlayerServerId(PlayerId())
+            if stretcherID and serverID then
+                Wait(100)
+                TriggerServerEvent('wasabi_ambulance:placePlayerOnStretcher', stretcherID, serverID)
+            end
+        end)
+    end
     if not isDead then originalDeath = data.deathCause end
     if isDead == 'laststand' and originalDeath then
         data.deathCause = originalDeath
         originalDeath = nil
     end
     if data.deathCause == 0 then
-        local deathSource = lib.GetClosestPlayer(vec3(data.victimCoords.x, data.victimCoords.y, data.victimCoords.z), 3.0,
-            false)
+        local deathSource = wsb.getClosestPlayer(vec3(data.victimCoords.x, data.victimCoords.y, data.victimCoords.z), 3.0)
         if deathSource then
             local deathSourcePed = GetPlayerPed(deathSource)
             local weapon = GetSelectedPedWeapon(deathSourcePed)
@@ -838,10 +843,19 @@ end
 
 
 AddEventHandler('wasabi_ambulance:toggleDuty', function()
-    local job, grade = wsb.hasGroup(Config.ambulanceJob)
+    local job, grade = wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob)
     if not job then
         if wsb.framework == 'esx' then
-            job, grade = wsb.hasGroup('off' .. Config.ambulanceJob)
+            local foundJob = false
+            local jobs = Config.ambulanceJobs or Config.ambulanceJob
+            if type(jobs) == 'table' then
+                for i = 1, #jobs do
+                    job, grade = wsb.hasGroup('off' .. jobs[i])
+                    if job then break end
+                end
+            else
+                job, grade = wsb.hasGroup('off' .. jobs)
+            end
         end
     end
     if not job then return end
@@ -859,7 +873,7 @@ end)
 
 AddEventHandler('wasabi_ambulance:enterBackVehicle', function()
     local coords = GetEntityCoords(cache.ped)
-    local vehicle = lib.getClosestVehicle(vector3(coords.x, coords.y, coords.z), 7.0, false)
+    local vehicle = wsb.getClosestVehicle(vector3(coords.x, coords.y, coords.z), 7.0, false)
     if not vehicle or not DoesEntityExist(vehicle) then return end
     local freeSeat
     for i = 1, 2 do
@@ -885,19 +899,23 @@ CreateThread(function()
         end
         if v?.clockInAndOut?.enabled then
             if v.clockInAndOut.target.enabled then
+                local jobArray = nil
+                if Config.ambulanceJob and type(Config.ambulanceJob) == 'string' then
+                    jobArray = { Config.ambulanceJob, 'off' .. Config.ambulanceJob }
+                end
                 wsb.target.boxZone(k .. '_toggleduty', v.clockInAndOut.target.coords, v.clockInAndOut.target.width,
                     v.clockInAndOut.target.length, {
                         heading = v.clockInAndOut.target.heading,
                         minZ = v.clockInAndOut.target.minZ,
                         maxZ = v.clockInAndOut.target.maxZ,
-                        job = Config.ambulanceJob,
+                        job = Config.ambulanceJob or JobArrayToTarget(true),
                         distance = 2.0,
                         options = {
                             {
                                 event = 'wasabi_ambulance:toggleDuty',
                                 icon = 'fa-solid fa-business-time',
                                 label = v.clockInAndOut.target.label,
-                                groups = { Config.ambulanceJob, 'off' .. Config.ambulanceJob }
+                                groups = jobArray or JobArrayToTarget()
                             }
                         }
                     })
@@ -907,12 +925,23 @@ CreateThread(function()
                     while true do
                         local sleep = 1500
                         local hasJob
-                        local jobName, jobGrade = wsb.hasGroup(Config.ambulanceJob)
+                        local jobName, jobGrade = wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob)
                         if jobName then
                             hasJob = jobName
                         elseif wsb.framework == 'esx' then
-                            jobName, jobGrade = wsb.hasGroup('off' .. Config.ambulanceJob)
-                            if jobName then hasJob = jobName end
+                            local jobs = Config.ambulanceJobs or Config.ambulanceJob
+                            if type(jobs) == 'table' then
+                                for i = 1, #jobs do
+                                    jobName, jobGrade = wsb.hasGroup('off' .. jobs[i])
+                                    if jobName then
+                                        hasJob = jobName
+                                        break
+                                    end
+                                end
+                            else
+                                jobName, jobGrade = wsb.hasGroup('off' .. jobs)
+                                if jobName then hasJob = jobName end
+                            end
                         end
                         if hasJob then
                             local coords = GetEntityCoords(cache.ped)
@@ -938,19 +967,24 @@ CreateThread(function()
         end
         if v?.PersonalLocker?.enabled and (wsb.framework == 'qb' or Config.Inventory == 'qs') then
             if v.PersonalLocker.target.enabled then
+                local jobs = Config.ambulanceJobs or Config.ambulanceJob
+                local jobArray = nil
+                if type(jobs) == 'string' then
+                    jobArray = { jobs, 'off' .. jobs }
+                end
                 wsb.target.boxZone(k .. '_openStash', v.PersonalLocker.target.coords, v.PersonalLocker.target.width,
                     v.PersonalLocker.target.length, {
                         heading = v.PersonalLocker.target.heading,
                         minZ = v.PersonalLocker.target.minZ,
                         maxZ = v.PersonalLocker.target.maxZ,
-                        job = Config.ambulanceJob,
+                        job = jobArray or JobArrayToTarget(true),
                         distance = 2.0,
                         options = {
                             {
                                 event = 'wasabi_ambulance:accessStash',
                                 icon = 'fa-solid fa-box-open',
                                 label = v.PersonalLocker.target.label,
-                                groups = { Config.ambulanceJob, 'off' .. Config.ambulanceJob }
+                                groups = jobArray or JobArrayToTarget(true)
                             }
                         }
                     })
@@ -960,7 +994,7 @@ CreateThread(function()
                     while true do
                         local sleep = 1500
                         local hasJob
-                        if wsb.hasGroup(Config.ambulanceJob) then
+                        if wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob) then
                             local coords = GetEntityCoords(cache.ped)
                             local dist = #(coords - v.PersonalLocker.coords)
                             if dist <= v.PersonalLocker.distance then
@@ -989,7 +1023,7 @@ CreateThread(function()
                         heading = v.BossMenu.Target.heading,
                         minZ = v.BossMenu.Target.minZ,
                         maxZ = v.BossMenu.Target.maxZ,
-                        job = Config.ambulanceJob,
+                        job = Config.ambulanceJob or JobArrayToTarget(),
                         distance = 2.0,
                         options = {
                             {
@@ -998,8 +1032,8 @@ CreateThread(function()
                                 icon = 'fa-solid fa-suitcase-medical',
                                 distance = 2.0,
                                 label = v.BossMenu.Target.label,
-                                job = Config.ambulanceJob,
-                                groups = Config.ambulanceJob
+                                job = Config.ambulanceJob or JobArrayToTarget(),
+                                groups = Config.ambulanceJob or JobArrayToTarget()
                             }
                         }
                     })
@@ -1008,7 +1042,7 @@ CreateThread(function()
                     local textUI
                     while true do
                         local sleep = 1500
-                        local hasJob, _grade = wsb.hasGroup(Config.ambulanceJob)
+                        local hasJob, _grade = wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob)
                         if v?.clockInAndOut?.enabled and wsb.framework == 'qb' then
                             if not wsb.playerData.job.onduty then hasJob = nil end
                         end
@@ -1022,7 +1056,7 @@ CreateThread(function()
                                 end
                                 sleep = 0
                                 if IsControlJustReleased(0, 38) then
-                                    wsb.openBossMenu(Config.ambulanceJob)
+                                    wsb.openBossMenu(hasJob)
                                 end
                             else
                                 if textUI then
@@ -1068,7 +1102,8 @@ CreateThread(function()
                     if dist <= 30 and not pedSpawned then
                         lib.requestAnimDict('mini@strip_club@idles@bouncer@base', 3000)
                         lib.requestModel(v.CheckIn.Ped, 3000)
-                        ped = CreatePed(28, v.CheckIn.Ped, v.CheckIn.Coords.x, v.CheckIn.Coords.y, v.CheckIn.Coords.z, v.CheckIn.Heading, false, false)
+                        ped = CreatePed(28, v.CheckIn.Ped, v.CheckIn.Coords.x, v.CheckIn.Coords.y, v.CheckIn.Coords.z,
+                            v.CheckIn.Heading, false, false)
                         FreezeEntityPosition(ped, true)
                         SetEntityInvincible(ped, true)
                         SetBlockingOfNonTemporaryEvents(ped, true)
@@ -1114,7 +1149,7 @@ CreateThread(function()
                 local textUI
                 while true do
                     local sleep = 1500
-                    local hasJob, _grade = wsb.hasGroup(Config.ambulanceJob)
+                    local hasJob, _grade = wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob)
                     if v?.clockInAndOut?.enabled and wsb.framework == 'qb' then
                         if not wsb.playerData.job.onduty then hasJob = nil end
                     end
@@ -1148,14 +1183,14 @@ CreateThread(function()
                     heading = v.MedicalSupplies.Heading,
                     minZ = v.MedicalSupplies.Coords.z - 1.5,
                     maxZ = v.MedicalSupplies.Coords.z + 1.5,
-                    job = Config.ambulanceJob,
+                    job = Config.ambulanceJob or JobArrayToTarget(),
                     distance = 1.5,
                     options = {
                         {
                             name = k .. '_medsup',
                             type = 'client',
-                            job = Config.ambulanceJob,
-                            groups = Config.ambulanceJob,
+                            job = Config.ambulanceJob or JobArrayToTarget(),
+                            groups = Config.ambulanceJob or JobArrayToTarget(),
                             distance = 1.5,
                             event = 'wasabi_ambulance:medicalSuppliesMenu',
                             icon = 'fa-solid fa-suitcase-medical',
@@ -1170,7 +1205,7 @@ CreateThread(function()
                 while true do
                     local sleep = 1500
                     local playerPed = cache.ped
-                    local hasJob, _grade = wsb.hasGroup(Config.ambulanceJob)
+                    local hasJob, _grade = wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob)
                     if v?.clockInAndOut?.enabled and wsb.framework == 'qb' then
                         if not wsb.playerData.job.onduty then hasJob = nil end
                     end
@@ -1218,7 +1253,7 @@ CreateThread(function()
                 local textUI
                 while true do
                     local sleep = 1500
-                    local hasJob, _grade = wsb.hasGroup(Config.ambulanceJob)
+                    local hasJob, _grade = wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob)
                     if hasJob and wsb.framework == 'qb' then
                         if not wsb.playerData.job.onduty then hasJob = nil end
                     end
@@ -1256,7 +1291,7 @@ CreateThread(function()
                                     local plate = GetVehicleNumberPlateText(cache.vehicle)
                                     local model = GetEntityModel(cache.vehicle)
                                     wsb.removeCarKeys(plate, model, cache.vehicle)
-                                    
+                                    if Config.EnableStretcher then DeleteStretcherFromVehicle(cache.vehicle) end
                                     if Config.AdvancedParking then
                                         exports["AdvancedParking"]:DeleteVehicle(cache.vehicle, false)
                                     else
@@ -1282,7 +1317,7 @@ CreateThread(function()
                                     local plate = GetVehicleNumberPlateText(cache.vehicle)
                                     local model = GetEntityModel(cache.vehicle)
                                     wsb.removeCarKeys(plate, model, cache.vehicle)
-                                    
+                                    if Config.EnableStretcher then DeleteStretcherFromVehicle(cache.vehicle) end
                                     if Config.AdvancedParking then
                                         exports["AdvancedParking"]:DeleteVehicle(cache.vehicle, false)
                                     else
@@ -1411,7 +1446,7 @@ RegisterNetEvent('wasabi_ambulance:useBandage', function()
         if health > 200 then health = 200 end
         SetEntityHealth(PlayerPedId(), health + 0.0)
         if Config.Bandages.healBleed and next(PlayerInjury) then
-            for _,injury in pairs(PlayerInjury) do
+            for _, injury in pairs(PlayerInjury) do
                 if injury.data.bleed > 0 then
                     injury.data.bleed = 0
                 end
@@ -1428,7 +1463,7 @@ RegisterNetEvent('wasabi_ambulance:useBandage', function()
 end)
 
 RegisterNetEvent('wasabi_ambulance:syncRequests', function(_plyRequests, quiet)
-    local hasJob, _grade = wsb.hasGroup(Config.ambulanceJob)
+    local hasJob, _grade = wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob)
     if wsb.framework == 'qb' then
         if not wsb.playerData.job.onduty then hasJob = nil end
     end
@@ -1456,6 +1491,7 @@ RegisterNetEvent('wasabi_ambulance:revivePlayer', function(serverdata)
         local injury = serverdata
         HideDeathNui()
         TriggerEvent('wasabi_ambulance:customInjuryClear')
+        SetEntityInvincible(cache.ped, false)
         TriggerServerEvent('wasabi_ambulance:setDeathStatus', false, true)
         DrugIntake = {}
         ClearDrugEffects(PlayerPedId())
@@ -1468,7 +1504,6 @@ RegisterNetEvent('wasabi_ambulance:revivePlayer', function(serverdata)
         else
             ClearPedTasks(cache.ped)
         end
-        SetEntityInvincible(cache.ped, false)
         if GetEntityHealth(cache.ped) < 200 then SetEntityHealth(cache.ped, 200) end
         lib.requestAnimDict('get_up@directional@movement@from_knees@action', 3000)
         TaskPlayAnim(cache.ped, 'get_up@directional@movement@from_knees@action', 'getup_r_0', 8.0, -8.0, -1, 0, 0, false,
@@ -1507,7 +1542,7 @@ RegisterNetEvent('wasabi_ambulance:revive', function(noAnim)
     DrugIntake = {}
     nodOutRunning = false
     currentDrugEffect = false
-   --[[ DoScreenFadeOut(800)
+    --[[ DoScreenFadeOut(800)
     while not IsScreenFadedOut() do
         Wait(50)
     end]]
@@ -1565,10 +1600,11 @@ RegisterNetEvent('wasabi_ambulance:heal', function(full, quiet)
         TriggerEvent('mythic_hospital:client:RemoveBleed')
         TriggerEvent('mythic_hospital:client:ResetLimbs')
     end
+    if Config.EnableLiveInjury and full then ClearPatientSymptoms() end
     if not quiet then
         TriggerEvent('wasabi_bridge:notify', Strings.player_successful_heal, Strings.player_healed_desc, 'success')
     end
-    if Config.EMSItems.heal.healBleed and next(PlayerInjury) then
+    if Config.EMSItems.heal.healBleed and next(PlayerInjury) and not full then
         for _, injury in pairs(PlayerInjury) do
             if injury.data.bleed > 0 then
                 injury.data.bleed = 0
@@ -1596,13 +1632,13 @@ end)
 RegisterNetEvent('wasabi_ambulance:intoVehicle', function()
     local ped = cache.ped
     local coords = GetEntityCoords(ped)
-    if IsPedInAnyVehicle(ped, false) and not placedOnStretcher then
+    if IsPedInAnyVehicle(ped, false) and not OccupyingStretcher then
         coords = GetOffsetFromEntityInWorldCoords(ped, -2.0, 1.0, 0.0)
         SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false)
     else
         if IsAnyVehicleNearPoint(coords.x, coords.y, coords.z, 6.0) then
             local vehicle = GetClosestVehicle(coords.x, coords.y, coords.z, 6.0, 0, 71)
-            if DoesEntityExist(vehicle) and not placedOnStretcher then
+            if DoesEntityExist(vehicle) and not OccupyingStretcher then
                 local maxSeats, freeSeat = GetVehicleMaxNumberOfPassengers(vehicle)
                 for i = maxSeats - 1, 0, -1 do
                     if IsVehicleSeatFree(vehicle, i) then
@@ -1637,10 +1673,6 @@ end)
 
 AddEventHandler('wasabi_ambulance:buyItem', function(data)
     TriggerServerEvent('wasabi_ambulance:restock', data)
-end)
-
-RegisterNetEvent('wasabi_ambulance:placeOnStretcher', function()
-    placeOnStretcher()
 end)
 
 AddEventHandler('wasabi_ambulance:openBossMenu', function()
@@ -1684,7 +1716,7 @@ AddEventHandler('wasabi_ambulance:spawnVehicle', function(data)
     if not IsModelInCdimage(GetHashKey(model)) then
         print('Vehicle model not found: ' .. model)
     else
-        local nearbyVehicles = lib.getNearbyVehicles(vec3(spawnLoc.coords.x, spawnLoc.coords.y, spawnLoc.coords.z), 6.0,
+        local nearbyVehicles = wsb.getNearbyVehicles(vec3(spawnLoc.coords.x, spawnLoc.coords.y, spawnLoc.coords.z), 6.0,
             true)
         if #nearbyVehicles > 0 then
             TriggerEvent('wasabi_bridge:notify', Strings.spawn_blocked, Strings.spawn_blocked_desc, 'error')
@@ -1727,9 +1759,9 @@ AddEventHandler('wasabi_ambulance:chairRemoveMenu', function()
 end)
 
 AddEventHandler('wasabi_ambulance:billPatient', function()
-    if wsb.hasGroup(Config.ambulanceJob) then
+    if wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob) then
         local coords = GetEntityCoords(cache.ped)
-        local player = lib.getClosestPlayer(vec3(coords.x, coords.y, coords.z), 2.0, false)
+        local player = wsb.getClosestPlayer(vec3(coords.x, coords.y, coords.z), 2.0)
         if not player then
             TriggerEvent('wasabi_bridge:notify', Strings.no_nearby, Strings.no_nearby_desc, 'error')
         else
@@ -1747,7 +1779,8 @@ AddEventHandler('wasabi_ambulance:billPatient', function()
                 elseif Config.billingSystem == 'pefcl' then
                     TriggerServerEvent('wasabi_ambulance:billPlayer', targetId, amount)
                 elseif Config.billingSystem == 'qb' then
-                    TriggerServerEvent('wasabi_ambulance:qbBill', targetId, amount, Config.ambulanceJob)
+                    local hasJob, _grade = wsb.hasGroup(Config.ambulanceJobs or Config.ambulanceJob)
+                    TriggerServerEvent('wasabi_ambulance:qbBill', targetId, amount, hasJob)
                     local gender = Strings.mr
                     if wsb.playerData.charinfo.gender == 1 then
                         gender = Strings.mrs
@@ -1769,17 +1802,6 @@ AddEventHandler('wasabi_ambulance:billPatient', function()
     end
 end)
 
-AddEventHandler('onResourceStop', function(res)
-    if res ~= GetCurrentResourceName() or not stretcher then return end
-    DetachEntity(stretcher, false, true)
-    deleteObj(stretcher)
-    wsb.target.removeZone('stretcherzone')
-end)
-
-RegisterNetEvent('wasabi_ambulance:toggleStretcher', function()
-    ToggleStretcher()
-end)
-
 AddEventHandler('wasabi_ambulance:medicalSuppliesMenu', function(data)
     medicalSuppliesMenu(data.hospital)
 end)
@@ -1794,10 +1816,6 @@ end)
 
 AddEventHandler('wasabi_ambulance:pickupBag', function()
     pickupBag()
-end)
-
-AddEventHandler('wasabi_ambulance:placeInVehicle', function()
-    placeInVehicle()
 end)
 
 AddEventHandler('wasabi_ambulance:removeDeadFromVehicle', function(data)
@@ -1818,19 +1836,6 @@ end)
 AddEventHandler('wasabi_ambulance:diagnosePatient', function()
     diagnosePatient()
 end)
-
-AddEventHandler('wasabi_ambulance:loadStretcher', function()
-    loadStretcher()
-end)
-
-AddEventHandler('wasabi_ambulance:pickupStretcher', function()
-    pickupStretcher()
-end)
-
-AddEventHandler('wasabi_ambulance:moveStretcher', function()
-    moveStretcher()
-end)
-
 RegisterNetEvent('wasabi_ambulance:reviveTarget')
 AddEventHandler('wasabi_ambulance:reviveTarget', function()
     reviveTarget()
@@ -1849,17 +1854,6 @@ end)
 RegisterNetEvent('wasabi_ambulance:standaloneCheckIn', function(id)
     if not Config.StandaloneCheckIns[id] then return end
     AttemptCheckIn('standalone', id)
-end)
-
-AddEventHandler('gameEventTriggered', function(event, data)
-    if event ~= "CEventNetworkEntityDamage" then return end
-    if not stretcherMoving or (stretcher and not DoesEntityExist(stretcher)) then return end
-    local victim = data[1]
-    if victim ~= cache.ped then return end
-    if (IsPedDeadOrDying(victim, true) or IsPedFatallyInjured(victim)) then return end
-    Wait(2000)
-    ClearPedTasks(victim)
-    TaskPlayAnim(victim, 'anim@heists@box_carry@', 'idle', 8.0, 8.0, -1, 50, 0, false, false, false)
 end)
 
 
@@ -1897,7 +1891,12 @@ RegisterNetEvent('qb-radialmenu:client:TakeStretcher', function()
 end)
 
 RegisterNetEvent('qb-radialmenu:client:RemoveStretcher', function()
-    ToggleStretcher()
+    local closestStretcher = GetClosestStretcher(3.0)
+    if not closestStretcher then
+        TriggerEvent('wasabi_bridge:notify', Strings.no_nearby, Strings.no_nearby_desc, 'error')
+        return
+    end
+    PlaceStretcherInVehicle(closestStretcher.id)
 end)
 --QBCORE COMPATIBILITY END
 

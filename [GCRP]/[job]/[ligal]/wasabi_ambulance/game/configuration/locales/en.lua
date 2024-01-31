@@ -1,18 +1,38 @@
 -----------------For support, scripts, and more----------------
 --------------- https://discord.gg/wasabiscripts  -------------
 ---------------------------------------------------------------
+if not Config.Language then Config.Language = 'en' end
+if Config.Language ~= 'en' then return end
 
 Strings = {
 
+    get_off_stretcher_ui = '[E] - Get Off Stretcher',
+    move = 'Move',
+    move_desc = 'Move the stretcher',
+    put_in_vehicle = 'Put in Vehicle',
+    stretcher_in_vehicle = 'Deposit Stretcher',
+    put_in_vehicle_desc = 'Put the stretcher in a vehicle',
+    place_on_stretcher = 'Place Patient',
+    remove_from_stretcher = 'Remove Patient',
+    remove_from_stretcher_desc = 'Remove a patient from the stretcher',
+    not_found = 'Not Found',
+    already_occupied_ambulance = 'Already Occupied',
+    already_occupied_ambulance_desc = 'This ambulance is already occupied!',
+    already_occupied_stretcher = 'Already Occupied',
+    already_occupied_stretcher_desc = 'This stretcher is already occupied!',
+    vehicle_occupied = 'Vehicle Occupied',
+    vehicle_occupied_desc = 'There can not be a person driving while doing this!',
+    not_occupied_stretcher = 'Not Occupied',
+    not_occupied_stretcher_desc = 'This stretcher is not occupied!',
+    stretcher_placement_blocked = 'Placement Blocked',
+    stretcher_placement_blocked_desc = 'You can not place the stretcher here!',
+
     knocked_out = 'Knocked Out',
     knocked_out_desc = 'You were knocked out cold!',
-
     checkin_cooldown = 'Check-in Cooldown',
     checkin_cooldown_desc = 'You are attempting to check-in too fast, please wait a moment.',
-
     checkingin_progress = 'Checking In. . .',
     remove_dead_target = 'Remove Unconcious Person',
-
     ply_injury_head = 'head',
     ply_injury_neck = 'neck',
     ply_injury_spine = 'spine',
@@ -72,8 +92,6 @@ Strings = {
     ambulance_not_found = 'Stretcher was removed but the ambulance was not found to return to!',
     bleedout = 'bleeding',
     player_injury_critical_desc = 'Player is in critical condition due to a %s wound!',
-
-
     gps_active = 'GPS Activated',
     gps_active_desc = 'Player %s activated their GPS',
     gps_deactive = 'GPS Deactivated',
@@ -82,11 +100,12 @@ Strings = {
     spawn_blocked = 'Garage Blocked',
     spawn_blocked_desc = 'You can not pull your vehicle out because it is blocked!',
     menu_remove_crutch = 'Remove Crutch',
+
     menu_remove_crutch_desc = 'Remove a crutch to a nearby patient',
     menu_remove_chair = 'Remove Wheelchair',
     menu_remove_chair_desc = 'Remove a wheelchair to a nearby patient',
-    toggle_stretcher = 'Place/Take Stretcher',
-    toggle_stretcher_desc = 'Place/Take stretcher in nearest vehicle',
+    toggle_stretcher = 'Take Stretcher',
+    toggle_stretcher_desc = 'Take stretcher from nearest vehicle',
     no_vehicle_nearby = 'Vehicle',
     no_vehicle_nearby_desc = 'There is no vehicle nearby',
     no_ambulance_nearby_desc = 'There is no ambulance nearby',
@@ -98,20 +117,25 @@ Strings = {
     mr = 'Mr',
     mrs = 'Mrs',
     debt_collection = 'Debt Collection',
-    db_email = 'Dear %s %s, <br /><br />The Central Judicial Collection Agency (CJCA) charged the fines you received from the police.<br />There is <strong>$%s</strong> withdrawn from your account.<br /><br />Kind regards,<br />Mr. Wasabi',
+    db_email =
+    'Dear %s %s, <br /><br />The Central Judicial Collection Agency (CJCA) charged the fines you received from the police.<br />There is <strong>$%s</strong> withdrawn from your account.<br /><br />Kind regards,<br />Mr. Wasabi',
     fine_sent = 'Fines Sent',
     fine_sent_desc = 'You have successfully sent fine for $%s!',
     fine_received = 'Fine Received',
     fine_received_desc = 'You have received a fine for $%s',
     log_killed_title = 'Player Killed',
-    log_killed_desc = '> *%s [%s] killed %s [%s]\n\n**Killer\'s Information:**\nName: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||\n\n**Victim\'s Information:**\nCharacter Name: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||\n\n> **Death Cause:** `%s`',
+    log_killed_desc =
+    '> *%s [%s] killed %s [%s]\n\n**Killer\'s Information:**\nName: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||\n\n**Victim\'s Information:**\nCharacter Name: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||\n\n> **Death Cause:** `%s`',
     log_suicide_title = 'Player Committed Suicide',
-    log_suicide_desc = '> %s [%s] killed themselves\n\n**Player Information:**\nName: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||\n\n> **Death Cause:** `%s`',
+    log_suicide_desc =
+    '> %s [%s] killed themselves\n\n**Player Information:**\nName: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||\n\n> **Death Cause:** `%s`',
     unknown = 'UNKNOWN',
     log_admin_revive_title = 'Player Admin Revived',
-    log_admin_revive_desc = '> *%s [%s] admin revived %s [%s]\n\n**Target\'s Information:**\nName: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||\n\n**Admin\'s Information:**\nCharacter Name: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||',
+    log_admin_revive_desc =
+    '> *%s [%s] admin revived %s [%s]\n\n**Target\'s Information:**\nName: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||\n\n**Admin\'s Information:**\nCharacter Name: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||',
     log_self_revive_title = 'Admin Self Revived',
-    log_self_revive_desc = '> %s [%s] self revived\n\n**Player Information:**\nName: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||',
+    log_self_revive_desc =
+    '> %s [%s] self revived\n\n**Player Information:**\nName: `%s`\nPlayer ID: `%s`\nIdentifier: `%s`\nSteam: `%s`\nDiscord: `%s`\nLicense: `%s`\nLicense2: `%s`\nXBL: `%s`\nFiveM: `%s`\nIP: ||%s||',
     log_death_logs = 'Death Logs',
     log_revive_logs = 'Revive Logs',
     medbag_crutch = 'Crutch',
@@ -157,11 +181,13 @@ Strings = {
     place_stretcher_target = 'Add or Remove Patient',
     place_patient = 'Place in/out Vehicle',
     place_patient_desc = 'Place unconcious nearby person in/out of vehicle',
+
     no_nearby = 'Not Found',
     no_nearby_desc = 'There appears to be nobody around',
     no_injury = 'No Injury',
     no_injury_desc = 'Person doesn\'t appear to need any treatment',
-    no_injury_dead_desc = 'The patient doesn\'t appear to need additional treatment. Try to use the defibrillator and hope for the best!',
+    no_injury_dead_desc =
+    'The patient doesn\'t appear to need additional treatment. Try to use the defibrillator and hope for the best!',
     player_injury = 'Person Injured',
     player_injury_desc = 'This person has appears to have a %s wound',
     player_not_unconcious = 'Player Concious',
@@ -215,7 +241,8 @@ Strings = {
     wrong_equipment = 'Wrong Equipment!',
     wrong_equipment_desc = 'Have you even been trained?',
     player_not_injured = 'Not Injured',
-    player_not_injured_desc = 'This person does not appear to need any extra treatment and is clear for the defibrillator',
+    player_not_injured_desc =
+    'This person does not appear to need any extra treatment and is clear for the defibrillator',
     player_treated = 'Treated',
     player_treated_desc = 'You have successfully treated the patient',
     revive_command_help = 'An admin command to revive players',
@@ -254,6 +281,5 @@ Strings = {
     hospital = 'Hospital',
     interact_stretcher_ui = '[E] - Interact',
     stretcher_menu_title = 'Stretcher Interactions',
-    open_shop_ui = '[E] - Open Pharmacy',
-    
+    open_shop_ui = '[E] - Open Pharmacy'
 }
