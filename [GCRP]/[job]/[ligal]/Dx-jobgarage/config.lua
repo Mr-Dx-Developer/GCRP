@@ -395,7 +395,7 @@ Config = {
 							{ name = "police_stormram", amount = 1, info = {}, type = "item", slot = 3, },
 						},
 					},
-					["Ambulance_Dodge_RAM3"] = {
+					--[[ ["Ambulance_Dodge_RAM3"] = {
 						CustomName = "Ambulance_Dodge_RAM3",
 						livery = 0,
 						extras = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 },
@@ -405,7 +405,7 @@ Config = {
 							{ name = "empty_evidence_bag", amount = 10, info = {}, type = "item", slot = 2, },
 							{ name = "police_stormram", amount = 1, info = {}, type = "item", slot = 3, },
 						},
-					},
+					}, ]]
 					["RoyalCustom_RSQ8_EMS"] = {
 						CustomName = "RoyalCustom_RSQ8_EMS",
 						livery = 0,
@@ -450,7 +450,7 @@ Config = {
 							{ name = "police_stormram", amount = 1, info = {}, type = "item", slot = 3, },
 						},
 					},
-					["aw139"] = {
+					--[[ ["aw139"] = {
 						CustomName = "aw139",
 						livery = 0,
 						extras = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 },
@@ -460,7 +460,7 @@ Config = {
 							{ name = "empty_evidence_bag", amount = 10, info = {}, type = "item", slot = 2, },
 							{ name = "police_stormram", amount = 1, info = {}, type = "item", slot = 3, },
 						},
-					},
+					}, ]]
 					
 					
 					--[[ ["fbi"] = {

@@ -146,6 +146,68 @@ Config.Items = {
     -- Grade 0 and higher
     [0] = {
         {
+            name = "weapon_glock17",
+            price = 12,
+            amount = 1,
+            info = {
+                attachments = {
+                    {component = "COMPONENT_AT_PI_FLSH", label = "Flashlight"},
+                }
+            },
+        },
+        {
+            name = "weapon_m4",
+            price = 12,
+            amount = 1,
+            info = {
+                attachments = {
+                    {component = "COMPONENT_AT_AR_FLSH", label = "Flashlight"},
+                }
+            },
+        },
+        {
+            name = "weapon_ar15",
+            price = 12,
+            amount = 1,
+            info = {
+                attachments = {
+                    {component = "COMPONENT_AT_AR_FLSH", label = "Flashlight"},
+                    {component = "COMPONENT_AT_SCOPE_MEDIUM", label = "Scope"},
+                    {component = "COMPONENT_AT_AR_AFGRIP", label = "AF-Grip"},
+                }
+            },
+        },
+        {
+            name = "weapon_remington",
+            price = 12,
+            amount = 1,
+            info = {
+                attachments = {
+                    {component = "COMPONENT_AT_SG_FLSH", label = "Flashlight"},
+                }
+            },
+        },
+        {
+            name = "weapon_scarh",
+            price = 12,
+            amount = 1,
+            info = {
+                attachments = {
+                    {component = "COMPONENT_AT_AR_FLSH", label = "Flashlight"},
+                }
+            },
+        },
+        {
+            name = "weapon_mk14",
+            price = 12,
+            amount = 1,
+            info = {
+                attachments = {
+                    {component = "COMPONENT_AT_SCOPE_LARGE", label = "Scope"},
+                }
+            }, 
+        },
+        {
             name = 'weapon_glock17s',
             price = 0,
             amount = 50,

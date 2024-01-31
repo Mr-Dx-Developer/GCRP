@@ -3,7 +3,7 @@ Config.Locale = 'en'
 
 Config.UseProgressBar = true							--Set your progress bar in utils.lua then enable this
 
-Config.UseTarget = false
+Config.UseTarget = true
 Config.TatgetScriptName = 'qb-target'
 Config.DebugPoly = false 
 

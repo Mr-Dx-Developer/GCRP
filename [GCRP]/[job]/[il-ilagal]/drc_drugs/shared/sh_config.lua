@@ -848,7 +848,7 @@ Config.Consumables = {
         },
         animation = {
             emote = {
-                enabled = true,
+                enabled = false,
                 anim = {
                     dict = 'amb@world_human_aa_smoke@male@idle_a',
                     clip = 'idle_c'

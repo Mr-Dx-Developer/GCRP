@@ -11,29 +11,58 @@ Config = {}
 -------------------------------------------------------------------
 Config.CheckForUpdates = true -- Check for updates? Who would not want to know updates!?
 
--- Options are 'en' (English), 'fr' (French), 'cn' (Chinese Simplified), 'tw' (Chinese Traditional), 'de' (German),
--- 'it' (Italian), 'jp' (Japanese), 'ko' (Korean), 'pl' (Polish), 'pt' (Portuguese), 'es' (Spanish), 'hi' (Hindi), 'nl' (Dutch)
-Config.UILanguage = 'en'
+-- Language Options are
+-- 'en' (English)
+-- 'fr' (French)
+-- 'cn' (Chinese Simplified)
+-- 'tw' (Chinese Traditional)
+-- 'de' (German)
+-- 'it' (Italian)
+-- 'jp' (Japanese)
+-- 'ko' (Korean)
+-- 'pl' (Polish)
+-- 'pt' (Portuguese)
+-- 'es' (Spanish)
+-- 'hi' (Hindi)
+-- 'nl' (Dutch)
+-- 'da' (Danish)
+-- 'cs' (Czech)
+-- If you would like us to add a language, join our discord and create a ticket!
+-- Lua strings can be found in /game/configuration/locales/
+Config.Language = 'en'
 Config.UIColor = 'red'           -- Can be 'red', 'blue', or a hex '#FF0000'
-Config.DeathScreenEffects = true -- Enable screen effects while dead
+Config.DeathScreenEffects = true -- Enable screen effects while dead (for applicable death screens)
 
--- Which style do you want to use for death UI?(Current options: 1, 2, 3)
+-- Which style do you want to use for death UI?(Current options: 1, 2, 3, 4, 5)
 -- Check docs for examples of all types! https://docs.wasabiscripts.com
-Config.DeathScreenType = 2
+Config.DeathScreenType = 5
 -- If you want to use the previous death screen(Draw text, not recommended) see docs
 
-Config.ambulanceJob = 'ambulance' -- If you need rename your ambulancejob to something else? Likely will stay as is
-Config.MuteDeadPlayers = false    -- If a player is dead, should he be muted?
-Config.DeathLogs = false          -- Enable death logs via Discord webhook?(Set up in configuration/deathlogs.lua)
-Config.ReviveLogs = false         -- Enable admin revive logs via Discord webhook? (Linked specifically to admin revives / will not log ALL revives)
-Config.LogIPs = false             -- If Config.DeathLogs/Config.ReviveLogs enabled, do you want to logs IP addresses as well?
+Config.ambulanceJobs = { -- Jobs that are considered ambulance jobs (If unsure, likely leave the way it is)
+    'ambulance',         -- You must have a job with this name registered
+    --'emt',             -- They will be treated just like EMS (Job menu, loctions access, etc)
+    --'doctor',
+    --'fire',
+}
+
+Config.MuteDeadPlayers = false -- If a player is dead, should he be muted?
+
+-- Logs
+Config.DeathLogs = false  -- Enable death logs via Discord webhook?(Set up in configuration/deathlogs.lua)
+Config.ReviveLogs = false -- Enable admin revive logs via Discord webhook? (Linked specifically to admin revives / will not log ALL revives)
+Config.LogIPs = false     -- If Config.DeathLogs/Config.ReviveLogs enabled, do you want to logs IP addresses as well?
+
+-- Stretcher Settings
+Config.EnableStretcher = false -- Enable stretcher system?
+Config.StretcherProp = 'wasabi_stretcher'
+Config.StretcherKey = 38      -- Key to place the stretcher on the ground
+
+
 Config.BagProp = `xm_prop_x17_bag_med_01a`
-Config.StretcherProp = 'prop_ld_binbag_01'
 Config.UseRadialMenu = false             -- Enable use of radial menu built in to ox_lib? (REQUIRES OX_LIB 3.0 OR HIGHER - Editable in client/radial.lua)
-Config.StretcherKey = 38                 -- Key to place the stretcher on the ground
-Config.EnableAnimReset = true           -- If your death animation does not run correctly, then enable this
+Config.EnableAnimReset = false           -- If your death animation does not run correctly, then enable this
 Config.MobileMenu = {                    -- Enabling this will use ox_lib menu rather than ox_lib context menu!
-    enabled = true,                     -- Use a mobile menu from ox_lib rather than context? (Use arrow keys to navigate menu rather than mouse)
+    enabled = false,                     -- Use a mobile menu from ox_lib rather than context? (Use arrow keys to navigate menu rather than mouse)
     position =
     'bottom-right'                       -- Choose where menu is positioned. Options : 'top-left' or 'top-right' or 'bottom-left' or 'bottom-right'
 }
@@ -72,12 +101,11 @@ Config.EnabledKeys = {
 
 -- Ambulances and their offsets for placing stretcher within vehicle
 Config.AmbulanceOffsets = {
-
     ['ambulance'] = {            -- Vehicle model name
         trunkAsBackDoor = false, -- If the back doors are the trunk, if they are doors then set as false
         --    pos = { x = -0.26, y = -1.3, z = 0.3 }, -- Offset position
         --    rot = { x = -1.3, y = 0.0, z = 360.0 } -- Rotation
-        pos = { x = 0.0, y = -3.0, z = 0.68 },
+        pos = { x = 0.15, y = -3.0, z = 0.00 },
         rot = { x = -1.3, y = 0.0, z = 90.0 }
     },
 
@@ -107,11 +135,12 @@ Config.GPSBlips = {  -- Warning: May experience high usage when at high player c
 }
 
 -- Position for the draw Text while you are dead
-Config.MessagePosition = {
+--[[Config.MessagePosition = {
     respawn = { x = 0.5, y = 0.8 },
     bleedout = { x = 0.5, y = 0.8 },
     distress = { x = 0.5, y = 0.86 },
-}
+}]]
+-- This is obsolete now, if you wish to use 3D text while dead still, see https://docs.wasabiscripts.com
 
 -- Dead animation
 Config.DeathAnimation = {
@@ -123,7 +152,7 @@ Config.DeathAnimation = {
 Config.KnockoutFeature = {
     enabled = true,           -- Enable knockout features? (player's can knock eachother out using fist fighting)
     healthForKnockout = 150,   -- At what HP will player knockout from fist fighting
-    fistDamageModifier = 1.0, -- How much damage will fist cause? (1.0 is default, 0.5 is half as strong, etc)
+    fistDamageModifier = 0.25, -- How much damage will fist cause? (1.0 is default, 0.5 is half as strong, etc)
     duration = 7 * seconds     -- Time to be knocked out when occurs?
 }
 
@@ -216,12 +245,12 @@ Config.jobMenu = 'F6'               -- Default job menu key
 Config.billingSystem = false        -- Current options: 'esx' (For esx_billing) / 'qb' (For qbcore users) 'okok' (For okokBilling) / 'pefcl' (For NPWD billing system) (Easy to add more in editable client - SET TO false IF UNDESIRED) or of course false to disable
 Config.targetSystem = true          -- Target system for targetting players, medbags, and stretcher(If disabled with replace with menus/3D text) (Compatible out of the box with qTarget, qb-target, and ox_target)
 
-Config.RespawnTimer = 2 * minutes   -- Time before optional respawn
-Config.BleedoutTimer = 15 * minutes -- Time before it forces respawn
+Config.RespawnTimer = 5 * minutes   -- Time before optional respawn
+Config.BleedoutTimer = 10 * minutes -- Time before it forces respawn
 
 Config.removeItemsOnDeath = false   -- Must have Config.Inventory set properly
 Config.Inventory =
-'qs'                                --Options include: 'ox' - (ox_inventory) / 'qb' - (QBCore qb-inventory) 'mf' - (mf-inventory) / 'qs' (qs-inventory) / 'esx' (default esx) / 'other' (whatever else can customize in client/cl_customize.lua)
+'qb'                                --Options include: 'ox' - (ox_inventory) / 'qb' - (QBCore qb-inventory) 'mf' - (mf-inventory) / 'qs' (qs-inventory) / 'esx' (default esx) / 'other' (whatever else can customize in client/cl_customize.lua)
 
 Config.AntiCombatLog = {            --  When enabled will kill player who logged out while dead
     enabled = true,                 --  enabled?
@@ -239,7 +268,7 @@ Config.CompleteDeath = { --DOES NOT APPLY TO QBCORE --  When enabled players can
 }
 
 Config.Bandages = {
-    enabled = true,       -- Useable bandages? (Leave false if ox_inventory because they're built in)
+    enabled = false,       -- Useable bandages? (Leave false if ox_inventory because they're built in)
     item = 'bandage',      -- YOU MUST ADD THIS ITEM TO YOUR ITEMS, IT DOES NOT COME IN INSTALLATION(COMES WITH QBCORE BY DEFAULT AS ITEM)
     hpRegen = 30,          -- Percentage of health it replenishes (30% by default)
     healBleed = false,     -- Heal bleed that is inflicted by injury system? (Requires injury system enabled)
@@ -326,7 +355,7 @@ Config.StandaloneCheckIns = {
             minZ = 43.28 - 0.9,
             maxZ = 43.28 + 0.9
         },
-        DisableHospitalBeds = true,                                                       -- Disable hospital beds for check-in at this location?(Player will spend Duration checking in before respawning in RespawnNoBedLocation coords when set to true)
+        DisableHospitalBeds = true,                                                          -- Disable hospital beds for check-in at this location?(Player will spend Duration checking in before respawning in RespawnNoBedLocation coords when set to true)
         RespawnNoBedLocation = { coords = vec3(1729.03, 2563.33, 45.56), heading = 339.02 }, -- Coords and heading of where to spawn player if DisableHospitalBeds is set to true or beds full
         HospitalBeds = {
             --              { coords = vec3(332.62, -587.17, 42.84+0.3), heading = 160.0 },
@@ -431,7 +460,7 @@ Config.Locations = {
                 minZ = 33.91 - 0.9,
                 maxZ = 37.91 + 0.9
             },
-            DisableHospitalBeds = false,                                                     -- Disable hospital beds for check-in at this location?(Player will spend Duration checking in before respawning in RespawnNoBedLocation when set to true)
+            DisableHospitalBeds = false,                                                       -- Disable hospital beds for check-in at this location?(Player will spend Duration checking in before respawning in RespawnNoBedLocation when set to true)
             RespawnNoBedLocation = { coords = vec3(-454.126, -282.231, 34.913), heading = 339.02 }, -- Coords and heading of where to spawn player if DisableHospitalBeds is set to true or beds are full
             HospitalBeds = {
                 --              { coords = vec3(332.62, -587.17, 42.84+0.3), heading = 160.0 },
@@ -440,6 +469,17 @@ Config.Locations = {
                 { coords = vec3(-462.84, -281.15, 34.91 + 0.1), heading = 23 },
                 { coords = vec3(-466.58, -282.8, 34.91 + 0.1), heading = 23 },
                 { coords = vec3(-469.96, -284.19, 34.91 + 0.1), heading = 23 },
+            --[[     { coords = vec3(317.67, -585.37, 42.84 + 0.3), heading = 160.0 },
+                { coords = vec3(319.41, -581.04, 42.84 + 0.3), heading = 340.0 },
+                { coords = vec3(314.47, -584.2, 42.84 + 0.3),  heading = 160.0 },
+                { coords = vec3(313.93, -579.04, 42.84 + 0.3), heading = 340.0 },
+                { coords = vec3(311.06, -582.96, 42.84 + 0.3), heading = 160.0 },
+                { coords = vec3(307.72, -581.75, 42.84 + 0.3), heading = 160.0 },
+                { coords = vec3(309.35, -577.38, 42.84 + 0.3), heading = 340.0 },
+                { coords = vec3(361.36, -581.3, 42.83 + 0.3),  heading = 250.0 },
+                { coords = vec3(359.54, -586.23, 42.84 + 0.3), heading = 250.0 },
+                { coords = vec3(354.44, -600.19, 42.85 + 0.3), heading = 250.0 },
+                { coords = vec3(324.26, -582.8, 42.84 + 0.3),  heading = 340.0 }, ]]
                 -- Stock qb-ambulance hospital bed coords:
                 --                { coords = vec3(353.1, -584.6, 43.11), heading = 152.08 },
                 --                { coords = vec3(356.79, -585.86, 43.11), heading = 152.08 },
