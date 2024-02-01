@@ -176,4 +176,9 @@ Config.Locales = {
 
     -- Added after 28th July
     ["ticket_closed"] = "Admin has closed the ticket",
+
+    -- Added after Jan 4 2024
+
+    ["toggle_name_used"] = "Turned on names",
+    ["toggle_name_exploit"] = "Tried to trigger toggle names event",
 }

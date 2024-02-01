@@ -120,6 +120,7 @@ RegisterServerEvent("snipe-menu:server:givecar", function(playerid, carname, pro
                 })
             end
         end
+        SendLogs(src, "triggered", Config.Locales["give_car_used"].." "..carname .. " to " .. GetPlayerName(playerid))
     else
         SendLogs(src, "exploit", Config.Locales["give_car_exploit_event"])
     end

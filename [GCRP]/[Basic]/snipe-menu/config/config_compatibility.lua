@@ -25,7 +25,7 @@ Config.Ambulance = "wasabi" -- "wasabi", "none"
 -- use none if you dont use any of the mentioned options
 -- okok is for okokChat
 -- codem is for codem-chat
-Config.Chat = "none" -- "none", "okok", "codem"
+Config.Chat = "codem" -- "none", "okok", "codem"
 
 -- use none if you dont use any of the mentioned options
 -- cd_easytime for cd_easytime (if you use esx, it will be cd_easytime  by default)
@@ -44,7 +44,7 @@ Config.Fuel = "legacy" -- "ps" "ox" "other", "cdn", "legacy"
 -- cd is for cd_garage
 -- if you use any other paid garage system, the code is open in server/open/sv_vehicles.lua for you to edit queries.
 -- Make sure to try with none before making changes in the config or the sv_vehicles.lua file
-Config.Garage = "qs-advancedgarages" -- cd , none
+Config.Garage = "none" -- cd , none
 
 Config.GarageTables = {
     ["QBCore"] = {

@@ -28,6 +28,7 @@ end
 function ToggleNames()
     if Config.NewNamesLogic then
         if not toggleNameThread then
+            TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales["toggle_name_used"])
             toggleNameThread = true
             StartNamesThread()
             StartDistanceThread()
@@ -47,6 +48,7 @@ function ToggleNames()
         end
     else
         if not toggleNameThread then
+            TriggerServerEvent("snipe-menu:server:sendLogs", "triggered", Config.Locales["toggle_name_used"])
             toggleNameThread = true
             while toggleNameThread do
                 local curCoords = GetEntityCoords(PlayerPedId())

@@ -3,7 +3,7 @@ RegisterServerEvent('snipe-menu:server:reviveplayer', function(otherPlayerId)
     if src ~= 0 and onlineAdmins[src] then
         SendLogs(src, "triggered", Config.Locales["revive_player_used"]..GetPlayerName(otherPlayerId))
         if Config.Ambulance == "wasabi" then
-            exports.wasabi_ambulance:RevivePlayer(otherPlayerId)
+            TriggerClientEvent('wasabi_ambulance:revive', otherPlayerId)
         else
             if Config.Core == "QBCore" then
                 TriggerClientEvent('hospital:client:Revive', otherPlayerId)
@@ -38,7 +38,7 @@ RegisterServerEvent("snipe-menu:server:reviveall", function()
         if Config.Ambulance == "wasabi" then
             local playersList = GetPlayers()
             for k, v in pairs(playersList) do
-                exports.wasabi_ambulance:RevivePlayer(tonumber(v))
+                TriggerClientEvent('wasabi_ambulance:revive', tonumber(v))
             end
         else
             TriggerClientEvent("snipe-menu:client:reviveall", -1, src)
@@ -57,7 +57,7 @@ RegisterServerEvent('snipe-menu:server:reviveInRadius', function(otherPlayerId)
             local playersList = GetPlayers()
             for k, v in pairs(playersList) do
                 if #(playerCoords - GetEntityCoords(GetPlayerPed(tonumber(v))) ) < 5.0 then
-                    exports.wasabi_ambulance:RevivePlayer(tonumber(v))
+                    TriggerClientEvent('wasabi_ambulance:revive', tonumber(v))
                 end
             end
         else

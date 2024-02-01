@@ -135,4 +135,11 @@ function StartGizmoThread()
             end
         end
     end)
+    
 end
+
+RegisterCommand("gizmoToggleSelection", function()
+    if lastDebugEnt or gizmoToggle then
+        gizmoToggle = not gizmoToggle;
+    end
+end, false)
