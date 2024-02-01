@@ -1,4 +1,4 @@
-Utils = exports['lc_utils']:GetUtils()
+Utils = Utils or exports['lc_utils']:GetUtils()
 truck,truck_blip,trailer,trailer_blip,rent_truck,route_blip = nil,nil,nil,nil,nil,nil
 menu_active = false
 current_location = nil
