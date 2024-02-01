@@ -5,7 +5,7 @@ Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target in
 
 Config.HandsUp = {
     command = 'hu',
-    keybind = 'x',
+    keybind = '',
 }
 
 Config.Binoculars = {

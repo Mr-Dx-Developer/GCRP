@@ -1434,7 +1434,8 @@ bag                          = { name = 'bag', label = 'Bag', weight = 0, type =
 ['weed_nutrition'] 				 = {['name'] = 'weed_nutrition', 			    ['label'] = 'Plant Fertilizer', 		['weight'] = 2000, 		['type'] = 'item', 		['image'] = 'weed_nutrition.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Plant nutrition'},
 
 
-
+['tvremote'] = {['name'] = 'tvremote', ['label'] = 'TV Remote', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'tvremote.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'TV Remote'},
+['vehicletv'] = {['name'] = 'vehicletv', ['label'] = 'TV Remote', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'vehicletv.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Vehicle TV'},
 
 
 ['waterpass'] = {['name'] = 'waterpass', ['label'] = 'Water Pass', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'waterpass.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Water Pass'},

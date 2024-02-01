@@ -28,7 +28,7 @@ Config.BlockedSwap = false         -- If set to true, you will not be able to sw
 Config.BlockedSlot = false         -- This is the sixth slot, the one that does not allow them to steal from that space
 Config.GiveItemHideName = false    -- If you enable this, then the player will not be able to see names in giveitem, only id
 
-Config.Handsup = false              -- Enable or disable Handsup and Robbery button
+Config.Handsup = true              -- Enable or disable Handsup and Robbery button
 Config.StealDeadPlayer = true      -- Steal from dead players?
 Config.StealWithoutWeapons = false -- Possibility to draw only if the target player raises his arms (without weapons)
 
