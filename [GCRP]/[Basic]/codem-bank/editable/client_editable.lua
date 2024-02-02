@@ -219,26 +219,37 @@ Citizen.CreateThread(function()
                 end
             end)
         elseif Config.InteractionHandler == "drawtext" then
+            local isTextUiOpen = false
+            local isTextUiOpenBank = false
             Citizen.CreateThread(function()
                 while true do
                     local wait = 1500
-                    --if response then
                     local playerPed = PlayerPedId()
                     local coords = GetEntityCoords(playerPed)
+                    local isInZone = false
+                    local isInZoneBank = false
                     for k, v in pairs(Config.ATMModels) do
                         local obj = GetClosestObjectOfType(GetEntityCoords(PlayerPedId()), 2.0, GetHashKey(v.prop))
                         local distance = #(coords - GetEntityCoords(obj))
-
                         if distance < 1.5 then
                             wait = 0
-                            DrawText3D(coords.x - 0.5, coords.y - 0.5, coords.z + 0.5,
+                            isInZone = true
+                            if not isTextUiOpen and Config.CodemTextUi.atmtextui then
+                                exports["codem-textui"]:OpenTextUI(Config.CodemTextUi.atmText, Config.CodemTextUi.atmKey, Config.CodemTextUi.atmThema)
+                                isTextUiOpen = true
+                            elseif not Config.CodemTextUi.atmtextui then
+                                DrawText3D(coords.x - 0.5, coords.y - 0.5, coords.z + 0.5,
                                 "Press [~g~E~s~] to access the atm")
+                            end
                             if IsControlJustReleased(0, 38) then
                                 exitATM(true, obj)
-
-                                -- TriggerServerEvent("bank:open")
                             end
                         end
+                    end
+
+                    if isTextUiOpen and not isInZone and Config.CodemTextUi.atmtextui then
+                        exports["codem-textui"]:CloseTextUI()
+                        isTextUiOpen = false
                     end
 
                     for l, s in pairs(Config.BankLocations) do
@@ -246,11 +257,22 @@ Citizen.CreateThread(function()
 
                         if distance2 < 1.5 then
                             wait = 0
-                            DrawText3D(s.coords.x, s.coords.y, s.coords.z, "Press [~g~E~s~] to access the bank")
+                            isInZoneBank = true
+                            if not isTextUiOpenBank and Config.CodemTextUi.banktextui then
+                                exports["codem-textui"]:OpenTextUI(Config.CodemTextUi.bankText, Config.CodemTextUi.bankKey, Config.CodemTextUi.bankThema)
+                                isTextUiOpenBank = true
+                            elseif not Config.CodemTextUi.banktextui then
+                                DrawText3D(s.coords.x, s.coords.y, s.coords.z, "Press [~g~E~s~] to access the bank")
+                            end
+
                             if IsControlJustReleased(0, 38) then
                                 TriggerEvent('codem-bank:openBank')
                             end
                         end
+                    end
+                    if isTextUiOpenBank and not isInZoneBank and Config.CodemTextUi.banktextui then
+                        exports["codem-textui"]:CloseTextUI()
+                        isTextUiOpenBank = false
                     end
 
                     Citizen.Wait(wait)

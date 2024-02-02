@@ -5,12 +5,21 @@ Config.SQL = "oxmysql"  -- oxmysql, ghmattimysql, mysql-async
 
 Config.ExampleProfilePicture = "https://cdn.discordapp.com/attachments/983471660684423240/1147567519712940044/example-pp.png"
 
-Config.InteractionHandler = 'qb-target' -- bt-target, qb-target, drawtext, qtarget , ox-target
+Config.InteractionHandler = 'drawtext' -- bt-target, qb-target, drawtext, qtarget , ox-target
+Config.CodemTextUi = {  -- used when drawtext is selected
+    banktextui = false, -- true or false
+    atmtextui = false, -- true or false
+    bankText = "Bank", -- bank textui
+    atmText = "ATM", -- atm textui
+    bankKey = "E",  -- bank key
+    atmKey = "E",   -- atm key
+    bankThema = "thema-6", -- bank theme
+    atmThema = "thema-6",  -- atm theme
+}
 Config.newManagementSystem = false -- true is qb-banking false qb-managment
 Config.CreateJobAccount = true -- is only for qb-banking, if there is no data for profession in sql, it creates automatically
-Config.CleanSql = true                 --automatically deletes transaction data and unnecessary data in sql every week
-
-Config.CurrencyUnit = '$'              -- '€' -- '₺'  '$'
+Config.CleanSql = true  --automatically deletes transaction data and unnecessary data in sql every week
+Config.CurrencyUnit = '$'       -- '€' -- '₺'  '$'
 
 
 -- ██████╗░██╗░░░░░██╗██████╗░  ░██████╗███████╗████████╗████████╗██╗███╗░░██╗░██████╗░░██████╗

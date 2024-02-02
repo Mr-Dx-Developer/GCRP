@@ -28,9 +28,9 @@ Config.TelevisionPermissions = false -- enable this if you want use permission s
 
 Config.VehicleTelevisionOffSetsCreator = false --enable this only on dev server, you can open offset menu via /tvcreator command
 
-Config.VehicleTelevision = true -- this will enable vehicle television system
+Config.VehicleTelevision = false -- this will enable vehicle television system
 
-Config.VehicleTelevisionForEveryVehicle = true -- if you enable this, television will work on every vehicles, if its disabled, it will work only in vehicles which is writed in Config.TelevisonVehicles. 
+Config.VehicleTelevisionForEveryVehicle = false -- if you enable this, television will work on every vehicles, if its disabled, it will work only in vehicles which is writed in Config.TelevisonVehicles. 
 
 Config.VehicleTelevisionBlacklist = false -- if you enable this, television will work not for vehicles which is in blacklisted config, you need put vehicles in Config.TelevisonBlacklistedVehicles. 
 
