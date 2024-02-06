@@ -105,21 +105,6 @@ Config.Companies.Services = {
         }
     },
     {
-        job = "realestate",
-        name = "Real Estate",
-        icon = "https://cdn-icons-png.flaticon.com/512/4896/4896425.png",
-        canCall = true, -- if true, players can call the company
-        canMessage = true, -- if true, players can message the company
-        bossRanks = {"boss", "worker"}, -- ranks that can manage the company
-        location = {
-            name = "Real Estate",
-            coords = {
-                x = 0.0,
-                y = 0.0
-            }
-        }
-    },
-    {
         job = "taxi",
         name = "Taxi",
         icon = "https://cdn-icons-png.flaticon.com/128/433/433449.png",
@@ -131,6 +116,21 @@ Config.Companies.Services = {
             coords = {
                 x =984.2,
                 y = -219.0
+            }
+        }
+    },
+    {
+        job = "realestate",
+        name = "Real Estate",
+        icon = "https://cdn-icons-png.flaticon.com/512/4896/4896425.png",
+        canCall = true, -- if true, players can call the company
+        canMessage = true, -- if true, players can message the company
+        bossRanks = {"boss", "worker"}, -- ranks that can manage the company
+        location = {
+            name = "Real Estate",
+            coords = {
+                x = 0.0,
+                y = 0.0
             }
         }
     },
@@ -162,8 +162,10 @@ Config.Valet.Enabled = true -- allow players to get their vehicles from the phon
 Config.Valet.Price = 100 -- price to get your vehicle
 Config.Valet.Model = `S_M_Y_XMech_01`
 Config.Valet.Drive = true -- should a ped bring the car, or should it just spawn in front of the player?
+Config.Valet.DisableDamages = false -- disable vehicle damages (engine & body health) on esx
+Config.Valet.FixTakeOut = false -- repair the vehicle after taking it out?
 
-Config.HouseScript = "qs-housing" --[[
+Config.HouseScript = "auto" --[[
     The housing script you use on your server
     Supported:
         * loaf_housing - https://store.loaf-scripts.com/package/4310850
@@ -174,7 +176,7 @@ Config.HouseScript = "qs-housing" --[[
 --[[ VOICE OPTIONS ]] --
 Config.Voice = {}
 Config.Voice.CallEffects = false -- enable call effects while on speaker mode? (NOTE: This may create sound-issues if you have too many submixes registered in your server)
-Config.Voice.System = "pma"
+Config.Voice.System = "auto"
 --[[
     Supported voice systems:
         * pma: pma-voice - HIGHLY RECOMMENDED
@@ -327,7 +329,7 @@ Config.AutoCreateEmail = false -- should the phone automatically create an email
 Config.DeleteMessages = true -- allow players to delete messages in the messages app?
 
 Config.SyncFlash = true -- should flashlights be synced across all players? May have an impact on performance
-Config.EndLiveClose = false -- should IG live end when you close the phone?
+Config.EndLiveClose = false -- should InstaPic live end when you close the phone?
 
 Config.AllowExternal = { -- allow people to upload external images? (note: this means they can upload nsfw / gore etc)
     Twitter = true, -- set to true to enable external images on that specific app, set to false to disable it.
@@ -341,11 +343,43 @@ Config.AllowExternal = { -- allow people to upload external images? (note: this 
     Other = true, -- other apps that don't have a specific setting (ex: setting a profile picture for a contact, backgrounds for the phone etc)
 }
 
+Config.WordBlacklist = {}
+Config.WordBlacklist.Enabled = false
+Config.WordBlacklist.Apps = { -- apps that should use the word blacklist (if Config.WordBlacklist.Enabled is true)
+    Birdy = true,
+    InstaPic = true,
+    Trendy = true,
+    Spark = true,
+    Messages = true,
+    Pages = true,
+    MarketPlace = true,
+    DarkChat = true,
+    Mail = true,
+}
+Config.WordBlacklist.Words = {
+    -- array of blacklisted words, e.g. "badword", "anotherbadword"
+}
+
+Config.AutoFollow = {}
+Config.AutoFollow.Enabled = false
+
+Config.AutoFollow.Birdy = {}
+Config.AutoFollow.Birdy.Enabled = true
+Config.AutoFollow.Birdy.Accounts = {} -- array of usernames to automatically follow when creating an account. e.g. "username", "anotherusername"
+
+Config.AutoFollow.InstaPic = {}
+Config.AutoFollow.InstaPic.Enabled = true
+Config.AutoFollow.InstaPic.Accounts = {} -- array of usernames to automatically follow when creating an account. e.g. "username", "anotherusername"
+
+Config.AutoFollow.TikTok = {}
+Config.AutoFollow.TikTok.Enabled = true
+Config.AutoFollow.TikTok.Accounts = {} -- array of usernames to automatically follow when creating an account. e.g. "username", "anotherusername"
+
 Config.AutoBackup = true -- should the phone automatically create a backup when you get a new phone?
 
 Config.Post = {} -- What apps should send posts to discord? You can set your webhooks in server/webhooks.lua
-Config.Post.Twitter = true -- New tweets
-Config.Post.Instagram = false -- New posts
+Config.Post.Birdy = true -- Announce new posts on Birdy?
+Config.Post.InstaPic = true -- Anmnounce new posts on InstaPic?
 Config.Post.Accounts = {
     Birdy = {
         Username = "Birdy",
@@ -357,16 +391,16 @@ Config.Post.Accounts = {
     }
 }
 
-Config.TwitterTrending = {}
-Config.TwitterTrending.Enabled = true -- show trending hashtags?
-Config.TwitterTrending.Reset = 7 * 24 -- How often should trending hashtags be reset on twitter? (in hours)
+Config.BirdyTrending = {}
+Config.BirdyTrending.Enabled = true -- show trending hashtags?
+Config.BirdyTrending.Reset = 7 * 24 -- How often should trending hashtags be reset on birdy? (in hours)
 
-Config.TwitterNotifications = true -- should everyone get a notification when someone tweets?
+Config.BirdyNotifications = false -- should everyone get a notification when someone posts?
 
-Config.PromoteTwitter = {}
-Config.PromoteTwitter.Enabled = true -- should you be able to promote tweets?
-Config.PromoteTwitter.Cost = 2500 -- how much does it cost to promote a tweet?
-Config.PromoteTwitter.Views = 100 -- how many views does a promoted tweet get?
+Config.PromoteBirdy = {}
+Config.PromoteBirdy.Enabled = true -- should you be able to promote post?
+Config.PromoteBirdy.Cost = 2500 -- how much does it cost to promote a post?
+Config.PromoteBirdy.Views = 100 -- how many views does a promoted post get?
 
 Config.TikTok = {}
 Config.TikTok.TTS = {
@@ -496,13 +530,14 @@ Config.KeyBinds = {
 Config.KeepInput = true -- keep input when nui is focused (meaning you can walk around etc)
 
 --[[ PHOTO / VIDEO OPTIONS ]] --
--- Set your api keys in lb-phone/server/apiKeys.lua **NOT HERE**
+-- Set your api keys in lb-phone/server/apiKeys.lua
 Config.UploadMethod = {}
 -- You can edit the upload methods in lb-phone/shared/upload.lua
 -- We recommend Fivemanage, https://fivemanage.com
-Config.UploadMethod.Video = "Discord" -- "Fivemanage" or "Discord" or "Imgur" or "Custom"
-Config.UploadMethod.Image = "Discord" -- "Fivemanage" or "Discord" or "Imgur" or "Custom
-Config.UploadMethod.Audio = "Discord" -- "Fivemanage" or "Discord" or "Custom"
+-- A video tutorial for how to set up Fivemanage can be found here: https://www.youtube.com/watch?v=y3bCaHS6Moc
+Config.UploadMethod.Video = "Fivemanage" -- "Fivemanage" or "Discord" or "Imgur" or "Custom"
+Config.UploadMethod.Image = "Fivemanage" -- "Fivemanage" or "Discord" or "Imgur" or "Custom
+Config.UploadMethod.Audio = "Fivemanage" -- "Fivemanage" or "Discord" or "Custom"
 
 Config.Video = {}
 Config.Video.Bitrate = 400 -- video bitrate (kbps), increase to improve quality, at the cost of file size

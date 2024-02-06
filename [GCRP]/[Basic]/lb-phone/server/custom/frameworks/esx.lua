@@ -37,6 +37,14 @@ function HasPhoneItem(source, number)
 
     if GetResourceState("ox_inventory") == "started" then
         return (exports.ox_inventory:Search(source, "count", Config.Item.Name) or 0) > 0
+    elseif GetResourceState("qs-inventory") then
+        local exportExists, result = pcall(function()
+            return exports["qs-inventory"]:GetItemTotalAmount(source, Config.Item.Name)
+        end)
+
+        if exportExists then
+            return (result or 0) > 0
+        end
     end
 
     local xPlayer = ESX.GetPlayerFromId(source)
@@ -148,7 +156,7 @@ function GetPlayerVehicles(source)
     local toSend = {}
 
     for i = 1, #vehicles do
-        local vehicle = vehicles[i]
+        local vehicle = vehicles[i] or {}
         if vehicle.stored == nil or GetResourceState("qs-advancedgarages") == "started" then
             vehicle.stored = vehicle.state
         end

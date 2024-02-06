@@ -11,10 +11,12 @@ function TakeControlOfEntity(entity)
         return true
     end
 
-    NetworkRequestControlOfEntity(entity)
     local timer = GetGameTimer() + 5000
+
     while not NetworkHasControlOfEntity(entity) and timer > GetGameTimer() do
         Wait(0)
+
+        NetworkRequestControlOfEntity(entity)
     end
 
     return NetworkHasControlOfEntity(entity)

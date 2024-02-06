@@ -5,8 +5,33 @@ local function isResourceStartedOrStarting(resource)
     return state == "started" or state == "starting"
 end
 
+function debugprint(...)
+    if Config.Debug then
+        local data = {...}
+        local str = ""
+
+        for i = 1, #data do
+            if type(data[i]) == "table" then
+                str = str .. json.encode(data[i])
+            elseif type(data[i]) ~= "string" then
+                str = str .. tostring(data[i])
+            else
+                str = str .. data[i]
+            end
+
+            if i ~= #data then
+                str = str .. " "
+            end
+        end
+
+        print("^6[LB Phone] ^3[Debug]^0: " .. str)
+    end
+end
+
 if Config.HouseScript == "auto" then
     Config.HouseScript = false
+
+    debugprint("Detecting house script")
 
     local houseScripts = {
         "loaf_housing",
@@ -17,12 +42,19 @@ if Config.HouseScript == "auto" then
     for i = 1, #houseScripts do
         if isResourceStartedOrStarting(houseScripts[i]) then
             Config.HouseScript = houseScripts[i]
+            debugprint("Detected house script: " .. houseScripts[i])
             break
         end
+    end
+
+    if not Config.HouseScript then
+        debugprint("No house script detected")
     end
 end
 
 if Config.Item.Unique and Config.Item.Inventory == "auto" then
+    debugprint("Detecting inventory script")
+
     local inventoryScripts = {
         "ox_inventory",
         "qb-inventory",
@@ -36,12 +68,19 @@ if Config.Item.Unique and Config.Item.Inventory == "auto" then
     for i = 1, #inventoryScripts do
         if isResourceStartedOrStarting(inventoryScripts[i]) then
             Config.Item.Inventory = inventoryScripts[i]
+            debugprint("Detected inventory script: " .. inventoryScripts[i])
             break
         end
+    end
+
+    if Config.Item.Inventory == "auto" then
+        debugprint("No inventory script detected")
     end
 end
 
 if Config.Framework == "auto" then
+    debugprint("Detecting framework")
+
     if isResourceStartedOrStarting("es_extended") then
         Config.Framework = "esx"
     elseif isResourceStartedOrStarting("qb-core") then
@@ -51,37 +90,47 @@ if Config.Framework == "auto" then
     else
         Config.Framework = "standalone"
     end
+
+    debugprint("Detected framework: " .. Config.Framework)
 end
 
-function debugprint(...)
-    if Config.Debug then
-        local data = {...}
-        local str = ""
-        for i = 1, #data do
-            if type(data[i]) == "table" then
-                str = str .. json.encode(data[i])
-            elseif type(data[i]) ~= "string" then
-                str = str .. tostring(data[i])
-            else
-                str = str .. data[i]
-            end
-            if i ~= #data then
-                str = str .. " "
-            end
-        end
+if Config.Voice.System == "auto" then
+    debugprint("Detecting voice script")
 
-        print("^6[LB Phone] ^3[Debug]^0: " .. str)
+    local voiceScripts = {
+        {"pma-voice", "pma"},
+        {"mumble-voip", "mumble"},
+        {"saltychat", "salty"},
+        {"tokovoip_script", "toko"}
+    }
+
+    for i = 1, #voiceScripts do
+        local resource = voiceScripts[i][1]
+        local system = voiceScripts[i][2]
+
+        if isResourceStartedOrStarting(resource) then
+            Config.Voice.System = system
+            debugprint("Detected voice script: " .. resource)
+            break
+        end
+    end
+
+    if Config.Voice.System == "auto" then
+        debugprint("No voice script detected, defaulting to pma")
+        Config.Voice.System = "pma"
     end
 end
 
 function table.deep_clone(og)
     local copy = {}
+
     for k, v in pairs(og) do
         if type(v) == "table" then
             v = table.deep_clone(v)
         end
         copy[k] = v
     end
+
     return copy
 end
 
@@ -97,6 +146,7 @@ end
 
 local function GenerateLocales(localesFile)
     local tempLocals = {}
+
     local function formatLocales(localeTable, prefix)
         for k, v in pairs(localeTable) do
             if type(v) == "table" then

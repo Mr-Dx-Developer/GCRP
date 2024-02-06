@@ -57,6 +57,14 @@ CreateThread(function()
 
         if GetResourceState("ox_inventory") == "started" then
             return (exports.ox_inventory:Search("count", Config.Item.Name) or 0) > 0
+        elseif GetResourceState("qs-inventory") then
+            local exportExists, result = pcall(function()
+                return exports["qs-inventory"]:Search(Config.Item.Name)
+            end)
+
+            if exportExists then
+                return (result or 0) > 0
+            end
         end
 
         local inventory = ESX.GetPlayerData()?.inventory
@@ -101,13 +109,17 @@ CreateThread(function()
 
         ESX.Game.SetVehicleProperties(vehicle, vehicleData.vehicle)
 
-        if vehicleData.damages then
+        if vehicleData.damages and not Config.Valet.DisableDamages then
             SetVehicleEngineHealth(vehicle, vehicleData.damages.engineHealth)
             SetVehicleBodyHealth(vehicle, vehicleData.damages.bodyHealth)
         end
 
         if vehicleData.vehicle.fuel then
             SetVehicleFuelLevel(vehicle, vehicleData.vehicle.fuel)
+        end
+
+        if Config.Valet.FixTakeOut then
+            SetVehicleFixed(vehicle)
         end
     end
 

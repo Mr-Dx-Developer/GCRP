@@ -37,10 +37,20 @@ end
 lib.RegisterCallback("phone:createPhoneObject", function(source, cb)
     debugprint("Creating phone object for player "..source)
     local phone = CreatePhoneObject(source)
+
     if phone then
         cb(NetworkGetNetworkIdFromEntity(phone))
     else
         cb(false)
+    end
+end)
+
+RegisterNetEvent("phone:failedControl", function(netId)
+    local entity = NetworkGetEntityFromNetworkId(netId)
+
+    if GetEntityModel(entity) == phoneModel then
+        debugprint("Failed to take control of phone object, deleting")
+        DeleteEntity(entity)
     end
 end)
 

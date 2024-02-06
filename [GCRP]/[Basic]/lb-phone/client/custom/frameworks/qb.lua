@@ -33,6 +33,14 @@ CreateThread(function()
 
         if GetResourceState("ox_inventory") == "started" then
             return (exports.ox_inventory:Search("count", Config.Item.Name) or 0) > 0
+        elseif GetResourceState("qs-inventory") then
+            local exportExists, result = pcall(function()
+                return exports["qs-inventory"]:Search(Config.Item.Name)
+            end)
+
+            if exportExists then
+                return (result or 0) > 0
+            end
         end
 
         if Config.Item.Unique then
@@ -70,6 +78,10 @@ CreateThread(function()
 
         if GetResourceState("LegacyFuel") == "started" and vehicleData.fuel then
             exports.LegacyFuel:SetFuel(vehicle, vehicleData.fuel)
+        end
+
+        if Config.Valet.FixTakeOut then
+            SetVehicleFixed(vehicle)
         end
     end
 

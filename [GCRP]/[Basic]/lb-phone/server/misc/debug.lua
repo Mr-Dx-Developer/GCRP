@@ -2,6 +2,23 @@ if not Config.Debug then
     return
 end
 
+RegisterCommand("notifyeveryone", function()
+    Wait(0) -- make debug prints show on the server console instead of client
+
+    local players = GetPlayers()
+
+    for i = 1, #players do
+        local player = players[i]
+        local phoneNumber = exports["lb-phone"]:GetEquippedPhoneNumber(tonumber(player))
+
+        if phoneNumber then
+            exports["lb-phone"]:SendNotification(phoneNumber, {
+                -- put your notification options here
+            })
+        end
+    end
+end, false)
+
 RegisterCommand("testmail", function(source)
     local phoneNumber = exports["lb-phone"]:GetEquippedPhoneNumber(source)
     local address = "test@lbphone.com"
@@ -115,3 +132,28 @@ RegisterCommand("customCrypto", function()
         0.5
     )
 end, false)
+
+-- post = { id, username, content, attachments, like_count, reply_count, retweet_count, reply_to, timestamp, replyToAuthor, display_name, username, profile_image, verified, liked, retweeted }
+AddEventHandler("lb-phone:birdy:newPost", function(post)
+    print("New Birdy post:", json.encode(post))
+end)
+
+-- post = { id, username, media, caption?, location? }
+AddEventHandler("lb-phone:instapic:newPost", function(post)
+    print("New InstaPic post:", json.encode(post))
+end)
+
+-- post = { id, username, caption, videoUrl }
+AddEventHandler("lb-phone:trendy:newPost", function(post)
+    print("New Trendy post:", json.encode(post))
+end)
+
+-- post = { id, number, title, description, attachment, price }
+AddEventHandler("lb-phone:pages:newPost", function(post)
+    print("New Pages post:", json.encode(post))
+end)
+
+-- post = { id, number, title, description, attachment, price }
+AddEventHandler("lb-phone:marketplace:newPost", function(post)
+    print("New MarketPlace post:", json.encode(post))
+end)
