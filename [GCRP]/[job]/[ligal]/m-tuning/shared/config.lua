@@ -11,7 +11,7 @@ Config.OpenCommand = "tablet" -- Tuner Tablet Command
 Config.TunerChecker = "tunercheck" -- Tuner Checker Tablet Command
 
 Config.DriftModeLimit = true
-Config.MPH = true -- true = MPH , false = KMH
+Config.MPH = false -- true = MPH , false = KMH
 Config.MaxDriftSpeed = 50 -- If it is higher than the number you enter here, it cannot drift
 
 Config.JobAuthorize = { 'sasp', 'sherrif', 'police' } -- Professions that can use the tuner checker tablet

@@ -1,6 +1,6 @@
 fx_version 'cerulean'
 game 'gta5'
-version '1.0.3'
+version '1.4'
 author 'l0d.'
 
 shared_scripts {
