@@ -66,7 +66,7 @@ Config.DoorList['MRPD-pd_5'] = {
     distance = 2,
     locked = true,
     objCoords = vec3(458.398224, -992.107056, 35.212627),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 315.0,
 }
@@ -80,7 +80,7 @@ Config.DoorList['MRPD-pd_6'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(467.507172, -994.437988, 35.212627),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 134.99995422363,
 }
@@ -94,7 +94,7 @@ Config.DoorList['MRPD-pd_7'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(484.083130, -1006.736145, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 89.999961853027,
 }
@@ -108,7 +108,7 @@ Config.DoorList['MRPD-pd_8'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(480.817352, -1006.746033, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 89.999961853027,
 }
@@ -122,7 +122,7 @@ Config.DoorList['MRPD-pd_9'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(480.817291, -1010.842468, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 89.999961853027,
 }
@@ -136,7 +136,7 @@ Config.DoorList['MRPD-pd_10'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(484.083069, -1010.842529, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 89.999961853027,
 }
@@ -150,7 +150,7 @@ Config.DoorList['MRPD-pd_11'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(484.083069, -1014.943298, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 89.999961853027,
 }
@@ -164,7 +164,7 @@ Config.DoorList['MRPD-pd_12'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(480.817291, -1014.956787, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 89.999961853027,
 }
@@ -178,7 +178,7 @@ Config.DoorList['MRPD-pd_13'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(469.044464, -986.926697, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 1.0017911336035e-05,
 }
@@ -192,7 +192,7 @@ Config.DoorList['MRPD-pd_14'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(469.034607, -983.660889, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 1.0017911336035e-05,
 }
@@ -206,7 +206,7 @@ Config.DoorList['MRPD-pd_15'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(464.938080, -986.926636, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 1.0017911336035e-05,
 }
@@ -220,7 +220,7 @@ Config.DoorList['MRPD-pd_16'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(464.938141, -983.660828, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 1.0017911336035e-05,
 }
@@ -234,7 +234,7 @@ Config.DoorList['MRPD-pd_17'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(460.837311, -986.926636, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 1.0017911336035e-05,
 }
@@ -248,7 +248,7 @@ Config.DoorList['MRPD-pd_18'] = {
     distance = 1,
     locked = true,
     objCoords = vec3(460.823853, -983.660828, 30.612476),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 1.0017911336035e-05,
 }
@@ -290,7 +290,7 @@ Config.DoorList['MRPD-pd_21'] = {
     distance = 8,
     locked = true,
     objCoords = vec3(433.815125, -999.920471, 26.115582),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 0.0,
 }
@@ -304,7 +304,7 @@ Config.DoorList['MRPD-pd_22'] = {
     distance = 7,
     locked = true,
     objCoords = vec3(449.897766, -999.903198, 26.114243),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 0.0,
 }
@@ -318,7 +318,7 @@ Config.DoorList['MRPD-pd_23'] = {
     distance = 7,
     locked = true,
     objCoords = vec3(488.767578, -1021.413147, 28.898113),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 90.000022888184,
 }
@@ -332,7 +332,7 @@ Config.DoorList['MRPD-pd_24'] = {
     distance = 2,
     locked = true,
     objCoords = vec3(464.230469, -984.677551, 43.843895),
-    fixText = false,
+    fixText = true,
     doorLabel = 'pd_2',
     objYaw = 90.000022888184,
 }
