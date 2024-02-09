@@ -1,7 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
 local Webhooks = {
-
     ['qbjobs'] = 'https://discord.com/api/webhooks/1202098203743506533/XOLojtA0olwKeLRxxXR0qG_8XSKBviePfTcD8MkEC0_Sq_aR-OMV4UmX7vOiVT3c9dt0',
     ['humanelabs'] = 'https://discord.com/api/webhooks/1202098307183431730/zoeIEXFdrN_lhAZOSFzF9LDbawVzaW3168KSKOXUUAYG1NsRz0e7IIdaL0k61tKHLVGX',
     ['default'] = 'https://discord.com/api/webhooks/1202099202902216724/s0S-UK54r5nIpg8XvSg-zd4FCaMoNdIiNsjZGovhsE5kUeobF_BAT78TZRgYnDiiRFvW',
@@ -54,7 +53,7 @@ local Webhooks = {
     ['evidence'] = 'https://discord.com/api/webhooks/1202104010832613396/pQ4OD_WFUTUu7pjS4WMl7QS8OpCnFukuZaHj9EUueFTezBTmM6jxj-NF11nHR_1tKl8b',
 }
 
-local Colors = { -- https://www.spycolor.com/
+local colors = { -- https://www.spycolor.com/
     ['default'] = 14423100,
     ['blue'] = 255,
     ['red'] = 16711680,
@@ -64,30 +63,64 @@ local Colors = { -- https://www.spycolor.com/
     ['orange'] = 16744192,
     ['yellow'] = 16776960,
     ['pink'] = 16761035,
-    ["lightgreen"] = 65309,
+    ['lightgreen'] = 65309,
 }
 
+local logQueue = {}
+
 RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)
+    local postData = {}
     local tag = tagEveryone or false
-    local webHook = Webhooks[name] or Webhooks['default']
+    if not Webhooks[name] then print('Tried to call a log that isn\'t configured with the name of ' ..name) return end
+    local webHook = Webhooks[name] ~= '' and Webhooks[name] or Webhooks['default']
     local embedData = {
         {
             ['title'] = title,
-            ['color'] = Colors[color] or Colors['default'],
+            ['color'] = colors[color] or colors['default'],
             ['footer'] = {
                 ['text'] = os.date('%c'),
             },
             ['description'] = message,
             ['author'] = {
                 ['name'] = 'QBCore Logs',
-                ['icon_url'] = 'https://media.discordapp.net/attachments/870094209783308299/870104331142189126/Logo_-_Display_Picture_-_Stylized_-_Red.png?width=670&height=670',
+                ['icon_url'] = 'https://raw.githubusercontent.com/GhzGarage/qb-media-kit/main/Display%20Pictures/Logo%20-%20Display%20Picture%20-%20Stylized%20-%20Red.png',
             },
         }
     }
-    PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = 'QB Logs', embeds = embedData}), { ['Content-Type'] = 'application/json' })
-    Citizen.Wait(100)
-    if tag then
-        PerformHttpRequest(webHook, function() end, 'POST', json.encode({ username = 'QB Logs', content = '@everyone'}), { ['Content-Type'] = 'application/json' })
+
+    if not logQueue[name] then logQueue[name] = {} end
+    logQueue[name][#logQueue[name] + 1] = {webhook = webHook, data = embedData}
+
+    if #logQueue[name] >= 10 then
+        if tag then
+            postData = {username = 'QB Logs', content = '@everyone', embeds = {}}
+        else
+            postData = {username = 'QB Logs', embeds = {}}
+        end
+        for i = 1, #logQueue[name] do postData.embeds[#postData.embeds + 1] = logQueue[name][i].data[1] end
+        PerformHttpRequest(logQueue[name][1].webhook, function() end, 'POST', json.encode(postData), { ['Content-Type'] = 'application/json' })
+        logQueue[name] = {}
+    end
+end)
+
+Citizen.CreateThread(function()
+    local timer = 0
+    while true do
+        Wait(1000)
+        timer = timer + 1
+        if timer >= 60 then -- If 60 seconds have passed, post the logs
+            timer = 0
+            for name, queue in pairs(logQueue) do
+                if #queue > 0 then
+                    local postData = {username = 'QB Logs', embeds = {}}
+                    for i = 1, #queue do
+                        postData.embeds[#postData.embeds + 1] = queue[i].data[1]
+                    end
+                    PerformHttpRequest(queue[1].webhook, function() end, 'POST', json.encode(postData), {['Content-Type'] = 'application/json'})
+                    logQueue[name] = {}
+                end
+            end
+        end
     end
 end)
 
