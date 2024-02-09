@@ -242,7 +242,7 @@ function draw2dText(text, pos)
 end
 
 
-RegisterCommand("comserv", function()
+RegisterCommand("comms", function()
 	if PlayerJob.name == "senator" then
 
 	local qbinput1 = exports['qb-input']:ShowInput({

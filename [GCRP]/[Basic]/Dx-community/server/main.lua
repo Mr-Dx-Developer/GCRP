@@ -58,7 +58,7 @@ local kamu = data.kamu
 	end
 end)
 
-QBCore.Commands.Add("endcomserv", "", {{name="id", help="Player ID"}}, true, function(source, args) -- name, help, arguments, argsrequired,  end sonuna persmission
+QBCore.Commands.Add("endcomms", "", {{name="id", help="Player ID"}}, true, function(source, args) -- name, help, arguments, argsrequired,  end sonuna persmission
 	local xPlayer = QBCore.Functions.GetPlayer(source)
 	if xPlayer.PlayerData.job.name == "senator" then
 		local tPlayer = QBCore.Functions.GetPlayer(tonumber(args[1]))
