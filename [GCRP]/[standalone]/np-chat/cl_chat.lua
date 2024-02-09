@@ -227,7 +227,7 @@ end)
 
 -- addMessage
 local addMessage = function(message)
-  local hud = true
+  local hud = false
   if hud then
     local msg = type(message) == 'table' and (message.args[2]) or message
     local author = type(message) == 'table' and message.args[1] or 'SYSTEM'
