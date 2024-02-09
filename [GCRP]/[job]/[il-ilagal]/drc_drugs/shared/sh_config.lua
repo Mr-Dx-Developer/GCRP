@@ -143,7 +143,7 @@ Config.Dealer = {
             MaxAmount = 10 },
     },
     Ped = {
-        { model = "s_m_y_dealer_01", coords = vec4(-1301.67, -776.34, 18.47, 202.49), scenario = "WORLD_HUMAN_SMOKING" },
+        { model = "s_m_y_dealer_01", coords = vec4(2859.15, 4447.79, 48.54, 197.42), scenario = "WORLD_HUMAN_SMOKING" },
     },
 }
 
