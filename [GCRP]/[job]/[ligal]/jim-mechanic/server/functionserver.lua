@@ -13,7 +13,7 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, dutyList = {}, {}, {},
 	registerCommand("hood", {Loc[Config.Lan]["servfunction"].hood, {}, false, function(source) TriggerClientEvent("jim-mechanic:client:openDoor", source, 4) end})
 	registerCommand("trunk", {Loc[Config.Lan]["servfunction"].trunk, {}, false, function(source) TriggerClientEvent("jim-mechanic:client:openDoor", source, 5) end})
 	registerCommand("door", {Loc[Config.Lan]["servfunction"].door, {{name="0-3", help="Door ID"}}, false, function(source, args) TriggerClientEvent("jim-mechanic:client:openDoor", source, args[1]) end})
-	---registerCommand("seat", {Loc[Config.Lan]["servfunction"].seat, {{name="id", help="Seat ID"}}, false, function(source, args) TriggerClientEvent("jim-mechanic:seat", source, args[1]) end})
+	registerCommand("seat", {Loc[Config.Lan]["servfunction"].seat, {{name="id", help="Seat ID"}}, false, function(source, args) TriggerClientEvent("jim-mechanic:seat", source, args[1]) end})
 
 
 	function IsVehicleOwned(plate)
