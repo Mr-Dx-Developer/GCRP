@@ -10,25 +10,20 @@ end
 
 AddStateBagChangeHandler('isLoggedIn', '', function(_bagName, _key, value, _reserved, _replicated)
     if value then
-        WSB.playerData = QBCore.Functions.GetPlayerData()
-        TriggerEvent('wasabi_bridge:playerLoaded', WSB.playerData)
+       SwitchHandler('isLoggedIn', WSB.playerData)
     else
-        table.wipe(WSB.playerData)
-        TriggerEvent('wasabi_bridge:onPlayerLogout')
+        SwitchHandler('isLoggedOut')
     end
-    WSB.playerLoaded = value or false
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() ~= resourceName or not LocalPlayer.state.isLoggedIn then return end
-    WSB.playerData = QBCore.Functions.GetPlayerData()
-    WSB.playerLoaded = true
+    SwitchHandler('start')
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(job)
     if not job or not job.name then return end
-    TriggerEvent('wasabi_bridge:setJob', job)
-    WSB.playerData = QBCore.Functions.GetPlayerData()
+    SwitchHandler('setJob', job)
 end)
 
 AddEventHandler('gameEventTriggered', function(event, data)
@@ -53,8 +48,7 @@ end)
 
 RegisterNetEvent('QBCore:Player:SetPlayerData', function(newPlayerData)
     if source ~= '' and GetInvokingResource() ~= 'qb-core' then return end
-    WSB.playerData = newPlayerData
-    TriggerEvent('wasabi_bridge:setPlayerData', newPlayerData)
+    SwitchHandler('QBCore:Player:SetPlayerData', newPlayerData)
 end)
 
 ---@diagnostic disable: duplicate-set-field

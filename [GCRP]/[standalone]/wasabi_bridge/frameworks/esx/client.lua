@@ -13,9 +13,7 @@ function WSB.getCore()
 end
 
 RegisterNetEvent('esx:playerLoaded', function(xPlayer)
-    WSB.playerData = xPlayer
-    WSB.playerLoaded = true
-    TriggerEvent('wasabi_bridge:playerLoaded', xPlayer)
+    SwitchHandler('isLoggedIn', xPlayer)
 end)
 
 AddEventHandler('esx:onPlayerSpawn', function(noAnim)
@@ -30,26 +28,21 @@ AddEventHandler('esx:onPlayerDeath', function(data)
 end)
 
 RegisterNetEvent('esx:onPlayerLogout', function()
-    TriggerEvent('wasabi_bridge:onPlayerLogout')
-    table.wipe(WSB.playerData)
-    WSB.playerLoaded = false
+    SwitchHandler('isLoggedOut')
 end)
 
 RegisterNetEvent('esx:setJob', function(job)
-    WSB.playerData.job = job
-    TriggerEvent('wasabi_bridge:setJob', job)
+    SwitchHandler('setJob', job)
 end)
 
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() ~= resourceName or not ESX.PlayerLoaded then return end
-    WSB.playerData = ESX.GetPlayerData()
-    WSB.playerLoaded = true
+    SwitchHandler('start')
 end)
 
 AddEventHandler('esx:setPlayerData', function(key, value)
     if GetInvokingResource() ~= 'es_extended' then return end
-    WSB.playerData[key] = value
-    TriggerEvent('wasabi_bridge:setPlayerData', key, value)
+    SwitchHandler('esx:setPlayerData', { key = key, value = value })
 end)
 
 ---@diagnostic disable: duplicate-set-field
