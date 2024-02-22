@@ -33,7 +33,7 @@ Config.StealDeadPlayer = true      -- Steal from dead players?
 Config.StealWithoutWeapons = false -- Possibility to draw only if the target player raises his arms (without weapons)
 
 Config.InventoryWeight = {         -- Configuration of maximum weight and maximum slots of the player
-    ['weight'] = 120000,
+    ['weight'] = 250000,
     ['slots'] = 41,                -- If you want to remove the 6 slot, use 40 here!
 }
 
