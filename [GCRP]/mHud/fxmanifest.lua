@@ -3,7 +3,7 @@ game 'gta5'
 description 'mHud'
 lua54 'yes'
 author 'Lucid#3604'
-version '2.4.3'
+version '2.5'
 shared_scripts {
     'shared/*.lua',
 }

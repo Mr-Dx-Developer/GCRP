@@ -44,8 +44,8 @@ Config.ForceEngineOff = false -- true : If player turn off the engine he have to
 Config.EnableIndicators = true -- true : Toggle indicators with a key || false : disable this feature 
 Config.EnableSeatbelt = true -- true : Use seatbelt system || false : disable this feature 
 Config.SeatbeltSound = true -- true : If player doesn't buckle up play sound || false : disable this feature 
-Config.SeatbeltEjectSpeed = 450 -- adjust this value in kmh 
-Config.EnableVehiclesDefaultRadio = true
+Config.SeatbeltEjectSpeed = 3000 -- adjust this value in kmh 
+Config.EnableVehiclesDefaultRadio = false
 Config.EnableSafezoneNotify = false -- true : when someone enters a safezone show notify || false : disable this feature 
 Config.SafezoneNotifyCoords = {
     {
@@ -112,8 +112,8 @@ Config.MouseCursorKeyLabel = "["
 
 Config.WaterMarkInformations = { -- informations displayed in the upper right watermark
     logo = "https://i.imgur.com/rgEwnd4.png",
-    servername = "CODEMRP",
-    discordlink = "discord.gg/codem"
+    servername = "Golden City",
+    discordlink = "discord.gg/dwxyGu7Rjv"
 }
 
 
@@ -156,7 +156,7 @@ Config.MoneyHud = {
         show = true,
     },
     cash = {
-        show = false,
+        show = true,
     },
     black_money = {
         show = false,
@@ -272,17 +272,22 @@ Config.MoneyHud = {
         end,
     },
     vip_money = {
-        show = false,
+        show = true,
         getMoney = function(this)
+
+
+            
             WaitCore()
             WaitPlayer()
-            local myVipMoney = TriggerCallback("mvip-getcoin")
-            LoadPlayerMoney("vip_money", myVipMoney)    
-            RegisterNetEvent("mvip-client-update")
-            AddEventHandler("mvip-client-update", function(playerdata)
-                LoadPlayerMoney("vip_money", playerdata.coin)     
+            local coin = TriggerCallback("mvip-getcoin")
+            LoadPlayerMoney("vip_money", coin)   
             
+            RegisterNetEvent("mvip-client-update")
+            AddEventHandler("mvip-client-update", function(PlayerData)
+                coin = PlayerData.coin
+                LoadPlayerMoney("vip_money", coin)   
             end)
+
             -- your function to get vip_money
             -- example
             --[[
@@ -386,7 +391,7 @@ Config.AmbulanceVehicles = { -- if the siren of the vehicle you wrote here is ac
 Config.EnableVehicleModes = true
 Config.VehicleModes = {
     ["sport"] = { 
-        changeHandling = false, -- true : When sport mode is activated also change vehicle handling || false : When sport mode is activated change only speedometer       
+        changeHandling = true, -- true : When sport mode is activated also change vehicle handling || false : When sport mode is activated change only speedometer       
         boostPower = 15.0,  
         itemCheck = {
             enable = false,
@@ -403,7 +408,7 @@ Config.VehicleModes = {
         },
     },
     ["drift"] = {
-        changeHandling = false, -- true : When drift mode is activated also change vehicle handling || false : When drift mode is activated change only speedometer  
+        changeHandling = true, -- true : When drift mode is activated also change vehicle handling || false : When drift mode is activated change only speedometer  
         itemCheck = {
             enable = false,
             name = "water",
@@ -486,8 +491,16 @@ Config.Gift = {
             type = "bank_money",
             amount = 10000,
         },
+        {
+            type = "vcoin", -- if you use vcoin you need to add a function to get vcoin -- Config.CoinFunction
+            amount = 1,
+        },
     }
 }
+
+Config.CoinFunction = function(src, amount)
+    exports['m-vipsystem']:addPlayerCoin(src, amount)
+end
 
 Config.QuickLocations = {
     bank = {

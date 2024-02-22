@@ -87,7 +87,7 @@ Config.RemoveStress = {
         end
     },
     ["death"] = {
-        enable = true,
+        enable = false,
         func = function()
             AddEventHandler('esx:onPlayerDeath', function() 
                 TriggerServerEvent('hud:server:RelieveStress', 100)
@@ -102,7 +102,7 @@ Config.RemoveStress = {
     ["swim"] = {
         min = 5,
         max = 10,
-        enable = true,
+        enable = false,
         func = function()
             CreateThread(function()
                 while true do
@@ -120,7 +120,7 @@ Config.RemoveStress = {
     ["run"] = {
         min = 5,
         max = 10,
-        enable = true,    
+        enable = false,    
         func = function()
             CreateThread(function()
                 while true do
@@ -140,7 +140,7 @@ Config.AddStress = {
     ["shoot"] = {
         min = 1, -- minimum amount to add stress
         max = 3, -- maximum amount to add stress
-        enable = true,
+        enable = false,
         func = function()
             CreateThread(function()            
                 while true do
@@ -163,7 +163,7 @@ Config.AddStress = {
     ["drive_fast"] = {
         min = 1, -- minimum amount to add stress
         max = 3, -- maximum amount to add stress
-        enable = true,
+        enable = false,
         func = function()
             CreateThread(function()            
                 while true do

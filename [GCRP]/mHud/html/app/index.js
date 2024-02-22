@@ -593,7 +593,7 @@ const app = createApp({
   },
 }).use(store)
 
-let resourceName = 'Dx-Hud'
+let resourceName = 'mHud'
 window.postNUI = async (name, data) => {
   try {
     const response = await fetch(`https://${resourceName}/${name}`, {
