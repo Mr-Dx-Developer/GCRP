@@ -113,7 +113,7 @@ Config.MouseCursorKeyLabel = "["
 Config.WaterMarkInformations = { -- informations displayed in the upper right watermark
     logo = "https://i.imgur.com/rgEwnd4.png",
     servername = "Golden City",
-    discordlink = "discord.gg/dwxyGu7Rjv"
+    discordlink = "discord.gg/goldencity"
 }
 
 
@@ -416,10 +416,10 @@ Config.VehicleModes = {
             reqAmount = 1,
         },
         allowedVehicles = {
-            classes = {0, 1, 2, 3, 4, 5, 6, 7, 9, 12, 18, 19},
+            classes = {0, 1, 2, 3, 4, 5, 6, 7, 9, 12, 19},
             hash = {
                 `adder`,
-                `t20`
+                `T20`
             },
         },
     },
