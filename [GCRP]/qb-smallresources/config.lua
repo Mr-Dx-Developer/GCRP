@@ -472,7 +472,7 @@ Config.Teleports = {
 
 Config.CarWash = {
     dirtLevel = 0.1, -- threshold for the dirt level to be counted as dirty
-    defaultPrice = 20, -- default price for the carwash
+    defaultPrice = 500, -- default price for the carwash
     locations = {
          [1] = {coords = vector3(174.81, -1736.77, 28.87), length = 7.0, width = 8.8, heading = 359}, -- South Los Santos Carson Avenue
          [2] = {coords = vector3(25.2, -1391.98, 28.91), length = 6.6, width = 8.2, heading = 0}, -- South Los Santos Innocence Boulevard

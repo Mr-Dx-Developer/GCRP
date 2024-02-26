@@ -20,7 +20,7 @@ Config.SellItems = {
         items = {
             {
                 name = 'sandwich',
-                price = 3,
+                price = 45,
                 amount = 1,
                 info = {},
                 type = 'item',
@@ -28,7 +28,7 @@ Config.SellItems = {
             },
             {
                 name = 'tosti',
-                price = 2,
+                price = 45,
                 amount = 1,
                 info = {},
                 type = 'item',
@@ -49,7 +49,7 @@ Config.SellItems = {
         items = {
             {
                 name = 'tosti',
-                price = 1,
+                price = 45,
                 amount = 1,
                 info = {},
                 type = 'item',

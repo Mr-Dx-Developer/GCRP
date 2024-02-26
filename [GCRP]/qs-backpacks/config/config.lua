@@ -15,17 +15,17 @@ Config.Menu = 'qb-menu' -- 'qb-menu', 'ox_lib', 'esx_menu_default'
 
 -- which slots are your hot bar
 Config.Hotbar = {
-     1, 2, 3, 4, 5
+     1, 2, 3, 4, 5,
 }
 
 Config.duration = {
-     open = 1, --sec
-     close = 1
+     open = 0, --sec
+     close = 0
 }
 
 Config.PasswordLength = {
-     min = 3,
-     max = 5
+     min = 4,
+     max = 8
 }
 
 Config.Animation = {
@@ -42,7 +42,6 @@ Config.Animation = {
      },
 
      inBackpack = {
-          Dict = 'clothingshirt',
-          Anim = 'try_shirt_positive_d',
+          Dict = 'clothingshirt',          
      },
 }

@@ -3,7 +3,7 @@ Config.Keybind = 'F1' -- FiveM Keyboard, this is registered keymapping, so needs
 Config.Toggle = false -- use toggle mode. False requires hold of key
 Config.UseWhilstWalking = false -- use whilst walking
 Config.EnableExtraMenu = true
-Config.Fliptime = 15000
+Config.Fliptime = 500
 
 Config.MenuItems = {
     [1] = {
@@ -128,7 +128,7 @@ Config.MenuItems = {
                         icon = 'door-closed',
                         type = 'client',
                         event = 'qb-houses:client:toggleDoorlock',
-                        shouldClose = true
+                        shouldClose = false
                     }, {
                         id = 'decoratehouse',
                         title = 'Decorate House',
@@ -161,7 +161,7 @@ Config.MenuItems = {
                                 icon = 'door-open',
                                 type = 'client',
                                 event = 'qb-houses:client:setLocation',
-                                shouldClose = true
+                                shouldClose = false
                             }
                         }
                     }

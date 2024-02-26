@@ -4904,17 +4904,41 @@ ItemList = {
         ['combinable'] = nil,
         ['description'] = 'Black Money'
     },
-    ['casinochips']                  = {
+    ['casinogoldchip']                  = {
         ['name'] = 'casinochips',
         ['label'] = 'Casino Chips',
         ['weight'] = 0,
         ['type'] = 'item',
-        ['image'] = 'casinochips.png',
+        ['image'] = 'casino_goldchip.png',
         ['unique'] = false,
         ['useable'] = false,
         ['shouldClose'] = false,
         ['combinable'] = nil,
         ['description'] = 'Chips For Casino Gambling'
+    },
+    ['casinomember']                  = {
+        ['name'] = 'casinomember',
+        ['label'] = 'Casino Member',
+        ['weight'] = 0,
+        ['type'] = 'item',
+        ['image'] = 'casino_member.png',
+        ['unique'] = false,
+        ['useable'] = false,
+        ['shouldClose'] = false,
+        ['combinable'] = nil,
+        ['description'] = 'Casino Membership For Casino Gambling'
+    },
+    ['casinovip']                  = {
+        ['name'] = 'casinovip',
+        ['label'] = 'Casino VIP',
+        ['weight'] = 0,
+        ['type'] = 'item',
+        ['image'] = 'casino_vip.png',
+        ['unique'] = false,
+        ['useable'] = false,
+        ['shouldClose'] = false,
+        ['combinable'] = nil,
+        ['description'] = 'VIP Membership For Casino'
     },
     ['stickynote']                   = {
         ['name'] = 'stickynote',

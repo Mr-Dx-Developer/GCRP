@@ -28,18 +28,18 @@ Config.BlockedSwap = false         -- If set to true, you will not be able to sw
 Config.BlockedSlot = false         -- This is the sixth slot, the one that does not allow them to steal from that space
 Config.GiveItemHideName = false    -- If you enable this, then the player will not be able to see names in giveitem, only id
 
-Config.Handsup = false              -- Enable or disable Handsup and Robbery button
-Config.StealDeadPlayer = true      -- Steal from dead players?
+Config.Handsup = true              -- Enable or disable Handsup and Robbery button
+Config.StealDeadPlayer = false      -- Steal from dead players?
 Config.StealWithoutWeapons = false -- Possibility to draw only if the target player raises his arms (without weapons)
 
 Config.InventoryWeight = {         -- Configuration of maximum weight and maximum slots of the player
-    ['weight'] = 250000,
-    ['slots'] = 41,                -- If you want to remove the 6 slot, use 40 here!
+    ['weight'] = 450000,
+    ['slots'] = 50,                -- If you want to remove the 6 slot, use 40 here!
 }
 
 Config.DropWeight = { -- Configuration of maximum weight and maximum slots of the player
-    ['weight'] = 20000000,
-    ['slots'] = 130,  -- If you want to remove the 6 slot, use 40 here! (Max 100)
+    ['weight'] = 450000,
+    ['slots'] = 50,  -- If you want to remove the 6 slot, use 40 here! (Max 100)
 }
 
 Config.LabelChange = true       -- Enable or disable this function here

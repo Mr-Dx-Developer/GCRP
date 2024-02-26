@@ -56,7 +56,7 @@ Config = Config or {}
 Config.Items = {
      ['backpack'] = {      --- Item name
           slots = 20,      -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
-          weight = 150000, -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
+          weight = 250000, -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
           locked = false,  -- If you want to have a password change false to true
           prop = {
                model = 'vw_prop_vw_backpack_01a',
@@ -76,8 +76,8 @@ Config.Items = {
           },
      },
      ['backpack2'] = {
-          slots = 30,      -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
-          weight = 250000, -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
+          slots = 20,      -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
+          weight = 350000, -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
           cloth = {
                male = {
                     ['bag'] = { item = 45, texture = 0 }
@@ -88,8 +88,8 @@ Config.Items = {
           }
      },
      ['briefcase'] = {
-          slots = 35,
-          weight = 250000,
+          slots =25,
+          weight = 450000,
           locked = true, -- If you want to have a password change false to true
           prop = {
               -- model = 'prop_ld_suitcase_01',
@@ -109,8 +109,8 @@ Config.Items = {
           },
      },
      ['paramedicbag'] = {
-          slots = 10,     -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
-          weight = 10000, -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
+          slots = 15,     -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
+          weight = 200000, -- Change in `qs-inventory/server/custom/GiveItemToPlayer.lua`
           prop = {
                model = 'xm_prop_smug_crate_s_medical',
                animation = {
