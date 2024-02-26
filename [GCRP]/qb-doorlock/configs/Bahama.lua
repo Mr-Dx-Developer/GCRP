@@ -6,7 +6,7 @@ Config.DoorList['Bahama-Main'] = {
         {objName = 666905606, objYaw = 213.00003051758, objCoords = vec3(-1389.136841, -588.057678, 30.445644)},
         {objName = -224738884, objYaw = 32.999996185303, objCoords = vec3(-1387.035889, -586.693298, 30.445644)}
     },
-    locked = true,
+    locked = false,
     doorLabel = 'main 1',
     authorizedJobs = { ['vanilla'] = 0 },
     distance = 2,

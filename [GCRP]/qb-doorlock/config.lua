@@ -18,7 +18,7 @@ Config.UnlockedColor = 'rgb(27 195 63)' -- The color of the box of the popup tex
 Config.UseDoorLabelText = false -- Will use the LABEL field as the nui text instead of locked/unlocked
 Config.DoorDebug = false -- Enable DRAWTEXT in the world at the coords where the door 'center' is
 Config.RemoteTriggerDistance = 15.0 -- This is how far from your camera the raycast will go to try to hit something solid
-Config.RemoteTriggerMinDistance = 5.0 -- This is the minimum distance required for the raycast hit to count near a door. It will take the larger two between this and 'distance' option
+Config.RemoteTriggerMinDistance = 10.0 -- This is the minimum distance required for the raycast hit to count near a door. It will take the larger two between this and 'distance' option
 
 Config.Consumables = { ['ticket'] = 1, ['paperclip'] = 1 } -- The items will get removed once used on a door that has the item on it
 

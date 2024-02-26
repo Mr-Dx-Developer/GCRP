@@ -9,15 +9,15 @@ Config.DoorList['GabzCatcafe-Gabz_catcate_front_01'] = {
     doorLabel = 'FrontDoor01',
     doorType = 'double',
     doorRate = 1.0,
-    authorizedJobs = { ['catcafe'] = 0 },
+    authorizedJobs = { ['uwu'] = 0 },
     locked = true,
-    distance = 2,
+    distance = 5,
 }
 
 -- Gabz_catcate_kitchen_01 created by MasK
 Config.DoorList['GabzCatcafe-Gabz_catcate_kitchen_01'] = {
-    distance = 2,
-    authorizedJobs = { ['catcafe'] = 0 },
+    distance = 5,
+    authorizedJobs = { ['uwu'] = 0 },
     doorRate = 1.0,
     objName = -1283712428,
     fixText = false,
@@ -30,8 +30,8 @@ Config.DoorList['GabzCatcafe-Gabz_catcate_kitchen_01'] = {
 
 -- Gabz_catcate_garage_01 created by MasK
 Config.DoorList['GabzCatcafe-Gabz_catcate_garage_01'] = {
-    distance = 2,
-    authorizedJobs = { ['catcafe'] = 0 },
+    distance = 5,
+    authorizedJobs = { ['uwu'] = 0 },
     doorRate = 1.0,
     objName = 1099436502,
     fixText = false,
@@ -44,8 +44,8 @@ Config.DoorList['GabzCatcafe-Gabz_catcate_garage_01'] = {
 
 -- Gabz_catcate_garage_02 created by MasK
 Config.DoorList['GabzCatcafe-Gabz_catcate_garage_02'] = {
-    distance = 2,
-    authorizedJobs = { ['catcafe'] = 0 },
+    distance = 5,
+    authorizedJobs = { ['uwu'] = 0 },
     doorRate = 1.0,
     objName = 522844070,
     fixText = false,
@@ -58,8 +58,8 @@ Config.DoorList['GabzCatcafe-Gabz_catcate_garage_02'] = {
 
 -- Gabz_catcate_2ndfloor_01 created by MasK
 Config.DoorList['GabzCatcafe-Gabz_catcate_2ndfloor_01'] = {
-    distance = 2,
-    authorizedJobs = { ['catcafe'] = 0 },
+    distance = 5,
+    authorizedJobs = { ['uwu'] = 0 },
     doorRate = 1.0,
     objName = 2089009131,
     fixText = false,

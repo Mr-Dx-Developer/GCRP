@@ -8,8 +8,8 @@ Config.DoorList['Vanilla-Vanilla_main_01'] = {
     fixText = false,
     doorRate = 1.0,
     doorLabel = 'main_01',
-    distance = 2,
-    objCoords = vec3(127.950066, -1298.506592, 29.419622),
+    distance = 5,
+    objCoords = vec3(128.853, -1298.74, 29.238),
     doorType = 'door',
     authorizedJobs = { ['vanilla'] = 0 },
 }

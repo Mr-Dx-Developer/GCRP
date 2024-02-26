@@ -2,10 +2,10 @@
 
 -- mechanicls 1 created by UtshoBoy
 Config.DoorList['mechanicls-mechanicls 1'] = {
-    locked = false,
+    locked = true,
     doorLabel = 'mechanicls 1',
-    distance = 2,
-    authorizedJobs = { ['mechanicls'] = 0 },
+    distance = 12,
+    authorizedJobs = { ['mechanic'] = 0 },
     doorRate = 1.0,
     doors = {
         {objName = 2134335554, objYaw = 339.99569702148, objCoords = vec3(-325.668823, -103.575989, 38.012348)},
@@ -16,10 +16,10 @@ Config.DoorList['mechanicls-mechanicls 1'] = {
 
 -- mechanicls 2 created by UtshoBoy
 Config.DoorList['mechanicls-mechanicls 2'] = {
-    locked = false,
+    locked = true,
     doorLabel = 'mechanicls 2',
-    distance = 2,
-    authorizedJobs = { ['mechanicls'] = 0 },
+    distance = 5,
+    authorizedJobs = { ['mechanic'] = 0 },
     doorRate = 1.0,
     doors = {
         {objName = 1278022473, objYaw = 250.0, objCoords = vec3(-356.192322, -92.513947, 39.062260)},
@@ -30,56 +30,56 @@ Config.DoorList['mechanicls-mechanicls 2'] = {
 
 -- mechanicls 3 created by UtshoBoy
 Config.DoorList['mechanicls-mechanicls 3'] = {
-    locked = false,
+    locked = true,
     objName = -1726331785,
     doorRate = 1.0,
     objCoords = vec3(-366.198334, -92.624313, 39.689392),
     fixText = false,
     doorLabel = 'mechanicls 3',
     objYaw = 160.00003051758,
-    authorizedJobs = { ['mechanicls'] = 0 },
-    distance = 2,
+    authorizedJobs = { ['mechanic'] = 0 },
+    distance = 5,
     doorType = 'door',
 }
 
 -- mechanicls 4 created by UtshoBoy
 Config.DoorList['mechanicls-mechanicls 4'] = {
-    locked = false,
+    locked = true,
     objName = 718507040,
     doorRate = 1.0,
     objCoords = vec3(-349.492523, -117.550156, 40.010574),
     fixText = false,
     doorLabel = 'mechanicls 4',
     objYaw = 250.0,
-    authorizedJobs = { ['mechanicls'] = 0 },
-    distance = 2,
+    authorizedJobs = { ['mechanic'] = 0 },
+    distance = 5,
     doorType = 'garage',
 }
 
 -- mechanicls 5 created by UtshoBoy
 Config.DoorList['mechanicls-mechanicls 5'] = {
-    locked = false,
+    locked = true,
     objName = 718507040,
     doorRate = 1.0,
     objCoords = vec3(-355.807526, -134.877930, 40.008327),
     fixText = false,
     doorLabel = 'mechanicls 5',
     objYaw = 250.0,
-    authorizedJobs = { ['mechanicls'] = 0 },
-    distance = 2,
+    authorizedJobs = { ['mechanic'] = 0 },
+    distance = 5,
     doorType = 'garage',
 }
 
 -- mechanicls 6 created by UtshoBoy
 Config.DoorList['mechanicls-mechanicls 6'] = {
-    locked = false,
+    locked = true,
     objName = -868672903,
     doorRate = 1.0,
     objCoords = vec3(-369.032471, -100.560440, 39.700661),
     fixText = false,
     doorLabel = 'mechanicls 6',
     objYaw = 160.00001525879,
-    authorizedJobs = { ['mechanicls'] = 0 },
-    distance = 2,
+    authorizedJobs = { ['mechanic'] = 0 },
+    distance = 5,
     doorType = 'garage',
 }
