@@ -254,8 +254,8 @@ end
 HSN.Routes = { 
     ["cargo"] = {
         ["airport"] = {
-            totalDelivery = 200,
-            revenue = {min = 2000, max = 7500},
+            totalDelivery = 50,
+            revenue = {min = 4500, max = 5500},
             requiredIndex = 2,
             label = "AIRPORT",
             locations = {
@@ -278,8 +278,8 @@ HSN.Routes = {
             }
         },
         ["downtown"] = {
-            totalDelivery = 100,
-            revenue = {min = 1000, max = 5000},
+            totalDelivery = 50,
+            revenue = {min = 3500, max = 4500},
             requiredIndex = 1,
             label = "DOWNTOWN",
             locations = {
@@ -304,8 +304,8 @@ HSN.Routes = {
             }
         },
         ["sandy"] = {
-            totalDelivery = 300,
-            revenue = {min = 3000, max = 10000},
+            totalDelivery = 50,
+            revenue = {min = 5500, max = 7500},
             requiredIndex = 3,
             label = "SANDY",
             locations = {
@@ -329,8 +329,8 @@ HSN.Routes = {
             }
         },
         ["paleto"] = {
-            totalDelivery = 400,
-            revenue = {min = 6000, max = 15000},
+            totalDelivery = 50,
+            revenue = {min = 7500, max = 9500},
             requiredIndex = 4,
             label = "PALETO BAY",
             locations = {
@@ -354,7 +354,7 @@ HSN.Routes = {
     },
     ["transport"] = {
         ["airport"] = {
-            totalDelivery = 100,
+            totalDelivery = 50,
             label = "LSIA HANGARS",
             revenue = {price = 3000}, 
             location = {
@@ -376,7 +376,7 @@ HSN.Routes = {
             }
         },
         ["downtown"] = {
-            totalDelivery = 150,
+            totalDelivery = 50,
             label = "DOWNTOWN",
             revenue = {price = 4500}, 
             location = {
@@ -401,7 +401,7 @@ HSN.Routes = {
             }
         },
         ["sandy"] = {
-            totalDelivery = 300,
+            totalDelivery = 50,
             label = "SANDY SHORES",
             revenue = {price = 7500},
             location = {
@@ -423,7 +423,7 @@ HSN.Routes = {
             }
         },
         ["paleto"] = {
-            totalDelivery = 400,
+            totalDelivery = 50,
             label = "PALETO BAY",
             revenue = {price = 12500}, 
             location = {

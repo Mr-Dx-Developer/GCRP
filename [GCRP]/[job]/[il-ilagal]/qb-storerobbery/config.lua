@@ -1,11 +1,11 @@
 Config = {}
-Config.minEarn = 100
-Config.maxEarn = 450
+Config.minEarn = 4500
+Config.maxEarn = 9840
 Config.RegisterEarnings = math.random(Config.minEarn, Config.maxEarn)
 Config.MinimumStoreRobberyPolice = 2
 Config.resetTime = (60 * 1000) * 30
 Config.tickInterval = 1000
-Config.stickyNoteChance = 10 -- Percent chance to get the safe code from a cash register
+Config.stickyNoteChance = 85 -- Percent chance to get the safe code from a cash register
 
 Config.Registers = {
     [1] = { vector3(-47.24, -1757.65, 29.53), robbed = false, time = 0, safeKey = 1, camId = 4 },
@@ -47,7 +47,7 @@ Config.Safes = {
     [2] = { vector4(-1478.94, -375.5, 39.16, 229.5), type = 'padlock', robbed = false, camId = 5 },
     [3] = { vector4(-1220.85, -916.05, 11.32, 229.5), type = 'padlock', robbed = false, camId = 6 },
     [4] = { vector4(-709.74, -904.15, 19.21, 229.5), type = 'keypad', robbed = false, camId = 7 },
-    [5] = { vector3(28.21, -1339.14, 29.49), type = 'keypad', robbed = false, camId = 8 },
+    [5] = { vector3(27.223, -1340.609, 29.497), type = 'keypad', robbed = false, camId = 8 },
     [6] = { vector3(1126.77, -980.1, 45.41), type = 'padlock', robbed = false, camId = 9 },
     [7] = { vector3(1159.46, -314.05, 69.2), type = 'keypad', robbed = false, camId = 10 },
     [8] = { vector3(378.17, 333.44, 103.56), type = 'keypad', robbed = false, camId = 11 },

@@ -149,7 +149,7 @@ Config.SpotVehicle = {
 
 Config.taxiLaptopPropCoord ={
     ['hash'] = "prop_cs_tablet",
-    ['laptopcoords'] =vector3(895.926, -177.00, 75.3003),
+    ['laptopcoords'] =vector3(905.699, -164.607, 75.484),
     ['rotate'] = -90.0,
     ['rotate2'] = 60.0,
 }

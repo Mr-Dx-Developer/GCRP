@@ -54,13 +54,13 @@ Config.Categories = {
   commercial = "Commercial",
   cycles = "Cycles",
   industrial = "Industrial",
-  custompdm = "Custom PDM Car"
+  drift = "Drift Cars"
 }
 
 Config.DealershipLocations = {
   ["pdm"] = {
     type = "self-service", -- or "owned", "self-service"
-    openShowroom = vector3(-37.18, -1088.39, 26.44),
+    openShowroom = vector3(-32.99, -1097.097, 27.274),
     openManagement = vector3(-31.5, -1117.4, 26.44),
     purchaseSpawn = vector4(-13.68, -1092.31, 26.67, 159.82),
     testDriveSpawn = vector4(-49.77, -1110.83, 26.44, 75.94),
@@ -70,7 +70,7 @@ Config.DealershipLocations = {
       positions = {5.0, 8.0, 12.0, 8.0}
     },
     --categories = {"sedans", "compacts", "motorcycles", "offroad", "coupes", "muscle", "suvs", "sportsclassics", "super", "sports", "cycles"},
-    categories = {"custompdm", "motorcycles", "offroad", "cycles"},
+    categories = {"drift", "sedans", "compacts", "motorcycles", "offroad", "coupes", "muscle", "suvs", "sportsclassics", "super", "sports", "cycles"},
     enableTestDrive = true,
     hideBlip = false,
     blip = {
@@ -81,7 +81,7 @@ Config.DealershipLocations = {
     enableSellVehicle = true, -- Allow players to sell vehicles back to dealer
     sellVehiclePercent = 0.6,  -- 60% of current sale price
     sellVehicle = vector3(-27.89, -1082.1, 26.64),
-    enableFinance = true,
+    enableFinance = false,
     hideMarkers = false,
     markers = { id = 21, size = { x = 0.3, y = 0.3, z = 0.3 }, color = { r = 255, g = 255, b = 255, a = 120 }, bobUpAndDown = 0, faceCamera = 0, rotate = 1, drawOnEnts = 0 },
     showroomJobWhitelist = {},
@@ -94,21 +94,21 @@ Config.DealershipLocations = {
   },
   ["luxury"] = {
     type = "owned", -- or "owned", "self-service"
-    openShowroom = vector3(-1257.4, -369.12, 36.98),
-    openManagement = vector3(-1249.04, -346.96, 37.34),
-    purchaseSpawn = vector4(-1233.46, -346.81, 37.33, 23.36),
-    testDriveSpawn = vector4(-1233.46, -346.81, 37.33, 23.36),
-    sellVehicle = vector4(-1233.46, -346.81, 37.33, 23.36),
+    openShowroom = vector3(-1247.676, -359.742, 36.962),
+    openManagement = vector3(-1231.767, -346.019, 36.962),
+    purchaseSpawn = vector4(-1264.231, -341.379, 35.992, 299.353),
+    testDriveSpawn = vector4(-1267.428, -382.219, 35.649, 118.669),
+    sellVehicle = {},
     camera = {
       name = "Car",
       coords = vector4(-146.6166, -596.6301, 166.0000, 120.0),
       positions = {5.0, 8.0, 12.0, 8.0}
     },
     categories = {"custom"},
-    enableSellVehicle = true, -- Allow players to sell vehicles back to dealer
+    enableSellVehicle = false, -- Allow players to sell vehicles back to dealer
     sellVehiclePercent = 0.6,  -- 60% of current sale price
     enableTestDrive = true,
-    enableFinance = true,
+    enableFinance = false,
     hideBlip = false,
     blip = {
       id = 523,
@@ -124,11 +124,11 @@ Config.DealershipLocations = {
   },
   ["boats"] = {
     type = "self-service", -- or "owned", "self-service"
-    openShowroom = vector3(-739.55, -1333.75, 1.6),
+    openShowroom = vector3(-734.786, -1337.662, 1.595),
     openManagement = vector3(-731.37, -1310.35, 5.0),
     purchaseSpawn = vector4(-714.42, -1340.01, -0.18, 139.38),
     testDriveSpawn = vector4(-714.42, -1340.01, -0.18, 139.38),
-    sellVehicle = vector4(-714.42, -1340.01, -0.18, 139.38),
+    sellVehicle = vector4(-732.099, -1336.187, -0.474, 341.838),
     camera = {
       name = "Sea",
       coords = vector4(-808.28, -1491.19, -0.47, 113.53),

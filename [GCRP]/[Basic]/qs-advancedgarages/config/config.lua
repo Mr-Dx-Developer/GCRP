@@ -141,7 +141,7 @@ Config.BlipSprites = {
     }
 }
 
-Config.TransferGaragePrice = 500       -- Price to be charged for taking out a vehicles
+Config.TransferGaragePrice = 800       -- Price to be charged for taking out a vehicles
 Config.GarageSellTax = 1.3             -- Percentage of profit that the person who creates the garage receives when it is sold (by default it is 50% of the total price)
 Config.ImpoundPrice = 500              -- Impound default value to remove vehicles
 
@@ -206,8 +206,7 @@ Config.ImpoundJobs = {
 
 Config.Recovery = {
     coords = {
-        vec3(408.975830, -1622.887939, 29.279907),
-        vec3(944.373657, -463.318665, 61.547241),
+        vec3(408.975830, -1622.887939, 29.279907),    
     },
     blip = {
         sprite = 67,
@@ -216,7 +215,7 @@ Config.Recovery = {
         name = 'Recovery',
         shortRange = true
     },
-    price = 5000
+    price = 1000
 }
 
 Config.Garages = {

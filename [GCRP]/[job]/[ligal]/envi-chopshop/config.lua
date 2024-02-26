@@ -45,7 +45,7 @@ Config.ChopShops = { -- Add as many as you need
         -- Management Settings
         Ownable = true,
         ManagementLocation = vec3(727.8610, -1067.2437, 27.31),
-        Price = 100000,
+        Price = 20000000,
         Percentage = 10,   -- Owner will recieve 10% of the total chop value into management fund
         CanSell = true,    -- Can sell the business to get back % of the original price
         SellPercentage = 50, -- % of the original price you get back when selling the business
@@ -54,7 +54,7 @@ Config.ChopShops = { -- Add as many as you need
         -- Ped Settings (Optional)
         
         Ped = { -- Handy to use as a place to add FinishChopLocation if there is no desk
-            Enabled = true,
+            Enabled = false,
             PedHash = 'a_m_m_hillbilly_01',
             PedCoords = vector4(727.5610, -1067.5437, 28.31, 180.0),
             PedHeading = 180.0,
@@ -62,13 +62,13 @@ Config.ChopShops = { -- Add as many as you need
         },
 
         -- Dispatch 
-        Dispatch = false, -- Set to true to enable police alerts when chopping a vehicle
+        Dispatch = true, -- Set to true to enable police alerts when chopping a vehicle
     },
 
     ['Sandy Shores'] = {   -- Name of the Chop Shop - [MUST BE UNIQUE]
-        ChopLocation = vector3(2052.68, 3176.29, 45.17),
+        ChopLocation = vector3(2052.574, 3191.673, 45.186),
         DropPartsLocation = vector3(2048.24, 3196.82, 45.49),
-        FinishChopLocation = vec3(2041.43, 3187.44, 45.18),
+        FinishChopLocation = vector3(2048.274, 3196.833, 45.485),
         ChopZoneRadius = 60.0,
         ChoppingAreaRadius = 30.0,
 
@@ -81,9 +81,9 @@ Config.ChopShops = { -- Add as many as you need
         BlacklistedJobs = {enabled = true, jobs = {'hobo', 'ambulance'}},
 
         -- Management Settings
-        Ownable = true,
+        Ownable = false,
         ManagementLocation = vector3(2041.43, 3187.44, 45.18),
-        Price = 75000,
+        Price = 20000000,
         Percentage = 10,   -- Owner will recieve 10% of the total chop value into management fund
         CanSell = true,    -- Can sell the business to get back % of the original price
         SellPercentage = 50, -- % of the original price you get back when selling the business
@@ -92,7 +92,7 @@ Config.ChopShops = { -- Add as many as you need
         -- Ped Settings (Optional)
 
         Ped = { -- Handy to use as a place to add FinishChopLocation/ Management if there is no desk
-            Enabled = true,
+            Enabled = false,
             PedHash = 'a_m_m_hillbilly_01',
             PedCoords = vector3(2041.43, 3187.44, 45.18),
             PedHeading = 250.0,
@@ -112,7 +112,7 @@ Config.HardcoreMode = false -- Set to true to enable PLAYER OWNED VEHICLE CHOPPI
 -- EDIT envi-chopshop:isVehOwned AND HardcoreChopComplete() at the top of the file.
 -- Examples are there to uncomment if you want to use those.
 
-Config.CheckPoliceOnline = false -- Set to true to check if police are online before chopping a vehicle
+Config.CheckPoliceOnline = true -- Set to true to check if police are online before chopping a vehicle
 Config.JobToCheck = 'police' -- Job to check if online
 Config.AmountOnline = 1 -- Minimum Amount of that job online before you can chop a vehicle
 
@@ -152,7 +152,7 @@ Config.ClassMultipliers = {  -- Reward Multiplier for each vehicle class
 
 
 Config.RewardsAccount = 'cash' -- [QB] - 'cash' or 'bank' or 'crypto' // [ESX] - 'cash' or 'bank' or 'black_money'   -- Go to Server/server_edit.lua to edit the reward functions to your liking if you want to use something else.
-Config.Rewards = 1000 -- Base reward for each vehicle - (please keep above 10 for the multiplier to work)
+Config.Rewards = 1500 -- Base reward for each vehicle - (please keep above 10 for the multiplier to work)
 Config.AdditionalRewardsItem = 'cryptostick' -- Item to receive when using item rewards, set to false to disable
 Config.AdditionalRewardsAmount = math.random(1,3) -- Amount of item to receive when using item rewards
 

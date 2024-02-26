@@ -198,30 +198,8 @@ Config = {
 							{ name = "police_stormram", amount = 1, info = {}, type = "item", slot = 3, },
 						},
 					},
-					["polboat2"] = {
-						CustomName = "polboat2",
-						livery = 0,
-						extras = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 },
-						performance = "max",
-						trunkItems = {
-						--	{ name = "heavyarmor", amount = 2, info = {}, type = "item", slot = 1, },
-							{ name = "empty_evidence_bag", amount = 10, info = {}, type = "item", slot = 2, },
-							{ name = "police_stormram", amount = 1, info = {}, type = "item", slot = 3, },
-						},
-					},
 					["polcharger18"] = {
 						CustomName = "polcharger18",
-						livery = 0,
-						extras = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 },
-						performance = "max",
-						trunkItems = {
-						--	{ name = "heavyarmor", amount = 2, info = {}, type = "item", slot = 1, },
-							{ name = "empty_evidence_bag", amount = 10, info = {}, type = "item", slot = 2, },
-							{ name = "police_stormram", amount = 1, info = {}, type = "item", slot = 3, },
-						},
-					},
-					["polboat1"] = {
-						CustomName = "polboat1",
 						livery = 0,
 						extras = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 },
 						performance = "max",

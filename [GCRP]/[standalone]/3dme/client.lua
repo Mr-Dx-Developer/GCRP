@@ -10,8 +10,8 @@ function DrawText3D(coords, text)
     local scale = 200 / (GetGameplayCamFov() * dist)
 
     -- Format the text rgba()
-    SetTextColour(229, 147, 220, 0.8)
-    SetTextScale(0.0, 0.5 * scale)
+    SetTextColour(0, 0, 0, 0.8)
+    SetTextScale(0.0, 0.7 * scale)
     SetTextFont(0)
     SetTextDropshadow(0, 0, 0, 0, 55)
     SetTextDropShadow()
@@ -67,7 +67,7 @@ function Display(ped, text, name)
             if HasEntityClearLosToEntity(playerPed, ped, 17 ) then
                 local x, y, z = table.unpack(GetEntityCoords(ped))
                 z = z + offset
-                DrawText3D(vector3(x, y, z), '* '..text)
+                DrawText3D(vector3(x, y, z), ''..text)
 
             end
             Wait(0)

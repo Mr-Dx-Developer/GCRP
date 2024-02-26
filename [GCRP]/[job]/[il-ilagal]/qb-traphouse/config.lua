@@ -78,61 +78,61 @@ Config.AllowedItems = {
     ["glass"] = {
         name = "glass",
         wait = 500,
-        reward = 2,
+        reward = ,
     },
     ["lockpick"] = {
         name = "lockpick",
         wait = 10000,
-        reward = 150,
+        reward = 3,
     },
     ["screwdriverset"] = {
         name = "screwdriverset",
         wait = 10000,
-        reward = 300,
+        reward = 0,
     },
     ["electronickit"] = {
         name = "electronickit",
         wait = 10000,
-        reward = 300,
+        reward = 0,
     },
     ["radioscanner"] = {
         name = "radioscanner",
         wait = 10000,
-        reward = 850,
+        reward = 0,
     },
     ["gatecrack"] = {
         name = "gatecrack",
         wait = 10000,
-        reward = 600,
+        reward = 6,
     },
     ["trojan_usb"] = {
         name = "trojan_usb",
         wait = 10000,
-        reward = 1000,
+        reward = 1,
     },
     ["weed_brick"] = {
         name = "weed_brick",
         wait = 5000,
-        reward = 250,
+        reward = 20,
     },
     ["phone"] = {
         name = "phone",
         wait = 2000,
-        reward = 750,
+        reward = 1,
     },
     ["radio"] = {
         name = "radio",
         wait = 2000,
-        reward = 180,
+        reward = 1,
     },
     ["handcuffs"] = {
         name = "handcuffs",
         wait = 2000,
-        reward = 400,
+        reward = 1,
     },
     ["10kgoldchain"] = {
         name = "10kgoldchain",
         wait = 10000,
-        reward = 3000,
+        reward = 3,
     },
 }
