@@ -49,6 +49,9 @@ Config.BossMenus = {
     ['realestate'] = {
         vector3(-528.19177246094, -190.08625793457, 38.227077484131),
     },
+    ['taco'] = {
+        vector3(20.45, -1602.09, 29.38),
+    },
 }
 
 Config.BossMenuZones = {

@@ -97,6 +97,18 @@ QBShared.Jobs = {
 			['4'] = { name = 'Owner', isboss = true, payment = 1400 },
 		},
 	},
+	taco = {
+		label = 'Taco',
+		defaultDuty = true,
+		offDutyPay = false,
+		grades = {
+			['0'] = { name = 'Trainee', payment = 900 },
+			['1'] = { name = 'Employee', payment = 1000 },
+			['2'] = { name = 'Burger Flipper', payment = 1200 },
+			['3'] = { name = 'Manager', payment = 1300 },
+			['4'] = { name = 'Owner', isboss = true, payment = 1400 },
+		},
+	},
 	uwu = {
 		label = 'UwU Cat Cafe',
 		defaultDuty = true,

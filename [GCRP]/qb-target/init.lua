@@ -82,6 +82,21 @@ Config.TargetBones = {
 }
 
 Config.TargetModels = {
+	["tacogarage"] = {
+        models = {
+            "a_f_y_hipster_02"
+        },
+        options = {
+            {
+                type = "client",
+                event = "garage:TacoGarage",
+                icon = "fas fa-car",
+                label = "Taco Garage",
+                job = "taco",
+            }
+        },
+    distance = 2.5,
+    },
 
 }
 

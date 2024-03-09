@@ -17,7 +17,7 @@ Config.AFK = {
 
 Config.HandsUp = {
     command = 'hu',
-    keybind = '',
+    keybind = 'x',
     controls = {24, 25, 47, 58, 59, 63, 64, 71, 72, 75, 140, 141, 142, 143, 257, 263, 264}
 }
 
@@ -106,6 +106,7 @@ Config.Consumables = { --paknami kora dorker nai
         ['ramen'] = math.random(25, 30),
         ['vitesnamese_pho'] = math.random(20, 25),
         ['snikkel_candy'] = math.random(7, 12),
+        ["taco"] = math.random(25, 34),
 
     ["bigmac"] = math.random(15, 20),
     ["mcchicken"] = math.random(15, 20),--

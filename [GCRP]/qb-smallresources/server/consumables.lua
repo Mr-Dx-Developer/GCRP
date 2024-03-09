@@ -17,6 +17,12 @@ for k, _ in pairs(Config.Consumables.eat) do
     end)
 end
 
+QBCore.Functions.CreateUseableItem("taco", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+    if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("consumables:client:Eat", source, item.name)
+    end
+end)
 ----------- / Drink
 for k, _ in pairs(Config.Consumables.drink) do
     QBCore.Functions.CreateUseableItem(k, function(source, item)
