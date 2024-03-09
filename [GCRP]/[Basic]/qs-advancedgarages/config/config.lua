@@ -141,7 +141,7 @@ Config.BlipSprites = {
     }
 }
 
-Config.TransferGaragePrice = 800       -- Price to be charged for taking out a vehicles
+Config.TransferGaragePrice = 200       -- Price to be charged for taking out a vehicles
 Config.GarageSellTax = 1.3             -- Percentage of profit that the person who creates the garage receives when it is sold (by default it is 50% of the total price)
 Config.ImpoundPrice = 500              -- Impound default value to remove vehicles
 
@@ -151,7 +151,7 @@ Config.startCinematic = 5              -- Cinematic Cams being AFK in the garage
 Config.PlayerToVehicleAnimation = true -- Enable or disable the animation of the player entering the car
 Config.SetEntityAlpha = true           -- When he saves the car, he makes animations and degrades the car
 Config.GarageSync = true               -- This option will make the garages share the same number of slots and players will see all the cars inside their shell
-Config.PersistentVehicles = false       -- Configure if the vehicles are persistent on the map or not
+Config.PersistentVehicles = true       -- Configure if the vehicles are persistent on the map or not
 Config.PersistentVehiclesLocked = false -- When persistent vehicles appear, will they be closed or open?
 
 Config.RepairKit = false               -- Enable or disable the 'repairkit' item
@@ -189,6 +189,8 @@ Config.AllowedJobs = {
 Config.ImpoundJobs = {
     'police',
     -- 'sheriff'
+    'realestate',
+    -- 'realestatejob'
 }
 
 --[[
@@ -225,7 +227,7 @@ Config.Garages = {
         system, please do not remove all impound.
     ]]
     ['Hayes Autos'] = {
-        owner = true,     -- If it is public, put false
+        owner = false,     -- If it is public, put false
         available = true, -- If it is public, set true
         isImpound = true, -- If it is an impound, set it to false (Only for impound zone)
         type = 'vehicle',
@@ -333,7 +335,7 @@ Config.Garages = {
         change positions and cinematic cam.
     ]]
     ['Legion Square'] = {
-        owner = true,
+        owner = false,
         available = true,
         isImpound = false,
         job = false, -- You can give it a job by simply adding 'police' for example
