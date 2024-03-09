@@ -28,6 +28,28 @@ function GetJobGrade()
     return GetPlayerData()?.job?.grade
 end
 
+local hasGang = GetResourceState('qs-gangs') == 'started'
+
+Gang = nil
+
+if hasGang then
+    RegisterNetEvent('gangs:setGang', function(gang)
+        Gang = gang
+    end)
+end
+
+function GetGangName()
+    if hasGang then
+        if Gang then
+            return Gang.name
+        end
+        local gang = exports['qs-gangs']:GetGang()
+        Gang = gang
+        return gang.name
+    end
+    return GetPlayerData()?.gang?.name
+end
+
 function DrawMarkerZone(x, y, z)
     DrawMarker(1, x, y, z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 0.8, 255, 255, 255, 150, false, false, false, true, false, false, false)
 end

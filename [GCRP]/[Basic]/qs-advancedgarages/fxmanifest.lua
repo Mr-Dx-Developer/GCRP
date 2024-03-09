@@ -4,7 +4,7 @@ games { 'gta5' }
 
 lua54 'yes'
 
-version '3.6.8'
+version '3.6.9'
 
 ui_page 'html/index.html'
 
@@ -50,7 +50,7 @@ escrow_ignore {
 }
 
 dependencies {
-   --- '/gameBuild:2802',    -- requires at least game build 2189
+    '/gameBuild:2802',    -- requires at least game build 2189
     '/server:5895',       -- required last artifacts
     '/native:0x6AE51D4B', -- required last artifacts
     '/onesync',           -- requires onesync

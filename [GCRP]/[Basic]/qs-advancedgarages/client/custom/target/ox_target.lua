@@ -16,7 +16,8 @@ local function storeVehicleZone2()
                     return false
                 end
                 local garage = Config.Garages[_garage]
-                if garage.job and not checkJob(garage.job) then return end
+                local job = garage.job or garage.gang
+                if job and not CheckJob(job) then return end
                 if not garage then
                     return false
                 end
@@ -52,7 +53,8 @@ local function storeVehicleZone(garage, garageName, isJob)
                 StoreVehicle(ClosestGarage or garageName, isJob)
             end,
             canInteract = function()
-                return (isJob and checkJob(garage.job) and inVehicle) or (not garage.isImpound and (IsGarageOwner or garage.available or IsKeyHolder) and inVehicle)
+                local job = garage.job or garage.gang
+                return (isJob and CheckJob(job) and inVehicle) or (not garage.isImpound and (IsGarageOwner or garage.available or IsKeyHolder) and inVehicle)
             end,
             distance = 150.0,
             icon = 'fas fa-car',
@@ -86,8 +88,9 @@ function InitZones()
                     OpenGarageMenu(k, garage.isImpound, nil, garage.type == 'boat')
                 end,
                 canInteract = function()
-                    local job = garage.job and checkJob(garage.job)
-                    if not garage.job then job = true end
+                    local garageJobName = garage.job or garage.gang
+                    local job = garageJobName and CheckJob(garageJobName)
+                    if not garageJobName then job = true end
                     return (IsGarageOwner or garage.available or IsKeyHolder) and job
                 end,
                 distance = 5.0,
@@ -101,8 +104,9 @@ function InitZones()
                     GotoShellGarage(k, garage.coords.spawnCoords, garage.shell.shell)
                 end,
                 canInteract = function()
-                    local job = garage.job and checkJob(garage.job)
-                    if not garage.job then job = true end
+                    local garageJobName = garage.job or garage.gang
+                    local job = garageJobName and CheckJob(garageJobName)
+                    if not garageJobName then job = true end
                     return (IsGarageOwner or garage.available or IsKeyHolder) and job
                 end,
                 icon = 'fas fa-warehouse',
@@ -117,8 +121,9 @@ function InitZones()
                     TriggerServerEvent('advancedgarages:buyGarage', k, price)
                 end,
                 canInteract = function()
-                    local job = garage.job and checkJob(garage.job)
-                    if not garage.job then job = true end
+                    local garageJobName = garage.job or garage.gang
+                    local job = garageJobName and CheckJob(garageJobName)
+                    if not garageJobName then job = true end
                     return job
                 end,
                 distance = 5.0,
@@ -197,10 +202,11 @@ end
 
 CreateThread(function()
     for k, garage in pairs(Config.JobGarages) do
+        local job = garage.job or garage.gang
         local options = {}
         table.insert(options, {
             onSelect = function()
-                local serverVehicles = RPC.CallAsync('advancedgarages:getJobVehicles', { garage = garage.name, job = garage.job })
+                local serverVehicles = RPC.CallAsync('advancedgarages:getJobVehicles', { garage = garage.name, job = job })
                 local vehicleList = serverVehicles
                 local garageIsAvailable = RPC.CallAsync('advancedgarages:isGarageAvailable', { garage = k })
                 if not garageIsAvailable then return SendTextMessage(Lang('GARAGES_NOTIFICATION_GARAGE_NOT_AVAILABLE'), 'error') end
@@ -208,7 +214,7 @@ CreateThread(function()
                     veh.vehicle = json.encode(veh.vehicle)
                 end
                 for a, model in ipairs(garage.vehicles) do
-                    local plate = tostring(garage.job .. math.random(111, 999))
+                    local plate = tostring(job .. math.random(111, 999))
                     table.insert(vehicleList, {
                         vehicle = json.encode({
                             model = model,
@@ -221,7 +227,7 @@ CreateThread(function()
                 OpenGarageMenu(k, garage.isImpound, vehicleList)
             end,
             canInteract = function()
-                return checkJob(garage.job)
+                return CheckJob(job)
             end,
             distance = 5.0,
             icon = 'fas fa-car',
@@ -301,7 +307,8 @@ CreateThread(function()
         if not ClosestGarage then return sleep end
         local garage = Config.Garages[ClosestGarage]
         if not IsGarageOwner and not garage.available and not IsKeyHolder then return sleep end
-        if garage.job and not checkJob(garage.job) then return sleep end
+        local garageJobName = garage.job or garage.gang
+        if garageJobName and not CheckJob(garageJobName) then return sleep end
         if garage.isImpound then return sleep end
         if inVehicle then
             sleep = 0

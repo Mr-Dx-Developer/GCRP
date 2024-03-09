@@ -12,9 +12,10 @@ local function AddRadialOption()
         garage = Config.Garages[ClosestGarage]
     end
 
+    local garageJobName = garage.job or garage.gang
     if garage then
         if not inVehicle and garage.available or IsGarageOwner or IsKeyHolder then
-            if garage.job and not checkJob(garage.job) then goto continue end
+            if garageJobName and not CheckJob(garageJobName) then goto continue end
             if garage.type ~= 'plane' and not inVehicle then
                 table.insert(menuItems, {
                     id = 'radialOpenMenu',
@@ -41,7 +42,7 @@ local function AddRadialOption()
     end
 
     if inVehicle and ClosestGarage and not garage.isImpound then
-        if garage.job and not checkJob(garage.job) then goto continue end
+        if garageJobName and not CheckJob(garageJobName) then goto continue end
         table.insert(menuItems, {
             id = 'radialSaveVehicle',
             title = 'Store Vehicle',
@@ -136,7 +137,8 @@ local function AddRadialOption()
     end
 
     for k, garage in pairs(Config.JobGarages) do
-        local access = checkJob(garage.job)
+        local _job = garage.job or garage.gang
+        local access = CheckJob(_job)
         if access then
             local dst = #(playercoords - vec3(garage.coords.menuCoords.x, garage.coords.menuCoords.y, garage.coords.menuCoords.z))
             if dst < 15.0 and not inVehicle then

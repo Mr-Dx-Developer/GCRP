@@ -152,7 +152,7 @@ Config.PlayerToVehicleAnimation = true -- Enable or disable the animation of the
 Config.SetEntityAlpha = true           -- When he saves the car, he makes animations and degrades the car
 Config.GarageSync = true               -- This option will make the garages share the same number of slots and players will see all the cars inside their shell
 Config.PersistentVehicles = true       -- Configure if the vehicles are persistent on the map or not
-Config.PersistentVehiclesLocked = false -- When persistent vehicles appear, will they be closed or open?
+Config.PersistentVehiclesLocked = true -- When persistent vehicles appear, will they be closed or open?
 
 Config.RepairKit = false               -- Enable or disable the 'repairkit' item
 
@@ -181,7 +181,7 @@ Config.MenuSounds = true -- The menu includes sound effects, choose whether to u
 ]]
 
 Config.AllowedJobs = {
-  --  'mechanic',
+    'mechanic',
     'realestate',
     -- 'realestatejob'
 }
@@ -189,8 +189,6 @@ Config.AllowedJobs = {
 Config.ImpoundJobs = {
     'police',
     -- 'sheriff'
-    'realestate',
-    -- 'realestatejob'
 }
 
 --[[
@@ -208,7 +206,8 @@ Config.ImpoundJobs = {
 
 Config.Recovery = {
     coords = {
-        vec3(408.975830, -1622.887939, 29.279907),    
+        vec3(408.975830, -1622.887939, 29.279907),
+        vec3(944.373657, -463.318665, 61.547241),
     },
     blip = {
         sprite = 67,
@@ -227,7 +226,7 @@ Config.Garages = {
         system, please do not remove all impound.
     ]]
     ['Hayes Autos'] = {
-        owner = false,     -- If it is public, put false
+        owner = true,     -- If it is public, put false
         available = true, -- If it is public, set true
         isImpound = true, -- If it is an impound, set it to false (Only for impound zone)
         type = 'vehicle',
@@ -335,7 +334,7 @@ Config.Garages = {
         change positions and cinematic cam.
     ]]
     ['Legion Square'] = {
-        owner = false,
+        owner = true,
         available = true,
         isImpound = false,
         job = false, -- You can give it a job by simply adding 'police' for example
@@ -1646,6 +1645,12 @@ Config.Garages = {
 --[[
     Garage section for workers, here you can give a car spot for
     each job, rent or give for free, do it following the example!
+
+    In the case of using qs-gangs, the option to use "gang"
+    will be unlocked as follows:
+
+    -- job = 'police', -- Remove job and add gang option
+    -- gang = 'families',
 ]]
 
 Config.JobGarages = {
