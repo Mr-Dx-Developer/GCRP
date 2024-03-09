@@ -442,7 +442,11 @@ QBShared.Items = {
     boxvehicle                   = { name = 'boxvehicle', label = 'Gift Vehicle', weight = 10, type = 'item', image = 'boxvehicle.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = "Welcome Golden City Roleplay" },
     cash                  = { name = 'cash', label = 'Cash', weight = 0, type = 'item', image = 'cash.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = 'Golden City Bank Cash' },
 
-
+    ["taco"] 		 	             = {["name"] = "taco", 			                ["label"] = "Taco", 				      ["weight"] = 100, 		["type"] = "item", 		["image"] = "taco.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["lettuce"] 		 	         = {["name"] = "lettuce", 			            ["label"] = "lettuce", 				    ["weight"] = 100, 		["type"] = "item", 		["image"] = "lettuce.png", 			    ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["bun"] 		 	             = {["name"] = "bun", 			                ["label"] = "bun", 				        ["weight"] = 100, 		["type"] = "item", 		["image"] = "bun.png", 			        ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["oil"] 		 	             = {["name"] = "oil", 			                ["label"] = "oil", 				        ["weight"] = 100, 		["type"] = "item", 		["image"] = "oil.png", 			        ["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	['meat'] 			        	   = {['name'] = 'meat', 			        	  	  ['label'] = 'meat', 				     	['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'meat.png', 	        	['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = ''},
 
     ['strippedbass'] = {
         ['name'] = 'strippedbass', 			 	  	  	
