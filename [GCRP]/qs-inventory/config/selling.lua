@@ -21,7 +21,7 @@ Config.SellItems = {
             {
                 name = 'sandwich',
                 price = 45,
-                amount = 1,
+                amount = 500,
                 info = {},
                 type = 'item',
                 slot = 1
@@ -29,7 +29,7 @@ Config.SellItems = {
             {
                 name = 'tosti',
                 price = 45,
-                amount = 1,
+                amount = 500,
                 info = {},
                 type = 'item',
                 slot = 2
@@ -37,7 +37,7 @@ Config.SellItems = {
         }
     },
     ['24/7'] = {
-        coords = vec3(2679.9326, 3276.6897, 54.4058),
+        coords = vec3(2682.7588, 3284.8857, 55.2103),
         blip = {
             active = true,
             name = 'Seller',
@@ -50,7 +50,7 @@ Config.SellItems = {
             {
                 name = 'tosti',
                 price = 45,
-                amount = 1,
+                amount = 500,
                 info = {},
                 type = 'item',
                 slot = 1

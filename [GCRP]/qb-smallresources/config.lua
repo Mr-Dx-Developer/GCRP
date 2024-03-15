@@ -2,7 +2,7 @@ Config = {}
 
 Config.UseTarget = GetConvar('UseTarget', 'false') == 'true' -- Use qb-target interactions (don't change this, go to your server.cfg and add `setr UseTarget true` to use this and just that from true to false or the other way around)
 Config.PauseMapText = 'Golden City Roleplay' -- Text shown above the map when ESC is pressed. If left empty 'FiveM' will appear
-Config.HarnessUses = 20
+Config.HarnessUses = 200
 Config.DamageNeeded = 0.0 -- amount of damage till you can push your vehicle. 0-1000
 
 Config.AFK = {
@@ -185,7 +185,7 @@ Config.Consumables = { --paknami kora dorker nai
 }
 
 Config.Fireworks = {
-    delay = 5, -- time in s till it goes off
+    delay = 8, -- time in s till it goes off
     items = { -- firework items
         'firework1',
         'firework2',
@@ -329,7 +329,7 @@ Config.WeapDraw = {
         'WEAPON_GRENADELAUNCHER',
         'WEAPON_RPG',
         'WEAPON_STINGER',
-        'WEAPON_MINIGUN',
+        'WEAPON_MINIGUN',       
         'WEAPON_GRENADE',
         'WEAPON_STICKYBOMB',
         'WEAPON_SMOKEGRENADE',
@@ -417,6 +417,7 @@ Config.WeapDraw = {
         'WEAPON_M133V3',
         'WEAPON_GAU_5A',
         'WEAPON_M82V2',
+        'WEAPON_SCARH',
         'WEAPON_M47V2',
         'WEAPON_HOWAT20',
         'WEAPON_ISYV2',
@@ -472,7 +473,7 @@ Config.Teleports = {
 }
 
 Config.CarWash = {
-    dirtLevel = 0.1, -- threshold for the dirt level to be counted as dirty
+    dirtLevel = 0.0, -- threshold for the dirt level to be counted as dirty
     defaultPrice = 500, -- default price for the carwash
     locations = {
          [1] = {coords = vector3(174.81, -1736.77, 28.87), length = 7.0, width = 8.8, heading = 359}, -- South Los Santos Carson Avenue

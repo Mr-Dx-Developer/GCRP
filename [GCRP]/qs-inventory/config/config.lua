@@ -42,7 +42,7 @@ Config.DropWeight = { -- Configuration of maximum weight and maximum slots of th
     ['slots'] = 50,  -- If you want to remove the 6 slot, use 40 here! (Max 100)
 }
 
-Config.LabelChange = true       -- Enable or disable this function here
+Config.LabelChange = false       -- Enable or disable this function here
 Config.LabelChangePrice = false -- Set prince or false
 Config.BlockedLabelChangeItems = {
     ['money'] = true,

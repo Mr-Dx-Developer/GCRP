@@ -53,7 +53,7 @@ local function spawnOccasionsVehicles(vehicles)
                                 Contract = i
                             }
                         },
-                        distance = 2.0
+                        distance = 3.0
                     })
                 end
             end

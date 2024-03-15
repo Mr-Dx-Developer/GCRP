@@ -5,7 +5,7 @@ Config.ShopsInvJsonFile = './json/shops-inventory.json' -- json file location
 
 Config.SellCasinoChips = {
     coords = vector4(950.37, 34.72, 71.87, 33.82),
-    radius = 1.5,
+    radius = 3.5,
     ped = 's_m_y_casino_01'
 }
 
@@ -15,69 +15,67 @@ Config.SellCasinoChips = {
 
 Config.Products = {
     ['normal'] = {
-        {name = 'tosti',         price = 2,   amount = 50,   info = {}, type = 'item'},
-        {name = 'water_bottle',  price = 2,   amount = 50,   info = {}, type = 'item'},
-        {name = 'kurkakola',     price = 2,   amount = 50,   info = {}, type = 'item'},
-        {name = 'twerks_candy',  price = 2,   amount = 50,   info = {}, type = 'item'},
-        {name = 'snikkel_candy', price = 2,   amount = 50,   info = {}, type = 'item'},
-        {name = 'sandwich',      price = 2,   amount = 50,   info = {}, type = 'item'},
-        {name = 'beer',          price = 7,   amount = 50,   info = {}, type = 'item'},
-        {name = 'whiskey',       price = 10,  amount = 50,   info = {}, type = 'item'},
-        {name = 'vodka',         price = 12,  amount = 50,   info = {}, type = 'item'},
-        {name = 'bandage',       price = 100, amount = 50,   info = {}, type = 'item'},
-        {name = 'lighter',       price = 2,   amount = 50,   info = {}, type = 'item'},
-        {name = 'rolling_paper', price = 2,   amount = 5000, info = {}, type = 'item'},
+        {name = 'tosti',         price = 45,   amount = 500,   info = {}, type = 'item'},
+        {name = 'water_bottle',  price = 45,   amount = 500,   info = {}, type = 'item'},
+        {name = 'kurkakola',     price = 45,   amount = 500,   info = {}, type = 'item'},
+        {name = 'twerks_candy',  price = 45,   amount = 500,   info = {}, type = 'item'},
+        {name = 'snikkel_candy', price = 45,   amount = 500,   info = {}, type = 'item'},
+        {name = 'sandwich',      price = 45,   amount = 500,   info = {}, type = 'item'},
+        {name = 'bandage',       price = 45, amount = 5000,   info = {}, type = 'item'},
+        {name = 'lighter',       price = 45,   amount = 500,   info = {}, type = 'item'},
     },
     ['liquor'] = {
-        {name = 'beer',    price = 200,  amount = 50, info = {}, type = 'item'},
-        {name = 'whiskey', price = 200, amount = 50, info = {}, type = 'item'},
-        {name = 'vodka',   price = 12, amount = 50, info = {}, type = 'item'},
+        {name = 'beer',    price = 200,  amount = 500, info = {}, type = 'item'},
+        {name = 'whiskey', price = 200, amount = 500, info = {}, type = 'item'},
+        {name = 'vodka',   price = 200, amount = 500, info = {}, type = 'item'},
     },
     ['hardware'] = {
-        {name = 'lockpick',          price = 200, amount = 50,  info = {}, type = 'item'},
-        {name = 'weapon_wrench',     price = 250, amount = 250, info = {}, type = 'item'},
-        {name = 'weapon_hammer',     price = 250, amount = 250, info = {}, type = 'item'},
-        {name = 'repairkit',         price = 250, amount = 50,  info = {}, type = 'item', requiredJob  = { 'mechanic', 'police' }},
-        {name = 'screwdriverset',    price = 350, amount = 50,  info = {}, type = 'item'},
-        {name = 'phone',             price = 850, amount = 50,  info = {}, type = 'item'},
-        {name = 'radio',             price = 250, amount = 50,  info = {}, type = 'item'},
-        {name = 'binoculars',        price = 50,  amount = 50,  info = {}, type = 'item'},
-        {name = 'firework1',         price = 50,  amount = 50,  info = {}, type = 'item'},
-        {name = 'firework2',         price = 50,  amount = 50,  info = {}, type = 'item'},
-        {name = 'firework3',         price = 50,  amount = 50,  info = {}, type = 'item'},
-        {name = 'firework4',         price = 50,  amount = 50,  info = {}, type = 'item'},
-        {name = 'fitbit',            price = 400, amount = 150, info = {}, type = 'item'},
-        {name = 'cleaningkit',       price = 150, amount = 150, info = {}, type = 'item'},
-        {name = 'advancedrepairkit', price = 500, amount = 50,  info = {}, type = 'item', requiredJob = { 'mechanic' }},
+        {name = 'lockpick',          price = 250, amount = 50,  info = {}, type = 'item'},
+        {name = 'advancedlockpick', price = 500, amount = 50,  info = {}, type = 'item'},
+        {name = 'weapon_wrench',     price = 300, amount = 250, info = {}, type = 'item'},
+        {name = 'weapon_hammer',     price = 300, amount = 250, info = {}, type = 'item'},
+        {name = 'repairkit',         price = 1000, amount = 50,  info = {}, type = 'item'},
+        {name = 'advancedrepairkit', price = 1500, amount = 50,  info = {}, type = 'item'},
+        {name = 'screwdriverset',    price = 1500, amount = 50,  info = {}, type = 'item'},        
+        {name = 'parachute',         price = 2500, amount = 100, info = {}, type = 'item'},
+        {name = 'radio',             price = 2000, amount = 50,  info = {}, type = 'item'},
+        {name = 'binoculars',        price = 1500,  amount = 50,  info = {}, type = 'item'},
+        {name = 'firework1',         price = 500,  amount = 50,  info = {}, type = 'item'},
+        {name = 'firework2',         price = 500,  amount = 50,  info = {}, type = 'item'},
+        {name = 'firework3',         price = 500,  amount = 50,  info = {}, type = 'item'},
+        {name = 'firework4',         price = 500,  amount = 50,  info = {}, type = 'item'},        
+        {name = 'cleaningkit',       price = 500, amount = 150, info = {}, type = 'item'},
+        {name = 'electronickit',     price = 5500, amount = 50,  info = {}, type = 'item'},
+        {name = 'trojan_usb',        price = 5500, amount = 50,  info = {}, type = 'item'},
     },
     ['weedshop'] = {
-        {name = 'joint',          price = 10,  amount = 50,   info = {}, type = 'item'},
-        {name = 'weapon_poolcue', price = 100, amount = 50,   info = {}, type = 'item'},
-        {name = 'weed_nutrition', price = 20,  amount = 50,   info = {}, type = 'item'},
-        {name = 'empty_weed_bag', price = 2,   amount = 1000, info = {}, type = 'item'},
-        {name = 'rolling_paper',  price = 2,   amount = 1000, info = {}, type = 'item'},
+        {name = 'joint',          price = 500,  amount = 500,   info = {}, type = 'item'},
+        {name = 'weapon_poolcue', price = 300, amount = 50,   info = {}, type = 'item'},
+        {name = 'weed_nutrition', price = 300,  amount = 50,   info = {}, type = 'item'},
+        {name = 'empty_weed_bag', price = 50,   amount = 50000, info = {}, type = 'item'},
+        {name = 'rolling_paper',  price = 500,   amount = 50000, info = {}, type = 'item'},
+        {name = 'lighter',       price = 300,   amount = 300,   info = {}, type = 'item'},
     },
     ['gearshop'] = {
-        {name = 'diving_gear', price = 2500, amount = 10, info = {}, type = 'item'},
+        {name = 'diving_gear', price = 3000, amount = 10, info = {}, type = 'item'},
+        {name = 'diving_fill', price = 500,  amount = 10, info = {}, type = 'item'},
         {name = 'jerry_can',   price = 200,  amount = 50, info = {}, type = 'item'},
     },
-    ['leisureshop'] = {
-        {name = 'parachute',   price = 2500, amount = 10, info = {}, type = 'item'},
-        {name = 'binoculars',  price = 50,   amount = 50, info = {}, type = 'item'},
-        {name = 'diving_gear', price = 2500, amount = 10, info = {}, type = 'item'},
-        {name = 'diving_fill', price = 500,  amount = 10, info = {}, type = 'item'},
+    ['applestore'] = {
+        {name = 'phone',       price = 1000, amount = 50, info = {}, type = 'item'},
+        {name = 'fitbit',      price = 1000, amount = 150, info = {}, type = 'item'},        
     },
     ['weapons'] = {
-        {name = 'weapon_knife',         price = 250,  amount = 250, info = {}, type = 'weapon'},
-        {name = 'weapon_bat',           price = 250,  amount = 250, info = {}, type = 'weapon'},
-        {name = 'weapon_hatchet',       price = 250,  amount = 250, info = {}, type = 'weapon'},
-        {name = 'pistol_ammo',          price = 250,  amount = 250, info = {}, type = 'item',   requiredLicense = { 'weapon' }},
-        {name = 'weapon_pistol',        price = 2500, amount = 5,   info = {}, type = 'weapon', requiredLicense = { 'weapon' }},
-        {name = 'weapon_snspistol',     price = 1500, amount = 5,   info = {}, type = 'weapon', requiredLicense = { 'weapon' }},
-        {name = 'weapon_vintagepistol', price = 4000, amount = 5,   info = {}, type = 'weapon', requiredLicense = { 'weapon' }},
+        {name = 'weapon_knife',         price = 750,  amount = 250, info = {}, type = 'weapon'},
+        {name = 'weapon_bat',           price = 300,  amount = 250, info = {}, type = 'weapon'},
+        {name = 'weapon_hatchet',       price = 300,  amount = 250, info = {}, type = 'weapon'},
+        {name = 'pistol_ammo',          price = 10,  amount = 2500, info = {}, type = 'item',   requiredLicense = { 'weaponlicense' }},
+        {name = 'weapon_pistol',        price = 1500, amount = 20,   info = {}, type = 'weapon', requiredLicense = { 'weaponlicense' }},
+        {name = 'weapon_snspistol',     price = 2000, amount = 20,   info = {}, type = 'weapon', requiredLicense = { 'weaponlicense' }},
+        {name = 'weapon_vintagepistol', price = 1700, amount = 20,   info = {}, type = 'weapon', requiredLicense = { 'weaponlicense' }},
     },
     ['casino'] = {
-        {name = 'casinochips', price = 1, amount = 999999, info = {}, type = 'item'}
+        {name = 'casino_goldchip', price = 1, amount = 999999, info = {}, type = 'item'}
     },
 }
 
@@ -319,9 +317,9 @@ Config.Locations = {
         ['targetLabel'] = 'Open Shop',
         ['products'] = Config.Products['liquor'],
         ['showblip'] = true,
-        ['blipsprite'] = 52,
+        ['blipsprite'] = 93,
         ['blipscale'] = 0.6,
-        ['blipcolor'] = 0,
+        ['blipcolor'] = 56,
         ['delivery'] = vector4(-1226.92, -901.82, 12.28, 213.26)
     },
 
@@ -335,9 +333,9 @@ Config.Locations = {
         ['targetLabel'] = 'Open Shop',
         ['products'] = Config.Products['liquor'],
         ['showblip'] = true,
-        ['blipsprite'] = 52,
+        ['blipsprite'] = 93,
         ['blipscale'] = 0.6,
-        ['blipcolor'] = 0,
+        ['blipcolor'] = 56,
         ['delivery'] = vector4(-1468.29, -387.61, 38.79, 220.13)
     },
 
@@ -351,9 +349,9 @@ Config.Locations = {
         ['targetLabel'] = 'Open Shop',
         ['products'] = Config.Products['liquor'],
         ['showblip'] = true,
-        ['blipsprite'] = 52,
+        ['blipsprite'] = 93,
         ['blipscale'] = 0.6,
-        ['blipcolor'] = 0,
+        ['blipcolor'] = 56,
         ['delivery'] = vector4(-2961.49, 376.25, 15.02, 111.41)
     },
 
@@ -367,9 +365,9 @@ Config.Locations = {
         ['targetLabel'] = 'Open Shop',
         ['products'] = Config.Products['liquor'],
         ['showblip'] = true,
-        ['blipsprite'] = 52,
+        ['blipsprite'] = 93,
         ['blipscale'] = 0.6,
-        ['blipcolor'] = 0,
+        ['blipcolor'] = 56,
         ['delivery'] = vector4(1194.52, 2722.21, 38.62, 9.37)
     },
 
@@ -383,9 +381,9 @@ Config.Locations = {
         ['targetLabel'] = 'Open Shop',
         ['products'] = Config.Products['liquor'],
         ['showblip'] = true,
-        ['blipsprite'] = 52,
+        ['blipsprite'] = 93,
         ['blipscale'] = 0.6,
-        ['blipcolor'] = 0,
+        ['blipcolor'] = 56,
         ['delivery'] = vector4(1129.73, -989.27, 45.97, 280.98)
     },
 
@@ -400,9 +398,9 @@ Config.Locations = {
         ['targetLabel'] = 'Open Hardware Store',
         ['products'] = Config.Products['hardware'],
         ['showblip'] = true,
-        ['blipsprite'] = 402,
-        ['blipscale'] = 0.8,
-        ['blipcolor'] = 0,
+        ['blipsprite'] = 566,
+        ['blipscale'] = 0.6,
+        ['blipcolor'] = 2,
         ['delivery'] = vector4(89.15, -1745.29, 30.09, 315.25)
     },
 
@@ -416,9 +414,9 @@ Config.Locations = {
         ['targetLabel'] = 'Open Hardware Store',
         ['products'] = Config.Products['hardware'],
         ['showblip'] = true,
-        ['blipsprite'] = 402,
-        ['blipscale'] = 0.8,
-        ['blipcolor'] = 0,
+        ['blipsprite'] = 566,
+        ['blipscale'] = 0.6,
+        ['blipcolor'] = 2,
         ['delivery'] = vector4(2704.68, 3457.21, 55.54, 176.28)
     },
 
@@ -432,9 +430,9 @@ Config.Locations = {
         ['targetLabel'] = 'Hardware Store',
         ['products'] = Config.Products['hardware'],
         ['showblip'] = true,
-        ['blipsprite'] = 402,
-        ['blipscale'] = 0.8,
-        ['blipcolor'] = 0,
+        ['blipsprite'] = 566,
+        ['blipscale'] = 0.6,
+        ['blipcolor'] = 2,
         ['delivery'] = vector4(-438.25, 6146.9, 31.48, 136.99)
     },
 
@@ -442,7 +440,7 @@ Config.Locations = {
     ['ammunation'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(-661.96, -933.53, 21.83, 177.05),
+        ['coords'] = vector4(-659.142, -939.892, 21.829, 116.677),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -458,7 +456,7 @@ Config.Locations = {
     ['ammunation2'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(809.68, -2159.13, 29.62, 1.43),
+        ['coords'] = vector4(813.005, -2155.218, 29.619, 353.768),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -474,7 +472,7 @@ Config.Locations = {
     ['ammunation3'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(1692.67, 3761.38, 34.71, 227.65),
+        ['coords'] = vector4(1698.043, 3757.438, 34.705, 181.944),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -490,7 +488,7 @@ Config.Locations = {
     ['ammunation4'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(-331.23, 6085.37, 31.45, 228.02),
+        ['coords'] = vector4(-326.0, 6081.206, 31.455, 181.942),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -506,7 +504,7 @@ Config.Locations = {
     ['ammunation5'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(253.63, -51.02, 69.94, 72.91),
+        ['coords'] = vector4(246.752, -51.376, 69.941, 6.603),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -517,12 +515,12 @@ Config.Locations = {
         ['blipsprite'] = 110,
         ['blipscale'] = 0.6,
         ['blipcolor'] = 0,
-        ['delivery'] = vector4(249.0, -50.64, 69.94, 60.71)
+        ['delivery'] = vector4(242.859, -44.839, 69.897, 326.489)
     },
     ['ammunation6'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(23.0, -1105.67, 29.8, 162.91),
+        ['coords'] = vector4(18.676, -1108.119, 29.797, 159.209),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -538,7 +536,7 @@ Config.Locations = {
     ['ammunation7'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(2567.48, 292.59, 108.73, 349.68),
+        ['coords'] = vector4(2564.754, 298.957, 108.735, 303.144),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -554,7 +552,7 @@ Config.Locations = {
     ['ammunation8'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(-1118.59, 2700.05, 18.55, 221.89),
+        ['coords'] = vector4(-1112.358, 2697.158, 18.554, 162.625),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -570,7 +568,7 @@ Config.Locations = {
     ['ammunation9'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(841.92, -1035.32, 28.19, 1.56),
+        ['coords'] = vector4(841.093, -1028.651, 28.195, 314.919),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -586,7 +584,7 @@ Config.Locations = {
     ['ammunation10'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(-1304.19, -395.12, 36.7, 75.03),
+        ['coords'] = vector4(-1310.884, -394.283, 36.696, 27.313),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -602,7 +600,7 @@ Config.Locations = {
     ['ammunation11'] = {
         ['label'] = 'Ammunation',
         ['type'] = 'weapon',
-        ['coords'] = vector4(-3173.31, 1088.85, 20.84, 244.18),
+        ['coords'] = vector4(-3166.92, 1086.948, 20.839, 194.761),
         ['ped'] = 's_m_y_ammucity_01',
         ['scenario'] = 'WORLD_HUMAN_COP_IDLES',
         ['radius'] = 1.5,
@@ -619,26 +617,26 @@ Config.Locations = {
     -- Casino Locations
     ['casino'] = {
         ['label'] = 'Diamond Casino',
-        ['coords'] = vector4(978.46, 39.07, 74.88, 64.0),
+        ['coords'] = vector4(947.124, 28.209, 47.22, 79.336),
         ['ped'] = 'csb_tomcasino',
         ['scenario'] = 'WORLD_HUMAN_STAND_MOBILE',
-        ['radius'] = 1.5,
+        ['radius'] = 3.5,
         ['targetIcon'] = 'fas fa-coins',
         ['targetLabel'] = 'Buy Chips',
         ['products'] = Config.Products['casino'],
         ['showblip'] = true,
         ['blipsprite'] = 617,
         ['blipscale'] = 0.8,
-        ['blipcolor'] = 0,
+        ['blipcolor'] = 3,
         ['delivery'] = vector4(972.6, 9.22, 81.04, 233.38)
     },
 
     ['casinobar'] = {
         ['label'] = 'Casino Bar',
-        ['coords'] = vector4(968.13, 29.85, 74.88, 208.86),
+        ['coords'] = vector4(937.794, 27.624, 71.834, 43.578),
         ['ped'] = 'a_m_y_smartcaspat_01',
         ['scenario'] = 'WORLD_HUMAN_VALET',
-        ['radius'] = 1.5,
+        ['radius'] = 2.5,
         ['targetIcon'] = 'fas fa-wine-bottle',
         ['targetLabel'] = 'Open Casino Bar',
         ['products'] = Config.Products['liquor'],
@@ -668,35 +666,35 @@ Config.Locations = {
 
     -- Sea Word Locations
     ['seaword'] = {
-        ['label'] = 'Sea Word',
+        ['label'] = 'Scuba Diving Shop',
         ['coords'] = vector4(-1687.03, -1072.18, 13.15, 52.93),
         ['ped'] = 'a_m_y_beach_01',
         ['scenario'] = 'WORLD_HUMAN_STAND_IMPATIENT',
         ['radius'] = 1.5,
         ['targetIcon'] = 'fas fa-fish',
-        ['targetLabel'] = 'Sea Word',
+        ['targetLabel'] = 'Diving Gear',
         ['products'] = Config.Products['gearshop'],
         ['showblip'] = true,
-        ['blipsprite'] = 52,
+        ['blipsprite'] = 597,
         ['blipscale'] = 0.8,
-        ['blipcolor'] = 0,
+        ['blipcolor'] = 46,
         ['delivery'] = vector4(-1674.18, -1073.7, 13.15, 333.56)
     },
 
-    -- Leisure Shop Locations
-    ['leisureshop'] = {
-        ['label'] = 'Leisure Shop',
-        ['coords'] = vector4(-1505.91, 1511.95, 115.29, 257.13),
-        ['ped'] = 'a_m_y_beach_01',
+    -- Apple Shop Locations
+    ['applestore'] = {
+        ['label'] = 'Apple Shop',
+        ['coords'] = vector4(148.861, -234.499, 54.424, 340.058),
+        ['ped'] = 's_f_m_shop_high',
         ['scenario'] = 'WORLD_HUMAN_STAND_MOBILE_CLUBHOUSE',
-        ['radius'] = 1.5,
-        ['targetIcon'] = 'fas fa-leaf',
-        ['targetLabel'] = 'Open Leisure Shop',
-        ['products'] = Config.Products['leisureshop'],
+        ['radius'] = 2.5,
+        ['targetIcon'] = 'fas fa-phone',
+        ['targetLabel'] = 'Shop Phones',
+        ['products'] = Config.Products['applestore'],
         ['showblip'] = true,
-        ['blipsprite'] = 52,
+        ['blipsprite'] = 459,
         ['blipscale'] = 0.8,
-        ['blipcolor'] = 0,
-        ['delivery'] = vector4(-1507.64, 1505.52, 115.29, 262.2)
+        ['blipcolor'] = 53,
+        ['delivery'] = vector4(145.277, -241.784, 51.502, 340.77)
     },
 }

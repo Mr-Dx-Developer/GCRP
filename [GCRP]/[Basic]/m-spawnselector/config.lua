@@ -1,7 +1,7 @@
 Config = {
     UI = {
         ppType = "steam", -- steam or discord
-        welcomeMessage = "Welcome to the M City !",
+        welcomeMessage = "Welcome to the Golden City !",
     },
     Framework = "qbcore", -- esx or qbcore
     SQLLastPosition = false, -- if you want to save last position to sql, set this to true

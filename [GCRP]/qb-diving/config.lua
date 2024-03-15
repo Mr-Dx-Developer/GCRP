@@ -23,7 +23,7 @@ Config.CoralLocations = {
                     PickedUp = false
                 },
                 [3] = {
-                    coords = vector3(-2887.04, -394.87, -40.91),
+                    coords = vector3(-2849.862, -377.955, -40.506),
                     length = 3,
                     width = 3,
                     heading = 100.0,
@@ -253,13 +253,13 @@ Config.CoralLocations = {
 Config.CoralTypes = {
     [1] = {
         item = "dendrogyra_coral",
-        maxAmount = math.random(1, 5),
-        price = math.random(70, 100),
+        maxAmount = math.random(5, 10),
+        price = math.random(700, 1000),
     },
     [2] = {
         item = "antipatharia_coral",
-        maxAmount = math.random(2, 7),
-        price = math.random(50, 70),
+        maxAmount = math.random(5, 10),
+        price = math.random(700, 1000),
     }
 }
 
@@ -287,7 +287,7 @@ Config.BonusTiers = {
 Config.SellLocations = {
     [1] = {
         coords = vector4(-1684.13, -1068.91, 13.15, 100.0),
-        model = 'a_m_m_salton_01',
+        model = 'a_m_y_beach_02',
         zoneOptions = { -- Only used when not using the target
             length = 3,
             width = 3

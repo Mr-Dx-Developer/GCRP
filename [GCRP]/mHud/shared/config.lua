@@ -112,7 +112,7 @@ Config.MouseCursorKeyLabel = "["
 
 Config.WaterMarkInformations = { -- informations displayed in the upper right watermark
     logo = "https://i.imgur.com/rgEwnd4.png",
-    servername = "Golden City",
+    servername = "Golden City RP",
     discordlink = "discord.gg/goldencity"
 }
 
