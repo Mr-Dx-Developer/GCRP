@@ -3,7 +3,7 @@ Config = {}
 -- FiveM controls
 -- https://docs.fivem.net/docs/game-references/controls/
 
-Config.Speed = "MPH" --MPH or KMH
+Config.Speed = "KMH" --MPH or KMH
 Config.Notif = "CONSOLE" --CONSOLE or MYTHIC
 
 --Fixes/repairs vehicle
